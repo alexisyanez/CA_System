@@ -1,15 +1,15 @@
-file 5795 1514490995                                            
+file 2683 1514492866                                            
 version 2
-run WithoutChannelSwitching-0-20171228-16:42:30-12180
+run WithoutChannelSwitching-0-20171228-17:23:17-13499
 attr configname WithoutChannelSwitching
-attr datetime 20171228-16:42:30
+attr datetime 20171228-17:23:17
 attr experiment WithoutChannelSwitching
 attr inifile omnetpp.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network RSUExampleScenario2
-attr processid 12180
+attr processid 13499
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -67,36 +67,6 @@ param *.rsu[0].mobility.z 3
 vector 4  RSUExampleScenario2.node[0].veinsmobility  posx  ETV
 vector 5  RSUExampleScenario2.node[0].veinsmobility  posy  ETV
 vector 6  RSUExampleScenario2.node[0].veinsmobility  speed  ETV
-vector 7  RSUExampleScenario2.node[0].veinsmobility  acceleration  ETV
-vector 8  RSUExampleScenario2.node[0].veinsmobility  co2emission  ETV
-vector 11  RSUExampleScenario2.node[1].veinsmobility  posx  ETV
-vector 12  RSUExampleScenario2.node[1].veinsmobility  posy  ETV
-vector 13  RSUExampleScenario2.node[1].veinsmobility  speed  ETV
-vector 14  RSUExampleScenario2.node[1].veinsmobility  acceleration  ETV
-vector 15  RSUExampleScenario2.node[1].veinsmobility  co2emission  ETV
-vector 18  RSUExampleScenario2.node[2].veinsmobility  posx  ETV
-vector 19  RSUExampleScenario2.node[2].veinsmobility  posy  ETV
-vector 25  RSUExampleScenario2.node[3].veinsmobility  posx  ETV
-vector 26  RSUExampleScenario2.node[3].veinsmobility  posy  ETV
-vector 20  RSUExampleScenario2.node[2].veinsmobility  speed  ETV
-vector 21  RSUExampleScenario2.node[2].veinsmobility  acceleration  ETV
-vector 22  RSUExampleScenario2.node[2].veinsmobility  co2emission  ETV
-vector 27  RSUExampleScenario2.node[3].veinsmobility  speed  ETV
-8	3589 221 534 4632 3 11 9 1.4390235059471 2.3792219923096 17.204710632812 33.735688225661
-7	3810 231 534 4632 3 11 9 0.54071908293292 0.62187326507643 5.3085613393504 3.1356621779196
-6	4041 248 313 4632 2 11 10 1.2176027467799 6.5261640861304 38.524797160569 177.33640983365
-5	4289 270 92 4632 1 11 11 30.417323163598 60.020251393026 447.1475988683 19228.203827075
-4	4559 172 92 4632 1 11 11 513.45 513.45 5647.95 2899939.9275
-15	4731 132 1918 4632 7 11 5 1.3491722881599 1.8501004792595 8.0812484982639 13.218390143108
-14	4863 136 1918 4632 7 11 5 0.57255064928336 0.64438289067708 3.0850741530432 1.9070414333403
-13	4999 159 1447 4632 6 11 6 0.71072196453838 3.7957961175816 13.473387933049 37.044523545663
-12	5158 160 976 4632 5 11 7 30.1 38.330961834586 229.1232212537 7558.7626691419
-11	5318 120 976 4632 5 11 7 513.45 513.45 3594.15 1845416.3175
-27	5438 28 4632 4632 11 11 1 0.82715416456626 0.82715416456626 0.82715416456626 0.68418401195931
-26	5466 52 3541 4632 10 11 2 30.12313821171 30.12313821171 60.24627642342 1814.8069114436
-25	5518 36 3541 4632 10 11 2 513.45 513.45 1026.9 527261.805
-22	5554 27 4632 4632 11 11 1 1.4805825283849 1.4805825283849 1.4805825283849 2.1921246233585
-21	5581 28 4632 4632 11 11 1 0.63549781285226 0.63549781285226 0.63549781285226 0.40385747014001
-20	5609 53 3541 4632 10 11 2 1.2017359573857 1.837233770238 3.0389697276237 4.8195972377766
-19	5662 53 2860 4632 9 11 3 516.75 516.75 1550.25 801091.6875
-18	5715 80 2860 4632 9 11 3 1013.6294592171 1014.5726307437 3042.7747207045 3086159.9267011
+6	2583 24 313 313 2 2 1 1.2176027467799 1.2176027467799 1.2176027467799 1.4825564489661
+5	2607 47 92 313 1 2 2 30.417323163598 30.417323163598 60.834646327196 1850.4270968775
+4	2654 29 92 313 1 2 2 513.45 513.45 1026.9 527261.805

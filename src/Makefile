@@ -2,7 +2,7 @@
 # OMNeT++/OMNEST Makefile for CA_System
 #
 # This file was generated with the command:
-#  opp_makemake -f --deep -KINET_PROJ=../../inet -KVEINS_PROJ=../../veins -KVEINS_INET_PROJ=../../veins_inet -DINET_IMPORT -L$$\(INET_PROJ\)/out/$$\(CONFIGNAME\)/src -L$$\(VEINS_PROJ\)/out/$$\(CONFIGNAME\)/src -L$$\(VEINS_INET_PROJ\)/out/$$\(CONFIGNAME\)/src -lINET -lveins -lveins_inet
+#  opp_makemake -f --deep -KINET_PROJ=/home/aware/omnetpp-5.1.1/workspace/inet -KVEINS_PROJ=/home/aware/omnetpp-5.1.1/workspace/veins -KVEINS_INET_PROJ=/home/aware/omnetpp-5.1.1/workspace/veins_inet -DINET_IMPORT -L$$\(INET_PROJ\)/out/$$\(CONFIGNAME\)/src -L$$\(VEINS_PROJ\)/out/$$\(CONFIGNAME\)/src -L$$\(VEINS_INET_PROJ\)/out/$$\(CONFIGNAME\)/src -lINET -lveins -lveins_inet
 #
 
 # Name of target to be created (-o option)
@@ -38,9 +38,9 @@ MSGFILES =
 SMFILES =
 
 # Other makefile variables (-K)
-INET_PROJ=../../inet
-VEINS_PROJ=../../veins
-VEINS_INET_PROJ=../../veins_inet
+INET_PROJ=/home/aware/omnetpp-5.1.1/workspace/inet
+VEINS_PROJ=/home/aware/omnetpp-5.1.1/workspace/veins
+VEINS_INET_PROJ=/home/aware/omnetpp-5.1.1/workspace/veins_inet
 
 #------------------------------------------------------------------------------
 
