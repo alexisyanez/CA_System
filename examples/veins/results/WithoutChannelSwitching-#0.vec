@@ -1,0 +1,178 @@
+version 2
+run WithoutChannelSwitching-0-20171228-16:42:30-12180
+attr configname WithoutChannelSwitching
+attr datetime 20171228-16:42:30
+attr experiment WithoutChannelSwitching
+attr inifile omnetpp.ini
+attr iterationvars ""
+attr iterationvarsf ""
+attr measurement ""
+attr network RSUExampleScenario2
+attr processid 12180
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+param **.coreDebug false
+param **.debug false
+param *.**.nic.mac1609_4.bitrate 6Mbps
+param *.**.nic.mac1609_4.txPower 20mW
+param *.**.nic.mac1609_4.useServiceChannel false
+param *.**.nic.phy80211p.analogueModels "xmldoc(\"config.xml\")"
+param *.**.nic.phy80211p.antenna "xmldoc(\"antenna.xml\", \"/root/Antenna[@id='monopole']\")"
+param *.**.nic.phy80211p.collectCollisionStatistics true
+param *.**.nic.phy80211p.decider "xmldoc(\"config.xml\")"
+param *.**.nic.phy80211p.sensitivity -89dBm
+param *.**.nic.phy80211p.thermalNoise -110dBm
+param *.**.nic.phy80211p.usePropagationDelay true
+param *.**.nic.phy80211p.useThermalNoise true
+param *.annotations.draw true
+param *.connectionManager.drawMaxIntfDist false
+param *.connectionManager.maxInterfDist 2600m
+param *.connectionManager.sendDirect true
+param *.manager.autoShutdown true
+param *.manager.host "\"localhost\""
+param *.manager.launchConfig "xmldoc(\"cross.launchd.xml\")"
+param *.manager.port 9999
+param *.manager.updateInterval 1s
+param *.node[*0].veinsmobility.accidentCount 1
+param *.node[*0].veinsmobility.accidentDuration 50s
+param *.node[*0].veinsmobility.accidentStart 75s
+param *.node[*].appl.beaconInterval 0.1s
+param *.node[*].appl.dataOnSch false
+param *.node[*].appl.headerLength "80 bit"
+param *.node[*].appl.sendBeacons true
+param *.node[*].applType "\"TraCIDemo11p\""
+param *.node[*].veinsmobility.x 0
+param *.node[*].veinsmobility.y 0
+param *.node[*].veinsmobility.z 1.895
+param *.node[*].veinsmobilityType.debug true
+param *.obstacles.debug false
+param *.playgroundSizeX 2500m
+param *.playgroundSizeY 2500m
+param *.playgroundSizeZ 50m
+param *.rsu[*].appl.beaconInterval 0.1s
+param *.rsu[*].appl.beaconUserPriority 7
+param *.rsu[*].appl.dataOnSch false
+param *.rsu[*].appl.dataUserPriority 5
+param *.rsu[*].appl.headerLength "80 bit"
+param *.rsu[*].appl.sendBeacons true
+param *.rsu[*].applType "\"TraCIDemoRSU11p\""
+param *.rsu[0].mobility.x 500
+param *.rsu[0].mobility.y 500
+param *.rsu[0].mobility.z 3
+
+vector 4  RSUExampleScenario2.node[0].veinsmobility  posx  ETV
+vector 5  RSUExampleScenario2.node[0].veinsmobility  posy  ETV
+vector 6  RSUExampleScenario2.node[0].veinsmobility  speed  ETV
+vector 7  RSUExampleScenario2.node[0].veinsmobility  acceleration  ETV
+vector 8  RSUExampleScenario2.node[0].veinsmobility  co2emission  ETV
+vector 11  RSUExampleScenario2.node[1].veinsmobility  posx  ETV
+vector 12  RSUExampleScenario2.node[1].veinsmobility  posy  ETV
+vector 13  RSUExampleScenario2.node[1].veinsmobility  speed  ETV
+vector 14  RSUExampleScenario2.node[1].veinsmobility  acceleration  ETV
+vector 15  RSUExampleScenario2.node[1].veinsmobility  co2emission  ETV
+vector 18  RSUExampleScenario2.node[2].veinsmobility  posx  ETV
+vector 19  RSUExampleScenario2.node[2].veinsmobility  posy  ETV
+vector 25  RSUExampleScenario2.node[3].veinsmobility  posx  ETV
+vector 26  RSUExampleScenario2.node[3].veinsmobility  posy  ETV
+vector 20  RSUExampleScenario2.node[2].veinsmobility  speed  ETV
+vector 21  RSUExampleScenario2.node[2].veinsmobility  acceleration  ETV
+vector 22  RSUExampleScenario2.node[2].veinsmobility  co2emission  ETV
+vector 27  RSUExampleScenario2.node[3].veinsmobility  speed  ETV
+8	534	3	1.4390235059471
+8	755	4	1.5694286155237
+8	976	5	1.6339261471209
+8	1447	6	1.8160694584884
+8	1918	7	1.9146151508778
+8	2389	8	2.0263372386627
+8	2860	9	2.156698972002
+8	3541	10	2.26938955188
+8	4632	11	2.3792219923096
+7	534	3	0.56464112871327
+7	755	4	0.59842192206532
+7	976	5	0.54071908293292
+7	1447	6	0.62187326507643
+7	1918	7	0.59921295389533
+7	2389	8	0.5939918044582
+7	2860	9	0.60240456877276
+7	3541	10	0.5968086797744
+7	4632	11	0.59048793366179
+6	313	2	1.2176027467799
+6	534	3	1.7822438754932
+6	755	4	2.3806657975585
+6	976	5	2.9213848804914
+6	1447	6	3.5432581455679
+6	1918	7	4.1424710994632
+6	2389	8	4.7364629039214
+6	2860	9	5.3388674726942
+6	3541	10	5.9356761524686
+6	4632	11	6.5261640861304
+5	92	1	30.417323163598
+5	313	2	30.417323163598
+5	534	3	31.359140468875
+5	755	4	32.881091218872
+5	976	5	35.010649565878
+5	1447	6	37.671700146906
+5	1918	7	40.91875842597
+5	2389	8	44.809754620036
+5	2860	9	49.287869560347
+5	3541	10	54.353737141192
+5	4632	11	60.020251393026
+4	92	1	513.45
+4	313	2	513.45
+4	534	3	513.45
+4	755	4	513.45
+4	976	5	513.45
+4	1447	6	513.45
+4	1918	7	513.45
+4	2389	8	513.45
+4	2860	9	513.45
+4	3541	10	513.45
+4	4632	11	513.45
+15	1918	7	1.3491722881599
+15	2389	8	1.5001566897532
+15	2860	9	1.6341980161639
+15	3541	10	1.7476210249273
+15	4632	11	1.8501004792595
+14	1918	7	0.57255064928336
+14	2389	8	0.64011281826533
+14	2860	9	0.64438289067708
+14	3541	10	0.6246751594916
+14	4632	11	0.60335263532586
+13	1447	6	0.71072196453838
+13	1918	7	1.2832726138217
+13	2389	8	1.9233854320871
+13	2860	9	2.5677683227642
+13	3541	10	3.1924434822558
+13	4632	11	3.7957961175816
+12	976	5	30.1
+12	1447	6	30.1
+12	1918	7	30.49840148381
+12	2389	8	31.514435469091
+12	2860	9	33.149688190641
+12	3541	10	35.429734275571
+12	4632	11	38.330961834586
+11	976	5	513.45
+11	1447	6	513.45
+11	1918	7	513.45
+11	2389	8	513.45
+11	2860	9	513.45
+11	3541	10	513.45
+11	4632	11	513.45
+27	4632	11	0.82715416456626
+26	3541	10	30.12313821171
+26	4632	11	30.12313821171
+25	3541	10	513.45
+25	4632	11	513.45
+22	4632	11	1.4805825283849
+21	4632	11	0.63549781285226
+20	3541	10	1.2017359573857
+20	4632	11	1.837233770238
+19	2860	9	516.75
+19	3541	10	516.75
+19	4632	11	516.75
+18	2860	9	1014.5726307437
+18	3541	10	1014.5726307437
+18	4632	11	1013.6294592171

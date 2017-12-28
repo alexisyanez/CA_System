@@ -1,0 +1,4 @@
+#!/bin/sh
+cd `dirname $0`
+../src/ca_system -n .:../src $*
+# for shared lib, use: opp_run -l ../src/ca_system -n .:../src $*

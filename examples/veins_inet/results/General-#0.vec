@@ -1,0 +1,1456 @@
+version 2
+run General-0-20171222-17:48:03-10835
+attr configname General
+attr datetime 20171222-17:48:03
+attr experiment General
+attr inifile omnetpp.ini
+attr iterationvars ""
+attr iterationvarsf ""
+attr measurement ""
+attr network Scenario
+attr processid 10835
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+param Scenario.manager.autoShutdown true
+param Scenario.manager.host "\"localhost\""
+param Scenario.manager.launchConfig "xmldoc(\"cross.launchd.xml\")"
+param Scenario.manager.moduleType "\"org.car2x.veins.subprojects.veins_inet.example.Car\""
+param Scenario.manager.port 9999
+param Scenario.manager.updateInterval 0.1s
+param Scenario.node[*].ac_wlan.interfaces "\"wlan0\""
+param Scenario.node[*].ac_wlan.mcastGroups "\"224.0.0.1\""
+param Scenario.node[*].mobility.constraintAreaMaxX 1000m
+param Scenario.node[*].mobility.constraintAreaMaxY 1000m
+param Scenario.node[*].mobility.constraintAreaMaxZ 0m
+param Scenario.node[*].mobility.constraintAreaMinX 0m
+param Scenario.node[*].mobility.constraintAreaMinY 0m
+param Scenario.node[*].mobility.constraintAreaMinZ 0m
+param Scenario.node[*].mobilityType "\"VeinsInetMobility\""
+param Scenario.node[*].numUdpApps 1
+param Scenario.node[*].udpApp[0].destAddresses "\"224.0.0.1\""
+param Scenario.node[*].udpApp[0].destPort 9001
+param Scenario.node[*].udpApp[0].joinLocalMulticastGroups true
+param Scenario.node[*].udpApp[0].localPort 9001
+param Scenario.node[*].udpApp[0].messageLength 100B
+param Scenario.node[*].udpApp[0].multicastInterface "\"wlan0\""
+param Scenario.node[*].udpApp[0].sendInterval 5s
+param Scenario.node[*].udpApp[0].startTime "uniform(0s, 5s)"
+param Scenario.node[*].udpApp[0].typename "\"UDPBasicApp\""
+param Scenario.node[*].wlan[0].bitrate 6Mbps
+param Scenario.node[*].wlan[0].mgmtType "\"Ieee80211MgmtAdhoc\""
+param Scenario.node[*].wlan[0].radio.transmitter.power 2mW
+
+vector 14  Scenario.node[0].wlan[0].radio  radioMode:vector  ETV
+attr interpolationmode  sample-hold
+attr source  radioModeChanged
+attr title  "Radio mode, vector"
+vector 17  Scenario.node[0].wlan[0].radio  radioChannel:vector  ETV
+attr interpolationmode  sample-hold
+attr source  radioChannelChanged
+attr title  "Radio channel, vector"
+vector 15  Scenario.node[0].wlan[0].radio  receptionState:vector  ETV
+attr interpolationmode  sample-hold
+attr source  receptionStateChanged
+attr title  "Radio reception state, vector"
+vector 5  Scenario.node[0].wlan[0].mac.dcf.channelAccess.contention  state:vector  ETV
+attr interpolationmode  none
+attr source  stateChanged
+attr title  "contention state, vector"
+vector 6  Scenario.node[0].wlan[0].mac.hcf.edca.edcaf[0].contention  state:vector  ETV
+attr interpolationmode  none
+attr source  stateChanged
+attr title  "contention state, vector"
+vector 7  Scenario.node[0].wlan[0].mac.hcf.edca.edcaf[1].contention  state:vector  ETV
+attr interpolationmode  none
+attr source  stateChanged
+attr title  "contention state, vector"
+vector 8  Scenario.node[0].wlan[0].mac.hcf.edca.edcaf[2].contention  state:vector  ETV
+attr interpolationmode  none
+attr source  stateChanged
+attr title  "contention state, vector"
+vector 9  Scenario.node[0].wlan[0].mac.hcf.edca.edcaf[3].contention  state:vector  ETV
+attr interpolationmode  none
+attr source  stateChanged
+attr title  "contention state, vector"
+vector 20  Scenario.node[0].udpApp[0]  sentPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPk
+attr title  "packets sent, vector(packetBytes)"
+vector 23  Scenario.node[0].udp  sentPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPk
+attr title  "packets sent, vector(packetBytes)"
+vector 3  Scenario.node[0].lo0.lo  rcvdPkFromHL:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, vector(packetBytes)"
+vector 4  Scenario.node[0].lo0.lo  passedUpPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, vector(packetBytes)"
+vector 12  Scenario.node[0].wlan[0].mac  rcvdPkFromHL:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, vector(packetBytes)"
+vector 24  Scenario.node[0].udp  rcvdPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  rcvdPk
+attr title  "packets received, vector(packetBytes)"
+vector 25  Scenario.node[0].udp  passedUpPk:vector(count)  ETV
+attr interpolationmode  none
+attr title  "packets passed up, vector(count)"
+vector 18  Scenario.node[0].udpApp[0]  rcvdPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  rcvdPk
+attr title  "packets received, vector(packetBytes)"
+vector 19  Scenario.node[0].udpApp[0]  throughput:vector  ETV
+attr source  throughput(rcvdPk)
+attr title  "throughput, vector"
+attr unit  bps
+vector 21  Scenario.node[0].udpApp[0]  rcvdPkLifetime:vector  ETV
+attr interpolationmode  none
+attr source  messageAge(rcvdPk)
+attr title  "received packet lifetime, vector"
+attr unit  s
+vector 22  Scenario.node[0].udpApp[0]  rcvdPkSeqNo:vector  ETV
+attr interpolationmode  none
+attr source  appPkSeqNo(rcvdPk)
+attr title  "received packet sequence number, vector"
+vector 11  Scenario.node[0].wlan[0].mac  sentDownPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets sent to lower layer, vector(packetBytes)"
+vector 16  Scenario.node[0].wlan[0].radio  transmissionState:vector  ETV
+attr interpolationmode  sample-hold
+attr source  transmissionStateChanged
+attr title  "Radio transmission state, vector"
+vector 42  Scenario.node[1].wlan[0].radio  radioMode:vector  ETV
+attr interpolationmode  sample-hold
+attr source  radioModeChanged
+attr title  "Radio mode, vector"
+vector 45  Scenario.node[1].wlan[0].radio  radioChannel:vector  ETV
+attr interpolationmode  sample-hold
+attr source  radioChannelChanged
+attr title  "Radio channel, vector"
+vector 43  Scenario.node[1].wlan[0].radio  receptionState:vector  ETV
+attr interpolationmode  sample-hold
+attr source  receptionStateChanged
+attr title  "Radio reception state, vector"
+vector 33  Scenario.node[1].wlan[0].mac.dcf.channelAccess.contention  state:vector  ETV
+attr interpolationmode  none
+attr source  stateChanged
+attr title  "contention state, vector"
+vector 34  Scenario.node[1].wlan[0].mac.hcf.edca.edcaf[0].contention  state:vector  ETV
+attr interpolationmode  none
+attr source  stateChanged
+attr title  "contention state, vector"
+vector 35  Scenario.node[1].wlan[0].mac.hcf.edca.edcaf[1].contention  state:vector  ETV
+attr interpolationmode  none
+attr source  stateChanged
+attr title  "contention state, vector"
+vector 36  Scenario.node[1].wlan[0].mac.hcf.edca.edcaf[2].contention  state:vector  ETV
+attr interpolationmode  none
+attr source  stateChanged
+attr title  "contention state, vector"
+vector 37  Scenario.node[1].wlan[0].mac.hcf.edca.edcaf[3].contention  state:vector  ETV
+attr interpolationmode  none
+attr source  stateChanged
+attr title  "contention state, vector"
+vector 48  Scenario.node[1].udpApp[0]  sentPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPk
+attr title  "packets sent, vector(packetBytes)"
+vector 51  Scenario.node[1].udp  sentPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPk
+attr title  "packets sent, vector(packetBytes)"
+vector 31  Scenario.node[1].lo0.lo  rcvdPkFromHL:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, vector(packetBytes)"
+vector 32  Scenario.node[1].lo0.lo  passedUpPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, vector(packetBytes)"
+vector 40  Scenario.node[1].wlan[0].mac  rcvdPkFromHL:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, vector(packetBytes)"
+vector 52  Scenario.node[1].udp  rcvdPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  rcvdPk
+attr title  "packets received, vector(packetBytes)"
+vector 53  Scenario.node[1].udp  passedUpPk:vector(count)  ETV
+attr interpolationmode  none
+attr title  "packets passed up, vector(count)"
+vector 46  Scenario.node[1].udpApp[0]  rcvdPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  rcvdPk
+attr title  "packets received, vector(packetBytes)"
+vector 47  Scenario.node[1].udpApp[0]  throughput:vector  ETV
+attr source  throughput(rcvdPk)
+attr title  "throughput, vector"
+attr unit  bps
+vector 49  Scenario.node[1].udpApp[0]  rcvdPkLifetime:vector  ETV
+attr interpolationmode  none
+attr source  messageAge(rcvdPk)
+attr title  "received packet lifetime, vector"
+attr unit  s
+vector 50  Scenario.node[1].udpApp[0]  rcvdPkSeqNo:vector  ETV
+attr interpolationmode  none
+attr source  appPkSeqNo(rcvdPk)
+attr title  "received packet sequence number, vector"
+vector 39  Scenario.node[1].wlan[0].mac  sentDownPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets sent to lower layer, vector(packetBytes)"
+vector 44  Scenario.node[1].wlan[0].radio  transmissionState:vector  ETV
+attr interpolationmode  sample-hold
+attr source  transmissionStateChanged
+attr title  "Radio transmission state, vector"
+vector 13  Scenario.node[0].wlan[0].mac  rcvdPkFromLL:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  packetReceivedFromLower
+attr title  "packets received from lower layer, vector(packetBytes)"
+vector 10  Scenario.node[0].wlan[0].mac  passedUpPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, vector(packetBytes)"
+vector 41  Scenario.node[1].wlan[0].mac  rcvdPkFromLL:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  packetReceivedFromLower
+attr title  "packets received from lower layer, vector(packetBytes)"
+vector 38  Scenario.node[1].wlan[0].mac  passedUpPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, vector(packetBytes)"
+vector 70  Scenario.node[2].wlan[0].radio  radioMode:vector  ETV
+attr interpolationmode  sample-hold
+attr source  radioModeChanged
+attr title  "Radio mode, vector"
+vector 73  Scenario.node[2].wlan[0].radio  radioChannel:vector  ETV
+attr interpolationmode  sample-hold
+attr source  radioChannelChanged
+attr title  "Radio channel, vector"
+vector 71  Scenario.node[2].wlan[0].radio  receptionState:vector  ETV
+attr interpolationmode  sample-hold
+attr source  receptionStateChanged
+attr title  "Radio reception state, vector"
+vector 61  Scenario.node[2].wlan[0].mac.dcf.channelAccess.contention  state:vector  ETV
+attr interpolationmode  none
+attr source  stateChanged
+attr title  "contention state, vector"
+vector 62  Scenario.node[2].wlan[0].mac.hcf.edca.edcaf[0].contention  state:vector  ETV
+attr interpolationmode  none
+attr source  stateChanged
+attr title  "contention state, vector"
+vector 63  Scenario.node[2].wlan[0].mac.hcf.edca.edcaf[1].contention  state:vector  ETV
+attr interpolationmode  none
+attr source  stateChanged
+attr title  "contention state, vector"
+vector 64  Scenario.node[2].wlan[0].mac.hcf.edca.edcaf[2].contention  state:vector  ETV
+attr interpolationmode  none
+attr source  stateChanged
+attr title  "contention state, vector"
+vector 65  Scenario.node[2].wlan[0].mac.hcf.edca.edcaf[3].contention  state:vector  ETV
+attr interpolationmode  none
+attr source  stateChanged
+attr title  "contention state, vector"
+vector 76  Scenario.node[2].udpApp[0]  sentPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPk
+attr title  "packets sent, vector(packetBytes)"
+vector 79  Scenario.node[2].udp  sentPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPk
+attr title  "packets sent, vector(packetBytes)"
+vector 59  Scenario.node[2].lo0.lo  rcvdPkFromHL:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, vector(packetBytes)"
+vector 60  Scenario.node[2].lo0.lo  passedUpPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, vector(packetBytes)"
+vector 68  Scenario.node[2].wlan[0].mac  rcvdPkFromHL:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, vector(packetBytes)"
+vector 80  Scenario.node[2].udp  rcvdPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  rcvdPk
+attr title  "packets received, vector(packetBytes)"
+vector 81  Scenario.node[2].udp  passedUpPk:vector(count)  ETV
+attr interpolationmode  none
+attr title  "packets passed up, vector(count)"
+vector 74  Scenario.node[2].udpApp[0]  rcvdPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  rcvdPk
+attr title  "packets received, vector(packetBytes)"
+vector 75  Scenario.node[2].udpApp[0]  throughput:vector  ETV
+attr source  throughput(rcvdPk)
+attr title  "throughput, vector"
+attr unit  bps
+vector 77  Scenario.node[2].udpApp[0]  rcvdPkLifetime:vector  ETV
+attr interpolationmode  none
+attr source  messageAge(rcvdPk)
+attr title  "received packet lifetime, vector"
+attr unit  s
+vector 78  Scenario.node[2].udpApp[0]  rcvdPkSeqNo:vector  ETV
+attr interpolationmode  none
+attr source  appPkSeqNo(rcvdPk)
+attr title  "received packet sequence number, vector"
+vector 67  Scenario.node[2].wlan[0].mac  sentDownPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets sent to lower layer, vector(packetBytes)"
+vector 72  Scenario.node[2].wlan[0].radio  transmissionState:vector  ETV
+attr interpolationmode  sample-hold
+attr source  transmissionStateChanged
+attr title  "Radio transmission state, vector"
+vector 98  Scenario.node[3].wlan[0].radio  radioMode:vector  ETV
+attr interpolationmode  sample-hold
+attr source  radioModeChanged
+attr title  "Radio mode, vector"
+vector 101  Scenario.node[3].wlan[0].radio  radioChannel:vector  ETV
+attr interpolationmode  sample-hold
+attr source  radioChannelChanged
+attr title  "Radio channel, vector"
+vector 99  Scenario.node[3].wlan[0].radio  receptionState:vector  ETV
+attr interpolationmode  sample-hold
+attr source  receptionStateChanged
+attr title  "Radio reception state, vector"
+vector 89  Scenario.node[3].wlan[0].mac.dcf.channelAccess.contention  state:vector  ETV
+attr interpolationmode  none
+attr source  stateChanged
+attr title  "contention state, vector"
+vector 90  Scenario.node[3].wlan[0].mac.hcf.edca.edcaf[0].contention  state:vector  ETV
+attr interpolationmode  none
+attr source  stateChanged
+attr title  "contention state, vector"
+vector 91  Scenario.node[3].wlan[0].mac.hcf.edca.edcaf[1].contention  state:vector  ETV
+attr interpolationmode  none
+attr source  stateChanged
+attr title  "contention state, vector"
+vector 92  Scenario.node[3].wlan[0].mac.hcf.edca.edcaf[2].contention  state:vector  ETV
+attr interpolationmode  none
+attr source  stateChanged
+attr title  "contention state, vector"
+vector 93  Scenario.node[3].wlan[0].mac.hcf.edca.edcaf[3].contention  state:vector  ETV
+attr interpolationmode  none
+attr source  stateChanged
+attr title  "contention state, vector"
+vector 104  Scenario.node[3].udpApp[0]  sentPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPk
+attr title  "packets sent, vector(packetBytes)"
+vector 107  Scenario.node[3].udp  sentPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPk
+attr title  "packets sent, vector(packetBytes)"
+vector 87  Scenario.node[3].lo0.lo  rcvdPkFromHL:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, vector(packetBytes)"
+vector 88  Scenario.node[3].lo0.lo  passedUpPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, vector(packetBytes)"
+vector 96  Scenario.node[3].wlan[0].mac  rcvdPkFromHL:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, vector(packetBytes)"
+vector 108  Scenario.node[3].udp  rcvdPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  rcvdPk
+attr title  "packets received, vector(packetBytes)"
+vector 109  Scenario.node[3].udp  passedUpPk:vector(count)  ETV
+attr interpolationmode  none
+attr title  "packets passed up, vector(count)"
+vector 102  Scenario.node[3].udpApp[0]  rcvdPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  rcvdPk
+attr title  "packets received, vector(packetBytes)"
+vector 103  Scenario.node[3].udpApp[0]  throughput:vector  ETV
+attr source  throughput(rcvdPk)
+attr title  "throughput, vector"
+attr unit  bps
+vector 105  Scenario.node[3].udpApp[0]  rcvdPkLifetime:vector  ETV
+attr interpolationmode  none
+attr source  messageAge(rcvdPk)
+attr title  "received packet lifetime, vector"
+attr unit  s
+vector 106  Scenario.node[3].udpApp[0]  rcvdPkSeqNo:vector  ETV
+attr interpolationmode  none
+attr source  appPkSeqNo(rcvdPk)
+attr title  "received packet sequence number, vector"
+vector 95  Scenario.node[3].wlan[0].mac  sentDownPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets sent to lower layer, vector(packetBytes)"
+vector 100  Scenario.node[3].wlan[0].radio  transmissionState:vector  ETV
+attr interpolationmode  sample-hold
+attr source  transmissionStateChanged
+attr title  "Radio transmission state, vector"
+vector 97  Scenario.node[3].wlan[0].mac  rcvdPkFromLL:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  packetReceivedFromLower
+attr title  "packets received from lower layer, vector(packetBytes)"
+vector 94  Scenario.node[3].wlan[0].mac  passedUpPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, vector(packetBytes)"
+3	38	2.744067511521	128
+3	135	7.744067511521	128
+3	308	12.744067511521	128
+4	38	2.744067511521	128
+4	135	7.744067511521	128
+4	308	12.744067511521	128
+5	2	0.1	0
+5	2	0.1	0
+5	41	2.744067511521	0
+5	41	2.744067511521	2
+5	44	2.744067511521	2
+5	44	2.744067511521	0
+5	47	2.744067511521	0
+5	47	2.744067511521	0
+5	50	2.744317511521	0
+5	50	2.744317511521	0
+5	95	5.000590025256	0
+5	95	5.000590025256	0
+5	98	5.000840025256	0
+5	98	5.000840025256	0
+5	138	7.744067511521	0
+5	138	7.744067511521	2
+5	141	7.744067511521	2
+5	141	7.744067511521	0
+5	144	7.744067511521	0
+5	144	7.744067511521	0
+5	148	7.744317511521	0
+5	148	7.744317511521	0
+5	225	9.800510095863	0
+5	225	9.800510095863	0
+5	235	9.800760095863	0
+5	235	9.800760095863	0
+5	260	10.000000072348	0
+5	260	10.000000072348	0
+5	270	10.000250072348	0
+5	270	10.000250072348	0
+5	311	12.744067511521	0
+5	311	12.744067511521	2
+5	314	12.744067511521	2
+5	314	12.744067511521	0
+5	317	12.744067511521	0
+5	317	12.744067511521	0
+5	323	12.744317511521	0
+5	323	12.744317511521	0
+6	2	0.1	0
+6	2	0.1	0
+6	47	2.744067511521	0
+6	47	2.744067511521	0
+6	50	2.744317511521	0
+6	50	2.744317511521	0
+6	95	5.000590025256	0
+6	95	5.000590025256	0
+6	98	5.000840025256	0
+6	98	5.000840025256	0
+6	144	7.744067511521	0
+6	144	7.744067511521	0
+6	148	7.744317511521	0
+6	148	7.744317511521	0
+6	225	9.800510095863	0
+6	225	9.800510095863	0
+6	235	9.800760095863	0
+6	235	9.800760095863	0
+6	260	10.000000072348	0
+6	260	10.000000072348	0
+6	270	10.000250072348	0
+6	270	10.000250072348	0
+6	317	12.744067511521	0
+6	317	12.744067511521	0
+6	323	12.744317511521	0
+6	323	12.744317511521	0
+7	2	0.1	0
+7	2	0.1	0
+7	47	2.744067511521	0
+7	47	2.744067511521	0
+7	50	2.744317511521	0
+7	50	2.744317511521	0
+7	95	5.000590025256	0
+7	95	5.000590025256	0
+7	98	5.000840025256	0
+7	98	5.000840025256	0
+7	144	7.744067511521	0
+7	144	7.744067511521	0
+7	148	7.744317511521	0
+7	148	7.744317511521	0
+7	225	9.800510095863	0
+7	225	9.800510095863	0
+7	235	9.800760095863	0
+7	235	9.800760095863	0
+7	260	10.000000072348	0
+7	260	10.000000072348	0
+7	270	10.000250072348	0
+7	270	10.000250072348	0
+7	317	12.744067511521	0
+7	317	12.744067511521	0
+7	323	12.744317511521	0
+7	323	12.744317511521	0
+8	2	0.1	0
+8	2	0.1	0
+8	47	2.744067511521	0
+8	47	2.744067511521	0
+8	50	2.744317511521	0
+8	50	2.744317511521	0
+8	95	5.000590025256	0
+8	95	5.000590025256	0
+8	98	5.000840025256	0
+8	98	5.000840025256	0
+8	144	7.744067511521	0
+8	144	7.744067511521	0
+8	148	7.744317511521	0
+8	148	7.744317511521	0
+8	225	9.800510095863	0
+8	225	9.800510095863	0
+8	235	9.800760095863	0
+8	235	9.800760095863	0
+8	260	10.000000072348	0
+8	260	10.000000072348	0
+8	270	10.000250072348	0
+8	270	10.000250072348	0
+8	317	12.744067511521	0
+8	317	12.744067511521	0
+8	323	12.744317511521	0
+8	323	12.744317511521	0
+9	2	0.1	0
+9	2	0.1	0
+9	47	2.744067511521	0
+9	47	2.744067511521	0
+9	50	2.744317511521	0
+9	50	2.744317511521	0
+9	95	5.000590025256	0
+9	95	5.000590025256	0
+9	98	5.000840025256	0
+9	98	5.000840025256	0
+9	144	7.744067511521	0
+9	144	7.744067511521	0
+9	148	7.744317511521	0
+9	148	7.744317511521	0
+9	225	9.800510095863	0
+9	225	9.800510095863	0
+9	235	9.800760095863	0
+9	235	9.800760095863	0
+9	260	10.000000072348	0
+9	260	10.000000072348	0
+9	270	10.000250072348	0
+9	270	10.000250072348	0
+9	317	12.744067511521	0
+9	317	12.744067511521	0
+9	323	12.744317511521	0
+9	323	12.744317511521	0
+10	99	5.000840025256	164
+10	236	9.800760095863	164
+10	271	10.000250072348	164
+11	46	2.744067511521	164
+11	143	7.744067511521	164
+11	316	12.744067511521	164
+12	41	2.744067511521	164
+12	138	7.744067511521	164
+12	311	12.744067511521	164
+13	99	5.000840025256	164
+13	236	9.800760095863	164
+13	271	10.000250072348	164
+14	2	0.1	0
+14	2	0.1	2
+14	47	2.744067511521	3
+14	50	2.744317511521	2
+14	144	7.744067511521	3
+14	148	7.744317511521	2
+14	317	12.744067511521	3
+14	323	12.744317511521	2
+15	2	0.1	1
+15	47	2.744067511521	0
+15	50	2.744317511521	1
+15	95	5.000590025256	3
+15	98	5.000840025256	1
+15	144	7.744067511521	0
+15	148	7.744317511521	1
+15	225	9.800510095863	3
+15	235	9.800760095863	1
+15	260	10.000000072348	3
+15	270	10.000250072348	1
+15	317	12.744067511521	0
+15	323	12.744317511521	1
+16	47	2.744067511521	1
+16	48	2.744067511521	2
+16	49	2.744317511521	1
+16	50	2.744317511521	0
+16	144	7.744067511521	1
+16	145	7.744067511521	2
+16	147	7.744317511521	1
+16	148	7.744317511521	0
+16	317	12.744067511521	1
+16	318	12.744067511521	2
+16	322	12.744317511521	1
+16	323	12.744317511521	0
+17	2	0.1	0
+18	43	2.744067511521	100
+18	103	5.000840025256	100
+18	140	7.744067511521	100
+18	240	9.800760095863	100
+18	275	10.000250072348	100
+18	313	12.744067511521	100
+19	43	0.1	0
+19	43	0.2	0
+19	43	0.3	0
+19	43	0.4	0
+19	43	0.5	0
+19	43	0.6	0
+19	43	0.7	0
+19	43	0.8	0
+19	43	0.9	0
+19	43	1	0
+19	43	1.1	0
+19	43	1.2	0
+19	43	1.3	0
+19	43	1.4	0
+19	43	1.5	0
+19	43	1.6	0
+19	43	1.7	0
+19	43	1.8	0
+19	43	1.9	0
+19	43	2	0
+19	43	2.1	0
+19	43	2.2	0
+19	43	2.3	0
+19	43	2.4	0
+19	43	2.5	0
+19	43	2.6	0
+19	43	2.7	0
+19	103	2.8	8000
+19	103	2.9	0
+19	103	3	0
+19	103	3.1	0
+19	103	3.2	0
+19	103	3.3	0
+19	103	3.4	0
+19	103	3.5	0
+19	103	3.6	0
+19	103	3.7	0
+19	103	3.8	0
+19	103	3.9	0
+19	103	4	0
+19	103	4.1	0
+19	103	4.2	0
+19	103	4.3	0
+19	103	4.4	0
+19	103	4.5	0
+19	103	4.6	0
+19	103	4.7	0
+19	103	4.8	0
+19	103	4.9	0
+19	103	5	0
+19	140	5.1	8000
+19	140	5.2	0
+19	140	5.3	0
+19	140	5.4	0
+19	140	5.5	0
+19	140	5.6	0
+19	140	5.7	0
+19	140	5.8	0
+19	140	5.9	0
+19	140	6	0
+19	140	6.1	0
+19	140	6.2	0
+19	140	6.3	0
+19	140	6.4	0
+19	140	6.5	0
+19	140	6.6	0
+19	140	6.7	0
+19	140	6.8	0
+19	140	6.9	0
+19	140	7	0
+19	140	7.1	0
+19	140	7.2	0
+19	140	7.3	0
+19	140	7.4	0
+19	140	7.5	0
+19	140	7.6	0
+19	140	7.7	0
+19	240	7.8	8000
+19	240	7.9	0
+19	240	8	0
+19	240	8.1	0
+19	240	8.2	0
+19	240	8.3	0
+19	240	8.4	0
+19	240	8.5	0
+19	240	8.6	0
+19	240	8.7	0
+19	240	8.8	0
+19	240	8.9	0
+19	240	9	0
+19	240	9.1	0
+19	240	9.2	0
+19	240	9.3	0
+19	240	9.4	0
+19	240	9.5	0
+19	240	9.6	0
+19	240	9.7	0
+19	240	9.8	0
+19	275	9.9	8000
+19	275	10	0
+19	313	10.1	8000
+19	313	10.2	0
+19	313	10.3	0
+19	313	10.4	0
+19	313	10.5	0
+19	313	10.6	0
+19	313	10.7	0
+19	313	10.8	0
+19	313	10.9	0
+19	313	11	0
+19	313	11.1	0
+19	313	11.2	0
+19	313	11.3	0
+19	313	11.4	0
+19	313	11.5	0
+19	313	11.6	0
+19	313	11.7	0
+19	313	11.8	0
+19	313	11.9	0
+19	313	12	0
+19	313	12.1	0
+19	313	12.2	0
+19	313	12.3	0
+19	313	12.4	0
+19	313	12.5	0
+19	313	12.6	0
+19	313	12.7	0
+20	32	2.744067511521	100
+20	132	7.744067511521	100
+20	305	12.744067511521	100
+21	43	2.744067511521	0
+21	103	5.000840025256	0.000840025256
+21	140	7.744067511521	0
+21	240	9.800760095863	0.000760095863
+21	275	10.000250072348	0.000250072348
+21	313	12.744067511521	0
+22	43	2.744067511521	0
+22	103	5.000840025256	0
+22	140	7.744067511521	1
+22	240	9.800760095863	0
+22	275	10.000250072348	1
+22	313	12.744067511521	2
+23	36	2.744067511521	108
+23	133	7.744067511521	108
+23	306	12.744067511521	108
+24	42	2.744067511521	108
+24	102	5.000840025256	108
+24	139	7.744067511521	108
+24	239	9.800760095863	108
+24	274	10.000250072348	108
+24	312	12.744067511521	108
+25	42	2.744067511521	1
+25	102	5.000840025256	2
+25	139	7.744067511521	3
+25	239	9.800760095863	4
+25	274	10.000250072348	5
+25	312	12.744067511521	6
+31	84	5	128
+31	248	10	128
+32	84	5	128
+32	248	10	128
+33	74	5	0
+33	74	5	0
+33	87	5	0
+33	87	5	2
+33	90	5.00059	2
+33	90	5.00059	0
+33	93	5.00059	0
+33	93	5.00059	0
+33	97	5.00084	0
+33	97	5.00084	0
+33	146	7.744067562514	0
+33	146	7.744067562514	0
+33	149	7.744317562514	0
+33	149	7.744317562514	0
+33	224	9.800510025345	0
+33	224	9.800510025345	0
+33	229	9.800760025345	0
+33	229	9.800760025345	0
+33	251	10	0
+33	251	10	2
+33	254	10	2
+33	254	10	0
+33	257	10	0
+33	257	10	0
+33	263	10.00025	0
+33	263	10.00025	0
+33	319	12.744067608422	0
+33	319	12.744067608422	0
+33	324	12.744317608422	0
+33	324	12.744317608422	0
+34	74	5	0
+34	74	5	0
+34	93	5.00059	0
+34	93	5.00059	0
+34	97	5.00084	0
+34	97	5.00084	0
+34	146	7.744067562514	0
+34	146	7.744067562514	0
+34	149	7.744317562514	0
+34	149	7.744317562514	0
+34	224	9.800510025345	0
+34	224	9.800510025345	0
+34	229	9.800760025345	0
+34	229	9.800760025345	0
+34	257	10	0
+34	257	10	0
+34	263	10.00025	0
+34	263	10.00025	0
+34	319	12.744067608422	0
+34	319	12.744067608422	0
+34	324	12.744317608422	0
+34	324	12.744317608422	0
+35	74	5	0
+35	74	5	0
+35	93	5.00059	0
+35	93	5.00059	0
+35	97	5.00084	0
+35	97	5.00084	0
+35	146	7.744067562514	0
+35	146	7.744067562514	0
+35	149	7.744317562514	0
+35	149	7.744317562514	0
+35	224	9.800510025345	0
+35	224	9.800510025345	0
+35	229	9.800760025345	0
+35	229	9.800760025345	0
+35	257	10	0
+35	257	10	0
+35	263	10.00025	0
+35	263	10.00025	0
+35	319	12.744067608422	0
+35	319	12.744067608422	0
+35	324	12.744317608422	0
+35	324	12.744317608422	0
+36	74	5	0
+36	74	5	0
+36	93	5.00059	0
+36	93	5.00059	0
+36	97	5.00084	0
+36	97	5.00084	0
+36	146	7.744067562514	0
+36	146	7.744067562514	0
+36	149	7.744317562514	0
+36	149	7.744317562514	0
+36	224	9.800510025345	0
+36	224	9.800510025345	0
+36	229	9.800760025345	0
+36	229	9.800760025345	0
+36	257	10	0
+36	257	10	0
+36	263	10.00025	0
+36	263	10.00025	0
+36	319	12.744067608422	0
+36	319	12.744067608422	0
+36	324	12.744317608422	0
+36	324	12.744317608422	0
+37	74	5	0
+37	74	5	0
+37	93	5.00059	0
+37	93	5.00059	0
+37	97	5.00084	0
+37	97	5.00084	0
+37	146	7.744067562514	0
+37	146	7.744067562514	0
+37	149	7.744317562514	0
+37	149	7.744317562514	0
+37	224	9.800510025345	0
+37	224	9.800510025345	0
+37	229	9.800760025345	0
+37	229	9.800760025345	0
+37	257	10	0
+37	257	10	0
+37	263	10.00025	0
+37	263	10.00025	0
+37	319	12.744067608422	0
+37	319	12.744067608422	0
+37	324	12.744317608422	0
+37	324	12.744317608422	0
+38	150	7.744317562514	164
+38	230	9.800760025345	164
+38	325	12.744317608422	164
+39	92	5.00059	164
+39	256	10	164
+40	87	5	164
+40	251	10	164
+41	150	7.744317562514	164
+41	230	9.800760025345	164
+41	325	12.744317608422	164
+42	74	5	0
+42	74	5	2
+42	93	5.00059	3
+42	97	5.00084	2
+42	257	10	3
+42	263	10.00025	2
+43	74	5	1
+43	93	5.00059	0
+43	97	5.00084	1
+43	146	7.744067562514	3
+43	149	7.744317562514	1
+43	224	9.800510025345	3
+43	229	9.800760025345	1
+43	257	10	0
+43	263	10.00025	1
+43	319	12.744067608422	3
+43	324	12.744317608422	1
+44	93	5.00059	1
+44	94	5.00059	2
+44	96	5.00084	1
+44	97	5.00084	0
+44	257	10	1
+44	258	10	2
+44	262	10.00025	1
+44	263	10.00025	0
+45	74	5	0
+46	89	5	100
+46	154	7.744317562514	100
+46	234	9.800760025345	100
+46	253	10	100
+46	329	12.744317608422	100
+47	89	0.1	0
+47	89	0.2	0
+47	89	0.3	0
+47	89	0.4	0
+47	89	0.5	0
+47	89	0.6	0
+47	89	0.7	0
+47	89	0.8	0
+47	89	0.9	0
+47	89	1	0
+47	89	1.1	0
+47	89	1.2	0
+47	89	1.3	0
+47	89	1.4	0
+47	89	1.5	0
+47	89	1.6	0
+47	89	1.7	0
+47	89	1.8	0
+47	89	1.9	0
+47	89	2	0
+47	89	2.1	0
+47	89	2.2	0
+47	89	2.3	0
+47	89	2.4	0
+47	89	2.5	0
+47	89	2.6	0
+47	89	2.7	0
+47	89	2.8	0
+47	89	2.9	0
+47	89	3	0
+47	89	3.1	0
+47	89	3.2	0
+47	89	3.3	0
+47	89	3.4	0
+47	89	3.5	0
+47	89	3.6	0
+47	89	3.7	0
+47	89	3.8	0
+47	89	3.9	0
+47	89	4	0
+47	89	4.1	0
+47	89	4.2	0
+47	89	4.3	0
+47	89	4.4	0
+47	89	4.5	0
+47	89	4.6	0
+47	89	4.7	0
+47	89	4.8	0
+47	89	4.9	0
+47	89	5	0
+47	154	5.1	8000
+47	154	5.2	0
+47	154	5.3	0
+47	154	5.4	0
+47	154	5.5	0
+47	154	5.6	0
+47	154	5.7	0
+47	154	5.8	0
+47	154	5.9	0
+47	154	6	0
+47	154	6.1	0
+47	154	6.2	0
+47	154	6.3	0
+47	154	6.4	0
+47	154	6.5	0
+47	154	6.6	0
+47	154	6.7	0
+47	154	6.8	0
+47	154	6.9	0
+47	154	7	0
+47	154	7.1	0
+47	154	7.2	0
+47	154	7.3	0
+47	154	7.4	0
+47	154	7.5	0
+47	154	7.6	0
+47	154	7.7	0
+47	234	7.8	8000
+47	234	7.9	0
+47	234	8	0
+47	234	8.1	0
+47	234	8.2	0
+47	234	8.3	0
+47	234	8.4	0
+47	234	8.5	0
+47	234	8.6	0
+47	234	8.7	0
+47	234	8.8	0
+47	234	8.9	0
+47	234	9	0
+47	234	9.1	0
+47	234	9.2	0
+47	234	9.3	0
+47	234	9.4	0
+47	234	9.5	0
+47	234	9.6	0
+47	234	9.7	0
+47	234	9.8	0
+47	253	9.9	8000
+47	253	10	0
+47	329	10.1	8000
+47	329	10.2	0
+47	329	10.3	0
+47	329	10.4	0
+47	329	10.5	0
+47	329	10.6	0
+47	329	10.7	0
+47	329	10.8	0
+47	329	10.9	0
+47	329	11	0
+47	329	11.1	0
+47	329	11.2	0
+47	329	11.3	0
+47	329	11.4	0
+47	329	11.5	0
+47	329	11.6	0
+47	329	11.7	0
+47	329	11.8	0
+47	329	11.9	0
+47	329	12	0
+47	329	12.1	0
+47	329	12.2	0
+47	329	12.3	0
+47	329	12.4	0
+47	329	12.5	0
+47	329	12.6	0
+47	329	12.7	0
+48	78	5	100
+48	244	10	100
+49	89	5	0
+49	154	7.744317562514	0.000250050993
+49	234	9.800760025345	0.000760025345
+49	253	10	0
+49	329	12.744317608422	0.000250096901
+50	89	5	0
+50	154	7.744317562514	1
+50	234	9.800760025345	0
+50	253	10	1
+50	329	12.744317608422	2
+51	82	5	108
+51	246	10	108
+52	88	5	108
+52	153	7.744317562514	108
+52	233	9.800760025345	108
+52	252	10	108
+52	328	12.744317608422	108
+53	88	5	1
+53	153	7.744317562514	2
+53	233	9.800760025345	3
+53	252	10	4
+53	328	12.744317608422	5
+59	169	8.1	128
+60	169	8.1	128
+61	159	8.1	0
+61	159	8.1	0
+61	172	8.1	0
+61	172	8.1	2
+61	175	8.10047	2
+61	175	8.10047	0
+61	178	8.10047	0
+61	178	8.10047	0
+61	183	8.10072	0
+61	183	8.10072	0
+62	159	8.1	0
+62	159	8.1	0
+62	178	8.10047	0
+62	178	8.10047	0
+62	183	8.10072	0
+62	183	8.10072	0
+63	159	8.1	0
+63	159	8.1	0
+63	178	8.10047	0
+63	178	8.10047	0
+63	183	8.10072	0
+63	183	8.10072	0
+64	159	8.1	0
+64	159	8.1	0
+64	178	8.10047	0
+64	178	8.10047	0
+64	183	8.10072	0
+64	183	8.10072	0
+65	159	8.1	0
+65	159	8.1	0
+65	178	8.10047	0
+65	178	8.10047	0
+65	183	8.10072	0
+65	183	8.10072	0
+67	177	8.10047	164
+68	172	8.1	164
+70	159	8.1	0
+70	159	8.1	2
+70	178	8.10047	3
+70	183	8.10072	2
+71	159	8.1	1
+71	178	8.10047	0
+71	183	8.10072	1
+72	178	8.10047	1
+72	179	8.10047	2
+72	182	8.10072	1
+72	183	8.10072	0
+73	159	8.1	0
+74	174	8.1	100
+75	174	0.1	0
+75	174	0.2	0
+75	174	0.3	0
+75	174	0.4	0
+75	174	0.5	0
+75	174	0.6	0
+75	174	0.7	0
+75	174	0.8	0
+75	174	0.9	0
+75	174	1	0
+75	174	1.1	0
+75	174	1.2	0
+75	174	1.3	0
+75	174	1.4	0
+75	174	1.5	0
+75	174	1.6	0
+75	174	1.7	0
+75	174	1.8	0
+75	174	1.9	0
+75	174	2	0
+75	174	2.1	0
+75	174	2.2	0
+75	174	2.3	0
+75	174	2.4	0
+75	174	2.5	0
+75	174	2.6	0
+75	174	2.7	0
+75	174	2.8	0
+75	174	2.9	0
+75	174	3	0
+75	174	3.1	0
+75	174	3.2	0
+75	174	3.3	0
+75	174	3.4	0
+75	174	3.5	0
+75	174	3.6	0
+75	174	3.7	0
+75	174	3.8	0
+75	174	3.9	0
+75	174	4	0
+75	174	4.1	0
+75	174	4.2	0
+75	174	4.3	0
+75	174	4.4	0
+75	174	4.5	0
+75	174	4.6	0
+75	174	4.7	0
+75	174	4.8	0
+75	174	4.9	0
+75	174	5	0
+75	174	5.1	0
+75	174	5.2	0
+75	174	5.3	0
+75	174	5.4	0
+75	174	5.5	0
+75	174	5.6	0
+75	174	5.7	0
+75	174	5.8	0
+75	174	5.9	0
+75	174	6	0
+75	174	6.1	0
+75	174	6.2	0
+75	174	6.3	0
+75	174	6.4	0
+75	174	6.5	0
+75	174	6.6	0
+75	174	6.7	0
+75	174	6.8	0
+75	174	6.9	0
+75	174	7	0
+75	174	7.1	0
+75	174	7.2	0
+75	174	7.3	0
+75	174	7.4	0
+75	174	7.5	0
+75	174	7.6	0
+75	174	7.7	0
+75	174	7.8	0
+75	174	7.9	0
+75	174	8	0
+75	174	8.1	0
+76	163	8.1	100
+77	174	8.1	0
+78	174	8.1	0
+79	167	8.1	108
+80	173	8.1	108
+81	173	8.1	1
+87	213	9.8	128
+88	213	9.8	128
+89	203	9.8	0
+89	203	9.8	0
+89	216	9.8	0
+89	216	9.8	2
+89	219	9.80051	2
+89	219	9.80051	0
+89	222	9.80051	0
+89	222	9.80051	0
+89	228	9.80076	0
+89	228	9.80076	0
+89	259	10.000000027378	0
+89	259	10.000000027378	0
+89	264	10.000250027378	0
+89	264	10.000250027378	0
+89	320	12.744067662465	0
+89	320	12.744067662465	0
+89	330	12.744317662465	0
+89	330	12.744317662465	0
+90	203	9.8	0
+90	203	9.8	0
+90	222	9.80051	0
+90	222	9.80051	0
+90	228	9.80076	0
+90	228	9.80076	0
+90	259	10.000000027378	0
+90	259	10.000000027378	0
+90	264	10.000250027378	0
+90	264	10.000250027378	0
+90	320	12.744067662465	0
+90	320	12.744067662465	0
+90	330	12.744317662465	0
+90	330	12.744317662465	0
+91	203	9.8	0
+91	203	9.8	0
+91	222	9.80051	0
+91	222	9.80051	0
+91	228	9.80076	0
+91	228	9.80076	0
+91	259	10.000000027378	0
+91	259	10.000000027378	0
+91	264	10.000250027378	0
+91	264	10.000250027378	0
+91	320	12.744067662465	0
+91	320	12.744067662465	0
+91	330	12.744317662465	0
+91	330	12.744317662465	0
+92	203	9.8	0
+92	203	9.8	0
+92	222	9.80051	0
+92	222	9.80051	0
+92	228	9.80076	0
+92	228	9.80076	0
+92	259	10.000000027378	0
+92	259	10.000000027378	0
+92	264	10.000250027378	0
+92	264	10.000250027378	0
+92	320	12.744067662465	0
+92	320	12.744067662465	0
+92	330	12.744317662465	0
+92	330	12.744317662465	0
+93	203	9.8	0
+93	203	9.8	0
+93	222	9.80051	0
+93	222	9.80051	0
+93	228	9.80076	0
+93	228	9.80076	0
+93	259	10.000000027378	0
+93	259	10.000000027378	0
+93	264	10.000250027378	0
+93	264	10.000250027378	0
+93	320	12.744067662465	0
+93	320	12.744067662465	0
+93	330	12.744317662465	0
+93	330	12.744317662465	0
+94	265	10.000250027378	164
+94	331	12.744317662465	164
+95	221	9.80051	164
+96	216	9.8	164
+97	265	10.000250027378	164
+97	331	12.744317662465	164
+98	203	9.8	0
+98	203	9.8	2
+98	222	9.80051	3
+98	228	9.80076	2
+99	203	9.8	1
+99	222	9.80051	0
+99	228	9.80076	1
+99	259	10.000000027378	3
+99	264	10.000250027378	1
+99	320	12.744067662465	3
+99	330	12.744317662465	1
+100	222	9.80051	1
+100	223	9.80051	2
+100	227	9.80076	1
+100	228	9.80076	0
+101	203	9.8	0
+102	218	9.8	100
+102	269	10.000250027378	100
+102	335	12.744317662465	100
+103	218	0.1	0
+103	218	0.2	0
+103	218	0.3	0
+103	218	0.4	0
+103	218	0.5	0
+103	218	0.6	0
+103	218	0.7	0
+103	218	0.8	0
+103	218	0.9	0
+103	218	1	0
+103	218	1.1	0
+103	218	1.2	0
+103	218	1.3	0
+103	218	1.4	0
+103	218	1.5	0
+103	218	1.6	0
+103	218	1.7	0
+103	218	1.8	0
+103	218	1.9	0
+103	218	2	0
+103	218	2.1	0
+103	218	2.2	0
+103	218	2.3	0
+103	218	2.4	0
+103	218	2.5	0
+103	218	2.6	0
+103	218	2.7	0
+103	218	2.8	0
+103	218	2.9	0
+103	218	3	0
+103	218	3.1	0
+103	218	3.2	0
+103	218	3.3	0
+103	218	3.4	0
+103	218	3.5	0
+103	218	3.6	0
+103	218	3.7	0
+103	218	3.8	0
+103	218	3.9	0
+103	218	4	0
+103	218	4.1	0
+103	218	4.2	0
+103	218	4.3	0
+103	218	4.4	0
+103	218	4.5	0
+103	218	4.6	0
+103	218	4.7	0
+103	218	4.8	0
+103	218	4.9	0
+103	218	5	0
+103	218	5.1	0
+103	218	5.2	0
+103	218	5.3	0
+103	218	5.4	0
+103	218	5.5	0
+103	218	5.6	0
+103	218	5.7	0
+103	218	5.8	0
+103	218	5.9	0
+103	218	6	0
+103	218	6.1	0
+103	218	6.2	0
+103	218	6.3	0
+103	218	6.4	0
+103	218	6.5	0
+103	218	6.6	0
+103	218	6.7	0
+103	218	6.8	0
+103	218	6.9	0
+103	218	7	0
+103	218	7.1	0
+103	218	7.2	0
+103	218	7.3	0
+103	218	7.4	0
+103	218	7.5	0
+103	218	7.6	0
+103	218	7.7	0
+103	218	7.8	0
+103	218	7.9	0
+103	218	8	0
+103	218	8.1	0
+103	218	8.2	0
+103	218	8.3	0
+103	218	8.4	0
+103	218	8.5	0
+103	218	8.6	0
+103	218	8.7	0
+103	218	8.8	0
+103	218	8.9	0
+103	218	9	0
+103	218	9.1	0
+103	218	9.2	0
+103	218	9.3	0
+103	218	9.4	0
+103	218	9.5	0
+103	218	9.6	0
+103	218	9.7	0
+103	218	9.8	0
+103	269	9.9	8000
+103	269	10	0
+103	335	10.1	8000
+103	335	10.2	0
+103	335	10.3	0
+103	335	10.4	0
+103	335	10.5	0
+103	335	10.6	0
+103	335	10.7	0
+103	335	10.8	0
+103	335	10.9	0
+103	335	11	0
+103	335	11.1	0
+103	335	11.2	0
+103	335	11.3	0
+103	335	11.4	0
+103	335	11.5	0
+103	335	11.6	0
+103	335	11.7	0
+103	335	11.8	0
+103	335	11.9	0
+103	335	12	0
+103	335	12.1	0
+103	335	12.2	0
+103	335	12.3	0
+103	335	12.4	0
+103	335	12.5	0
+103	335	12.6	0
+103	335	12.7	0
+104	207	9.8	100
+105	218	9.8	0
+105	269	10.000250027378	0.000250027378
+105	335	12.744317662465	0.000250150944
+106	218	9.8	0
+106	269	10.000250027378	1
+106	335	12.744317662465	2
+107	211	9.8	108
+108	217	9.8	108
+108	268	10.000250027378	108
+108	334	12.744317662465	108
+109	217	9.8	1
+109	268	10.000250027378	2
+109	334	12.744317662465	3
