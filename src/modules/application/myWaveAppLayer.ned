@@ -13,25 +13,16 @@
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 // 
 
-#ifndef MODULES_APPLICATION_MYAPPLAYER_H_
-#define MODULES_APPLICATION_MYAPPLAYER_H_
+package ca_system.modules.application;
 
-#include <omnetpp.h>
-#include "veins/modules/application/ieee80211p/BaseWaveApplLayer.h"
+import org.car2x.veins.modules.application.ieee80211p.BaseWaveApplLayer;
 
-using namespace omnetpp;
+//
+// network description file for your Veins Application. Add parameters here
+//
+simple myWaveAppLayer extends BaseWaveApplLayer
+{
+    @class(myWaveAppLayer);
+    string appName = default("My first Veins App!");
+}
 
-class myAppLayer : public BaseWaveApplLayer{
-    public:
-        virtual void initialize(int stage);
-        virtual void finish();
-    protected:
-        virtual void onBSM(BasicSafetyMessage* bsm);
-        virtual void onWSM(WaveShortMessage* wsm);
-        virtual void onWSA(WaveServiceAdvertisment* wsa);
-
-        virtual void handleSelfMsg(cMessage* msg);
-        virtual void handlePositionUpdate(cObject* obj);
-    };
-
-#endif /* MODULES_APPLICATION_MYAPPLAYER_H_ */

@@ -13,9 +13,9 @@
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 // 
 
-#include "myAppLayer.h"
+#include "myWaveAppLayer.h"
 
-void myAppLayer::initialize(int stage) {
+void myWaveAppLayer::initialize(int stage) {
     BaseWaveApplLayer::initialize(stage);
     if (stage == 0) {
         //Initializing members and pointers of your application goes here
@@ -27,38 +27,38 @@ void myAppLayer::initialize(int stage) {
     }
 }
 
-void myAppLayer::finish() {
+void myWaveAppLayer::finish() {
     BaseWaveApplLayer::finish();
     //statistics recording goes here
 
 }
 
-void myAppLayer::onBSM(BasicSafetyMessage* bsm) {
+void myWaveAppLayer::onBSM(BasicSafetyMessage* bsm) {
     //Your application has received a beacon message from another car or RSU
     //code for handling the message goes here
 
 }
 
-void myAppLayer::onWSM(WaveShortMessage* wsm) {
+void myWaveAppLayer::onWSM(WaveShortMessage* wsm) {
     //Your application has received a data message from another car or RSU
     //code for handling the message goes here, see TraciDemo11p.cc for examples
 
 }
 
-void myAppLayer::onWSA(WaveServiceAdvertisment* wsa) {
+void myWaveAppLayer::onWSA(WaveServiceAdvertisment* wsa) {
     //Your application has received a service advertisement from another car or RSU
     //code for handling the message goes here, see TraciDemo11p.cc for examples
 
 }
 
-void myAppLayer::handleSelfMsg(cMessage* msg) {
+void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
     BaseWaveApplLayer::handleSelfMsg(msg);
     //this method is for self messages (mostly timers)
     //it is important to call the BaseWaveApplLayer function for BSM and WSM transmission
 
 }
 
-void myAppLayer::handlePositionUpdate(cObject* obj) {
+void myWaveAppLayer::handlePositionUpdate(cObject* obj) {
     BaseWaveApplLayer::handlePositionUpdate(obj);
     //the vehicle has moved. Code that reacts to new positions goes here.
     //member variables such as currentPosition and currentSpeed are updated in the parent class
