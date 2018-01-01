@@ -1,4 +1,4 @@
-file 2683 1514492866                                            
+file 2683 1514753814                                            
 version 2
 run WithoutChannelSwitching-0-20171228-17:23:17-13499
 attr configname WithoutChannelSwitching
@@ -63,10 +63,9 @@ param *.rsu[*].applType "\"TraCIDemoRSU11p\""
 param *.rsu[0].mobility.x 500
 param *.rsu[0].mobility.y 500
 param *.rsu[0].mobility.z 3
-
 vector 4  RSUExampleScenario2.node[0].veinsmobility  posx  ETV
-vector 5  RSUExampleScenario2.node[0].veinsmobility  posy  ETV
-vector 6  RSUExampleScenario2.node[0].veinsmobility  speed  ETV
-6	2583 24 313 313 2 2 1 1.2176027467799 1.2176027467799 1.2176027467799 1.4825564489661
-5	2607 47 92 313 1 2 2 30.417323163598 30.417323163598 60.834646327196 1850.4270968775
 4	2654 29 92 313 1 2 2 513.45 513.45 1026.9 527261.805
+vector 5  RSUExampleScenario2.node[0].veinsmobility  posy  ETV
+5	2607 47 92 313 1 2 2 30.417323163598 30.417323163598 60.834646327196 1850.4270968775
+vector 6  RSUExampleScenario2.node[0].veinsmobility  speed  ETV
+6	2583 24 313 313 2 2 1 1.2176027467799 1.2176027467799 1.2176027467799 1.482556448966
