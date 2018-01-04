@@ -16,13 +16,18 @@
 package ca_system.modules.application;
 
 import org.car2x.veins.modules.application.ieee80211p.BaseWaveApplLayer;
-
 //
 // network description file for your Veins Application. Add parameters here
 //
 simple myWaveAppLayer extends BaseWaveApplLayer
 {
     @class(myWaveAppLayer);
-    string appName = default("My first Veins App!");
+    string appName = default("My first Veins App");
+         
+    //Slotted-1-persistant
+    bool Slotted1 = default(false); 
+    double Slotted_Ns= default(0);
+    double Slotted_R= default(0);
+    double Slotted_tau= default(0); 
 }
 

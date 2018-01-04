@@ -18,13 +18,29 @@
 
 #include <omnetpp.h>
 #include "veins/modules/application/ieee80211p/BaseWaveApplLayer.h"
+#include "veins/base/utils/Coord.h"
+#include "veins/base/utils/FWMath.h"
+
 
 using namespace omnetpp;
 
 class myWaveAppLayer : public BaseWaveApplLayer{
+    private:
+        //Slotted-1-persistant
+        bool Slotted1Enabled;
+        double Slotted_Ns;
+        double Slotted_R;
+        double Slotted_tau;
+
     public:
         virtual void initialize(int stage);
         virtual void finish();
+        double distance(const Coord& a, const Coord& b);
+
+    protected:
+        simtime_t lastDroveAt;
+        bool sentMessage;
+        int currentSubscribedServiceId;
     protected:
         virtual void onBSM(BasicSafetyMessage* bsm);
         virtual void onWSM(WaveShortMessage* wsm);
@@ -32,6 +48,7 @@ class myWaveAppLayer : public BaseWaveApplLayer{
 
         virtual void handleSelfMsg(cMessage* msg);
         virtual void handlePositionUpdate(cObject* obj);
+
     };
 
 #endif /* MODULES_APPLICATION_MYWAVEAPPLAYER_H_ */
