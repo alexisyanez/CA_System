@@ -77,7 +77,7 @@ void myWaveAppLayer::onWSA(WaveServiceAdvertisment* wsa) {
 }
 
 void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
-    if (WaveShortMessage* wsm = dynamic_cast<WaveShortMessage*>(msg)) {
+    if (My_WSM* wsm = dynamic_cast<My_WSM*>(msg)) {
         //send this message on the service channel until the counter is 3 or higher.
         //this code only runs when channel switching is enabled
         sendDown(wsm->dup());

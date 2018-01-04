@@ -20,7 +20,7 @@
 #include "veins/modules/application/ieee80211p/BaseWaveApplLayer.h"
 #include "veins/base/utils/Coord.h"
 #include "veins/base/utils/FWMath.h"
-
+#include "modules/messages/my_WSM_m.h"
 
 using namespace omnetpp;
 
