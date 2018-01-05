@@ -30,3 +30,10 @@
 *.exe
 *.out
 *.app
+
+# Results Folders
+
+/examples/veins/results
+/examples/veins_inet/results
+/src/networks/scenario1/results
+
