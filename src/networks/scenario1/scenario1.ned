@@ -21,8 +21,8 @@ package ca_system.networks.scenario1;
 network Scenario1 extends Scenario
 {
         
-    submodules:
-        rsu[1]: RSU {
-            @display("p=94,76;i=veins/sign/yellowdiamond;is=vs");
-        }
+    //submodules:
+      //  rsu[1]: RSU {
+          //  @display("p=94,76;i=veins/sign/yellowdiamond;is=vs");
+        //}
 }

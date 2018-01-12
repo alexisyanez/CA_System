@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!-- 
+194 Cars leaving the Computer Science Building and campus of the University of Erlangen-Nuremberg
+Copyright (C) 2008 Christoph Sommer <christoph.sommer@informatik.uni-erlangen.de>
+Licensed under the Creative Commons Attribution-ShareAlike 2.0 license <http://creativecommons.org/licenses/by-sa/2.0/>
+-->
+<routes>
+   <vType id="vtype0" accel="2.6" decel="4.5" sigma="0.5" length="2.5" minGap="2.5" maxSpeed="19" color="1,1,0"/>
+   <vType id="typeBus" accel="0.8" decel="4.5" sigma="0.5" length="10" minGap="3" maxSpeed="19" guiShape="bus"/>
+
+   <route id="route0" edges="4i 3o"/>
+   <flow id="flow0" type="vtype0" route="route0" begin="0" period="4" number="1000"/>
+   
+   <route id="route1" edges="2i 1o"/>
+   <flow id="flow1" type="vtype0" route="route1" begin="1" period="4" number="1000"/>
+   
+   <route id="route2" edges="2i 3o"/>
+   <flow id="flow2" type="vtype0" route="route2" begin="2" period="4" number="1000"/>
+
+   <route id="route3" edges="4i 1o"/>
+   <flow id="flow3" type="typeBus" route="route3" begin="3" period="4" number="1000"/>
+	
+</routes>

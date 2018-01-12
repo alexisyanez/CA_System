@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!-- 
+194 Cars leaving the Computer Science Building and campus of the University of Erlangen-Nuremberg
+Copyright (C) 2008 Christoph Sommer <christoph.sommer@informatik.uni-erlangen.de>
+Licensed under the Creative Commons Attribution-ShareAlike 2.0 license <http://creativecommons.org/licenses/by-sa/2.0/>
+-->
+<routes>
+   <vType id="vtype0" accel="2.6" decel="4.5" sigma="0.5" length="2.5" minGap="1" maxSpeed="19" color="1,1,0"/>
+   <vType id="typeBus" accel="0.8" decel="4.5" sigma="0.5" length="10" minGap="2" maxSpeed="19" guiShape="bus"/>
+
+   <route id="route0" edges="4i 3o"/>
+   <flow id="flow0" type="vtype0" route="route0" begin="0" period="0.05" number="1000"/>
+   
+   <route id="route1" edges="2i 1o"/>
+   <flow id="flow1" type="vtype0" route="route1" begin="1" period="0.1" number="1000"/>
+   
+   <route id="route2" edges="2i 3o"/>
+   <flow id="flow2" type="vtype0" route="route2" begin="2" period="0.3" number="1000"/>
+
+   <route id="route3" edges="4i 2o"/>
+   <flow id="flow3" type="vtype0" route="route3" begin="3" period="0.05" number="1000"/>
+
+   <route id="route4" edges="4i 1o"/>
+   <flow id="flow4" type="typeBus" route="route4" begin="4" period="0.1" number="1000"/>
+   <!--
+   <flow id="flow5" type="typeBus" route="route2" begin="5" period="0.5" number="1000"/>
+   <flow id="flow6" type="vtype0" route="route3" begin="6" period="0.4" number="1000"/>
+   <flow id="flow7" type="typeBus" route="route4" begin="7" period="0.1" number="1000"/>
+   <flow id="flow8" type="vtype0" route="route1" begin="8" period="0.3" number="1000"/>
+   <flow id="flow9" type="typeBus" route="route2" begin="9" period="0.1" number="1000"/>
+   <flow id="flow10" type="vtype0" route="route3" begin="10" period="0.2" number="1000"/>	
+   <flow id="flow11" type="vtype0" route="route4" begin="11" period="0.1" number="1000"/>	
+   <flow id="flow12" type="vtype0" route="route1" begin="12" period="0.5" number="1000"/> -->	
+</routes>

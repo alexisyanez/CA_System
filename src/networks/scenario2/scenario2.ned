@@ -21,8 +21,8 @@ import org.car2x.veins.nodes.Scenario;
 network Scenario2 extends Scenario
 {
         
-    submodules:
-        rsu[1]: RSU {
-            @display("p=94,76;i=veins/sign/yellowdiamond;is=vs");
-        }
+//    submodules:
+//        rsu[1]: RSU {
+//            @display("p=94,76;i=veins/sign/yellowdiamond;is=vs");
+//        }
 }
