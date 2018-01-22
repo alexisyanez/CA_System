@@ -14,8 +14,7 @@
 // 
 
 #include "myWaveAppLayer.h"
-//#include <cmath>
-
+//#include "modules/mac/MyMac1609_4.h"
 
 Define_Module(myWaveAppLayer);
 
@@ -26,6 +25,17 @@ void myWaveAppLayer::initialize(int stage) {
     Slotted_Ns = par("Slotted_Ns");
     Slotted_R = par("Slotted_R");
     Slotted_tau = par("Slotted_tau");
+
+    TrADEnabled = par("TrAD");
+    TrAD_ti = par("TrAD_ti");
+    TrAD_alpha = par("TrAD_alpha");
+    TrAD_Neig = par("TrAD_Neig");
+    TrAD_R = par("TrAD_R");
+
+
+    mymac = FindModule<MyMac1609_4*>::findSubModule(
+            getParentModule());
+    assert(mymac);
 
     if (stage == 0) {
         //Initializing members and pointers of your application goes here
@@ -89,26 +99,27 @@ void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
         }
         else {
 
-
-        // Inicializar variables para calcular el retardo del timeSlot para slotted-1-persistant
-
-       // double Ns= 5;
-       // double R = 40;
-
-        double Dij = mobility->getPositionAt(SimTime()).distance(wsm->getSenderPos());// = getDistanceBetweenNodes2(xposition,localLeaderPosition);
-        double Sij = Slotted_Ns*(1-(fmin(Dij,Slotted_R)/Slotted_R));
-        simtime_t Tslot=Sij*Slotted_tau;
-
         if (Slotted1Enabled==true) // Aplicar Retardo según distancia
-                        {
-                            scheduleAt(simTime() + Tslot , wsm);
-                        }
+            {
+            // Inicializar variables para calcular el retardo del timeSlot para slotted-1-persistant
+            double Dij = mobility->getPositionAt(SimTime()).distance(wsm->getSenderPos());// = getDistanceBetweenNodes2(xposition,localLeaderPosition);
+            double Sij = Slotted_Ns*(1-(fmin(Dij,Slotted_R)/Slotted_R));
+            simtime_t Tslot=Sij*Slotted_tau;
+            scheduleAt(simTime() + Tslot , wsm);
+            }
+        else if(TrADEnabled==true)
+            {
+
+            }
         else {
             scheduleAt(simTime()+1, wsm);
         }
         }
     }
     else {
+        if(simTime() > 1){
+        EV << "CBR=" << mymac->getCBR(simTime(),1) << endl;
+        }
         BaseWaveApplLayer::handleSelfMsg(msg);
     }
 
@@ -121,13 +132,25 @@ void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
 void myWaveAppLayer::handlePositionUpdate(cObject* obj) {
     BaseWaveApplLayer::handlePositionUpdate(obj);
 
+    angleRad = mobility->getAngleRad();
+    currposition = mobility->getCurrentPosition();
+    currspeed = mobility->getCurrentSpeed();
+
     // stopped for for at least 10s?
     if (mobility->getSpeed() < 1) {
         if (simTime() - lastDroveAt >= 10 && sentMessage == false) {
             findHost()->getDisplayString().updateWith("r=16,red");
             sentMessage = true;
 
-            WaveShortMessage* wsm = new WaveShortMessage();
+            My_WSM* wsm = new My_WSM();
+
+            //WaveShortMessage* wsm = new WaveShortMessage();
+
+            // Seteando valores agreagdos al paquete My_wsm
+            wsm->setAngleRad(angleRad);
+            wsm->setSenderPos(currposition);
+            wsm->setSenderSpeed(currspeed);
+
             populateWSM(wsm);
             wsm->setWsmData(mobility->getRoadId().c_str());
 
@@ -143,7 +166,7 @@ void myWaveAppLayer::handlePositionUpdate(cObject* obj) {
             }
         }
     }
-    else {
+    else{
         lastDroveAt = simTime();
     }
 }

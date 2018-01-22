@@ -29,5 +29,13 @@ simple myWaveAppLayer extends BaseWaveApplLayer
     double Slotted_Ns= default(0);
     double Slotted_R= default(0);
     double Slotted_tau= default(0); 
+    
+    //TraD
+    bool TrAD = default(false); 
+    double TrAD_ti= default(0);
+    double TrAD_alpha= default(0);
+    double TrAD_Neig= default(0); 
+    double TrAD_R= default(0); 
+    
 }
 

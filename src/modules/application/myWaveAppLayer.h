@@ -16,11 +16,13 @@
 #ifndef MODULES_APPLICATION_MYWAVEAPPLAYER_H_
 #define MODULES_APPLICATION_MYWAVEAPPLAYER_H_
 
-#include <omnetpp.h>
+//#include <omnetpp.h>
 #include "veins/modules/application/ieee80211p/BaseWaveApplLayer.h"
 #include "veins/base/utils/Coord.h"
 #include "veins/base/utils/FWMath.h"
 #include "modules/messages/my_WSM_m.h"
+#include "modules/utils/List.h"
+#include "modules/mac/MyMac1609_4.h"
 
 using namespace omnetpp;
 
@@ -32,6 +34,13 @@ class myWaveAppLayer : public BaseWaveApplLayer{
         double Slotted_R;
         double Slotted_tau;
 
+        //TraD
+        bool TrADEnabled;
+        double TrAD_ti;
+        double TrAD_alpha;
+        double TrAD_Neig;
+        double TrAD_R;
+
     public:
         virtual void initialize(int stage);
         virtual void finish();
@@ -41,6 +50,16 @@ class myWaveAppLayer : public BaseWaveApplLayer{
         simtime_t lastDroveAt;
         bool sentMessage;
         int currentSubscribedServiceId;
+
+        /* state of the vehicle */
+        double angleRad;
+
+        Coord currposition;
+        Coord currspeed;
+
+        //puntero hacia la clase MyMac1609_4
+        MyMac1609_4* mymac;
+
     protected:
         virtual void onBSM(BasicSafetyMessage* bsm);
         virtual void onWSM(WaveShortMessage* wsm);

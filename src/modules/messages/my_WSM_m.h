@@ -33,6 +33,7 @@
  * {
  *     Coord senderPos;
  *     Coord senderSpeed;
+ *     double angleRad;
  * }
  * </pre>
  */
@@ -41,6 +42,7 @@ class My_WSM : public ::WaveShortMessage
   protected:
     Coord senderPos;
     Coord senderSpeed;
+    double angleRad;
 
   private:
     void copy(const My_WSM& other);
@@ -65,6 +67,8 @@ class My_WSM : public ::WaveShortMessage
     virtual Coord& getSenderSpeed();
     virtual const Coord& getSenderSpeed() const {return const_cast<My_WSM*>(this)->getSenderSpeed();}
     virtual void setSenderSpeed(const Coord& senderSpeed);
+    virtual double getAngleRad() const;
+    virtual void setAngleRad(double angleRad);
 };
 
 inline void doParsimPacking(omnetpp::cCommBuffer *b, const My_WSM& obj) {obj.parsimPack(b);}

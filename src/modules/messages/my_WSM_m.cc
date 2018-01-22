@@ -181,6 +181,7 @@ Register_Class(My_WSM)
 
 My_WSM::My_WSM(const char *name, short kind) : ::WaveShortMessage(name,kind)
 {
+    this->angleRad = 0;
 }
 
 My_WSM::My_WSM(const My_WSM& other) : ::WaveShortMessage(other)
@@ -204,6 +205,7 @@ void My_WSM::copy(const My_WSM& other)
 {
     this->senderPos = other.senderPos;
     this->senderSpeed = other.senderSpeed;
+    this->angleRad = other.angleRad;
 }
 
 void My_WSM::parsimPack(omnetpp::cCommBuffer *b) const
@@ -211,6 +213,7 @@ void My_WSM::parsimPack(omnetpp::cCommBuffer *b) const
     ::WaveShortMessage::parsimPack(b);
     doParsimPacking(b,this->senderPos);
     doParsimPacking(b,this->senderSpeed);
+    doParsimPacking(b,this->angleRad);
 }
 
 void My_WSM::parsimUnpack(omnetpp::cCommBuffer *b)
@@ -218,6 +221,7 @@ void My_WSM::parsimUnpack(omnetpp::cCommBuffer *b)
     ::WaveShortMessage::parsimUnpack(b);
     doParsimUnpacking(b,this->senderPos);
     doParsimUnpacking(b,this->senderSpeed);
+    doParsimUnpacking(b,this->angleRad);
 }
 
 Coord& My_WSM::getSenderPos()
@@ -238,6 +242,16 @@ Coord& My_WSM::getSenderSpeed()
 void My_WSM::setSenderSpeed(const Coord& senderSpeed)
 {
     this->senderSpeed = senderSpeed;
+}
+
+double My_WSM::getAngleRad() const
+{
+    return this->angleRad;
+}
+
+void My_WSM::setAngleRad(double angleRad)
+{
+    this->angleRad = angleRad;
 }
 
 class My_WSMDescriptor : public omnetpp::cClassDescriptor
@@ -305,7 +319,7 @@ const char *My_WSMDescriptor::getProperty(const char *propertyname) const
 int My_WSMDescriptor::getFieldCount() const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
-    return basedesc ? 2+basedesc->getFieldCount() : 2;
+    return basedesc ? 3+basedesc->getFieldCount() : 3;
 }
 
 unsigned int My_WSMDescriptor::getFieldTypeFlags(int field) const
@@ -319,8 +333,9 @@ unsigned int My_WSMDescriptor::getFieldTypeFlags(int field) const
     static unsigned int fieldTypeFlags[] = {
         FD_ISCOMPOUND,
         FD_ISCOMPOUND,
+        FD_ISEDITABLE,
     };
-    return (field>=0 && field<2) ? fieldTypeFlags[field] : 0;
+    return (field>=0 && field<3) ? fieldTypeFlags[field] : 0;
 }
 
 const char *My_WSMDescriptor::getFieldName(int field) const
@@ -334,8 +349,9 @@ const char *My_WSMDescriptor::getFieldName(int field) const
     static const char *fieldNames[] = {
         "senderPos",
         "senderSpeed",
+        "angleRad",
     };
-    return (field>=0 && field<2) ? fieldNames[field] : nullptr;
+    return (field>=0 && field<3) ? fieldNames[field] : nullptr;
 }
 
 int My_WSMDescriptor::findField(const char *fieldName) const
@@ -344,6 +360,7 @@ int My_WSMDescriptor::findField(const char *fieldName) const
     int base = basedesc ? basedesc->getFieldCount() : 0;
     if (fieldName[0]=='s' && strcmp(fieldName, "senderPos")==0) return base+0;
     if (fieldName[0]=='s' && strcmp(fieldName, "senderSpeed")==0) return base+1;
+    if (fieldName[0]=='a' && strcmp(fieldName, "angleRad")==0) return base+2;
     return basedesc ? basedesc->findField(fieldName) : -1;
 }
 
@@ -358,8 +375,9 @@ const char *My_WSMDescriptor::getFieldTypeString(int field) const
     static const char *fieldTypeStrings[] = {
         "Coord",
         "Coord",
+        "double",
     };
-    return (field>=0 && field<2) ? fieldTypeStrings[field] : nullptr;
+    return (field>=0 && field<3) ? fieldTypeStrings[field] : nullptr;
 }
 
 const char **My_WSMDescriptor::getFieldPropertyNames(int field) const
@@ -428,6 +446,7 @@ std::string My_WSMDescriptor::getFieldValueAsString(void *object, int field, int
     switch (field) {
         case 0: {std::stringstream out; out << pp->getSenderPos(); return out.str();}
         case 1: {std::stringstream out; out << pp->getSenderSpeed(); return out.str();}
+        case 2: return double2string(pp->getAngleRad());
         default: return "";
     }
 }
@@ -442,6 +461,7 @@ bool My_WSMDescriptor::setFieldValueAsString(void *object, int field, int i, con
     }
     My_WSM *pp = (My_WSM *)object; (void)pp;
     switch (field) {
+        case 2: pp->setAngleRad(string2double(value)); return true;
         default: return false;
     }
 }

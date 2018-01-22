@@ -13,22 +13,12 @@
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 // 
 
-cplusplus {{
-#include "veins/base/utils/Coord.h"
-#include "veins/modules/messages/WaveShortMessage_m.h"
-}}
-class WaveShortMessage;
-class noncobject Coord;
+package ca_system.modules.mac;
 
-//
-// TODO generated message class
-//
-packet My_WSM extends WaveShortMessage {
-   	Coord senderPos;
-	Coord senderSpeed;
-	double angleRad;
+import org.car2x.veins.modules.mac.ieee80211p.Mac1609_4;
+
+simple MyMac1609_4 extends Mac1609_4
+{
+@class(MyMac1609_4);
+
 }
-
-
-
- 

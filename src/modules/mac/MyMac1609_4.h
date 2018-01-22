@@ -13,22 +13,28 @@
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 // 
 
-cplusplus {{
-#include "veins/base/utils/Coord.h"
-#include "veins/modules/messages/WaveShortMessage_m.h"
-}}
-class WaveShortMessage;
-class noncobject Coord;
+#ifndef MODULES_MAC_MYMAC1609_4_H_
+#define MODULES_MAC_MYMAC1609_4_H_
+#include <omnetpp.h>
+#include "veins/modules/mac/ieee80211p/Mac1609_4.h"
 
-//
-// TODO generated message class
-//
-packet My_WSM extends WaveShortMessage {
-   	Coord senderPos;
-	Coord senderSpeed;
-	double angleRad;
-}
+using namespace omnetpp;
+
+class MyMac1609_4 : public Mac1609_4 {
+
+    public:
+        MyMac1609_4();
+        virtual ~MyMac1609_4();
+        virtual double getCBR(simtime_t thistime,simtime_t tinterval) const;
+    protected:
+        /** @brief Initialization of the module and some variables.*/
+        virtual void initialize(int);
+
+        /** @brief Delete all dynamically allocated objects of the module.*/
+        virtual void finish();
 
 
+        double CBR;
+    };
 
- 
+#endif /* MODULES_MAC_MYMAC1609_4_H_ */

@@ -2,7 +2,7 @@
 # OMNeT++/OMNEST Makefile for CA_System
 #
 # This file was generated with the command:
-#  opp_makemake -f --deep -KINET_PROJ=/home/alexis/omnetpp-5.1.1/workspace/inet -KVEINS_PROJ=/home/alexis/omnetpp-5.1.1/workspace/veins -KVEINS_INET_PROJ=/home/alexis/omnetpp-5.1.1/workspace/veins_inet -DINET_IMPORT -I. -I$$\(INET_PROJ\)/src -I$$\(VEINS_PROJ\)/src -L$$\(INET_PROJ\)/out/$$\(CONFIGNAME\)/src -L$$\(VEINS_PROJ\)/out/$$\(CONFIGNAME\)/src -L$$\(VEINS_INET_PROJ\)/out/$$\(CONFIGNAME\)/src -lINET -lveins -lveins_inet
+#  opp_makemake -f --deep -KINET_PROJ=/home/alexis/omnetpp-5.1.1/workspace/inet -KVEINS_PROJ=/home/alexis/omnetpp-5.1.1/workspace/veins -KVEINS_INET_PROJ=/home/alexis/omnetpp-5.1.1/workspace/veins_inet -DINET_IMPORT -I. -I$$\(INET_PROJ\)/src -I$$\(VEINS_PROJ\)/src -I. -L$$\(INET_PROJ\)/out/$$\(CONFIGNAME\)/src -L$$\(VEINS_PROJ\)/out/$$\(CONFIGNAME\)/src -L$$\(VEINS_INET_PROJ\)/out/$$\(CONFIGNAME\)/src -lINET -lveins -lveins_inet
 #
 
 # Name of target to be created (-o option)
@@ -15,7 +15,7 @@ USERIF_LIBS = $(ALL_ENV_LIBS) # that is, $(TKENV_LIBS) $(QTENV_LIBS) $(CMDENV_LI
 #USERIF_LIBS = $(QTENV_LIBS)
 
 # C++ include paths (with -I)
-INCLUDE_PATH = -I. -I$(INET_PROJ)/src -I$(VEINS_PROJ)/src
+INCLUDE_PATH = -I. -I$(INET_PROJ)/src -I$(VEINS_PROJ)/src -I.
 
 # Additional object and library files to link with
 EXTRA_OBJS =
@@ -29,7 +29,7 @@ PROJECTRELATIVE_PATH = src
 O = $(PROJECT_OUTPUT_DIR)/$(CONFIGNAME)/$(PROJECTRELATIVE_PATH)
 
 # Object files for local .cc, .msg and .sm files
-OBJS = $O/modules/application/myWaveAppLayer.o $O/modules/messages/my_WSM_m.o
+OBJS = $O/modules/application/myWaveAppLayer.o $O/modules/mac/MyMac1609_4.o $O/modules/utils/List.o $O/modules/utils/Nodelist.o $O/modules/messages/my_WSM_m.o
 
 # Message files
 MSGFILES = \
