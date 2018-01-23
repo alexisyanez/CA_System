@@ -16,13 +16,17 @@
 #ifndef MODULES_APPLICATION_MYWAVEAPPLAYER_H_
 #define MODULES_APPLICATION_MYWAVEAPPLAYER_H_
 
-//#include <omnetpp.h>
-#include "veins/modules/application/ieee80211p/BaseWaveApplLayer.h"
+#include <omnetpp.h>
+#include "modules/application/ieee80211p/BaseWaveApplLayer.h"
 #include "veins/base/utils/Coord.h"
 #include "veins/base/utils/FWMath.h"
 #include "modules/messages/my_WSM_m.h"
+#include "modules/messages/CBR_calc_m.h"
 #include "modules/utils/List.h"
-#include "modules/mac/MyMac1609_4.h"
+//#include "veins/modules/mac/ieee80211p/Mac1609_4.h"
+//#include "modules/mac/MyMac1609_4.h"
+
+
 
 using namespace omnetpp;
 
@@ -46,6 +50,10 @@ class myWaveAppLayer : public BaseWaveApplLayer{
         virtual void finish();
         double distance(const Coord& a, const Coord& b);
 
+        enum WaveApplMessageKinds {
+            CALC_CBR
+        };
+
     protected:
         simtime_t lastDroveAt;
         bool sentMessage;
@@ -57,8 +65,11 @@ class myWaveAppLayer : public BaseWaveApplLayer{
         Coord currposition;
         Coord currspeed;
 
-        //puntero hacia la clase MyMac1609_4
-        MyMac1609_4* mymac;
+        double currCBR;
+        double lastBusyT;
+
+        //puntero hacia la clase Mac1609_4
+        //Mac1609_4* mymac;
 
     protected:
         virtual void onBSM(BasicSafetyMessage* bsm);
@@ -67,6 +78,8 @@ class myWaveAppLayer : public BaseWaveApplLayer{
 
         virtual void handleSelfMsg(cMessage* msg);
         virtual void handlePositionUpdate(cObject* obj);
+
+        cMessage* calcCBR_EV;
 
     };
 

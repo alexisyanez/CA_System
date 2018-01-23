@@ -13,12 +13,19 @@
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 // 
 
-package ca_system.modules.mac;
+cplusplus {{
+#include "veins/base/utils/Coord.h"
+#include "veins/modules/messages/WaveShortMessage_m.h"
+}}
+class WaveShortMessage;
+class noncobject Coord;
 
-import org.car2x.veins.modules.mac.ieee80211p.Mac1609_4;
-
-simple MyMac1609_4 extends Mac1609_4
-{
-@class(MyMac1609_4);
-
+//
+// TODO generated message class
+//
+packet CBR_calc extends WaveShortMessage {
 }
+
+
+
+ 

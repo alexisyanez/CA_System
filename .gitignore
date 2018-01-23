@@ -37,4 +37,7 @@
 /examples/veins_inet/results
 /src/networks/scenario1/results
 
+# Result files
+*.anf
+
 Makefile

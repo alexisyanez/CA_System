@@ -15,8 +15,8 @@
 
 package ca_system.networks.scenario2;
 
-import org.car2x.veins.nodes.RSU;
-import org.car2x.veins.nodes.Scenario;
+import ca_system.nodes.RSU;
+import ca_system.nodes.Scenario;
 
 network Scenario2 extends Scenario
 {

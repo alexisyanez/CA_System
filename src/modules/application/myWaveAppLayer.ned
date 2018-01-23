@@ -15,7 +15,7 @@
 
 package ca_system.modules.application;
 
-import org.car2x.veins.modules.application.ieee80211p.BaseWaveApplLayer;
+import ca_system.modules.application.ieee80211p.BaseWaveApplLayer;
 //
 // network description file for your Veins Application. Add parameters here
 //

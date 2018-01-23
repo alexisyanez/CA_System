@@ -29,10 +29,23 @@ PROJECTRELATIVE_PATH = src
 O = $(PROJECT_OUTPUT_DIR)/$(CONFIGNAME)/$(PROJECTRELATIVE_PATH)
 
 # Object files for local .cc, .msg and .sm files
-OBJS = $O/modules/application/myWaveAppLayer.o $O/modules/mac/MyMac1609_4.o $O/modules/utils/List.o $O/modules/utils/Nodelist.o $O/modules/messages/my_WSM_m.o
+OBJS = \
+    $O/modules/application/myWaveAppLayer.o \
+    $O/modules/application/ieee80211p/BaseWaveApplLayer.o \
+    $O/modules/mac/ieee80211p/Mac1609_4.o \
+    $O/modules/phy/Decider80211p.o \
+    $O/modules/phy/NistErrorRate.o \
+    $O/modules/phy/PhyLayer80211p.o \
+    $O/modules/phy/SampledAntenna1D.o \
+    $O/modules/phy/SNRThresholdDecider.o \
+    $O/modules/utils/List.o \
+    $O/modules/utils/Nodelist.o \
+    $O/modules/messages/CBR_calc_m.o \
+    $O/modules/messages/my_WSM_m.o
 
 # Message files
 MSGFILES = \
+    modules/messages/CBR_calc.msg \
     modules/messages/my_WSM.msg
 
 # SM files

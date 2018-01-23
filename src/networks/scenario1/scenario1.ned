@@ -13,8 +13,8 @@
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 // 
 
-import org.car2x.veins.nodes.RSU;
-import org.car2x.veins.nodes.Scenario;
+import ca_system.nodes.RSU;
+import ca_system.nodes.Scenario;
 
 package ca_system.networks.scenario1;
 

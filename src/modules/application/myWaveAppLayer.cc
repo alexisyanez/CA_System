@@ -14,7 +14,6 @@
 // 
 
 #include "myWaveAppLayer.h"
-//#include "modules/mac/MyMac1609_4.h"
 
 Define_Module(myWaveAppLayer);
 
@@ -32,10 +31,9 @@ void myWaveAppLayer::initialize(int stage) {
     TrAD_Neig = par("TrAD_Neig");
     TrAD_R = par("TrAD_R");
 
+    calcCBR_EV = new cMessage("CBR evt", CALC_CBR);
+    lastBusyT = 0;
 
-    mymac = FindModule<MyMac1609_4*>::findSubModule(
-            getParentModule());
-    assert(mymac);
 
     if (stage == 0) {
         //Initializing members and pointers of your application goes here
@@ -43,6 +41,18 @@ void myWaveAppLayer::initialize(int stage) {
         sentMessage = false;
         lastDroveAt = simTime();
         currentSubscribedServiceId = -1;
+//        mymac = FindModule<Mac1609_4*>::findSubModule(getParentModule());
+//        assert(mymac);
+
+//        //initialize pointers to other modules
+//        if (FindModule<MyMac1609_4*>::findSubModule(getParentModule()))
+//        {
+//            mymac = MyMacAccess().get(getParentModule());
+//        }
+//        else {
+//            mymac = NULL;
+//        }
+
     }
     else if (stage == 1) {
         //Initializing members that require initialized other modules goes here
@@ -87,6 +97,17 @@ void myWaveAppLayer::onWSA(WaveServiceAdvertisment* wsa) {
 }
 
 void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
+    switch (msg->getKind()) {
+    case CALC_CBR: {
+        currCBR = (mac->getBusyTime()).dbl() - lastBusyT;
+        CBR_calc* cbr = new CBR_calc();
+        cancelEvent(calcCBR_EV);
+        scheduleAt(simTime() + 1, calcCBR_EV);
+        EV << "CBR=" << currCBR << endl;
+        lastBusyT = (mac->getBusyTime()).dbl();
+        break;}
+    }
+
     if (My_WSM* wsm = dynamic_cast<My_WSM*>(msg)) {
         //send this message on the service channel until the counter is 3 or higher.
         //this code only runs when channel switching is enabled
@@ -117,9 +138,6 @@ void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
         }
     }
     else {
-        if(simTime() > 1){
-        EV << "CBR=" << mymac->getCBR(simTime(),1) << endl;
-        }
         BaseWaveApplLayer::handleSelfMsg(msg);
     }
 
