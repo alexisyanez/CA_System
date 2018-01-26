@@ -182,18 +182,22 @@ Register_Class(My_WSM)
 My_WSM::My_WSM(const char *name, short kind) : ::WaveShortMessage(name,kind)
 {
     this->angleRad = 0;
-    for (unsigned int i=0; i<25; i++)
-        this->priorityList[i] = 0;
+    priorityList_arraysize = 0;
+    this->priorityList = 0;
     this->Oirigin_ID = 0;
+    this->ID = 0;
 }
 
 My_WSM::My_WSM(const My_WSM& other) : ::WaveShortMessage(other)
 {
+    priorityList_arraysize = 0;
+    this->priorityList = 0;
     copy(other);
 }
 
 My_WSM::~My_WSM()
 {
+    delete [] this->priorityList;
 }
 
 My_WSM& My_WSM::operator=(const My_WSM& other)
@@ -209,10 +213,14 @@ void My_WSM::copy(const My_WSM& other)
     this->senderPos = other.senderPos;
     this->senderSpeed = other.senderSpeed;
     this->angleRad = other.angleRad;
-    for (unsigned int i=0; i<25; i++)
+    delete [] this->priorityList;
+    this->priorityList = (other.priorityList_arraysize==0) ? nullptr : new int[other.priorityList_arraysize];
+    priorityList_arraysize = other.priorityList_arraysize;
+    for (unsigned int i=0; i<priorityList_arraysize; i++)
         this->priorityList[i] = other.priorityList[i];
     this->Oirigin_ID = other.Oirigin_ID;
     this->Origin_pos = other.Origin_pos;
+    this->ID = other.ID;
 }
 
 void My_WSM::parsimPack(omnetpp::cCommBuffer *b) const
@@ -221,9 +229,11 @@ void My_WSM::parsimPack(omnetpp::cCommBuffer *b) const
     doParsimPacking(b,this->senderPos);
     doParsimPacking(b,this->senderSpeed);
     doParsimPacking(b,this->angleRad);
-    doParsimArrayPacking(b,this->priorityList,25);
+    b->pack(priorityList_arraysize);
+    doParsimArrayPacking(b,this->priorityList,priorityList_arraysize);
     doParsimPacking(b,this->Oirigin_ID);
     doParsimPacking(b,this->Origin_pos);
+    doParsimPacking(b,this->ID);
 }
 
 void My_WSM::parsimUnpack(omnetpp::cCommBuffer *b)
@@ -232,9 +242,17 @@ void My_WSM::parsimUnpack(omnetpp::cCommBuffer *b)
     doParsimUnpacking(b,this->senderPos);
     doParsimUnpacking(b,this->senderSpeed);
     doParsimUnpacking(b,this->angleRad);
-    doParsimArrayUnpacking(b,this->priorityList,25);
+    delete [] this->priorityList;
+    b->unpack(priorityList_arraysize);
+    if (priorityList_arraysize==0) {
+        this->priorityList = 0;
+    } else {
+        this->priorityList = new int[priorityList_arraysize];
+        doParsimArrayUnpacking(b,this->priorityList,priorityList_arraysize);
+    }
     doParsimUnpacking(b,this->Oirigin_ID);
     doParsimUnpacking(b,this->Origin_pos);
+    doParsimUnpacking(b,this->ID);
 }
 
 Coord& My_WSM::getSenderPos()
@@ -267,20 +285,33 @@ void My_WSM::setAngleRad(double angleRad)
     this->angleRad = angleRad;
 }
 
+void My_WSM::setPriorityListArraySize(unsigned int size)
+{
+    int *priorityList2 = (size==0) ? nullptr : new int[size];
+    unsigned int sz = priorityList_arraysize < size ? priorityList_arraysize : size;
+    for (unsigned int i=0; i<sz; i++)
+        priorityList2[i] = this->priorityList[i];
+    for (unsigned int i=sz; i<size; i++)
+        priorityList2[i] = 0;
+    priorityList_arraysize = size;
+    delete [] this->priorityList;
+    this->priorityList = priorityList2;
+}
+
 unsigned int My_WSM::getPriorityListArraySize() const
 {
-    return 25;
+    return priorityList_arraysize;
 }
 
 int My_WSM::getPriorityList(unsigned int k) const
 {
-    if (k>=25) throw omnetpp::cRuntimeError("Array of size 25 indexed by %lu", (unsigned long)k);
+    if (k>=priorityList_arraysize) throw omnetpp::cRuntimeError("Array of size %d indexed by %d", priorityList_arraysize, k);
     return this->priorityList[k];
 }
 
 void My_WSM::setPriorityList(unsigned int k, int priorityList)
 {
-    if (k>=25) throw omnetpp::cRuntimeError("Array of size 25 indexed by %lu", (unsigned long)k);
+    if (k>=priorityList_arraysize) throw omnetpp::cRuntimeError("Array of size %d indexed by %d", priorityList_arraysize, k);
     this->priorityList[k] = priorityList;
 }
 
@@ -302,6 +333,16 @@ Coord& My_WSM::getOrigin_pos()
 void My_WSM::setOrigin_pos(const Coord& Origin_pos)
 {
     this->Origin_pos = Origin_pos;
+}
+
+int My_WSM::getID() const
+{
+    return this->ID;
+}
+
+void My_WSM::setID(int ID)
+{
+    this->ID = ID;
 }
 
 class My_WSMDescriptor : public omnetpp::cClassDescriptor
@@ -369,7 +410,7 @@ const char *My_WSMDescriptor::getProperty(const char *propertyname) const
 int My_WSMDescriptor::getFieldCount() const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
-    return basedesc ? 6+basedesc->getFieldCount() : 6;
+    return basedesc ? 7+basedesc->getFieldCount() : 7;
 }
 
 unsigned int My_WSMDescriptor::getFieldTypeFlags(int field) const
@@ -387,8 +428,9 @@ unsigned int My_WSMDescriptor::getFieldTypeFlags(int field) const
         FD_ISARRAY | FD_ISEDITABLE,
         FD_ISEDITABLE,
         FD_ISCOMPOUND,
+        FD_ISEDITABLE,
     };
-    return (field>=0 && field<6) ? fieldTypeFlags[field] : 0;
+    return (field>=0 && field<7) ? fieldTypeFlags[field] : 0;
 }
 
 const char *My_WSMDescriptor::getFieldName(int field) const
@@ -406,8 +448,9 @@ const char *My_WSMDescriptor::getFieldName(int field) const
         "priorityList",
         "Oirigin_ID",
         "Origin_pos",
+        "ID",
     };
-    return (field>=0 && field<6) ? fieldNames[field] : nullptr;
+    return (field>=0 && field<7) ? fieldNames[field] : nullptr;
 }
 
 int My_WSMDescriptor::findField(const char *fieldName) const
@@ -420,6 +463,7 @@ int My_WSMDescriptor::findField(const char *fieldName) const
     if (fieldName[0]=='p' && strcmp(fieldName, "priorityList")==0) return base+3;
     if (fieldName[0]=='O' && strcmp(fieldName, "Oirigin_ID")==0) return base+4;
     if (fieldName[0]=='O' && strcmp(fieldName, "Origin_pos")==0) return base+5;
+    if (fieldName[0]=='I' && strcmp(fieldName, "ID")==0) return base+6;
     return basedesc ? basedesc->findField(fieldName) : -1;
 }
 
@@ -438,8 +482,9 @@ const char *My_WSMDescriptor::getFieldTypeString(int field) const
         "int",
         "int",
         "Coord",
+        "int",
     };
-    return (field>=0 && field<6) ? fieldTypeStrings[field] : nullptr;
+    return (field>=0 && field<7) ? fieldTypeStrings[field] : nullptr;
 }
 
 const char **My_WSMDescriptor::getFieldPropertyNames(int field) const
@@ -478,7 +523,7 @@ int My_WSMDescriptor::getFieldArraySize(void *object, int field) const
     }
     My_WSM *pp = (My_WSM *)object; (void)pp;
     switch (field) {
-        case 3: return 25;
+        case 3: return pp->getPriorityListArraySize();
         default: return 0;
     }
 }
@@ -513,6 +558,7 @@ std::string My_WSMDescriptor::getFieldValueAsString(void *object, int field, int
         case 3: return long2string(pp->getPriorityList(i));
         case 4: return long2string(pp->getOirigin_ID());
         case 5: {std::stringstream out; out << pp->getOrigin_pos(); return out.str();}
+        case 6: return long2string(pp->getID());
         default: return "";
     }
 }
@@ -530,6 +576,7 @@ bool My_WSMDescriptor::setFieldValueAsString(void *object, int field, int i, con
         case 2: pp->setAngleRad(string2double(value)); return true;
         case 3: pp->setPriorityList(i,string2long(value)); return true;
         case 4: pp->setOirigin_ID(string2long(value)); return true;
+        case 6: pp->setID(string2long(value)); return true;
         default: return false;
     }
 }

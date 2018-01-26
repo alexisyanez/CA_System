@@ -14,8 +14,6 @@
 // 
 
 #include "myWaveAppLayer.h"
-#include <algorithm>
-#include <list>
 
 Define_Module(myWaveAppLayer);
 
@@ -35,7 +33,6 @@ void myWaveAppLayer::initialize(int stage) {
 
     calcCBR_EV = new cMessage("CBR evt", CALC_CBR);
     lastBusyT = 0;
-    Neig.clear();
 
     if (stage == 0) {
         //Initializing members and pointers of your application goes here
@@ -69,6 +66,8 @@ void myWaveAppLayer::finish() {
 }
 
 void myWaveAppLayer::onBSM(BasicSafetyMessage* bsm) {
+    //Your application has received a beacon message from another car or RSU
+    //code for handling the message goes here
     // Se calcula la distancia y la utilidad del nodo vecino
     Dij = mobility->getPositionAt(SimTime()).distance(bsm->getSenderPos());
     Utx_n=calculateUtx(bsm->getCBR(),Dij,bsm->getNum_Neig());
@@ -82,42 +81,42 @@ void myWaveAppLayer::onBSM(BasicSafetyMessage* bsm) {
     else {
         Neig = replace(Neig,bsm->getSenderAddress(),Utx_n);
     }
-    //Your application has received a beacon message from another car or RSU
-    //code for handling the message goes here
+
 
 }
 
-void myWaveAppLayer::onWSM(My_WSM* wsm) {
-    findHost()->getDisplayString().updateWith("r=16,green");
+void myWaveAppLayer::onWSM(WaveShortMessage* wsm) {
+    if (My_WSM* mywsm = dynamic_cast<My_WSM*>(wsm)) {
+        findHost()->getDisplayString().updateWith("r=16,green");
 
-//    if (mobility->getRoadId()[0] != ':') traciVehicle->changeRoute(wsm->getWsmData(), 9999);
-    if (!sentMessage) {
-        sentMessage = true;
-        //repeat the received traffic update once in 2 seconds plus some random delay
-        wsm->setSenderAddress(myId);
-        wsm->setSerial(3);
-        setingPLinWSM(makePriorList(Neig),wsm);
-        Dij = mobility->getPositionAt(SimTime()).distance(wsm->getSenderPos()); // = getDistanceBetweenNodes2(xposition,localLeaderPosition);
-        if (Slotted1Enabled==true) // Aplicar Retardo según distancia
-            {
-            // Inicializar variables para calcular el retardo del timeSlot para slotted-1-persistant
-            double Sij = Slotted_Ns*(1-(fmin(Dij,Slotted_R)/Slotted_R));
-            simtime_t Tslot=Sij*Slotted_tau;
-            scheduleAt(simTime() + Tslot , wsm->dup());
+        //if (mobility->getRoadId()[0] != ':') traciVehicle->changeRoute(wsm->getWsmData(), 9999);
+        if (!sentMessage) {
+            sentMessage = true;
+            //repeat the received traffic update once in 2 seconds plus some random delay
+            mywsm->setSenderAddress(myId);
+            mywsm->setSerial(3);
+            if (Slotted1Enabled==true) // Aplicar Retardo según distancia
+                {
+                // Inicializar variables para calcular el retardo del timeSlot para slotted-1-persistant
+                double Sij = Slotted_Ns*(1-(fmin(Dij,Slotted_R)/Slotted_R));
+                simtime_t Tslot=Sij*Slotted_tau;
+                scheduleAt(simTime() + Tslot , mywsm->dup());
+                }
+            else if(TrADEnabled==true)
+                {
+                int rank = getMyRank(mywsm,myId);
+                mywsm->setAngleRad(angleRad);
+                mywsm->setSenderPos(currposition);
+                mywsm->setSenderSpeed(currspeed);
+                setingPLinWSM(makePriorList(Neig),mywsm);
+                scheduleAt(simTime() + TrAD_ti*rank , mywsm->dup());
+                }
+            else {
+            scheduleAt(simTime() + 2 + uniform(0.01,0.2), mywsm->dup());
             }
-        else if(TrADEnabled==true)
-            {
-
-            }
-        else {
-            scheduleAt(simTime() + 2 + uniform(0.01,0.2), wsm->dup());
         }
+
     }
-
-
-
-
-
     //Your application has received a data message from another car or RSU
     //code for handling the message goes here, see TraciDemo11p.cc for examples
 
@@ -133,7 +132,6 @@ void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
     switch (msg->getKind()) {
     case CALC_CBR: {
         currCBR = (mac->getBusyTime()).dbl() - lastBusyT;
-        //CBR_calc* cbr = new CBR_calc();
         cancelEvent(calcCBR_EV);
         scheduleAt(simTime() + 1, calcCBR_EV);
         EV << "CBR=" << currCBR << endl;
@@ -151,7 +149,24 @@ void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
             stopService();
             delete(wsm);
         }
-        //else {}
+        else {
+
+//        if (Slotted1Enabled==true) // Aplicar Retardo según distancia
+//            {
+//            // Inicializar variables para calcular el retardo del timeSlot para slotted-1-persistant
+//            double Dij = mobility->getPositionAt(SimTime()).distance(wsm->getSenderPos());// = getDistanceBetweenNodes2(xposition,localLeaderPosition);
+//            double Sij = Slotted_Ns*(1-(fmin(Dij,Slotted_R)/Slotted_R));
+//            simtime_t Tslot=Sij*Slotted_tau;
+//            scheduleAt(simTime() + Tslot , wsm);
+//            }
+//        else if(TrADEnabled==true)
+//            {
+//
+//            }
+//        else {
+//            scheduleAt(simTime()+1, wsm);
+//        }
+        }
     }
     else {
         BaseWaveApplLayer::handleSelfMsg(msg);
@@ -184,7 +199,11 @@ void myWaveAppLayer::handlePositionUpdate(cObject* obj) {
             wsm->setAngleRad(angleRad);
             wsm->setSenderPos(currposition);
             wsm->setSenderSpeed(currspeed);
+            wsm->setOirigin_ID(myId);
+            wsm->setOrigin_pos(currposition);
             setingPLinWSM(makePriorList(Neig),wsm);
+            wsm->setID(1);
+
             populateWSM(wsm);
             wsm->setWsmData(mobility->getRoadId().c_str());
 
@@ -208,6 +227,7 @@ void myWaveAppLayer::handlePositionUpdate(cObject* obj) {
     //member variables such as currentPosition and currentSpeed are updated in the parent class
 
 // Función para descubrir si es ya está indexado como vecino
+
 bool myWaveAppLayer::isNeighbor(std::list<std::pair<double,int>>mylist,int addressSearch){
     std::list < std::pair < double, int >>::iterator it2;
     for (it2 = mylist.begin(); it2 != mylist.end(); it2++) {
@@ -219,6 +239,7 @@ bool myWaveAppLayer::isNeighbor(std::list<std::pair<double,int>>mylist,int addre
 }
 
 // Función para reemplazar valor de utilidad correspondienteal vecino
+
 std::list<std::pair<double,int>> myWaveAppLayer::replace(std::list<std::pair<double,int>>mylist,int addressSearch, double UtxReplace){
     std::list<std::pair<double,int>> replaceList;
     std::pair < double, int >itp;
@@ -228,7 +249,7 @@ std::list<std::pair<double,int>> myWaveAppLayer::replace(std::list<std::pair<dou
 
         if (it2->second == addressSearch) {
             it2->first = UtxReplace;
-            /* To stop searching */
+
         }
         b=it2->first;
         a=it2->second;
@@ -250,7 +271,7 @@ double myWaveAppLayer::calculateUtx(double CBR_n,double Dij_n, int Num_neig_n){
 }
 
 int* myWaveAppLayer::makePriorList(std::list<std::pair<double,int>>mylist){
-    int* arr = new int[TrAD_Neig];
+    int* arr = new int[mylist.size()];
     mylist.sort();
     mylist.reverse();
     int i=0;
@@ -267,3 +288,10 @@ void myWaveAppLayer::setingPLinWSM(int* list,My_WSM* wsm){
         wsm->setPriorityList(i,list[i]);
         }
 }
+
+int myWaveAppLayer::getMyRank(My_WSM* wsm, int my_id){
+    for(int i=0;i<wsm->getPriorityListArraySize();i++){
+        if(wsm->getPriorityList(i)==my_id) return i; break;
+        }
+}
+

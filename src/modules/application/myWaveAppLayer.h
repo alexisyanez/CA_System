@@ -23,6 +23,7 @@
 #include "modules/messages/my_WSM_m.h"
 #include <iostream>
 #include <list>
+
 //#include "veins/modules/mac/ieee80211p/Mac1609_4.h"
 //#include "modules/mac/MyMac1609_4.h"
 
@@ -42,7 +43,7 @@ class myWaveAppLayer : public BaseWaveApplLayer{
         bool TrADEnabled;
         double TrAD_ti;
         double TrAD_alpha;
-        int TrAD_Neig;
+        double TrAD_Neig;
         double TrAD_R;
 
     public:
@@ -61,6 +62,7 @@ class myWaveAppLayer : public BaseWaveApplLayer{
 
         /* state of the vehicle */
         double angleRad;
+
         Coord currposition;
         Coord currspeed;
 
@@ -79,9 +81,12 @@ class myWaveAppLayer : public BaseWaveApplLayer{
         double Utx_n;
         double Dij;
 
+        // Ultimo Wsm recivido
+        int lastWSMid;
+
     protected:
         virtual void onBSM(BasicSafetyMessage* bsm);
-        virtual void onWSM(My_WSM* wsm);
+        virtual void onWSM(WaveShortMessage* wsm);
         virtual void onWSA(WaveServiceAdvertisment* wsa);
 
         virtual void handleSelfMsg(cMessage* msg);
@@ -94,6 +99,8 @@ class myWaveAppLayer : public BaseWaveApplLayer{
         bool isNeighbor(std::list<std::pair<double,int>>mylist,int addressSearch);
         int* makePriorList(std::list<std::pair<double,int>>mylist);
         void setingPLinWSM(int* list,My_WSM* wsm);
+        int getMyRank(My_WSM* wsm, int my_id);
+
 
         cMessage* calcCBR_EV;
 
