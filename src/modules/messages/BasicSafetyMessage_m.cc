@@ -1,5 +1,5 @@
 //
-// Generated file, do not edit! Created by nedtool 5.1 from modules/messages/CBR_calc.msg.
+// Generated file, do not edit! Created by nedtool 5.1 from modules/messages/BasicSafetyMessage.msg.
 //
 
 // Disable warnings about unused variables, empty switch stmts, etc:
@@ -26,7 +26,7 @@
 
 #include <iostream>
 #include <sstream>
-#include "CBR_calc_m.h"
+#include "BasicSafetyMessage_m.h"
 
 namespace omnetpp {
 
@@ -177,22 +177,24 @@ inline std::ostream& operator<<(std::ostream& out, const std::vector<T,A>& vec)
     return out;
 }
 
-Register_Class(CBR_calc)
+Register_Class(BasicSafetyMessage)
 
-CBR_calc::CBR_calc(const char *name, short kind) : ::WaveShortMessage(name,kind)
+BasicSafetyMessage::BasicSafetyMessage(const char *name, short kind) : ::WaveShortMessage(name,kind)
 {
+    this->Num_Neig = 0;
+    this->CBR = 0;
 }
 
-CBR_calc::CBR_calc(const CBR_calc& other) : ::WaveShortMessage(other)
+BasicSafetyMessage::BasicSafetyMessage(const BasicSafetyMessage& other) : ::WaveShortMessage(other)
 {
     copy(other);
 }
 
-CBR_calc::~CBR_calc()
+BasicSafetyMessage::~BasicSafetyMessage()
 {
 }
 
-CBR_calc& CBR_calc::operator=(const CBR_calc& other)
+BasicSafetyMessage& BasicSafetyMessage::operator=(const BasicSafetyMessage& other)
 {
     if (this==&other) return *this;
     ::WaveShortMessage::operator=(other);
@@ -200,27 +202,79 @@ CBR_calc& CBR_calc::operator=(const CBR_calc& other)
     return *this;
 }
 
-void CBR_calc::copy(const CBR_calc& other)
+void BasicSafetyMessage::copy(const BasicSafetyMessage& other)
 {
+    this->senderPos = other.senderPos;
+    this->senderSpeed = other.senderSpeed;
+    this->Num_Neig = other.Num_Neig;
+    this->CBR = other.CBR;
 }
 
-void CBR_calc::parsimPack(omnetpp::cCommBuffer *b) const
+void BasicSafetyMessage::parsimPack(omnetpp::cCommBuffer *b) const
 {
     ::WaveShortMessage::parsimPack(b);
+    doParsimPacking(b,this->senderPos);
+    doParsimPacking(b,this->senderSpeed);
+    doParsimPacking(b,this->Num_Neig);
+    doParsimPacking(b,this->CBR);
 }
 
-void CBR_calc::parsimUnpack(omnetpp::cCommBuffer *b)
+void BasicSafetyMessage::parsimUnpack(omnetpp::cCommBuffer *b)
 {
     ::WaveShortMessage::parsimUnpack(b);
+    doParsimUnpacking(b,this->senderPos);
+    doParsimUnpacking(b,this->senderSpeed);
+    doParsimUnpacking(b,this->Num_Neig);
+    doParsimUnpacking(b,this->CBR);
 }
 
-class CBR_calcDescriptor : public omnetpp::cClassDescriptor
+Coord& BasicSafetyMessage::getSenderPos()
+{
+    return this->senderPos;
+}
+
+void BasicSafetyMessage::setSenderPos(const Coord& senderPos)
+{
+    this->senderPos = senderPos;
+}
+
+Coord& BasicSafetyMessage::getSenderSpeed()
+{
+    return this->senderSpeed;
+}
+
+void BasicSafetyMessage::setSenderSpeed(const Coord& senderSpeed)
+{
+    this->senderSpeed = senderSpeed;
+}
+
+int BasicSafetyMessage::getNum_Neig() const
+{
+    return this->Num_Neig;
+}
+
+void BasicSafetyMessage::setNum_Neig(int Num_Neig)
+{
+    this->Num_Neig = Num_Neig;
+}
+
+double BasicSafetyMessage::getCBR() const
+{
+    return this->CBR;
+}
+
+void BasicSafetyMessage::setCBR(double CBR)
+{
+    this->CBR = CBR;
+}
+
+class BasicSafetyMessageDescriptor : public omnetpp::cClassDescriptor
 {
   private:
     mutable const char **propertynames;
   public:
-    CBR_calcDescriptor();
-    virtual ~CBR_calcDescriptor();
+    BasicSafetyMessageDescriptor();
+    virtual ~BasicSafetyMessageDescriptor();
 
     virtual bool doesSupport(omnetpp::cObject *obj) const override;
     virtual const char **getPropertyNames() const override;
@@ -242,24 +296,24 @@ class CBR_calcDescriptor : public omnetpp::cClassDescriptor
     virtual void *getFieldStructValuePointer(void *object, int field, int i) const override;
 };
 
-Register_ClassDescriptor(CBR_calcDescriptor)
+Register_ClassDescriptor(BasicSafetyMessageDescriptor)
 
-CBR_calcDescriptor::CBR_calcDescriptor() : omnetpp::cClassDescriptor("CBR_calc", "WaveShortMessage")
+BasicSafetyMessageDescriptor::BasicSafetyMessageDescriptor() : omnetpp::cClassDescriptor("BasicSafetyMessage", "WaveShortMessage")
 {
     propertynames = nullptr;
 }
 
-CBR_calcDescriptor::~CBR_calcDescriptor()
+BasicSafetyMessageDescriptor::~BasicSafetyMessageDescriptor()
 {
     delete[] propertynames;
 }
 
-bool CBR_calcDescriptor::doesSupport(omnetpp::cObject *obj) const
+bool BasicSafetyMessageDescriptor::doesSupport(omnetpp::cObject *obj) const
 {
-    return dynamic_cast<CBR_calc *>(obj)!=nullptr;
+    return dynamic_cast<BasicSafetyMessage *>(obj)!=nullptr;
 }
 
-const char **CBR_calcDescriptor::getPropertyNames() const
+const char **BasicSafetyMessageDescriptor::getPropertyNames() const
 {
     if (!propertynames) {
         static const char *names[] = {  nullptr };
@@ -270,19 +324,19 @@ const char **CBR_calcDescriptor::getPropertyNames() const
     return propertynames;
 }
 
-const char *CBR_calcDescriptor::getProperty(const char *propertyname) const
+const char *BasicSafetyMessageDescriptor::getProperty(const char *propertyname) const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
     return basedesc ? basedesc->getProperty(propertyname) : nullptr;
 }
 
-int CBR_calcDescriptor::getFieldCount() const
+int BasicSafetyMessageDescriptor::getFieldCount() const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
-    return basedesc ? 0+basedesc->getFieldCount() : 0;
+    return basedesc ? 4+basedesc->getFieldCount() : 4;
 }
 
-unsigned int CBR_calcDescriptor::getFieldTypeFlags(int field) const
+unsigned int BasicSafetyMessageDescriptor::getFieldTypeFlags(int field) const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
     if (basedesc) {
@@ -290,10 +344,16 @@ unsigned int CBR_calcDescriptor::getFieldTypeFlags(int field) const
             return basedesc->getFieldTypeFlags(field);
         field -= basedesc->getFieldCount();
     }
-    return 0;
+    static unsigned int fieldTypeFlags[] = {
+        FD_ISCOMPOUND,
+        FD_ISCOMPOUND,
+        FD_ISEDITABLE,
+        FD_ISEDITABLE,
+    };
+    return (field>=0 && field<4) ? fieldTypeFlags[field] : 0;
 }
 
-const char *CBR_calcDescriptor::getFieldName(int field) const
+const char *BasicSafetyMessageDescriptor::getFieldName(int field) const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
     if (basedesc) {
@@ -301,16 +361,27 @@ const char *CBR_calcDescriptor::getFieldName(int field) const
             return basedesc->getFieldName(field);
         field -= basedesc->getFieldCount();
     }
-    return nullptr;
+    static const char *fieldNames[] = {
+        "senderPos",
+        "senderSpeed",
+        "Num_Neig",
+        "CBR",
+    };
+    return (field>=0 && field<4) ? fieldNames[field] : nullptr;
 }
 
-int CBR_calcDescriptor::findField(const char *fieldName) const
+int BasicSafetyMessageDescriptor::findField(const char *fieldName) const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    int base = basedesc ? basedesc->getFieldCount() : 0;
+    if (fieldName[0]=='s' && strcmp(fieldName, "senderPos")==0) return base+0;
+    if (fieldName[0]=='s' && strcmp(fieldName, "senderSpeed")==0) return base+1;
+    if (fieldName[0]=='N' && strcmp(fieldName, "Num_Neig")==0) return base+2;
+    if (fieldName[0]=='C' && strcmp(fieldName, "CBR")==0) return base+3;
     return basedesc ? basedesc->findField(fieldName) : -1;
 }
 
-const char *CBR_calcDescriptor::getFieldTypeString(int field) const
+const char *BasicSafetyMessageDescriptor::getFieldTypeString(int field) const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
     if (basedesc) {
@@ -318,10 +389,16 @@ const char *CBR_calcDescriptor::getFieldTypeString(int field) const
             return basedesc->getFieldTypeString(field);
         field -= basedesc->getFieldCount();
     }
-    return nullptr;
+    static const char *fieldTypeStrings[] = {
+        "Coord",
+        "Coord",
+        "int",
+        "double",
+    };
+    return (field>=0 && field<4) ? fieldTypeStrings[field] : nullptr;
 }
 
-const char **CBR_calcDescriptor::getFieldPropertyNames(int field) const
+const char **BasicSafetyMessageDescriptor::getFieldPropertyNames(int field) const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
     if (basedesc) {
@@ -334,7 +411,7 @@ const char **CBR_calcDescriptor::getFieldPropertyNames(int field) const
     }
 }
 
-const char *CBR_calcDescriptor::getFieldProperty(int field, const char *propertyname) const
+const char *BasicSafetyMessageDescriptor::getFieldProperty(int field, const char *propertyname) const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
     if (basedesc) {
@@ -347,7 +424,7 @@ const char *CBR_calcDescriptor::getFieldProperty(int field, const char *property
     }
 }
 
-int CBR_calcDescriptor::getFieldArraySize(void *object, int field) const
+int BasicSafetyMessageDescriptor::getFieldArraySize(void *object, int field) const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
     if (basedesc) {
@@ -355,13 +432,13 @@ int CBR_calcDescriptor::getFieldArraySize(void *object, int field) const
             return basedesc->getFieldArraySize(object, field);
         field -= basedesc->getFieldCount();
     }
-    CBR_calc *pp = (CBR_calc *)object; (void)pp;
+    BasicSafetyMessage *pp = (BasicSafetyMessage *)object; (void)pp;
     switch (field) {
         default: return 0;
     }
 }
 
-const char *CBR_calcDescriptor::getFieldDynamicTypeString(void *object, int field, int i) const
+const char *BasicSafetyMessageDescriptor::getFieldDynamicTypeString(void *object, int field, int i) const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
     if (basedesc) {
@@ -369,13 +446,13 @@ const char *CBR_calcDescriptor::getFieldDynamicTypeString(void *object, int fiel
             return basedesc->getFieldDynamicTypeString(object,field,i);
         field -= basedesc->getFieldCount();
     }
-    CBR_calc *pp = (CBR_calc *)object; (void)pp;
+    BasicSafetyMessage *pp = (BasicSafetyMessage *)object; (void)pp;
     switch (field) {
         default: return nullptr;
     }
 }
 
-std::string CBR_calcDescriptor::getFieldValueAsString(void *object, int field, int i) const
+std::string BasicSafetyMessageDescriptor::getFieldValueAsString(void *object, int field, int i) const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
     if (basedesc) {
@@ -383,13 +460,17 @@ std::string CBR_calcDescriptor::getFieldValueAsString(void *object, int field, i
             return basedesc->getFieldValueAsString(object,field,i);
         field -= basedesc->getFieldCount();
     }
-    CBR_calc *pp = (CBR_calc *)object; (void)pp;
+    BasicSafetyMessage *pp = (BasicSafetyMessage *)object; (void)pp;
     switch (field) {
+        case 0: {std::stringstream out; out << pp->getSenderPos(); return out.str();}
+        case 1: {std::stringstream out; out << pp->getSenderSpeed(); return out.str();}
+        case 2: return long2string(pp->getNum_Neig());
+        case 3: return double2string(pp->getCBR());
         default: return "";
     }
 }
 
-bool CBR_calcDescriptor::setFieldValueAsString(void *object, int field, int i, const char *value) const
+bool BasicSafetyMessageDescriptor::setFieldValueAsString(void *object, int field, int i, const char *value) const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
     if (basedesc) {
@@ -397,13 +478,15 @@ bool CBR_calcDescriptor::setFieldValueAsString(void *object, int field, int i, c
             return basedesc->setFieldValueAsString(object,field,i,value);
         field -= basedesc->getFieldCount();
     }
-    CBR_calc *pp = (CBR_calc *)object; (void)pp;
+    BasicSafetyMessage *pp = (BasicSafetyMessage *)object; (void)pp;
     switch (field) {
+        case 2: pp->setNum_Neig(string2long(value)); return true;
+        case 3: pp->setCBR(string2double(value)); return true;
         default: return false;
     }
 }
 
-const char *CBR_calcDescriptor::getFieldStructName(int field) const
+const char *BasicSafetyMessageDescriptor::getFieldStructName(int field) const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
     if (basedesc) {
@@ -411,10 +494,14 @@ const char *CBR_calcDescriptor::getFieldStructName(int field) const
             return basedesc->getFieldStructName(field);
         field -= basedesc->getFieldCount();
     }
-    return nullptr;
+    switch (field) {
+        case 0: return omnetpp::opp_typename(typeid(Coord));
+        case 1: return omnetpp::opp_typename(typeid(Coord));
+        default: return nullptr;
+    };
 }
 
-void *CBR_calcDescriptor::getFieldStructValuePointer(void *object, int field, int i) const
+void *BasicSafetyMessageDescriptor::getFieldStructValuePointer(void *object, int field, int i) const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
     if (basedesc) {
@@ -422,8 +509,10 @@ void *CBR_calcDescriptor::getFieldStructValuePointer(void *object, int field, in
             return basedesc->getFieldStructValuePointer(object, field, i);
         field -= basedesc->getFieldCount();
     }
-    CBR_calc *pp = (CBR_calc *)object; (void)pp;
+    BasicSafetyMessage *pp = (BasicSafetyMessage *)object; (void)pp;
     switch (field) {
+        case 0: return (void *)(&pp->getSenderPos()); break;
+        case 1: return (void *)(&pp->getSenderSpeed()); break;
         default: return nullptr;
     }
 }

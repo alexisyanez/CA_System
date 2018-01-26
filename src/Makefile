@@ -38,14 +38,12 @@ OBJS = \
     $O/modules/phy/PhyLayer80211p.o \
     $O/modules/phy/SampledAntenna1D.o \
     $O/modules/phy/SNRThresholdDecider.o \
-    $O/modules/utils/List.o \
-    $O/modules/utils/Nodelist.o \
-    $O/modules/messages/CBR_calc_m.o \
+    $O/modules/messages/BasicSafetyMessage_m.o \
     $O/modules/messages/my_WSM_m.o
 
 # Message files
 MSGFILES = \
-    modules/messages/CBR_calc.msg \
+    modules/messages/BasicSafetyMessage.msg \
     modules/messages/my_WSM.msg
 
 # SM files

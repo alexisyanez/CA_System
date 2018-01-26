@@ -27,7 +27,10 @@ packet My_WSM extends WaveShortMessage {
    	Coord senderPos;
 	Coord senderSpeed;
 	double angleRad;
-}
+	int priorityList[25]; // Orden calculado por el nodo fuente
+	int Oirigin_ID;
+	Coord Origin_pos;
+	}
 
 
 

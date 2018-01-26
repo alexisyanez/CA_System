@@ -34,6 +34,9 @@
  *     Coord senderPos;
  *     Coord senderSpeed;
  *     double angleRad;
+ *     int priorityList[25]; // Orden calculado por el nodo fuente
+ *     int Oirigin_ID;
+ *     Coord Origin_pos;
  * }
  * </pre>
  */
@@ -43,6 +46,9 @@ class My_WSM : public ::WaveShortMessage
     Coord senderPos;
     Coord senderSpeed;
     double angleRad;
+    int priorityList[25];
+    int Oirigin_ID;
+    Coord Origin_pos;
 
   private:
     void copy(const My_WSM& other);
@@ -69,6 +75,14 @@ class My_WSM : public ::WaveShortMessage
     virtual void setSenderSpeed(const Coord& senderSpeed);
     virtual double getAngleRad() const;
     virtual void setAngleRad(double angleRad);
+    virtual unsigned int getPriorityListArraySize() const;
+    virtual int getPriorityList(unsigned int k) const;
+    virtual void setPriorityList(unsigned int k, int priorityList);
+    virtual int getOirigin_ID() const;
+    virtual void setOirigin_ID(int Oirigin_ID);
+    virtual Coord& getOrigin_pos();
+    virtual const Coord& getOrigin_pos() const {return const_cast<My_WSM*>(this)->getOrigin_pos();}
+    virtual void setOrigin_pos(const Coord& Origin_pos);
 };
 
 inline void doParsimPacking(omnetpp::cCommBuffer *b, const My_WSM& obj) {obj.parsimPack(b);}
