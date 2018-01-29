@@ -86,6 +86,12 @@ class myWaveAppLayer : public BaseWaveApplLayer{
         // Ultimo Wsm recivido
         int lastWSMid;
 
+        /* stats */
+        simtime_t delay;
+
+
+        //
+
     protected:
         virtual void onBSM(BasicSafetyMessage* bsm);
         virtual void onWSM(WaveShortMessage* wsm);

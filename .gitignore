@@ -30,6 +30,7 @@
 *.exe
 *.out
 *.app
+Makefile
 
 # Results Folders
 
@@ -40,4 +41,4 @@
 # Result files
 *.anf
 
-Makefile
+

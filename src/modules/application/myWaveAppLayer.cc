@@ -48,6 +48,9 @@ void myWaveAppLayer::initialize(int stage) {
 
         // Identificar WSM
         lastWSMid= -1;
+
+        // Setear delay
+        delay = -1;
     }
     else if (stage == 1) {
         //Initializing members that require initialized other modules goes here
@@ -57,6 +60,7 @@ void myWaveAppLayer::initialize(int stage) {
 
 void myWaveAppLayer::finish() {
     BaseWaveApplLayer::finish();
+    recordScalar("delayWSM",delay);
     //statistics recording goes here
 
 }
@@ -65,6 +69,7 @@ void myWaveAppLayer::onBSM(BasicSafetyMessage* bsm) {
     //Your application has received a beacon message from another car or RSU
     //code for handling the message goes here
     // Se calcula la distancia y la utilidad del nodo vecino
+
     Dij = mobility->getPositionAt(SimTime()).distance(bsm->getSenderPos());
     Utx_n=calculateUtx(bsm->getCBR(),Dij,bsm->getNum_Neig());
 
@@ -83,6 +88,7 @@ void myWaveAppLayer::onBSM(BasicSafetyMessage* bsm) {
 
 void myWaveAppLayer::onWSM(WaveShortMessage* wsm) {
     findHost()->getDisplayString().updateWith("r=16,green");
+    delay=simTime()-wsm->getTimestamp();
 
     //if (mobility->getRoadId()[0] != ':') traciVehicle->changeRoute(wsm->getWsmData(), 9999);
     if (!sentMessage) {
