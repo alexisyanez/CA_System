@@ -38,15 +38,15 @@ OBJS = \
     $O/modules/phy/PhyLayer80211p.o \
     $O/modules/phy/SampledAntenna1D.o \
     $O/modules/phy/SNRThresholdDecider.o \
-    $O/modules/utils/List.o \
-    $O/modules/utils/Nodelist.o \
     $O/modules/messages/BasicSafetyMessage_m.o \
-    $O/modules/messages/my_WSM_m.o
+    $O/modules/messages/my_WSM_m.o \
+    $O/modules/messages/WaveShortMessage_m.o
 
 # Message files
 MSGFILES = \
     modules/messages/BasicSafetyMessage.msg \
-    modules/messages/my_WSM.msg
+    modules/messages/my_WSM.msg \
+    modules/messages/WaveShortMessage.msg
 
 # SM files
 SMFILES =

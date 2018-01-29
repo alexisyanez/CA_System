@@ -19,7 +19,7 @@
 
 
 // cplusplus {{
-#include "veins/modules/messages/WaveShortMessage_m.h"
+#include "modules/messages/WaveShortMessage_m.h"
 // }}
 
 /**

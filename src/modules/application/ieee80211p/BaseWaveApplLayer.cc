@@ -240,6 +240,7 @@ void BaseWaveApplLayer::handleSelfMsg(cMessage* msg) {
         BasicSafetyMessage* bsm = new BasicSafetyMessage();
         populateWSM(bsm);
         sendDown(bsm);
+        cancelEvent(sendBeaconEvt);
         scheduleAt(simTime() + beaconInterval, sendBeaconEvt);
         break;
     }

@@ -20,7 +20,9 @@
 #include "modules/application/ieee80211p/BaseWaveApplLayer.h"
 #include "veins/base/utils/Coord.h"
 #include "veins/base/utils/FWMath.h"
-#include "modules/messages/my_WSM_m.h"
+//#include "modules/messages/my_WSM_m.h"
+
+#include "modules/messages/WaveShortMessage_m.h"
 #include <iostream>
 #include <list>
 
@@ -74,8 +76,8 @@ class myWaveAppLayer : public BaseWaveApplLayer{
         /*std::list<int> Neig;
         std::list<double> Utx_TrAD;*/
 
-        std::list < std::pair < double, int >> Neig;
-        std::list < std::pair < double, int >>::iterator it;
+        mutable std::list < std::pair < double, int >> Neig;
+        mutable std::list < std::pair < double, int >>::iterator it;
 
         // Utx Neighbor
         double Utx_n;
@@ -98,8 +100,8 @@ class myWaveAppLayer : public BaseWaveApplLayer{
         std::list<std::pair<double,int>> replace(std::list<std::pair<double,int>>mylist,int addressSearch, double UtxReplace);
         bool isNeighbor(std::list<std::pair<double,int>>mylist,int addressSearch);
         int* makePriorList(std::list<std::pair<double,int>>mylist);
-        void setingPLinWSM(int* list,My_WSM* wsm);
-        int getMyRank(My_WSM* wsm, int my_id);
+        void setingPLinWSM(int* list,WaveShortMessage* wsm);
+        int getMyRank(WaveShortMessage* wsm, int my_id);
 
 
         cMessage* calcCBR_EV;

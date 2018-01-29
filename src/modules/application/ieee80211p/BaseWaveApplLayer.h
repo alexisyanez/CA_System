@@ -24,7 +24,7 @@
 #include <map>
 #include "veins/base/modules/BaseApplLayer.h"
 #include "veins/modules/utility/Consts80211p.h"
-#include "veins/modules/messages/WaveShortMessage_m.h"
+//#include "veins/modules/messages/WaveShortMessage_m.h"
 #include "veins/modules/messages/WaveServiceAdvertisement_m.h"
 //#include "veins/modules/messages/BasicSafetyMessage_m.h"
 #include "veins/base/connectionManager/ChannelAccess.h"
@@ -33,7 +33,9 @@
 #include "veins/modules/mobility/traci/TraCICommandInterface.h"
 
 #include "modules/messages/BasicSafetyMessage_m.h"
+#include "modules/messages/WaveShortMessage_m.h"
 #include "modules/mac/ieee80211p/WaveAppToMac1609_4Interface.h"
+
 
 using Veins::TraCIMobility;
 using Veins::TraCICommandInterface;

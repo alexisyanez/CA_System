@@ -20,19 +20,7 @@ Define_Module(myWaveAppLayer);
 void myWaveAppLayer::initialize(int stage) {
     BaseWaveApplLayer::initialize(stage);
 
-    Slotted1Enabled = par("Slotted1");
-    Slotted_Ns = par("Slotted_Ns");
-    Slotted_R = par("Slotted_R");
-    Slotted_tau = par("Slotted_tau");
 
-    TrADEnabled = par("TrAD");
-    TrAD_ti = par("TrAD_ti");
-    TrAD_alpha = par("TrAD_alpha");
-    TrAD_Neig = par("TrAD_Neig");
-    TrAD_R = par("TrAD_R");
-
-    calcCBR_EV = new cMessage("CBR evt", CALC_CBR);
-    lastBusyT = 0;
 
     if (stage == 0) {
         //Initializing members and pointers of your application goes here
@@ -40,18 +28,26 @@ void myWaveAppLayer::initialize(int stage) {
         sentMessage = false;
         lastDroveAt = simTime();
         currentSubscribedServiceId = -1;
-//        mymac = FindModule<Mac1609_4*>::findSubModule(getParentModule());
-//        assert(mymac);
 
-//        //initialize pointers to other modules
-//        if (FindModule<MyMac1609_4*>::findSubModule(getParentModule()))
-//        {
-//            mymac = MyMacAccess().get(getParentModule());
-//        }
-//        else {
-//            mymac = NULL;
-//        }
+        // Parametros para Slotted
+        Slotted1Enabled = par("Slotted1");
+        Slotted_Ns = par("Slotted_Ns");
+        Slotted_R = par("Slotted_R");
+        Slotted_tau = par("Slotted_tau");
 
+        // Parametros pas TrAD
+        TrADEnabled = par("TrAD");
+        TrAD_ti = par("TrAD_ti");
+        TrAD_alpha = par("TrAD_alpha");
+        TrAD_Neig = par("TrAD_Neig");
+        TrAD_R = par("TrAD_R");
+
+        // Self message para calculcar CBR
+        calcCBR_EV = new cMessage("CBR evt", CALC_CBR);
+        lastBusyT = 0;
+
+        // Identificar WSM
+        lastWSMid= -1;
     }
     else if (stage == 1) {
         //Initializing members that require initialized other modules goes here
@@ -86,36 +82,33 @@ void myWaveAppLayer::onBSM(BasicSafetyMessage* bsm) {
 }
 
 void myWaveAppLayer::onWSM(WaveShortMessage* wsm) {
-    if (My_WSM* mywsm = dynamic_cast<My_WSM*>(wsm)) {
-        findHost()->getDisplayString().updateWith("r=16,green");
+    findHost()->getDisplayString().updateWith("r=16,green");
 
-        //if (mobility->getRoadId()[0] != ':') traciVehicle->changeRoute(wsm->getWsmData(), 9999);
-        if (!sentMessage) {
-            sentMessage = true;
-            //repeat the received traffic update once in 2 seconds plus some random delay
-            mywsm->setSenderAddress(myId);
-            mywsm->setSerial(3);
-            if (Slotted1Enabled==true) // Aplicar Retardo según distancia
-                {
-                // Inicializar variables para calcular el retardo del timeSlot para slotted-1-persistant
-                double Sij = Slotted_Ns*(1-(fmin(Dij,Slotted_R)/Slotted_R));
-                simtime_t Tslot=Sij*Slotted_tau;
-                scheduleAt(simTime() + Tslot , mywsm->dup());
-                }
-            else if(TrADEnabled==true)
-                {
-                int rank = getMyRank(mywsm,myId);
-                mywsm->setAngleRad(angleRad);
-                mywsm->setSenderPos(currposition);
-                mywsm->setSenderSpeed(currspeed);
-                setingPLinWSM(makePriorList(Neig),mywsm);
-                scheduleAt(simTime() + TrAD_ti*rank , mywsm->dup());
-                }
-            else {
-            scheduleAt(simTime() + 2 + uniform(0.01,0.2), mywsm->dup());
+    //if (mobility->getRoadId()[0] != ':') traciVehicle->changeRoute(wsm->getWsmData(), 9999);
+    if (!sentMessage) {
+        sentMessage = true;
+        //repeat the received traffic update once in 2 seconds plus some random delay
+        wsm->setSenderAddress(myId);
+        wsm->setSerial(3);
+        if (Slotted1Enabled==true) // Aplicar Retardo según distancia
+            {
+            // Inicializar variables para calcular el retardo del timeSlot para slotted-1-persistant
+            double Sij = Slotted_Ns*(1-(fmin(Dij,Slotted_R)/Slotted_R));
+            simtime_t Tslot=Sij*Slotted_tau;
+            scheduleAt(simTime() + Tslot , wsm->dup());
             }
+        else if(TrADEnabled==true)
+            {
+            int rank = getMyRank(wsm,myId);
+            wsm->setAngleRad(angleRad);
+            wsm->setSenderPos(currposition);
+            wsm->setSenderSpeed(currspeed);
+            setingPLinWSM(makePriorList(Neig),wsm);
+            scheduleAt(simTime() + TrAD_ti*rank , wsm->dup());
+            }
+        else {
+        scheduleAt(simTime() + 2 + uniform(0.01,0.2), wsm->dup());
         }
-
     }
     //Your application has received a data message from another car or RSU
     //code for handling the message goes here, see TraciDemo11p.cc for examples
@@ -139,7 +132,7 @@ void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
         break;}
     }
 
-    if (My_WSM* wsm = dynamic_cast<My_WSM*>(msg)) {
+    if (WaveShortMessage* wsm = dynamic_cast<WaveShortMessage*>(msg)) {
         //send this message on the service channel until the counter is 3 or higher.
         //this code only runs when channel switching is enabled
         sendDown(wsm->dup());
@@ -191,9 +184,8 @@ void myWaveAppLayer::handlePositionUpdate(cObject* obj) {
             findHost()->getDisplayString().updateWith("r=16,red");
             sentMessage = true;
 
-            My_WSM* wsm = new My_WSM();
-
-            //WaveShortMessage* wsm = new WaveShortMessage();
+            //My_WSM* wsm = new My_WSM();
+            WaveShortMessage* wsm = new WaveShortMessage();
 
             // Seteando valores agreagdos al paquete My_wsm
             wsm->setAngleRad(angleRad);
@@ -201,7 +193,9 @@ void myWaveAppLayer::handlePositionUpdate(cObject* obj) {
             wsm->setSenderSpeed(currspeed);
             wsm->setOirigin_ID(myId);
             wsm->setOrigin_pos(currposition);
+
             setingPLinWSM(makePriorList(Neig),wsm);
+
             wsm->setID(1);
 
             populateWSM(wsm);
@@ -274,7 +268,7 @@ int* myWaveAppLayer::makePriorList(std::list<std::pair<double,int>>mylist){
     int* arr = new int[mylist.size()];
     mylist.sort();
     mylist.reverse();
-    int i=0;
+    unsigned int i=0;
     for (auto it2 = mylist.begin(); i<mylist.size(); it2++) {
             arr[i]=it2->second;
             i++;
@@ -283,15 +277,18 @@ int* myWaveAppLayer::makePriorList(std::list<std::pair<double,int>>mylist){
 
 }
 
-void myWaveAppLayer::setingPLinWSM(int* list,My_WSM* wsm){
-    for(int i=0;i<sizeof(list);i++){
+void myWaveAppLayer::setingPLinWSM(int* list,WaveShortMessage* wsm){
+    wsm->setPriorityListArraySize(sizeof(list));
+    for(unsigned int i=0;i<sizeof(list);i++){
         wsm->setPriorityList(i,list[i]);
         }
 }
 
-int myWaveAppLayer::getMyRank(My_WSM* wsm, int my_id){
-    for(int i=0;i<wsm->getPriorityListArraySize();i++){
-        if(wsm->getPriorityList(i)==my_id) return i; break;
+int myWaveAppLayer::getMyRank(WaveShortMessage* wsm, int my_id){
+    unsigned int i;
+    for(i=0;i<wsm->getPriorityListArraySize();i++){
+        if(wsm->getPriorityList(i)==my_id) break;
         }
+    return i;
 }
 

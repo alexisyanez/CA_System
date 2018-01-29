@@ -16,18 +16,44 @@
 // You should have received a copy of the GNU General Public License
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-////#include "veins/base/utils/Coord.h"
+//
 
 cplusplus {{
-#include "modules/messages/WaveShortMessage_m.h"
+#include "veins/base/utils/Coord.h"
 }}
-
-class WaveShortMessage;
 class noncobject Coord;
 
-packet BasicSafetyMessage extends WaveShortMessage {
+packet WaveShortMessage {
+	//Version of the Wave Short Message
+	int wsmVersion = 0;
+	//Determine which security mechanism was used
+	int securityType = 0;
+	//Channel Number on which this packet was sent
+	int channelNumber;
+	//Data rate with which this packet was sent
+	int dataRate = 1;
+	//User priority with which this packet was sent (note the AC mapping rules in Mac1609_4::mapUserPriority)
+	int userPriority = 7;
+	//Unique number to identify the service
+	int psid = 0;
+	//Provider Service Context
+	string psc = "Service with some Data";
+	//Length of Wave Short Message
+	int wsmLength;
+	//Data of Wave Short Message
+	string wsmData = "Some Data";
+
+	int senderAddress = 0;
+	int recipientAddress = -1;
+	int serial = 0;
+	simtime_t timestamp = 0;
+	
 	Coord senderPos;
 	Coord senderSpeed;
-	int Num_Neig;
-	double CBR;
+	
+	double angleRad=-1;
+	int priorityList[]; // Orden calculado por el nodo fuente
+	int Oirigin_ID=-1;
+	Coord Origin_pos;
+	int ID =-1;
 }

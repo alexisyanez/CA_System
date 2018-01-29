@@ -15,7 +15,7 @@
 
 cplusplus {{
 #include "veins/base/utils/Coord.h"
-#include "veins/modules/messages/WaveShortMessage_m.h"
+#include "modules/messages/WaveShortMessage_m.h"
 }}
 class WaveShortMessage;
 class noncobject Coord;
