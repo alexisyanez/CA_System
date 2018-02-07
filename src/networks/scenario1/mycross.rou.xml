@@ -69,35 +69,7 @@
     <vehicle id="58" type="typePassenger" route="down-down" depart="0" departPos="random"/>
     <vehicle id="59" type="typePassenger" route="down-down" depart="0" departPos="random"/>
     <vehicle id="60" type="typePassenger" route="down-down" depart="0" departPos="random"/>
-    <vehicle id="61" type="typePassenger" route="down-left" depart="0" departPos="random"/>
-    <vehicle id="62" type="typePassenger" route="down-down" depart="0" departPos="random"/>
-    <vehicle id="63" type="typePassenger" route="down-left" depart="0" departPos="random"/>
-    <vehicle id="64" type="typePassenger" route="down-down" depart="0" departPos="random"/>
-    <vehicle id="65" type="typePassenger" route="down-down" depart="0" departPos="random"/>
-    <vehicle id="66" type="typePassenger" route="down-down" depart="0" departPos="random"/>
-    <vehicle id="67" type="typePassenger" route="down-down" depart="0" departPos="random"/>
-    <vehicle id="68" type="typePassenger" route="left-left" depart="0" departPos="random"/>
-    <vehicle id="69" type="typePassenger" route="down-down" depart="0" departPos="random"/>
-    <vehicle id="70" type="typePassenger" route="down-down" depart="0" departPos="random"/>
-    <vehicle id="71" type="typePassenger" route="down-right" depart="0" departPos="random"/>
-    <vehicle id="72" type="typePassenger" route="down-down" depart="0" departPos="random"/>
-    <vehicle id="73" type="typePassenger" route="down-down" depart="0" departPos="random"/>
-    <vehicle id="74" type="typePassenger" route="down-down" depart="0" departPos="random"/>
-    <vehicle id="75" type="typePassenger" route="down-down" depart="0" departPos="random"/>
-    <vehicle id="76" type="typePassenger" route="down-down" depart="0" departPos="random"/>
-    <vehicle id="77" type="typePassenger" route="down-down" depart="0" departPos="random"/>
-    <vehicle id="78" type="typePassenger" route="down-down" depart="0" departPos="random"/>
-    <vehicle id="79" type="typePassenger" route="down-down" depart="0" departPos="random"/>
-    <vehicle id="80" type="typePassenger" route="down-down" depart="0" departPos="random"/>
-    <vehicle id="81" type="typePassenger" route="down-down" depart="0" departPos="random"/>
-    <vehicle id="82" type="typePassenger" route="down-right" depart="0" departPos="random"/>
-    <vehicle id="83" type="typePassenger" route="down-down" depart="0" departPos="random"/>
-    <vehicle id="84" type="typePassenger" route="down-down" depart="0" departPos="random"/>
-    <vehicle id="85" type="typePassenger" route="down-down" depart="0" departPos="random"/>
-    <vehicle id="86" type="typePassenger" route="down-down" depart="0" departPos="random"/>
-    <vehicle id="87" type="typePassenger" route="left-left" depart="0" departPos="random"/>
-    <vehicle id="88" type="typePassenger" route="down-down" depart="0" departPos="random"/>
-    <vehicle id="89" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+
    <route id="route0" edges="4i 3o"/>
    <flow id="flow0" type="typePassenger" route="route0" begin="0" period="4" number="1000"/>
    
