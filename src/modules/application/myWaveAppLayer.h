@@ -79,7 +79,7 @@ class myWaveAppLayer : public BaseWaveApplLayer{
         mutable std::list < std::pair < double, int >> Neig;
         mutable std::list < std::pair < double, int >>::iterator it;
 
-        // Utx Neighbor
+        // Utx Neighbor, función de utilidad para TrAD
         double Utx_n;
         double Dij;
 
@@ -87,7 +87,10 @@ class myWaveAppLayer : public BaseWaveApplLayer{
         int lastWSMid;
 
         /* stats */
+        //Mide el retardo en la diseminación
         simtime_t delay;
+        //Distancia de propagación del mensaje
+        double distanceProp;
 
 
         //
