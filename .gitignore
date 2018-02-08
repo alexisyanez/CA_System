@@ -34,11 +34,14 @@ Makefile
 
 # Results Folders
 
-/examples/veins/results
-/examples/veins_inet/results
-/src/networks/scenario1/results
+examples/veins/results/
+examples/veins_inet/results/
+#src/networks/scenario1/results/
+#src/networks/scenario1_SlowSpeed/results/
+#src/networks/scenario2/results/
+#src/networks/scenario2_SlowSpeed/results/
 
 # Result files
-*.anf
+#*.anf
 
 
