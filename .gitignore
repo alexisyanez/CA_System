@@ -30,7 +30,10 @@
 *.exe
 *.out
 *.app
+
+# Compilación
 Makefile
+.oppbuildspec
 
 # Results Folders
 
