@@ -1,0 +1,227 @@
+<?xml version="1.0"?>
+<routes>
+        <vType id="typePassenger" accel="2.6" decel="4.5" sigma="0.5" length="2.5" minGap="1" maxSpeed="8" guiShape="passenger"/>
+        <vType id="typeBus" accel="0.8" decel="4.5" sigma="0.5" length="10" minGap="3" maxSpeed="8" guiShape="bus"/>
+
+        <route id="right-down" edges="2i 3o" />
+        <route id="left-left"  edges="2i 1o" />
+        <route id="down-left"  edges="4i 1o" />
+        <route id="down-right" edges="4i 2o" />
+        <route id="down-down"  edges="4i 3o" />
+    <vehicle id="0" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="1" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="2" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="3" type="typePassenger" route="down-left" depart="0" departPos="random"/>
+    <vehicle id="4" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="5" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="6" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="7" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="8" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="9" type="typeBus" route="right-down" depart="0" departPos="random" />
+    <vehicle id="10" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="11" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="12" type="typeBus" route="right-down" depart="0" departPos="random" />
+    <vehicle id="13" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="14" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="15" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="16" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="17" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="18" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="19" type="typePassenger" route="left-left" depart="0" departPos="random"/>
+    <vehicle id="20" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="21" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="22" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="23" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="24" type="typePassenger" route="down-left" depart="0" departPos="random"/>
+    <vehicle id="25" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="26" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="27" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="28" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="29" type="typePassenger" route="down-left" depart="0" departPos="random"/>
+    <vehicle id="30" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="31" type="typeBus" route="right-down" depart="0" departPos="random" />
+    <vehicle id="32" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="33" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="34" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="35" type="typeBus" route="right-down" depart="0" departPos="random" />
+    <vehicle id="36" type="typePassenger" route="down-right" depart="0" departPos="random"/>
+    <vehicle id="37" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="38" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="39" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="40" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="41" type="typeBus" route="right-down" depart="0" departPos="random" />
+    <vehicle id="42" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="43" type="typePassenger" route="left-left" depart="0" departPos="random"/>
+    <vehicle id="44" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="45" type="typePassenger" route="left-left" depart="0" departPos="random"/>
+    <vehicle id="46" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="47" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="48" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="49" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="50" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="51" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="52" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="53" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="54" type="typeBus" route="right-down" depart="0" departPos="random" />
+    <vehicle id="55" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="56" type="typePassenger" route="down-left" depart="0" departPos="random"/>
+    <vehicle id="57" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="58" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="59" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="60" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="61" type="typePassenger" route="down-left" depart="0" departPos="random"/>
+    <vehicle id="62" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="63" type="typePassenger" route="down-left" depart="0" departPos="random"/>
+    <vehicle id="64" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="65" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="66" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="67" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="68" type="typePassenger" route="left-left" depart="0" departPos="random"/>
+    <vehicle id="69" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="70" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="71" type="typePassenger" route="down-right" depart="0" departPos="random"/>
+    <vehicle id="72" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="73" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="74" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="75" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="76" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="77" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="78" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="79" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="80" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="81" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="82" type="typePassenger" route="down-right" depart="0" departPos="random"/>
+    <vehicle id="83" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="84" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="85" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="86" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="87" type="typePassenger" route="left-left" depart="0" departPos="random"/>
+    <vehicle id="88" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="89" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="90" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="91" type="typePassenger" route="down-right" depart="0" departPos="random"/>
+    <vehicle id="92" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="93" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="94" type="typeBus" route="right-down" depart="0" departPos="random" />
+    <vehicle id="95" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="96" type="typeBus" route="right-down" depart="0" departPos="random" />
+    <vehicle id="97" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="98" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="99" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="100" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="101" type="typeBus" route="right-down" depart="0" departPos="random" />
+    <vehicle id="102" type="typePassenger" route="down-left" depart="0" departPos="random"/>
+    <vehicle id="103" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="104" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="105" type="typePassenger" route="down-left" depart="0" departPos="random"/>
+    <vehicle id="106" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="107" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="108" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="109" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="110" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="111" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="112" type="typePassenger" route="left-left" depart="0" departPos="random"/>
+    <vehicle id="113" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="114" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="115" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="116" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="117" type="typePassenger" route="left-left" depart="0" departPos="random"/>
+    <vehicle id="118" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="119" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="120" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="121" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="122" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="123" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="124" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="125" type="typeBus" route="right-down" depart="0" departPos="random" />
+    <vehicle id="126" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="127" type="typePassenger" route="down-left" depart="0" departPos="random"/>
+    <vehicle id="128" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="129" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="130" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="131" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="132" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="133" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="134" type="typePassenger" route="left-left" depart="0" departPos="random"/>
+    <vehicle id="135" type="typePassenger" route="down-left" depart="0" departPos="random"/>
+    <vehicle id="136" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="137" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="138" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="139" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="140" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="141" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="142" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="143" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="144" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="145" type="typeBus" route="right-down" depart="0" departPos="random" />
+    <vehicle id="146" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="147" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="148" type="typeBus" route="right-down" depart="0" departPos="random" />
+    <vehicle id="149" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="150" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="151" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="152" type="typePassenger" route="down-right" depart="0" departPos="random"/>
+    <vehicle id="153" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="154" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="155" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="156" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="157" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="158" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="159" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="160" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="161" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="162" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="163" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="164" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="165" type="typeBus" route="right-down" depart="0" departPos="random" />
+    <vehicle id="166" type="typePassenger" route="down-left" depart="0" departPos="random"/>
+    <vehicle id="167" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="168" type="typeBus" route="right-down" depart="0" departPos="random" />
+    <vehicle id="169" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="170" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="171" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="172" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="173" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="174" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="175" type="typePassenger" route="left-left" depart="0" departPos="random"/>
+    <vehicle id="176" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="177" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="178" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="179" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="180" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="181" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="182" type="typePassenger" route="left-left" depart="0" departPos="random"/>
+    <vehicle id="183" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="184" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="185" type="typePassenger" route="down-left" depart="0" departPos="random"/>
+    <vehicle id="186" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="187" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="188" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="189" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="190" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="191" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="192" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="193" type="typePassenger" route="left-left" depart="0" departPos="random"/>
+    <vehicle id="194" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="195" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="196" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="197" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="198" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+    <vehicle id="199" type="typePassenger" route="down-down" depart="0" departPos="random"/>
+
+   
+    <route id="route0" edges="4i 3o"/>
+    <flow id="flow0" type="typePassenger" route="route0" begin="0" period="0.05" number="1000"/>
+   
+    <route id="route1" edges="2i 1o"/>
+    <flow id="flow1" type="typePassenger" route="route1" begin="1" period="0.01" number="1000"/>
+   
+    <route id="route2" edges="2i 3o"/>
+    <flow id="flow2" type="typePassenger" route="route2" begin="2" period="0.01" number="1000"/>
+
+    <route id="route3" edges="4i 2o"/>
+    <flow id="flow3" type="typePassenger" route="route3" begin="3" period="0.01" number="1000"/>
+
+    <route id="route4" edges="4i 1o"/>
+    <flow id="flow4" type="typeBus" route="route4" begin="4" period="0.05" number="1000"/>
+</routes>

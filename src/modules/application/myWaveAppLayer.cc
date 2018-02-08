@@ -42,6 +42,9 @@ void myWaveAppLayer::initialize(int stage) {
         TrAD_Neig = par("TrAD_Neig");
         TrAD_R = par("TrAD_R");
 
+        // Accident
+        Acc_start = par("Accident_start");
+
         // Self message para calculcar CBR
         calcCBR_EV = new cMessage("CBR evt", CALC_CBR);
         lastBusyT = 0;
@@ -91,6 +94,7 @@ void myWaveAppLayer::onBSM(BasicSafetyMessage* bsm) {
 }
 
 void myWaveAppLayer::onWSM(WaveShortMessage* wsm) {
+    if (wsm->getID()!=lastWSMid && wsm->getOirigin_ID()!=myId ){
     findHost()->getDisplayString().updateWith("r=16,green");
     delay=simTime()-wsm->getTimestamp();
     distanceProp = Dij;
@@ -120,6 +124,8 @@ void myWaveAppLayer::onWSM(WaveShortMessage* wsm) {
         else {
         scheduleAt(simTime() + 2 + uniform(0.01,0.2), wsm->dup());
         }
+        lastWSMid=1;
+    }
     }
     //Your application has received a data message from another car or RSU
     //code for handling the message goes here, see TraciDemo11p.cc for examples
@@ -189,11 +195,16 @@ void myWaveAppLayer::handlePositionUpdate(cObject* obj) {
     currposition = mobility->getCurrentPosition();
     currspeed = mobility->getCurrentSpeed();
 
-    // stopped for for at least 10s?
-    if (mobility->getSpeed() < 1) {
-        if (simTime() - lastDroveAt >= 10 && sentMessage == false) {
+    // stopped for at least 10s?
+    // if (mobility->getSpeed() < 1) {
+    // Accidente programado
+    if (Acc_start < simTime().dbl() && sentMessage == false ){
+       // if (simTime() - lastDroveAt >= 10 && sentMessage == false) {
             findHost()->getDisplayString().updateWith("r=16,red");
             sentMessage = true;
+
+            // Cofirmar que es quien genera WSM
+            delay = -2;
 
             //My_WSM* wsm = new My_WSM();
             WaveShortMessage* wsm = new WaveShortMessage();
@@ -222,7 +233,7 @@ void myWaveAppLayer::handlePositionUpdate(cObject* obj) {
                 //send right away on CCH, because channel switching is disabled
                 sendDown(wsm);
             }
-        }
+        //}
     }
     else{
         lastDroveAt = simTime();

@@ -37,5 +37,8 @@ simple myWaveAppLayer extends BaseWaveApplLayer
     double TrAD_Neig= default(0); 
     double TrAD_R= default(0); 
     
+    //Accident
+    double Accident_start= default(1000);
+ 
 }
 

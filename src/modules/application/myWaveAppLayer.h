@@ -48,6 +48,9 @@ class myWaveAppLayer : public BaseWaveApplLayer{
         double TrAD_Neig;
         double TrAD_R;
 
+        //Accident
+        double Acc_start;
+
     public:
         virtual void initialize(int stage);
         virtual void finish();
