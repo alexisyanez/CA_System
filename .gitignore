@@ -33,7 +33,7 @@
 
 # Compilación
 Makefile
-/.oppbuildspec
+.oppbuildspec
 
 # Results Folders
 
