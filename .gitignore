@@ -45,6 +45,26 @@ examples/veins_inet/results/
 #src/networks/scenario2_SlowSpeed/results/
 
 # Result files
-#*.anf
+*.anf
 
-
+*_m.h
+*_m.cc
+*.pdb
+*.idb
+*.ilk
+*.exe
+*.lib
+*.dll
+.pydevproject
+.settings
+.tstamp
+.tkenvrc
+.tmp*
+env.sh
+**/Makefile
+Makefile.vc
+**/Makefile.vc
+out
+Makefile
+results
+**.vci

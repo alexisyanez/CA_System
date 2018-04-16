@@ -49,6 +49,11 @@ void myWaveAppLayer::initialize(int stage) {
         calcCBR_EV = new cMessage("CBR evt", CALC_CBR);
         lastBusyT = 0;
 
+        // WSM periódico
+        SendP_WSM = par("Send_Per_WSM");
+        WSM_interval = par("WSM_interval");
+        periodic_WSM_EV = new cMessage("WSM Periodic Transmision evt", PER_WSM);
+
         // Identificar WSM
         lastWSMid= -1;
 
@@ -141,6 +146,13 @@ void myWaveAppLayer::onWSA(WaveServiceAdvertisment* wsa) {
 void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
     switch (msg->getKind()) {
     case CALC_CBR: {
+        currCBR = (mac->getBusyTime()).dbl() - lastBusyT;
+        cancelEvent(calcCBR_EV);
+        scheduleAt(simTime() + 1, calcCBR_EV);
+        EV << "CBR=" << currCBR << endl;
+        lastBusyT = (mac->getBusyTime()).dbl();
+        break;}
+    case PER_WSM: {
         currCBR = (mac->getBusyTime()).dbl() - lastBusyT;
         cancelEvent(calcCBR_EV);
         scheduleAt(simTime() + 1, calcCBR_EV);

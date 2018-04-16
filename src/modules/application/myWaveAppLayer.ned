@@ -39,6 +39,9 @@ simple myWaveAppLayer extends BaseWaveApplLayer
     
     //Accident
     double Accident_start= default(1000);
- 
+    
+    //WSM periodico
+    bool Send_Per_WSM = default(false);
+    double wsmInterval =  default(1s) @unit(s);
 }
 

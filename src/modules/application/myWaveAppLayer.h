@@ -51,13 +51,18 @@ class myWaveAppLayer : public BaseWaveApplLayer{
         //Accident
         double Acc_start;
 
+        //Periodic WSM
+        bool SendP_WSM;
+        double WSM_interval;
+
     public:
         virtual void initialize(int stage);
         virtual void finish();
         double distance(const Coord& a, const Coord& b);
 
         enum WaveApplMessageKinds {
-            CALC_CBR
+            CALC_CBR,
+            PER_WSM
         };
 
     protected:
@@ -117,7 +122,7 @@ class myWaveAppLayer : public BaseWaveApplLayer{
 
 
         cMessage* calcCBR_EV;
-
+        cMessage* periodic_WSM_EV;
     };
 
 #endif /* MODULES_APPLICATION_MYWAVEAPPLAYER_H_ */
