@@ -153,11 +153,11 @@ void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
         lastBusyT = (mac->getBusyTime()).dbl();
         break;}
     case PER_WSM: {
-        currCBR = (mac->getBusyTime()).dbl() - lastBusyT;
-        cancelEvent(calcCBR_EV);
-        scheduleAt(simTime() + 1, calcCBR_EV);
-        EV << "CBR=" << currCBR << endl;
-        lastBusyT = (mac->getBusyTime()).dbl();
+        if(SendP_WSM){
+
+        cancelEvent(periodic_WSM_EV);
+        scheduleAt(simTime() + WSM_interval, periodic_WSM_EV);
+        EV << "Sending WSM" << endl;}
         break;}
     }
 
