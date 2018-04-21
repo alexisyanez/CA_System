@@ -171,6 +171,7 @@ class BaseWaveApplLayer : public BaseApplLayer {
         bool dataOnSch;
 
         /* WSA settings */
+        bool sendWSA;
         int currentOfferedServiceId;
         std::string currentServiceDescription;
         Channels::ChannelNumber currentServiceChannel;

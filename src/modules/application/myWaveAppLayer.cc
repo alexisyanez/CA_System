@@ -20,8 +20,6 @@ Define_Module(myWaveAppLayer);
 void myWaveAppLayer::initialize(int stage) {
     BaseWaveApplLayer::initialize(stage);
 
-
-
     if (stage == 0) {
         //Initializing members and pointers of your application goes here
         EV << "Initializing " << par("appName").stringValue() << std::endl;
@@ -49,10 +47,14 @@ void myWaveAppLayer::initialize(int stage) {
         calcCBR_EV = new cMessage("CBR evt", CALC_CBR);
         lastBusyT = 0;
 
+        //WSA
+        sendWSA = par("sendWSA");
+
         // WSM periódico
         SendP_WSM = par("Send_Per_WSM");
-        WSM_interval = par("WSM_interval");
+        WSM_interval = par("wsmInterval");
         periodic_WSM_EV = new cMessage("WSM Periodic Transmision evt", PER_WSM);
+        generatedWSMsSource= 0;
 
         // Identificar WSM
         lastWSMid= -1;
@@ -64,6 +66,8 @@ void myWaveAppLayer::initialize(int stage) {
         distanceProp=-1;
     }
     else if (stage == 1) {
+        //if(sendWSA){
+        //startService(Channels::SCH2, 42, "Traffic Information Service");}
         //Initializing members that require initialized other modules goes here
 
     }
@@ -153,12 +157,30 @@ void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
         lastBusyT = (mac->getBusyTime()).dbl();
         break;}
     case PER_WSM: {
-        if(SendP_WSM){
+
+        WaveShortMessage* wsm = new WaveShortMessage();
+
+                    // Seteando valores agreagdos al paquete My_wsm
+        wsm->setAngleRad(angleRad);
+        wsm->setSenderPos(currposition);
+        wsm->setSenderSpeed(currspeed);
+        wsm->setOirigin_ID(myId);
+        wsm->setOrigin_pos(currposition);
+
+        setingPLinWSM(makePriorList(Neig),wsm);
+
+        generatedWSMsSource++;
+
+        wsm->setID(generatedWSMsSource);
+        populateWSM(wsm);
+        wsm->setWsmData(mobility->getRoadId().c_str());
+        sendDown(wsm);
 
         cancelEvent(periodic_WSM_EV);
         scheduleAt(simTime() + WSM_interval, periodic_WSM_EV);
-        EV << "Sending WSM" << endl;}
-        break;}
+        EV << "Sending WSM" << endl;
+        break;
+        }
     }
 
     if (WaveShortMessage* wsm = dynamic_cast<WaveShortMessage*>(msg)) {
@@ -244,6 +266,10 @@ void myWaveAppLayer::handlePositionUpdate(cObject* obj) {
             else {
                 //send right away on CCH, because channel switching is disabled
                 sendDown(wsm);
+                generatedWSMsSource++;
+                if(SendP_WSM){
+                //cancelEvent(periodic_WSM_EV);
+                scheduleAt(simTime() + WSM_interval, periodic_WSM_EV);}
             }
         //}
     }

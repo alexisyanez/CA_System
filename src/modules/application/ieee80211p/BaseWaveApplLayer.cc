@@ -60,6 +60,8 @@ void BaseWaveApplLayer::initialize(int stage) {
         dataOnSch = par("dataOnSch").boolValue();
         dataUserPriority = par("dataUserPriority").longValue();
 
+        //WSA
+        sendWSA = par("sendWSA");
         wsaInterval = par("wsaInterval").doubleValue();
         communicateWhileParked = par("communicateWhileParked").boolValue();
         currentOfferedServiceId = -1;
@@ -101,9 +103,12 @@ void BaseWaveApplLayer::initialize(int stage) {
                 }
                 firstBeacon = computeAsynchronousSendingTime(beaconInterval, type_CCH);
             }
+            if(sendWSA){
+                startService(Channels::SCH2, 42, "Traffic Information Service");}
 
             if (sendBeacons) {
                 scheduleAt(firstBeacon, sendBeaconEvt);
+
             }
         }
     }
@@ -248,6 +253,7 @@ void BaseWaveApplLayer::handleSelfMsg(cMessage* msg) {
         WaveServiceAdvertisment* wsa = new WaveServiceAdvertisment();
         populateWSM(wsa);
         sendDown(wsa);
+        cancelEvent(sendWSAEvt);
         scheduleAt(simTime() + wsaInterval, sendWSAEvt);
         break;
     }

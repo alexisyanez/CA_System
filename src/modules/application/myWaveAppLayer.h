@@ -123,6 +123,8 @@ class myWaveAppLayer : public BaseWaveApplLayer{
 
         cMessage* calcCBR_EV;
         cMessage* periodic_WSM_EV;
+
+        uint32_t generatedWSMsSource;
     };
 
 #endif /* MODULES_APPLICATION_MYWAVEAPPLAYER_H_ */
