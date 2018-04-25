@@ -20,6 +20,9 @@ Define_Module(myWaveAppLayer);
 void myWaveAppLayer::initialize(int stage) {
     BaseWaveApplLayer::initialize(stage);
 
+    MyCollSignal = registerSignal("MyColl");
+    MyCBRSignal = registerSignal("MyCBR");
+
     if (stage == 0) {
         //Initializing members and pointers of your application goes here
         EV << "Initializing " << par("appName").stringValue() << std::endl;
@@ -155,6 +158,10 @@ void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
         scheduleAt(simTime() + 1, calcCBR_EV);
         EV << "CBR=" << currCBR << endl;
         lastBusyT = (mac->getBusyTime()).dbl();
+        //Emitir estadistica para el CBR
+        emit(MyCBRSignal,currCBR);
+        //Emitir estadistica para el estimador de Collisiones
+        emit(MyCollSignal,mac->getMyCollisions());
         break;}
     case PER_WSM: {
 
@@ -224,6 +231,7 @@ void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
 
 void myWaveAppLayer::handlePositionUpdate(cObject* obj) {
     BaseWaveApplLayer::handlePositionUpdate(obj);
+
 
     angleRad = mobility->getAngleRad();
     currposition = mobility->getCurrentPosition();

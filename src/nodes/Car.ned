@@ -29,6 +29,14 @@ module Car
         string applType; //type of the application layer
         string nicType = default("Nic80211p"); // type of network interface card
         string veinsmobilityType = default("org.car2x.veins.modules.mobility.traci.TraCIMobility"); //type of the mobility module
+        
+        //Señal para guardar CBR
+        @signal[MyCBR](type="double");
+        @statistic[MyCBR](title="Calculo de Channel Busy Ratio"; source="MyCBR"; record=vector,stats; interpolationmode=none);
+
+		//Señal para guardar My Collisions
+        @signal[MyCollisions](type="long");
+		@statistic[MyCollisions](title="Collision estimator from backoff"; source="MyColl"; record=vector,stats; interpolationmode=none);
     gates:
         input veinsradioIn; // gate for sendDirect
     submodules:

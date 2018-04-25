@@ -45,6 +45,8 @@ class WaveAppToMac1609_4Interface {
 
         virtual simtime_t getBusyTime() =  0;
 
+        virtual long getMyCollisions() =  0;  // Función para obtener estimación de las colisiones
+
         virtual ~WaveAppToMac1609_4Interface() {} ;
 };
 

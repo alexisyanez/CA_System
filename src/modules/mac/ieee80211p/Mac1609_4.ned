@@ -65,5 +65,9 @@ simple Mac1609_4 extends BaseMacLayer
         @signal[sigChannelBusy](type=bool);
         // signal informing interested application about a collision
         @signal[sigCollision](type=bool);
+        // Señal que informa sobre una colision estimada 
+        //@signa[sigMyCollStat](type="int");
+        //@statistic[MyCollStat](title="Mi Estimador de Colisiones"; source="MyCollStat"; record=vector,stats; interpolationmode=none);
+        
 
 }

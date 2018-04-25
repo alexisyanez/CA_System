@@ -121,6 +121,9 @@ class Mac1609_4 : public BaseMacLayer,
 				long statsNumBackoff;
 				long statsSlotsBackoff;
 
+				/** Estimador de Colisiones */
+				long MyColl;
+
 				/** @brief Id for debug messages */
 				std::string myId;
 		};
@@ -140,6 +143,8 @@ class Mac1609_4 : public BaseMacLayer,
 		void changeServiceChannel(int channelNumber);
 
         simtime_t getBusyTime();
+
+        long getMyCollisions();  // Función para obtener estimación de las colisiones
 
 		/**
 		 * @brief Change the default tx power the NIC card is using
@@ -253,6 +258,9 @@ class Mac1609_4 : public BaseMacLayer,
 		long statsSlotsBackoff;
 		simtime_t statsTotalBusyTime;
 
+        /** Estimador de Colisiones */
+        long MyColl;
+
 		/** @brief This MAC layers MAC address.*/
 		int myMacAddress;
 
@@ -274,6 +282,8 @@ class Mac1609_4 : public BaseMacLayer,
 		simsignal_t sigChannelBusy;
 		//tell to anybody which is interested when a collision occurred
 		simsignal_t sigCollision;
+        //tell to anybody which is interested when a my collision estimator occurred
+        //simsignal_t sigMyCollStat;
 };
 
 #endif /* ___MAC1609_4_H_*/

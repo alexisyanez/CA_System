@@ -50,6 +50,10 @@ void Mac1609_4::initialize(int stage) {
 		sigChannelBusy = registerSignal("sigChannelBusy");
 		sigCollision = registerSignal("sigCollision");
 
+		// Señal para emitir estadistica de colisiones relacionada al número de backoff
+		//sigMyCollStat = registerSignal("sigMyCollStat");
+
+
 		txPower = par("txPower").doubleValue();
 		bitrate = par("bitrate").longValue();
 		n_dbps = 0;
@@ -138,6 +142,9 @@ void Mac1609_4::initialize(int stage) {
 		statsNumBackoff = 0;
 		statsSlotsBackoff = 0;
 		statsTotalBusyTime = 0;
+
+		//Setear estimador de colisiones
+		MyColl= 0;
 
 		idleChannel = true;
 		lastBusy = simTime();
@@ -630,6 +637,10 @@ simtime_t Mac1609_4::EDCA::startContent(simtime_t idleSince,bool guardActive) {
 				//cw is not increased
 				iter->second.currentBackoff = OWNER intuniform(0,iter->second.cwCur);
 				statsNumBackoff++;
+				if (statsNumBackoff%3>0){
+				    MyColl = statsNumBackoff/3;
+				    //emit(sigMyCollStat, MyStatColl);
+				}
 			}
 
 			simtime_t DIFS = iter->second.aifsn * SLOTLENGTH_11P + SIFS_11P;
@@ -715,6 +726,10 @@ void Mac1609_4::EDCA::backoff(t_access_category ac) {
 	myQueues[ac].currentBackoff = OWNER intuniform(0,myQueues[ac].cwCur);
 	statsSlotsBackoff += myQueues[ac].currentBackoff;
 	statsNumBackoff++;
+    if (statsNumBackoff%3>0){
+        MyColl = statsNumBackoff/3;
+        //emit(sigMyCollStat, MyStatColl);
+    }
 	DBG_MAC << "Going into Backoff because channel was busy when new packet arrived from upperLayer" << std::endl;
 }
 
@@ -726,6 +741,10 @@ void Mac1609_4::EDCA::postTransmit(t_access_category ac) {
 	myQueues[ac].currentBackoff = OWNER intuniform(0,myQueues[ac].cwCur);
 	statsSlotsBackoff += myQueues[ac].currentBackoff;
 	statsNumBackoff++;
+    if (statsNumBackoff%3>0){
+        MyColl = statsNumBackoff/3;
+        //emit(sigMyCollStat, MyStatColl);
+    }
 	DBG_MAC << "Queue " << ac << " will go into post-transmit backoff for " << myQueues[ac].currentBackoff << " slots" << std::endl;
 }
 
@@ -860,6 +879,10 @@ simtime_t Mac1609_4::getSwitchingInterval() {
 
 simtime_t Mac1609_4::getBusyTime() {
     return statsTotalBusyTime;
+}
+
+long Mac1609_4::getMyCollisions() {
+    return MyColl;
 }
 
 bool Mac1609_4::isCurrentChannelCCH() {
