@@ -16,7 +16,7 @@
 import ca_system.nodes.RSU;
 import ca_system.nodes.Scenario;
 
-package ca_system.networks.scenario1;
+package ca_system.networks.scenario_stg1;
 
 network Scenario_stg1 extends Scenario
 {
