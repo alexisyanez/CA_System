@@ -26,9 +26,9 @@ import random
 
 def generate_routefile():
     random.seed(41) # make tests reproducible
-    N = 1200 # number of vehicles in starting
+    N = 200 # number of vehicles in starting
     NvP = 200 # Number of parking vehicles		
-    Nr = 8 # number of routes	
+    Nr = 26 # number of routes	
     Np = 8 # number of parking routes		
     # demand per second from different directions
     pBus = 1./4 		#right-down road
@@ -40,7 +40,7 @@ def generate_routefile():
         print >> routes, """<?xml version="1.0"?>
 <routes>
    <vType id="typePassenger" accel="2.6" decel="4.5" sigma="0.5" length="2.5" minGap="1" maxSpeed="19" guiShape="passenger"/>
-   <vType id="typeBus" accel="0.8" decel="4.5" sigma="0.5" length="10" minGap="3" maxSpeed="19" guiShape="bus" vClass="bus"/>
+   <vType id="typeBus" accel="0.8" decel="4.5" sigma="0.5" length="10" minGap="1" maxSpeed="19" guiShape="bus" vClass="bus"/>
 
   <route id="route0" edges="223300795#0 223300795#4 223300795#5 223300795#6 121815695#0 121815695#1 121815695#2-AddedOnRampEdge 121815695#2 121815695#3 121815695#4"/>
       
@@ -57,6 +57,45 @@ def generate_routefile():
   <route id="route6" edges="23321897#0 23321897#1 23321897#2 23321897#3 449284320#1 20891186#0 20891186#1 20891186#2"/>
 
   <route id="route7" edges="11490172#0 11490172#2 39334084 448533599#0 448533599#1 448533599#2 448533599#3 448533599#4 448533599#5"/>
+
+  <route id="route8" edges="446594494#0 7981319#0 448533599#0 448533599#1 448533599#2 448533599#3 448533599#4 448533599#5"/>
+
+  <route id="route9" edges="449284320#0 449284320#1 449284320#2 41078120#0 121815695#1 121815695#2-AddedOnRampEdge 121815695#2 23321634 447281177#0 72839412"/>
+
+  <route id="route10" edges="449284320#0 449284320#1 20891186#0 20891186#1 20891186#2"/>
+
+  <route id="route11" edges="11490172#0 11490172#2 447281176 108852607 8000232#2"/>
+
+  <route id="route12" edges="448736027#0 448736027#2 448736027#3 223300795#5 223300795#6 121815695#0 121815695#1 121815695#2-AddedOnRampEdge 121815695#2 121815695#3 121815695#4"/>
+
+  <route id="route13" edges="-20891194#3 -20891194#2 -20891194#1 -20891194#0"/>
+
+  <route id="route14" edges="20891194#0 20891194#1 20891194#2 20891194#3"/>
+
+  <route id="route15" edges="23321897#0 -23321920 23321920"/>
+
+  <route id="route16" edges="23321897#0 23321897#1 23321897#2 223300796 -223300796"/>
+
+  <route id="route17" edges="23321897#0 51097478"/>
+
+  <route id="route18" edges="23321897#0 23321897#1 23321898#2"/>
+
+  <route id="route19" edges="449284320#0 449284320#1 449284320#2 449284320#3 121815661#0 448533599#1 448533599#2 448533599#3 448533599#4 448533599#5"/>
+
+  <route id="route20" edges="223300795#0 223300795#4 223300795#5 23321898#0 23321898#2"/>
+
+  <route id="route21" edges="223300795#0 223300795#4 223300795#5 223300795#6 121815661#0 121815661#1"/>
+
+  <route id="route22" edges="-72839412 447281177#1 447281177#2 447281177#3"/>
+
+  <route id="route23" edges="-72839412 447281177#1 20891186#2"/>
+
+  <route id="route24" edges="-72839412 447281177#1 447281177#2 23321901 20891194#2 20891194#3"/>
+
+  <route id="route25" edges="483129710  -20891194#2 -20891194#1 20891186#1 20891186#2"/>
+
+
+
 
   <route id="routei0" edges="223300795#4 223300795#5 223300795#6 121815695#0 121815695#1 121815695#2-AddedOnRampEdge 121815695#2 121815695#3 121815695#4"/>
       
@@ -126,19 +165,32 @@ def generate_routefile():
                 lastVeh = i
 
 	for i in range(5):
-	    print >> routes, '    <flow id="flow%s" type="typeBus" route="route%s" begin="0" period="1" number="195"/>' % (countNr,i)	
+	    print >> routes, '    <flow id="flow%s" type="typeBus" route="route%s" begin="0" vehsPerHour="3000" number="1000"/>' % (countNr,i)	
 	    countNr+= 1
-	    print >> routes, '    <flow id="flow%s" type="typePassenger" route="route%s" begin="0" period="1" number="195"/>' % (countNr,i)
+	    print >> routes, '    <flow id="flow%s" type="typePassenger" route="route%s" begin="0" vehsPerHour="3000" number="1000"/>' % (countNr,i)
+	    countNr += 1
+	    print >> routes, '    <flow id="flow%s" type="typePassenger" route="route%s" begin="0" vehsPerHour="4000" number="1000"/>' % (countNr,i)
+	    countNr += 1	
+	    print >> routes, '    <flow id="flow%s" type="typePassenger" route="route%s" begin="0" vehsPerHour="1000" number="1000"/>' % (countNr,i)
+	    countNr += 1
+            print >> routes, '    <flow id="flow%s" type="typePassenger" route="route%s" begin="0" vehsPerHour="2000" number="1000"/>' % (countNr,i)
+	    countNr += 1
+	    print >> routes, '    <flow id="flow%s" type="typePassenger" route="route%s" begin="0" vehsPerHour="5000" number="1000"/>' % (countNr,i)
+	    countNr += 1	
+	    print >> routes, '    <flow id="flow%s" type="typePassenger" route="route%s" begin="0" vehsPerHour="6000" number="1000"/>' % (countNr,i)
 	    countNr += 1
 
-
 	for i in range(5,Nr):
-           if random.uniform(0,1) < pBus:
-	      print >> routes, '    <flow id="flow%s" type="typeBus" route="route%s" begin="0" period="1" number="195"/>' % (countNr,i)	
-	      countNr += 1
-    	   else: 
-	      print >> routes, '    <flow id="flow%s" type="typePassenger" route="route%s" begin="0" period="1" number="195"/>' % (countNr,i)
-	      countNr += 1
+           #if random.uniform(0,1) < pBus:
+	    #  print >> routes, '    <flow id="flow%s" type="typeBus" route="route%s" begin="0" period="1" number="195"/>' % (countNr,i)	
+	     # countNr += 1
+    	   #else: 
+	   print >> routes, '    <flow id="flow%s" type="typePassenger" route="route%s" begin="0" vehsPerHour="3000"  number="1000"/>' % (countNr,i)
+	   countNr += 1
+	   print >> routes, '    <flow id="flow%s" type="typePassenger" route="route%s" begin="0" vehsPerHour="3500" number="1000"/>' % (countNr,i)
+	   countNr += 1	
+	   print >> routes, '    <flow id="flow%s" type="typePassenger" route="route%s" begin="0" vehsPerHour="4000" number="1000"/>' % (countNr,i)
+	   countNr += 1		
         print >> routes, "</routes>"
 
 # this is the main entry point of this script

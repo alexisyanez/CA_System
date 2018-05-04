@@ -18,7 +18,7 @@ import ca_system.nodes.Scenario;
 
 package ca_system.networks.scenario1;
 
-network Scenario1 extends Scenario
+network Scenario_stg1 extends Scenario
 {
         
     //submodules:
