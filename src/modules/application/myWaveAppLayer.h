@@ -56,10 +56,12 @@ class myWaveAppLayer : public BaseWaveApplLayer{
         double WSM_interval;
 
         //Señal para emitir medida del CBR
-        simsignal_t MyCBRSignal;
+        //simsignal_t MyCBRSignal;
+        cOutVector MyCBRVec;
 
         //Señal para emitir medida de MyColl
-        simsignal_t MyCollSignal;
+        //simsignal_t MyCollSignal;
+        cOutVector MyCollVec;
 
     public:
         virtual void initialize(int stage);

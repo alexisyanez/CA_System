@@ -20,8 +20,9 @@ Define_Module(myWaveAppLayer);
 void myWaveAppLayer::initialize(int stage) {
     BaseWaveApplLayer::initialize(stage);
 
-    MyCollSignal = registerSignal("MyColl");
-    MyCBRSignal = registerSignal("MyCBR");
+    //currentPosXVec.setName("posx");
+
+
 
     if (stage == 0) {
         //Initializing members and pointers of your application goes here
@@ -67,6 +68,10 @@ void myWaveAppLayer::initialize(int stage) {
 
         // Setear distancia de propagación
         distanceProp=-1;
+
+        //
+        MyCollVec.setName("MyColl");
+        MyCBRVec.setName("MyCBR");
     }
     else if (stage == 1) {
         //if(sendWSA){
@@ -159,9 +164,11 @@ void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
         EV << "CBR=" << currCBR << endl;
         lastBusyT = (mac->getBusyTime()).dbl();
         //Emitir estadistica para el CBR
-        emit(MyCBRSignal,currCBR);
+        MyCBRVec.record(currCBR);
+        //emit(MyCBRSignal,currCBR);
         //Emitir estadistica para el estimador de Collisiones
-        emit(MyCollSignal,mac->getMyCollisions());
+        MyCollVec.record(mac->getMyCollisions());
+        //emit(MyCollSignal,mac->getMyCollisions());
         break;}
     case PER_WSM: {
 
