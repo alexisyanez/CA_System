@@ -26,8 +26,8 @@ import random
 
 def generate_routefile():
     random.seed(41) # make tests reproducible
-    N = 200 # number of vehicles in starting
-    NvP = 200 # Number of parking vehicles		
+    N = 1200 # number of vehicles in starting
+    NvP = 200 # Number of starting vehicles		
     Nr = 26 # number of routes	
     Np = 8 # number of parking routes		
     # demand per second from different directions
@@ -133,34 +133,112 @@ def generate_routefile():
 
   <route id="routei17" edges="121815695#2-AddedOnRampEdge 121815695#2 121815695#3 121815695#4"/>
   
-  <route id="routei18" edges="121815695#2 121815695#3 121815695#4"/>"""
+  <route id="routei18" edges="121815695#2 121815695#3 121815695#4"/>
+  
+  <route id="routei19" edges="121815695#3 121815695#4"/>
 
+  <route id="routei20" edges="121815695#4"/>
 
+  <route id="routei21" edges="-20891194#3 -20891194#2 -20891194#1 -20891194#0"/>
+
+  <route id="routei22" edges="-20891194#2 -20891194#1 -20891194#0"/>
+
+  <route id="routei23" edges="-20891194#1 -20891194#0"/>
+
+  <route id="routei24" edges="20891194#0 20891194#1 20891194#2 20891194#3"/>
+
+  <route id="routei25" edges="20891194#1 20891194#2 20891194#3"/>
+
+  <route id="routei26" edges="20891194#2 20891194#3"/>
+
+  <route id="routei27" edges="23321897#0 -23321920 23321920"/>
+
+  <route id="routei28" edges="-23321920 23321920"/>
+
+  <route id="routei29" edges="23321897#0 23321897#1 23321897#2 223300796 -223300796"/>
+
+  <route id="routei30" edges="23321897#1 23321897#2 223300796 -223300796"/>
+
+  <route id="routei31" edges="23321897#2 223300796 -223300796"/>
+
+  <route id="routei32" edges="223300796 -223300796"/>
+
+  <route id="routei33" edges="23321897#0 51097478"/>
+
+  <route id="routei34" edges="23321897#1 23321898#2"/>
+
+  <route id="routei35" edges="449284320#0 449284320#1 449284320#2 449284320#3 121815661#0 448533599#1 448533599#2 448533599#3 448533599#4 448533599#5"/>
+
+  <route id="routei36" edges="449284320#1 449284320#2 449284320#3 121815661#0 448533599#1 448533599#2 448533599#3 448533599#4 448533599#5"/>
+
+  <route id="routei37" edges="449284320#2 449284320#3 121815661#0 448533599#1 448533599#2 448533599#3 448533599#4 448533599#5"/>
+
+  <route id="routei38" edges="449284320#3 121815661#0 448533599#1 448533599#2 448533599#3 448533599#4 448533599#5"/>
+
+  <route id="routei39" edges="121815661#0 448533599#1 448533599#2 448533599#3 448533599#4 448533599#5"/>
+
+  <route id="routei40" edges="448533599#1 448533599#2 448533599#3 448533599#4 448533599#5"/>
+
+  <route id="routei41" edges="448533599#2 448533599#3 448533599#4 448533599#5"/>
+
+  <route id="routei42" edges="448533599#3 448533599#4 448533599#5"/>
+
+  <route id="routei43" edges="448533599#4 448533599#5"/>
+
+  <route id="routei44" edges="448533599#5"/>
+
+  <route id="routei45" edges="223300795#0 223300795#4 223300795#5 23321898#0 23321898#2"/>
+
+  <route id="routei46" edges="223300795#4 223300795#5 23321898#0 23321898#2"/>
+
+  <route id="routei47" edges="223300795#5 23321898#0 23321898#2"/>
+
+  <route id="routei48" edges="23321898#0 23321898#2"/>
+
+  <route id="routei49" edges="223300795#6 121815661#0 121815661#1"/>
+
+  <route id="routei50" edges="121815661#0 121815661#1"/>
+
+  <route id="routei51" edges="121815661#1"/>
+
+  <route id="routei52" edges="-72839412 447281177#1 447281177#2 447281177#3"/>
+
+  <route id="routei53" edges="447281177#1 447281177#2 447281177#3"/>
+
+  <route id="routei54" edges="447281177#2 447281177#3"/>
+
+  <route id="routei55" edges="483129710  -20891194#2 -20891194#1 20891186#1 20891186#2"/>
+
+  <route id="routei56" edges="-20891194#2 -20891194#1 20891186#1 20891186#2"/>
+
+  <route id="routei57" edges="-20891194#1 20891186#1 20891186#2"/>
+
+  <route id="routei58" edges="20891186#1 20891186#2"/>"""
 
         lastVeh = 0
         vehNr = 0
 	countNr = 0 
 
-        for i in range(N/4):
+        for i in range(N/20):
 	   # if 	
             if random.uniform(0,1) < pBus:
-                print >> routes, '    <vehicle id="%i" type="typeBus" route="route%i" depart="0" departPos="random_free"/>' % (vehNr,random.randrange(5))
+                print >> routes, '    <vehicle id="%i" type="typeBus" route="route%i" depart="0" departPos="random"/>' % (vehNr,random.randrange(5)) # departPos="random_free"
                 vehNr += 1
                 lastVeh = i
             else: 
-                print >> routes, '    <vehicle id="%i" type="typePassenger" route="route%i" depart="0" departPos="random_free"/>' % (vehNr,random.randrange(5))
+                print >> routes, '    <vehicle id="%i" type="typePassenger" route="route%i" depart="0" departPos="random"/>' % (vehNr,random.randrange(5))
                 vehNr += 1
                 lastVeh = i
 	   # if countNr == Nr-1: countNr=0	
            # else: countNr+= 1
-        for i in range(3*N/4):
+        for i in range(19*N/20):
 	   # if 	
             if random.uniform(0,1) < pBus:
-                print >> routes, '    <vehicle id="%i" type="typeBus" route="routei%i" depart="0" departPos="random_free"/>' % (vehNr,random.randrange(19))
+                print >> routes, '    <vehicle id="%i" type="typeBus" route="routei%i" depart="0" departPos="random"/>' % (vehNr,random.randrange(59))
                 vehNr += 1
                 lastVeh = i
             else: 
-                print >> routes, '    <vehicle id="%i" type="typePassenger" route="routei%i" depart="0" departPos="random_free"/>' % (vehNr,random.randrange(19))
+                print >> routes, '    <vehicle id="%i" type="typePassenger" route="routei%i" depart="0" departPos="random"/>' % (vehNr,random.randrange(59))
                 vehNr += 1
                 lastVeh = i
 
