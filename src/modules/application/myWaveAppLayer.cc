@@ -51,10 +51,7 @@ void myWaveAppLayer::initialize(int stage) {
         calcCBR_EV = new cMessage("CBR evt", CALC_CBR);
         lastBusyT = 0;
 
-        //WSA
-        sendWSA = par("sendWSA");
-
-        // WSM periódico
+       // WSM periódico
         SendP_WSM = par("Send_Per_WSM");
         WSM_interval = par("wsmInterval");
         periodic_WSM_EV = new cMessage("WSM Periodic Transmision evt", PER_WSM);
@@ -70,7 +67,7 @@ void myWaveAppLayer::initialize(int stage) {
         distanceProp=-1;
 
         //
-        MyCollVec.setName("MyColl");
+        // MyCollVec.setName("MyColl");
         MyCBRVec.setName("MyCBR");
     }
     else if (stage == 1) {
@@ -167,7 +164,7 @@ void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
         MyCBRVec.record(currCBR);
         //emit(MyCBRSignal,currCBR);
         //Emitir estadistica para el estimador de Collisiones
-        MyCollVec.record(mac->getMyCollisions());
+        //MyCollVec.record(mac->getMyCollisions());
         //emit(MyCollSignal,mac->getMyCollisions());
         break;}
     case PER_WSM: {

@@ -61,7 +61,7 @@ class myWaveAppLayer : public BaseWaveApplLayer{
 
         //Señal para emitir medida de MyColl
         //simsignal_t MyCollSignal;
-        cOutVector MyCollVec;
+        //cOutVector MyCollVec;
 
     public:
         virtual void initialize(int stage);

@@ -61,7 +61,7 @@ void BaseWaveApplLayer::initialize(int stage) {
         dataUserPriority = par("dataUserPriority").longValue();
 
         //WSA
-        sendWSA = par("sendWSA");
+        sendWSAs = par("sendWSA").boolValue();
         wsaInterval = par("wsaInterval").doubleValue();
         communicateWhileParked = par("communicateWhileParked").boolValue();
         currentOfferedServiceId = -1;
@@ -103,7 +103,7 @@ void BaseWaveApplLayer::initialize(int stage) {
                 }
                 firstBeacon = computeAsynchronousSendingTime(beaconInterval, type_CCH);
             }
-            if(sendWSA){
+            if(sendWSAs){
                 startService(Channels::SCH2, 42, "Traffic Information Service");}
 
             if (sendBeacons) {
