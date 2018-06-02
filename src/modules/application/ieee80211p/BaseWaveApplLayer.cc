@@ -56,6 +56,9 @@ void BaseWaveApplLayer::initialize(int stage) {
         beaconUserPriority = par("beaconUserPriority").longValue();
         beaconInterval =  par("beaconInterval");
 
+        //Start beaconing at time
+        beaconAtTime = par("beaconAtTime");
+
         dataLengthBits = par("dataLengthBits").longValue();
         dataOnSch = par("dataOnSch").boolValue();
         dataUserPriority = par("dataUserPriority").longValue();
@@ -89,12 +92,12 @@ void BaseWaveApplLayer::initialize(int stage) {
             dataOnSch = false;
             std::cerr << "App wants to send data on SCH but MAC doesn't use any SCH. Sending all data on CCH" << std::endl;
         }
-        simtime_t firstBeacon = simTime();
+        simtime_t firstBeacon = beaconAtTime; //simTime()
 
         if (par("avoidBeaconSynchronization").boolValue() == true) {
 
             simtime_t randomOffset = dblrand() * beaconInterval;
-            firstBeacon = simTime() + randomOffset;
+            firstBeacon = beaconAtTime + randomOffset; //simTime()
 
             if (mac->isChannelSwitchingActive() == true) {
                 if ( beaconInterval.raw() % (mac->getSwitchingInterval().raw()*2)) {
@@ -292,7 +295,7 @@ void BaseWaveApplLayer::startService(Channels::ChannelNumber channel, int servic
     currentServiceChannel = channel;
     currentServiceDescription = serviceDescription;
 
-    simtime_t wsaTime = computeAsynchronousSendingTime(wsaInterval, type_CCH);
+    simtime_t wsaTime = computeAsynchronousSendingTime(beaconAtTime, type_CCH); //wsaInterval
     scheduleAt(wsaTime, sendWSAEvt);
 
 }

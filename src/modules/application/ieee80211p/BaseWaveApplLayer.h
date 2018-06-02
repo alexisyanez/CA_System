@@ -165,6 +165,8 @@ class BaseWaveApplLayer : public BaseApplLayer {
         simtime_t beaconInterval;
         bool sendBeacons;
 
+        simtime_t beaconAtTime;
+
         /* WSM (data) settings */
         uint32_t  dataLengthBits;
         uint32_t  dataUserPriority;
