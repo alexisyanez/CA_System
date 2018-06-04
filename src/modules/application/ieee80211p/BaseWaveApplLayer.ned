@@ -50,7 +50,7 @@ simple BaseWaveApplLayer like IBaseApplLayer
 
         bool avoidBeaconSynchronization = default(true); //don't start beaconing directly after node was created but delay to avoid artifical synchronization
 
-        bool sendWSAs = default(true);
+        bool sendWSA = default(true);
         int wsaLengthBits = default(250bit) @unit(bit);
         double wsaInterval =  default(1s) @unit(s);
 

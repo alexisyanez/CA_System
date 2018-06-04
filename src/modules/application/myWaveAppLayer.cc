@@ -271,7 +271,7 @@ void myWaveAppLayer::handlePositionUpdate(cObject* obj) {
 
             //host is standing still due to crash
             if (dataOnSch) {
-                startService(Channels::SCH2, 42, "Traffic Information Service");
+                //startService(Channels::SCH2, 42, "Traffic Information Service");
                 //started service and server advertising, schedule message to self to send later
                 scheduleAt(computeAsynchronousSendingTime(1,type_SCH),wsm);
             }

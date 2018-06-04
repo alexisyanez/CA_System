@@ -84,6 +84,7 @@ void BaseWaveApplLayer::initialize(int stage) {
         receivedBSMs = 0;
         receivedWSAs = 0;
         receivedWSMs = 0;
+
     }
     else if (stage == 1) {
         //simulate asynchronous channel access
@@ -92,12 +93,12 @@ void BaseWaveApplLayer::initialize(int stage) {
             dataOnSch = false;
             std::cerr << "App wants to send data on SCH but MAC doesn't use any SCH. Sending all data on CCH" << std::endl;
         }
-        simtime_t firstBeacon = beaconAtTime; //simTime()
+        simtime_t firstBeacon = simTime();//beaconAtTime;
 
         if (par("avoidBeaconSynchronization").boolValue() == true) {
 
             simtime_t randomOffset = dblrand() * beaconInterval;
-            firstBeacon = beaconAtTime + randomOffset; //simTime()
+            firstBeacon = simTime() + randomOffset; //
 
             if (mac->isChannelSwitchingActive() == true) {
                 if ( beaconInterval.raw() % (mac->getSwitchingInterval().raw()*2)) {
@@ -110,7 +111,7 @@ void BaseWaveApplLayer::initialize(int stage) {
                 startService(Channels::SCH2, 42, "Traffic Information Service");}
 
             if (sendBeacons) {
-                scheduleAt(firstBeacon, sendBeaconEvt);
+                scheduleAt(firstBeacon, sendBeaconEvt);//beaconAtTime+
 
             }
         }
@@ -295,8 +296,8 @@ void BaseWaveApplLayer::startService(Channels::ChannelNumber channel, int servic
     currentServiceChannel = channel;
     currentServiceDescription = serviceDescription;
 
-    simtime_t wsaTime = computeAsynchronousSendingTime(beaconAtTime, type_CCH); //wsaInterval
-    scheduleAt(wsaTime, sendWSAEvt);
+    simtime_t wsaTime = computeAsynchronousSendingTime(wsaInterval, type_CCH); //wsaInterval
+    scheduleAt(wsaTime, sendWSAEvt); //+beaconAtTime
 
 }
 
