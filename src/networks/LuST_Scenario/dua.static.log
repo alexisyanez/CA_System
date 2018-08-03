@@ -1,0 +1,19 @@
+Loading net-file from '/home/aware/git/CA_System/src/networks/LuST_Scenario/lust.net.xml'... done (546ms).
+Loading additional-files from '/home/aware/git/CA_System/src/networks/LuST_Scenario/vtypes.add.xml'... done (0ms).
+Loading additional-files from '/home/aware/git/CA_System/src/networks/LuST_Scenario/busstops.add.xml'... done (7ms).
+Loading additional-files from '/home/aware/git/CA_System/src/networks/LuST_Scenario/e1detectors.add.xml'... done (28ms).
+Loading additional-files from '/home/aware/git/CA_System/src/networks/LuST_Scenario/lust.poly.xml'... done (273ms).
+Loading additional-files from '/home/aware/git/CA_System/src/networks/LuST_Scenario/tll.static.xml'... done (7ms).
+Loading done.
+Simulation started with time: 0.00
+Performance: 
+ Duration: 197601ms
+ Real time factor: 9.27121
+ UPS: 980.243015
+Vehicles: 
+ Inserted: 443 (Loaded: 451)
+ Running: 133
+ Waiting: 0
+
+DijkstraRouterTT answered 546 queries and explored 1810.22 edges on average.
+DijkstraRouterTT spent 362ms answering queries (0.66ms on average).
