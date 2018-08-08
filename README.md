@@ -21,3 +21,7 @@ Systema Context-aware para la elección de protocolos en cruce tipo X
 mas información en el siguiente [Link](https://stackoverflow.com/questions/44385671/error-when-building-veins-inet-subproject). 
 * Recordar copiar el contenido de /src/modules/messages/WaveShortMessage.msg al directorio de veins.
 * Para correr simulador en servidor remoto con puertos TCP cerrados cambiar linea 405 de sumo-launchd.py en la carpeta de Veins a 2 "remote_port = 5555 #find_unused_port()"
+* Para correr sumo sin interfaz gráfica y para que no se interrumpan multiples corridas utilizar la siguiente linea para ejecutar sumo-launchd:
+```
+ python sumo-launchd.py -vv 
+```
