@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<routes>
+    <vType id="typePassenger" accel="2.6" decel="4.5" sigma="0.5" length="2.5" minGap="1" maxSpeed="19" guiShape="passenger"/>
+    <vType id="typeBus" accel="0.8" decel="4.5" sigma="0.5" length="10" minGap="1" maxSpeed="19" guiShape="bus" vClass="bus"/>
+
+	<route id="route0" edges="223300795#0 223300795#4 223300795#5 223300795#6 121815695#0 121815695#1 121815695#2-AddedOnRampEdge 121815695#2 121815695#3 121815695#4"/>
+	<route id="route1" edges="446594494#0 446594494#2 121815662#0 121815662#1 121815662#2 407593363#0 407593363#1"/>
+	<route id="route2" edges="446594494#0 446594494#2 121815661#0 121815661#1"/>
+	<route id="route3" edges="449284320#0 449284320#1 449284320#2 449284320#3 121815661#0 121815661#1"/>
+	<route id="route9" edges="449284320#0 449284320#1 449284320#2 41078120#0 121815695#1 121815695#2-AddedOnRampEdge 121815695#2 23321634 447281177#0 72839412"/>
+	<route id="route10" edges="449284320#0 449284320#1 449284320#2 449284320#3 121815662#0 121815662#1 121815662#2 407593363#0 407593363#1"/>
+	<route id="route21" edges="223300795#0 223300795#4 223300795#5 223300795#6 121815661#0 121815661#1"/>
+	
+
+    <flow id="flow0" type="typeBus" route="route0" begin="0" vehsPerHour="3000" number="1000"/>
+    <flow id="flow1" type="typePassenger" route="route0" begin="0" vehsPerHour="3000" number="1000"/>
+    <flow id="flow2" type="typePassenger" route="route0" begin="0" vehsPerHour="4000" number="1000"/>
+    <flow id="flow3" type="typePassenger" route="route0" begin="0" vehsPerHour="1000" number="1000"/>
+    <flow id="flow4" type="typePassenger" route="route0" begin="0" vehsPerHour="2000" number="1000"/>
+    <flow id="flow5" type="typePassenger" route="route0" begin="0" vehsPerHour="5000" number="1000"/>
+    <flow id="flow6" type="typePassenger" route="route0" begin="0" vehsPerHour="6000" number="1000"/>
+    <flow id="flow7" type="typeBus" route="route1" begin="0" vehsPerHour="3000" number="1000"/>
+    <flow id="flow8" type="typePassenger" route="route1" begin="0" vehsPerHour="3000" number="1000"/>
+    <flow id="flow9" type="typePassenger" route="route1" begin="0" vehsPerHour="4000" number="1000"/>
+    <flow id="flow10" type="typePassenger" route="route1" begin="0" vehsPerHour="1000" number="1000"/>
+    <flow id="flow11" type="typePassenger" route="route1" begin="0" vehsPerHour="2000" number="1000"/>
+    <flow id="flow12" type="typePassenger" route="route1" begin="0" vehsPerHour="5000" number="1000"/>
+    <flow id="flow13" type="typePassenger" route="route1" begin="0" vehsPerHour="6000" number="1000"/>
+    <flow id="flow17" type="typePassenger" route="route2" begin="0" vehsPerHour="1000" number="1000"/>
+    <flow id="flow18" type="typePassenger" route="route2" begin="0" vehsPerHour="2000" number="1000"/>
+    <flow id="flow21" type="typeBus" route="route3" begin="0" vehsPerHour="3000" number="1000"/>
+    <flow id="flow22" type="typePassenger" route="route3" begin="0" vehsPerHour="3000" number="1000"/>
+    <flow id="flow23" type="typePassenger" route="route3" begin="0" vehsPerHour="4000" number="1000"/>
+    <flow id="flow24" type="typePassenger" route="route3" begin="0" vehsPerHour="1000" number="1000"/>
+    <flow id="flow25" type="typePassenger" route="route3" begin="0" vehsPerHour="2000" number="1000"/>
+    <flow id="flow26" type="typePassenger" route="route3" begin="0" vehsPerHour="5000" number="1000"/>
+    <flow id="flow27" type="typePassenger" route="route3" begin="0" vehsPerHour="6000" number="1000"/>
+    <flow id="flow46" type="typePassenger" route="route9" begin="0" vehsPerHour="5000" number="1000"/>
+    <flow id="flow47" type="typeBus" route="route9" begin="0" vehsPerHour="3000"  number="1000"/>
+    <flow id="flow48" type="typePassenger" route="route9" begin="0" vehsPerHour="5000" number="1000"/>
+    <flow id="flow49" type="typePassenger" route="route9" begin="0" vehsPerHour="5000" number="1000"/>
+    <flow id="flow50" type="typePassenger" route="route10" begin="0" vehsPerHour="3500" number="1000"/>
+    <flow id="flow51" type="typePassenger" route="route10" begin="0" vehsPerHour="4000" number="1000"/>
+    <flow id="flow83" type="typePassenger" route="route21" begin="0" vehsPerHour="3000"  number="1000"/>
+    <flow id="flow84" type="typePassenger" route="route21" begin="0" vehsPerHour="3500" number="1000"/>
+    <flow id="flow85" type="typePassenger" route="route21" begin="0" vehsPerHour="4000" number="1000"/>
+</routes>

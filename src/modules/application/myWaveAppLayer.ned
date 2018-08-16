@@ -38,7 +38,7 @@ simple myWaveAppLayer extends BaseWaveApplLayer
     double TrAD_R= default(0); 
     
     //Accident
-    double Accident_start= default(1000);
+    double Accident_start= default(5000);
     
     //WSM periodico
     bool Send_Per_WSM = default(false);

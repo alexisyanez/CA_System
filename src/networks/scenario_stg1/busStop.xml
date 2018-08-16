@@ -1,0 +1,13 @@
+<additionals>
+    <busStop id="busStop_121815661#0_0_1" lane="121815661#0_0" startPos="14.07" endPos="24.07"/>
+    <busStop id="busStop_121815662#0_0_4" lane="121815662#0_0" startPos="9.05" endPos="19.05"/>
+    <busStop id="busStop_121815662#1_0_5" lane="121815662#1_0" startPos="1.82" endPos="11.82"/>
+    <busStop id="busStop_121815695#0_0_6" lane="121815695#0_0" startPos="13.49" endPos="23.49"/>
+    <busStop id="busStop_121815695#0_0_7" lane="121815695#0_0" startPos="10.29" endPos="20.29"/>
+    <busStop id="busStop_223300795#6_0_8" lane="223300795#6_0" startPos="79.85" endPos="89.85"/>
+    <busStop id="busStop_223300795#6_0_9" lane="223300795#6_0" startPos="70.62" endPos="80.62"/>
+    <busStop id="busStop_446594494#2_0_2" lane="446594494#2_0" startPos="113.88" endPos="123.88"/>
+    <busStop id="busStop_446594494#2_0_3" lane="446594494#2_0" startPos="103.67" endPos="113.67"/>
+    <busStop id="busStop_449284320#3_0_0" lane="449284320#3_0" startPos="86.91" endPos="96.91"/>
+    <busStop id="busStop_449284320#3_0_10" lane="449284320#3_0" startPos="71.90" endPos="81.90"/>
+</additionals>
