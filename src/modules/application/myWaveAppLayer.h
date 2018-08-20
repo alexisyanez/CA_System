@@ -50,6 +50,7 @@ class myWaveAppLayer : public BaseWaveApplLayer{
 
         //Accident
         double Acc_start;
+        bool meACC;
 
         //Periodic WSM
         bool SendP_WSM;

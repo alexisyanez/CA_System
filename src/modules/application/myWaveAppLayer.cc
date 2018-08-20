@@ -46,6 +46,7 @@ void myWaveAppLayer::initialize(int stage) {
 
         // Accident
         Acc_start = par("Accident_start");
+        meACC=par("MeInAcc");
 
         // Self message para calculcar CBR
         calcCBR_EV = new cMessage("CBR evt", CALC_CBR);
@@ -244,7 +245,7 @@ void myWaveAppLayer::handlePositionUpdate(cObject* obj) {
     // stopped for at least 10s?
     // if (mobility->getSpeed() < 1) {
     // Accidente programado
-    if (Acc_start < simTime().dbl() && sentMessage == false ){
+    if (meACC &&  Acc_start < simTime().dbl() && sentMessage == false ){
        // if (simTime() - lastDroveAt >= 10 && sentMessage == false) {
             findHost()->getDisplayString().updateWith("r=16,red");
             sentMessage = true;
