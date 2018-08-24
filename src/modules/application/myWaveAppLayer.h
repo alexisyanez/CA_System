@@ -26,6 +26,7 @@
 #include <iostream>
 #include <list>
 
+
 //#include "veins/modules/mac/ieee80211p/Mac1609_4.h"
 //#include "modules/mac/MyMac1609_4.h"
 
@@ -96,6 +97,7 @@ class myWaveAppLayer : public BaseWaveApplLayer{
         mutable std::list < std::pair < double, int >> Neig;
         mutable std::list < std::pair < double, int >>::iterator it;
 
+        mutable std::list < double > meanCBR;
         // Utx Neighbor, función de utilidad para TrAD
         double Utx_n;
         double Dij;
@@ -128,6 +130,7 @@ class myWaveAppLayer : public BaseWaveApplLayer{
         int* makePriorList(std::list<std::pair<double,int>>mylist);
         void setingPLinWSM(int* list,WaveShortMessage* wsm);
         int getMyRank(WaveShortMessage* wsm, int my_id);
+        double avg(std::list<double> list);
 
 
         cMessage* calcCBR_EV;

@@ -83,6 +83,7 @@ void myWaveAppLayer::finish() {
     BaseWaveApplLayer::finish();
     recordScalar("delayWSM",delay);
     recordScalar("Dist_Propa",distanceProp);
+    recordScalar("Mean CBR",avg(meanCBR));
     //statistics recording goes here
 
 }
@@ -163,6 +164,7 @@ void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
         lastBusyT = (mac->getBusyTime()).dbl();
         //Emitir estadistica para el CBR
         MyCBRVec.record(currCBR);
+        meanCBR.push_back(currCBR);
         //emit(MyCBRSignal,currCBR);
         //Emitir estadistica para el estimador de Collisiones
         //MyCollVec.record(mac->getMyCollisions());
@@ -363,5 +365,15 @@ int myWaveAppLayer::getMyRank(WaveShortMessage* wsm, int my_id){
         if(wsm->getPriorityList(i)==my_id) break;
         }
     return i;
+}
+
+double myWaveAppLayer::avg(std::list<double> list)
+{
+    double avg = 0;
+    std::list<double>::const_iterator it3;
+    for(it3 = list.begin(); it3 != list.end(); it3++) avg += *it3;
+    avg /= list.size();
+    return avg;
+
 }
 
