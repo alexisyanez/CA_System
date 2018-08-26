@@ -80,11 +80,16 @@ void myWaveAppLayer::initialize(int stage) {
 }
 
 void myWaveAppLayer::finish() {
+    //statistics recording goes here
     BaseWaveApplLayer::finish();
     recordScalar("delayWSM",delay);
     recordScalar("Dist_Propa",distanceProp);
-    recordScalar("Mean CBR",avg(meanCBR));
-    //statistics recording goes here
+    recordScalar("Mean_CBR",avg(meanCBR));
+    recordScalar("Mean_Speed",avg(meanSpeed));
+    NumNeig.pop_front();
+    recordScalar("Mean_Neig",avg(NumNeig));
+    recordScalar("Mean_Neig_of_Neig",avg(meanNeig2));
+
 
 }
 
@@ -96,6 +101,7 @@ void myWaveAppLayer::onBSM(BasicSafetyMessage* bsm) {
     Dij = mobility->getPositionAt(SimTime()).distance(bsm->getSenderPos());
     Utx_n=calculateUtx(bsm->getCBR(),Dij,bsm->getNum_Neig());
 
+    meanNeig2.push_back(bsm->getNum_Neig());
     // Se agrega a la lista si no esta indexado
     if(!isNeighbor(Neig,bsm->getSenderAddress())){
         std::pair < double, int >p1 = std::make_pair (Utx_n,bsm->getSenderAddress());
@@ -243,6 +249,8 @@ void myWaveAppLayer::handlePositionUpdate(cObject* obj) {
     angleRad = mobility->getAngleRad();
     currposition = mobility->getCurrentPosition();
     currspeed = mobility->getCurrentSpeed();
+    meanSpeed.push_back(currspeed.x);
+    NumNeig.push_back(Neig.size());
 
     // stopped for at least 10s?
     // if (mobility->getSpeed() < 1) {

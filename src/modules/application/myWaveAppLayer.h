@@ -86,18 +86,21 @@ class myWaveAppLayer : public BaseWaveApplLayer{
         Coord currposition;
         Coord currspeed;
 
-        // Channel Busy Ratio
-        double currCBR;
         double lastBusyT;
 
-        // Neighbor list
-        /*std::list<int> Neig;
-        std::list<double> Utx_TrAD;*/
-
-        mutable std::list < std::pair < double, int >> Neig;
-        mutable std::list < std::pair < double, int >>::iterator it;
-
+        // Promedio de Channel Busy Rate
         mutable std::list < double > meanCBR;
+
+        //número reportado de vecinos
+        mutable std::list < double > NumNeig;
+
+        // Promedio de vecinos de vecinos
+        mutable std::list < double > meanNeig2;
+
+        // Promedio de Velocidad
+        mutable std::list < double > meanSpeed;
+
+
         // Utx Neighbor, función de utilidad para TrAD
         double Utx_n;
         double Dij;

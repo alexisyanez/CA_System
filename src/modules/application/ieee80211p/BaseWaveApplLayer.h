@@ -196,6 +196,13 @@ class BaseWaveApplLayer : public BaseApplLayer {
         /* messages for periodic events such as beacon and WSA transmissions */
         cMessage* sendBeaconEvt;
         cMessage* sendWSAEvt;
+
+        // Neighbor list
+        mutable std::list < std::pair < double, int >> Neig;
+        mutable std::list < std::pair < double, int >>::iterator it;
+
+        // Channel Busy Ratio
+        double currCBR;
 };
 
 #endif /* BASEWAVEAPPLLAYER_H_ */
