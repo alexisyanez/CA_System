@@ -138,8 +138,8 @@ void myWaveAppLayer::onWSM(WaveShortMessage* wsm) {
             {
             int rank = getMyRank(wsm,myId);
             wsm->setAngleRad(angleRad);
-            wsm->setSenderPos(currposition);
-            wsm->setSenderSpeed(currspeed);
+            wsm->setSenderPos(curPosition);
+            wsm->setSenderSpeed(curSpeed);
             setingPLinWSM(makePriorList(Neig),wsm);
             scheduleAt(simTime() + TrAD_ti*rank , wsm->dup());
             }
@@ -182,10 +182,10 @@ void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
 
                     // Seteando valores agreagdos al paquete My_wsm
         wsm->setAngleRad(angleRad);
-        wsm->setSenderPos(currposition);
-        wsm->setSenderSpeed(currspeed);
+        wsm->setSenderPos(curPosition);
+        wsm->setSenderSpeed(curSpeed);
         wsm->setOirigin_ID(myId);
-        wsm->setOrigin_pos(currposition);
+        wsm->setOrigin_pos(curPosition);
 
         setingPLinWSM(makePriorList(Neig),wsm);
 
@@ -247,9 +247,9 @@ void myWaveAppLayer::handlePositionUpdate(cObject* obj) {
 
 
     angleRad = mobility->getAngleRad();
-    currposition = mobility->getCurrentPosition();
-    currspeed = mobility->getCurrentSpeed();
-    meanSpeed.push_back(currspeed.x);
+    //currposition = mobility->getCurrentPosition();
+    //currspeed = mobility->getCurrentSpeed();
+    meanSpeed.push_back(sqrt(pow((curSpeed.x),2)+pow((curSpeed.y),2)));
     NumNeig.push_back(Neig.size());
 
     // stopped for at least 10s?
@@ -268,10 +268,10 @@ void myWaveAppLayer::handlePositionUpdate(cObject* obj) {
 
             // Seteando valores agreagdos al paquete My_wsm
             wsm->setAngleRad(angleRad);
-            wsm->setSenderPos(currposition);
-            wsm->setSenderSpeed(currspeed);
+            wsm->setSenderPos(curPosition);
+            wsm->setSenderSpeed(curSpeed);
             wsm->setOirigin_ID(myId);
-            wsm->setOrigin_pos(currposition);
+            wsm->setOrigin_pos(curPosition);
 
             setingPLinWSM(makePriorList(Neig),wsm);
 

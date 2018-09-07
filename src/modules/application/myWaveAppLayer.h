@@ -83,8 +83,8 @@ class myWaveAppLayer : public BaseWaveApplLayer{
         /* state of the vehicle */
         double angleRad;
 
-        Coord currposition;
-        Coord currspeed;
+        //Coord currposition;
+        //Coord currspeed;
 
         double lastBusyT;
 
