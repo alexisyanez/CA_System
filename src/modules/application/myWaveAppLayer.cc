@@ -141,7 +141,8 @@ void myWaveAppLayer::onWSM(WaveShortMessage* wsm) {
             wsm->setSenderPos(curPosition);
             wsm->setSenderSpeed(curSpeed);
             setingPLinWSM(makePriorList(Neig),wsm);
-            scheduleAt(simTime() + TrAD_ti*rank , wsm->dup());
+            simtime_t TS =  TrAD_ti*rank;
+            scheduleAt(simTime() + TS , wsm->dup());
             }
         else {
         scheduleAt(simTime() + 2 + uniform(0.01,0.2), wsm->dup());

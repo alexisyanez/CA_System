@@ -10,8 +10,9 @@ WSA = ["false","true"]
 IB= ["0,5s,","0.1s,"]
 
 List1=[[],[],[]] #PDR - EED - DS
-List2= [[[[[],[]],[[],[]]],[[[],[]],[[],[]]],[[[],[]],[[],[]]],[[[],[]],[[],[]]]],[[[[],[]],[[],[]]],[[[],[]],[[],[]]],[[[],[]],[[],[]]],[[[],[]],[[],[]]]]]
+List2= [[[[],[]],[[],[]]],[[[],[]],[[],[]]],[[[],[]],[[],[]]],[[[],[]],[[],[]]]]#,[[[[],[]],[[],[]]],[[[],[]],[[],[]]],[[[],[]],[[],[]]],[[[],[]],[[],[]]]]]
 List3= [[[[],[]],[[],[]]],[[[],[]],[[],[]]],[[[],[]],[[],[]]],[[[],[]],[[],[]]]]
+
 
 for l in range (0,4)
 	for k in range(0,2)
@@ -51,13 +52,53 @@ for l in range (0,4)
 				f.close()
 			
 				Mx=[np.mean(list1[0]), np.mean(list1[1]), np.mean(list1[1])]		
-				Sx=[np.std(list1[0]), np.std(list1[1]), np.std(list1[1])]	
-				List2[0][l][k][j].append(Mx)
-				List2[1][l][k][j].append(Sx)
+				#Sx=[np.std(list1[0]), np.std(list1[1]), np.std(list1[1])]	
+				List2[l][k][j].append(Mx)
+				#List2[1][l][k][j].append(Sx)
 				List3[l][k][j].append(len(list1[2]))
 				
 			
-			
+out = "MeanMetrics-Slotted"
+
+
+mean_PDR=np.zeros(4,4)
+mean_EED=np.zeros(4,4)
+mean_DS=np.zeros(4,4)
+std_PDR=np.zeros(4,4)
+std_EED=np.zeros(4,4)
+std_DS=np.zeros(4,4)
+
+for i in range(0,4)
+	for j in range(0,4)
+		mean_PDR[i][j]=List2[0][][][][0]
+
+#print(str(np.mean(ListG[0][0])))
+for i in range(0,29):
+	Var1[0][i]=np.mean(ListG1[0][i])
+	Var1[1][i]=np.mean(ListG1[1][i])
+	
+for i in range(0,29):
+	Var2[0][i]=np.mean(ListG2[0][i])
+	Var2[1][i]=np.mean(ListG2[1][i])
+					
+#Imprimir datos en un archivo .txt
+mat=np.matrix(Var1)
+mat2=np.matrix(Var2)	
+
+nameOut = out+"Var05.txt" 
+fw = open(nameOut, 'w')
+fw.write('Promedios (fila 1) y STD (fila 2) ACC para Var 0.05\n')
+np.savetxt(fw, mat)
+fw.close()	
+
+
+
+nameOut = out+"STD.txt" 
+fw = open(nameOut, 'w')
+fw.write('Promedios (fila 1) y STD (fila 2) ACC para Var 0.2n \n')
+np.savetxt(fw, mat2)
+fw.close()
+
 
 
 Pr = "TrAD-WSM-"
@@ -105,11 +146,14 @@ for l in range (0,4)
 							else
 								List4[0].append(0)
 					j=j+1
+				f.close()
 				
+				Mx=[np.mean(list1[0]), np.mean(list1[1]), np.mean(list1[1])]		
+				Sx=[np.std(list1[0]), np.std(list1[1]), np.std(list1[1])]	
 				List5[0][l][k][j].append(np.mean(list4))
 				List5[1][l][k][j].append(np.std(list4)))
 				List6[l][k][j].append(np.mean(list4(0)))								
-				f.close()
+				
 					
 
 
