@@ -5,29 +5,36 @@ import numpy as np
 namePrefix = "WithChSw-" 
 
 Pr = "slotted-WSM_"
-Pri= ["Ns3_p2","Ns5","p3-2","p3-3"]
+Pri= ["Ns3_p2-","Ns5-","p3-2,","p3-3,"]
 WSA = ["false","true"]
-IB= ["0,5s,","0.1s,"]
+IB= ["0.5s,","0.1s,"]
 
 List1=[[],[],[]] #PDR - EED - DS
-List2= [[[[],[]],[[],[]]],[[[],[]],[[],[]]],[[[],[]],[[],[]]],[[[],[]],[[],[]]]]#,[[[[],[]],[[],[]]],[[[],[]],[[],[]]],[[[],[]],[[],[]]],[[[],[]],[[],[]]]]]
-List3= [[[[],[]],[[],[]]],[[[],[]],[[],[]]],[[[],[]],[[],[]]],[[[],[]],[[],[]]]]
+PDR=[[[],[],[],[]],[[],[],[],[]],[[],[],[],[]],[[],[],[],[]]]
+EED=[[[],[],[],[]],[[],[],[],[]],[[],[],[],[]],[[],[],[],[]]]
+DS=[[[],[],[],[]],[[],[],[],[]],[[],[],[],[]],[[],[],[],[]]]
+
+#List2= [[[[],[]],[[],[]]],[[[],[]],[[],[]]],[[[],[]],[[],[]]],[[[],[]],[[],[]]]]#,[[[[],[]],[[],[]]],[[[],[]],[[],[]]],[[[],[]],[[],[]]],[[[],[]],[[],[]]]]]
+List3= [[[],[],[],[]],[[],[],[],[]],[[],[],[],[]],[[],[],[],[]]]
 
 
-for l in range (0,4)
-	for k in range(0,2)
-		for j in range(0,2)
+for l in range(0,4):
+	t=0
+	for k in range(0,2):
+		for q in range(0,2):
 			for i in range(0,20):
 				List1=[[],[],[]] #PDR - EED - DS
-				name= namePrefix + Pr + Pri(l) + IB(j) + WSA(k) +"-#" + str(i) + ".sca" 
-				if Pri(l) in "Ns5":
+				name= namePrefix + Pr + Pri[l] + IB[q] + WSA[k] +"-#" + str(i) + ".sca" 
+				#print(name)
+				if Pri[l] in "Ns5":
 					accT=305
-				else if Pri(l) in ["Ns3_p2","p3-2"]:
+				elif Pri[l] in ["Ns3_p2","p3-2"]:
 					accT=115
-				else 
+				else: 
 					accT=95				
 				f = open(name, 'r')
 				temp = f.readlines()    
+				j=0
 				while j<len(temp):
 					if "generatedWSMs" in temp[j]:  
 						value = temp[j+26].split()
@@ -45,85 +52,117 @@ for l in range (0,4)
 						if Sta_T > accT and Ttl_T > 1:
 							List1[1].append(Del)
 							List1[2].append(DiS/Del)
-							if Del < 1								
+							if Del < 1:								
 								List1[0].append(1)
 					j=j+1
 								
-				f.close()
-			
-				Mx=[np.mean(list1[0]), np.mean(list1[1]), np.mean(list1[1])]		
-				#Sx=[np.std(list1[0]), np.std(list1[1]), np.std(list1[1])]	
-				List2[l][k][j].append(Mx)
-				#List2[1][l][k][j].append(Sx)
-				List3[l][k][j].append(len(list1[2]))
+				f.close()			
+						
+				# Promedio por run 
+				PDR[l][t].append(np.mean(List1[0])) # filas -> configuracion "Ns3_p2","Ns5","p3-2","p3-3" , columnas -> carga 0,5-false / 0,1-false / 0,5-true/ 0,1-true 
+				EED[l][t].append(np.mean(List1[1]))
+				DS[l][t].append(np.mean(List1[2]))
 				
+				#Sx=[np.std(list1[0]), np.std(list1[1]), np.std(list1[1])]	
+				#List2[l][k][j].append(Mx)
+				#List2[1][l][k][j].append(Sx)
+				List3[l][t].append(len(List1[2]))
+			t=t+1
 			
 out = "MeanMetrics-Slotted"
 
 
-mean_PDR=np.zeros(4,4)
-mean_EED=np.zeros(4,4)
-mean_DS=np.zeros(4,4)
-std_PDR=np.zeros(4,4)
-std_EED=np.zeros(4,4)
-std_DS=np.zeros(4,4)
+mean_PDR=np.zeros((4,4))
+mean_EED=np.zeros((4,4))
+mean_DS=np.zeros((4,4))
+std_PDR=np.zeros((4,4))
+std_EED=np.zeros((4,4))
+std_DS=np.zeros((4,4))
 
-for i in range(0,4)
-	for j in range(0,4)
-		mean_PDR[i][j]=List2[0][][][][0]
+# filas -> configuracion "Ns3_p2","Ns5","p3-2","p3-3" , columnas -> carga 0,5-false / 0,1-false / 0,5-true/ 0,1-true 
 
-#print(str(np.mean(ListG[0][0])))
-for i in range(0,29):
-	Var1[0][i]=np.mean(ListG1[0][i])
-	Var1[1][i]=np.mean(ListG1[1][i])
-	
-for i in range(0,29):
-	Var2[0][i]=np.mean(ListG2[0][i])
-	Var2[1][i]=np.mean(ListG2[1][i])
-					
+for i in range(0,4):
+	for j in range(0,4):
+		mean_PDR[i][j]=np.mean(PDR[i][j])
+		mean_EED[i][j]=np.mean(EED[i][j])
+		mean_DS[i][j]=np.mean(DS[i][j])
+		std_PDR[i][j]=np.std(PDR[i][j])
+		std_EED[i][j]=np.std(EED[i][j])
+		std_DS[i][j]=np.std(DS[i][j])
+		
+		
+		
 #Imprimir datos en un archivo .txt
-mat=np.matrix(Var1)
-mat2=np.matrix(Var2)	
 
-nameOut = out+"Var05.txt" 
+MM1=np.matrix(mean_PDR)
+MM2=np.matrix(mean_EED)
+MM3=np.matrix(mean_DS)
+MS1=np.matrix(std_PDR)
+MS2=np.matrix(std_EED)
+MS3=np.matrix(std_DS)
+
+print("Numero de nodos por configuracion")
+print(List3)
+
+nameOut = out+".txt" 
 fw = open(nameOut, 'w')
-fw.write('Promedios (fila 1) y STD (fila 2) ACC para Var 0.05\n')
-np.savetxt(fw, mat)
+fw.write("filas -> configuracion Ns3_p2,Ns5,p3-2,p3-3 , columnas -> carga 0,5-false / 0,1-false / 0,5-true/ 0,1-true \n")
+fw.write("Promedio PDR\n")
+np.savetxt(fw, MM1,fmt='%1.4f')
+fw.write("\n")
+fw.write("STD PDR\n")
+np.savetxt(fw, MS1,fmt='%1.4f')
+fw.write("\n")
+fw.write("Promedios EED\n")
+np.savetxt(fw, MM2,fmt='%1.4f')
+fw.write("\n")
+fw.write("STD EED\n")
+np.savetxt(fw, MS2,fmt='%1.4f')
+fw.write("\n")
+fw.write("Promedios DS\n")
+np.savetxt(fw, MM3,fmt='%1.4f')
+fw.write("\n")
+fw.write("STD DS \n")
+np.savetxt(fw, MS3,fmt='%1.4f')
+fw.write("\n")
+#fw.write("Numero de nodos x config\n")
+#np.savetxt(fw, num )
+#fw.write("/n")
 fw.close()	
 
 
-
-nameOut = out+"STD.txt" 
-fw = open(nameOut, 'w')
-fw.write('Promedios (fila 1) y STD (fila 2) ACC para Var 0.2n \n')
-np.savetxt(fw, mat2)
-fw.close()
-
-
-
 Pr = "TrAD-WSM-"
-Pri = ["p3","p2",""]
+Pri = ["p3-","p2-",""]
 WSA = ["false","true"]
-IB= ["0.1s,","0,5s,"]
+IB= ["0.1s,","0.5s,"]
 
 
-List4=[[],[],[]] #PDR - EED - DS
-List5= [[[[[],[]],[[],[]]],[[[],[]],[[],[]]],[[[],[]],[[],[]]],[[[],[]],[[],[]]]],[[[[],[]],[[],[]]],[[[],[]],[[],[]]],[[[],[]],[[],[]]],[[[],[]],[[],[]]]]]
-List6= [[[[],[]],[[],[]]],[[[],[]],[[],[]]],[[[],[]],[[],[]]],[[[],[]],[[],[]]]]
+List1=[[],[],[]] #PDR - EED - DS
+PDR=[[[],[],[],[]],[[],[],[],[]],[[],[],[],[]]]
+EED=[[[],[],[],[]],[[],[],[],[]],[[],[],[],[]]]
+DS=[[[],[],[],[]],[[],[],[],[]],[[],[],[],[]]]
 
-for l in range (0,4)
-	for k in range(0,2)
-		for m in range(0,2)
+#List2= [[[[],[]],[[],[]]],[[[],[]],[[],[]]],[[[],[]],[[],[]]],[[[],[]],[[],[]]]]#,[[[[],[]],[[],[]]],[[[],[]],[[],[]]],[[[],[]],[[],[]]],[[[],[]],[[],[]]]]]
+List3= [[[],[],[],[]],[[],[],[],[]],[[],[],[],[]]]
+
+
+for l in range(0,3):
+	t=0
+	for k in range(0,2):
+		for q in range(0,2):
 			for i in range(0,20):
-				name= namePrefix + Pr + Pri(l) + IB(m) + WSA(k) +"-#" + str(i) + ".sca" 
-				if Pri(l) in "p3":
+				List1=[[],[],[]] #PDR - EED - DS
+				name= namePrefix + Pr + Pri[l] + IB[q] + WSA[k] +"-#" + str(i) + ".sca" 
+				print(name)
+				if Pri[l] in "p3":
 					accT=95
-				else if Pri(l) in "p2":
+				elif Pri[l] in "p2":
 					accT=115
-				else 
+				else: 
 					accT=305				
 				f = open(name, 'r')
 				temp = f.readlines()    
+				j=0
 				while j<len(temp):
 					if "generatedWSMs" in temp[j]:  
 						value = temp[j+26].split()
@@ -139,59 +178,82 @@ for l in range (0,4)
 						DiS = float(value3[3]) 
 						
 						if Sta_T > accT and Ttl_T > 1:
-							List4[1].append(Del)
-							List4[2].append(DiS/Del)
-							if Del < 1 and Del > 0								
-								List4[0].append(1)
-							else
-								List4[0].append(0)
+							List1[1].append(Del)
+							List1[2].append(DiS/Del)
+							if Del < 1:								
+								List1[0].append(1)
 					j=j+1
-				f.close()
+								
+				f.close()			
+						
+				# Promedio por run 
+				PDR[l][t].append(np.mean(List1[0])) # filas -> configuracion "Ns3_p2","Ns5","p3-2","p3-3" , columnas -> carga 0,5-false / 0,1-false / 0,5-true/ 0,1-true 
+				EED[l][t].append(np.mean(List1[1]))
+				DS[l][t].append(np.mean(List1[2]))
 				
-				Mx=[np.mean(list1[0]), np.mean(list1[1]), np.mean(list1[1])]		
-				Sx=[np.std(list1[0]), np.std(list1[1]), np.std(list1[1])]	
-				List5[0][l][k][j].append(np.mean(list4))
-				List5[1][l][k][j].append(np.std(list4)))
-				List6[l][k][j].append(np.mean(list4(0)))								
-				
-					
+				#Sx=[np.std(list1[0]), np.std(list1[1]), np.std(list1[1])]	
+				#List2[l][k][j].append(Mx)
+				#List2[1][l][k][j].append(Sx)
+				List3[l][t].append(len(List1[2]))
+			t=t+1
+			
+out = "MeanMetrics-TrAD"
 
 
+mean_PDR=np.zeros((3,4))
+mean_EED=np.zeros((3,4))
+mean_DS=np.zeros((3,4))
+std_PDR=np.zeros((3,4))
+std_EED=np.zeros((3,4))
+std_DS=np.zeros((3,4))
 
+# filas -> configuracion "Ns3_p2","Ns5","p3-2","p3-3" , columnas -> carga 0,5-false / 0,1-false / 0,5-true/ 0,1-true 
 
-#Extract the packets received from the .sca file  , $0=0.05, $1=0.05, $2=8"
-out = "MeanMetrics-Slotted"
-
-   
-met2=np.zeros((2,29))
-Var2=np.zeros((2,29))
-
-
-#print(str(np.mean(ListG[0][0])))
-for i in range(0,29):
-	Var1[0][i]=np.mean(ListG1[0][i])
-	Var1[1][i]=np.mean(ListG1[1][i])
-	
-for i in range(0,29):
-	Var2[0][i]=np.mean(ListG2[0][i])
-	Var2[1][i]=np.mean(ListG2[1][i])
+for i in range(0,3):
+	for j in range(0,4):
+		mean_PDR[i][j]=np.mean(PDR[i][j])
+		mean_EED[i][j]=np.mean(EED[i][j])
+		mean_DS[i][j]=np.mean(DS[i][j])
+		std_PDR[i][j]=np.std(PDR[i][j])
+		std_EED[i][j]=np.std(EED[i][j])
+		std_DS[i][j]=np.std(DS[i][j])
 		
-	
-	
+		
+		
 #Imprimir datos en un archivo .txt
-mat=np.matrix(Var1)
-mat2=np.matrix(Var2)	
 
-nameOut = out+"Var05.txt" 
+MM1=np.matrix(mean_PDR)
+MM2=np.matrix(mean_EED)
+MM3=np.matrix(mean_DS)
+MS1=np.matrix(std_PDR)
+MS2=np.matrix(std_EED)
+MS3=np.matrix(std_DS)
+
+#num=np.matrix(List3)
+print("Numero de nodos por configuracion TrAD")
+print(List3)
+nameOut = out+".txt" 
 fw = open(nameOut, 'w')
-fw.write('Promedios (fila 1) y STD (fila 2) ACC para Var 0.05\n')
-np.savetxt(fw, mat)
+fw.write("filas -> configuracion Ns3_p2,Ns5,p3-2,p3-3 , columnas -> carga 0,5-false / 0,1-false / 0,5-true/ 0,1-true \n")
+fw.write("Promedio PDR\n")
+np.savetxt(fw, MM1)
+fw.write("\n")
+fw.write("STD PDR\n")
+np.savetxt(fw, MS1)
+fw.write("\n")
+fw.write("Promedios EED\n")
+np.savetxt(fw, MM2)
+fw.write("\n")
+fw.write("STD EED\n")
+np.savetxt(fw, MS2)
+fw.write("\n")
+fw.write("Promedios DS\n")
+np.savetxt(fw, MM3)
+fw.write("\n")
+fw.write("STD DS \n")
+np.savetxt(fw, MS3)
+fw.write("\n")
+#fw.write("Numero de nodos x config\n")
+#np.savetxt(fw, num )
+#fw.write("/n")
 fw.close()	
-
-
-
-nameOut = out+"STD.txt" 
-fw = open(nameOut, 'w')
-fw.write('Promedios (fila 1) y STD (fila 2) ACC para Var 0.2n \n')
-np.savetxt(fw, mat2)
-fw.close()
