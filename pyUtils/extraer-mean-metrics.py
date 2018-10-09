@@ -14,7 +14,6 @@ PDR=[[[],[],[],[]],[[],[],[],[]],[[],[],[],[]],[[],[],[],[]]]
 EED=[[[],[],[],[]],[[],[],[],[]],[[],[],[],[]],[[],[],[],[]]]
 DS=[[[],[],[],[]],[[],[],[],[]],[[],[],[],[]],[[],[],[],[]]]
 
-#List2= [[[[],[]],[[],[]]],[[[],[]],[[],[]]],[[[],[]],[[],[]]],[[[],[]],[[],[]]]]#,[[[[],[]],[[],[]]],[[[],[]],[[],[]]],[[[],[]],[[],[]]],[[[],[]],[[],[]]]]]
 List3= [[[],[],[],[]],[[],[],[],[]],[[],[],[],[]],[[],[],[],[]]]
 
 
@@ -26,9 +25,9 @@ for l in range(0,4):
 				List1=[[],[],[]] #PDR - EED - DS
 				name= namePrefix + Pr + Pri[l] + IB[q] + WSA[k] +"-#" + str(i) + ".sca" 
 				#print(name)
-				if Pri[l] in "Ns5":
+				if Pri[l] in "Ns5-":
 					accT=305
-				elif Pri[l] in ["Ns3_p2","p3-2"]:
+				elif Pri[l] in ["Ns3_p2-","p3-2"]:
 					accT=115
 				else: 
 					accT=95				
@@ -40,32 +39,34 @@ for l in range(0,4):
 						value = temp[j+26].split()
 						Sta_T = float(value[3])
 						
-						value1 = temp[j+27].split()	
-						Ttl_T = float(value1[3])
+						value1 = temp[j+28].split()	
+						Sto_T = float(value1[3])
 						
 						value2 = temp[j+6].split() 
 						Del = float(value2[3])
 						
 						value3 = temp[j+7].split()
 						DiS = float(value3[3]) 
+						#print("Delay:"+ str(Del) + " Distancia:"+ str(DiS) +" Start_time:"+str(Sta_T) + " Stop_time:" + str(Sto_T))
 						
-						if Sta_T > accT and Ttl_T > 1:
+						if Sta_T < accT and Sto_T > accT+1:
 							List1[1].append(Del)
 							List1[2].append(DiS/Del)
-							if Del < 1:								
+							if Del < 1 and Del > 0:								
 								List1[0].append(1)
+							else: 
+								List1[0].append(0)
 					j=j+1
 								
 				f.close()			
-						
+				
+				#print(List1)		
 				# Promedio por run 
 				PDR[l][t].append(np.mean(List1[0])) # filas -> configuracion "Ns3_p2","Ns5","p3-2","p3-3" , columnas -> carga 0,5-false / 0,1-false / 0,5-true/ 0,1-true 
 				EED[l][t].append(np.mean(List1[1]))
 				DS[l][t].append(np.mean(List1[2]))
-				
-				#Sx=[np.std(list1[0]), np.std(list1[1]), np.std(list1[1])]	
-				#List2[l][k][j].append(Mx)
-				#List2[1][l][k][j].append(Sx)
+				#print(str(EED[l][t]) +" " + str(PDR[l][t]) + " " +str(DS[l][t]))
+		
 				List3[l][t].append(len(List1[2]))
 			t=t+1
 			
@@ -101,7 +102,7 @@ MS1=np.matrix(std_PDR)
 MS2=np.matrix(std_EED)
 MS3=np.matrix(std_DS)
 
-print("Numero de nodos por configuracion")
+#print("Numero de nodos por configuracion")
 print(List3)
 
 nameOut = out+".txt" 
@@ -131,20 +132,19 @@ fw.write("\n")
 fw.close()	
 
 
-Pr = "TrAD-WSM-"
-Pri = ["p3-","p2-",""]
-WSA = ["false","true"]
-IB= ["0.1s,","0.5s,"]
 
+
+Pr = "TrAD-"
+Pri = ["WSM-p3-","WSM-p2-","WSM-"]
+WSA = ["false","true"]
+IB= ["0.5s,","0.1s,"]
 
 List1=[[],[],[]] #PDR - EED - DS
 PDR=[[[],[],[],[]],[[],[],[],[]],[[],[],[],[]]]
 EED=[[[],[],[],[]],[[],[],[],[]],[[],[],[],[]]]
 DS=[[[],[],[],[]],[[],[],[],[]],[[],[],[],[]]]
 
-#List2= [[[[],[]],[[],[]]],[[[],[]],[[],[]]],[[[],[]],[[],[]]],[[[],[]],[[],[]]]]#,[[[[],[]],[[],[]]],[[[],[]],[[],[]]],[[[],[]],[[],[]]],[[[],[]],[[],[]]]]]
 List3= [[[],[],[],[]],[[],[],[],[]],[[],[],[],[]]]
-
 
 for l in range(0,3):
 	t=0
@@ -153,10 +153,10 @@ for l in range(0,3):
 			for i in range(0,20):
 				List1=[[],[],[]] #PDR - EED - DS
 				name= namePrefix + Pr + Pri[l] + IB[q] + WSA[k] +"-#" + str(i) + ".sca" 
-				print(name)
-				if Pri[l] in "p3":
+				#print(name)
+				if l == 0:
 					accT=95
-				elif Pri[l] in "p2":
+				elif l == 1:
 					accT=115
 				else: 
 					accT=305				
@@ -168,20 +168,22 @@ for l in range(0,3):
 						value = temp[j+26].split()
 						Sta_T = float(value[3])
 						
-						value1 = temp[j+27].split()	
-						Ttl_T = float(value1[3])
+						value1 = temp[j+28].split()	
+						Sto_T = float(value1[3])
 						
 						value2 = temp[j+6].split() 
 						Del = float(value2[3])
-						
+						#print(Del)
 						value3 = temp[j+7].split()
 						DiS = float(value3[3]) 
 						
-						if Sta_T > accT and Ttl_T > 1:
+						if Sta_T < accT and Sto_T > accT+1:
 							List1[1].append(Del)
 							List1[2].append(DiS/Del)
-							if Del < 1:								
+							if Del < 1 and Del > 0:								
 								List1[0].append(1)
+							else: 
+								List1[0].append(0)
 					j=j+1
 								
 				f.close()			
@@ -230,30 +232,31 @@ MS2=np.matrix(std_EED)
 MS3=np.matrix(std_DS)
 
 #num=np.matrix(List3)
-print("Numero de nodos por configuracion TrAD")
+#print("Numero de nodos por configuracion TrAD")
 print(List3)
+
 nameOut = out+".txt" 
 fw = open(nameOut, 'w')
-fw.write("filas -> configuracion Ns3_p2,Ns5,p3-2,p3-3 , columnas -> carga 0,5-false / 0,1-false / 0,5-true/ 0,1-true \n")
+fw.write("filas -> configuracion WSM-p3- , WSM-p2- , WSM- , columnas -> carga 0,5-false / 0,1-false / 0,5-true/ 0,1-true \n")
 fw.write("Promedio PDR\n")
-np.savetxt(fw, MM1)
+np.savetxt(fw, MM1,fmt='%1.4f')
 fw.write("\n")
 fw.write("STD PDR\n")
-np.savetxt(fw, MS1)
+np.savetxt(fw, MS1,fmt='%1.4f')
 fw.write("\n")
 fw.write("Promedios EED\n")
-np.savetxt(fw, MM2)
+np.savetxt(fw, MM2,fmt='%1.4f')
 fw.write("\n")
 fw.write("STD EED\n")
-np.savetxt(fw, MS2)
+np.savetxt(fw, MS2,fmt='%1.4f')
 fw.write("\n")
 fw.write("Promedios DS\n")
-np.savetxt(fw, MM3)
+np.savetxt(fw, MM3,fmt='%1.4f')
 fw.write("\n")
 fw.write("STD DS \n")
-np.savetxt(fw, MS3)
+np.savetxt(fw, MS3,fmt='%1.4f')
 fw.write("\n")
 #fw.write("Numero de nodos x config\n")
 #np.savetxt(fw, num )
 #fw.write("/n")
-fw.close()	
+fw.close()
