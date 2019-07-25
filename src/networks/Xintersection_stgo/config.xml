@@ -2,7 +2,7 @@
 <root>
 	<AnalogueModels>
 		<AnalogueModel type="SimplePathlossModel">
-			<parameter name="alpha" type="double" value="2.6"/>
+			<parameter name="alpha" type="double" value="3"/>  <!-- value="2.6"/ se utiliza 3.0 en base a TrAD-->  
 			<parameter name="carrierFrequency" type="double" value="5.890e+9"/>
 		</AnalogueModel>
 		<AnalogueModel type="SimpleObstacleShadowing">
