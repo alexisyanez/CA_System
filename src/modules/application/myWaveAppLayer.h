@@ -65,6 +65,13 @@ class myWaveAppLayer : public BaseWaveApplLayer{
         //simsignal_t MyCollSignal;
         //cOutVector MyCollVec;
 
+        //Vecinos
+        cOutVector Veci;
+
+        //Vecinos segundo salto
+        cOutVector Veci2mean;
+
+
     public:
         virtual void initialize(int stage);
         virtual void finish();
@@ -86,10 +93,10 @@ class myWaveAppLayer : public BaseWaveApplLayer{
         //Coord currposition;
         //Coord currspeed;
 
-        double lastBusyT;
+        simtime_t lastBusyT;
 
         // Promedio de Channel Busy Rate
-        mutable std::list < double > meanCBR;
+        //mutable std::list < double > meanCBR;
 
         //número reportado de vecinos
         mutable std::list < double > NumNeig;
@@ -127,7 +134,7 @@ class myWaveAppLayer : public BaseWaveApplLayer{
 
         // Funciones para obtener Utx
 
-        double calculateUtx(double CBR_n,double Dij_n, int Num_neig_n);
+        double calculateUtx(simtime_t CBR_n,double Dij_n, int Num_neig_n);
         std::list<std::pair<double,int>> replace(std::list<std::pair<double,int>>mylist,int addressSearch, double UtxReplace);
         bool isNeighbor(std::list<std::pair<double,int>>mylist,int addressSearch);
         int* makePriorList(std::list<std::pair<double,int>>mylist);

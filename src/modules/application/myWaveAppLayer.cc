@@ -70,6 +70,11 @@ void myWaveAppLayer::initialize(int stage) {
         //
         // MyCollVec.setName("MyColl");
         MyCBRVec.setName("MyCBR");
+
+        //Número de vecinos
+
+        Veci.setName("Neighbor1-hop");
+        Veci2mean.setName("Neighbot2-hop");
     }
     else if (stage == 1) {
         //if(sendWSA){
@@ -82,34 +87,37 @@ void myWaveAppLayer::initialize(int stage) {
 void myWaveAppLayer::finish() {
     //statistics recording goes here
     BaseWaveApplLayer::finish();
-    recordScalar("delayWSM",delay);
+    recordScalar("delayWSM",delay.dbl());
     recordScalar("Dist_Propa",distanceProp);
-    recordScalar("Mean_CBR",avg(meanCBR));
+    //recordScalar("Mean_CBR",avg(meanCBR));
     recordScalar("Mean_Speed",avg(meanSpeed));
-    NumNeig.pop_front();
+    /*NumNeig.pop_front();
     recordScalar("Mean_Neig",avg(NumNeig));
-    recordScalar("Mean_Neig_of_Neig",avg(meanNeig2));
+    recordScalar("Mean_Neig_of_Neig",avg(meanNeig2));*/
 
 
 }
 
 void myWaveAppLayer::onBSM(BasicSafetyMessage* bsm) {
-    //Your application has received a beacon message from another car or RSU
-    //code for handling the message goes here
     // Se calcula la distancia y la utilidad del nodo vecino
 
     Dij = mobility->getPositionAt(SimTime()).distance(bsm->getSenderPos());
     Utx_n=calculateUtx(bsm->getCBR(),Dij,bsm->getNum_Neig());
 
+    //Guardar valor del número de vecinos de cada nodo
     meanNeig2.push_back(bsm->getNum_Neig());
-    // Se agrega a la lista si no esta indexado
+
+    // Se agrega a la lista si no está indexado
     if(!isNeighbor(Neig,bsm->getSenderAddress())){
         std::pair < double, int >p1 = std::make_pair (Utx_n,bsm->getSenderAddress());
         Neig.push_back(p1);
     }
-    // si ya está en la lista de vecinos se actualiza su utilidad
+    // Si ya está en la lista de vecinos se actualiza su utilidad
     else {
         Neig = replace(Neig,bsm->getSenderAddress(),Utx_n);
+        // Guardar valor de vecinos 1 y 2 saltos
+        Veci.record(Neig.size());
+        Veci2mean.record(avg(meanNeig2));
     }
 
 
@@ -164,19 +172,22 @@ void myWaveAppLayer::onWSA(WaveServiceAdvertisment* wsa) {
 void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
     switch (msg->getKind()) {
     case CALC_CBR: {
-        currCBR = (mac->getBusyTime()).dbl() - lastBusyT;
+        currCBR = mac->getBusyTime() - lastBusyT;
         cancelEvent(calcCBR_EV);
         scheduleAt(simTime() + 1, calcCBR_EV);
         EV << "CBR=" << currCBR << endl;
         lastBusyT = (mac->getBusyTime()).dbl();
         //Emitir estadistica para el CBR
         MyCBRVec.record(currCBR);
-        meanCBR.push_back(currCBR);
+        //
+
+        //meanCBR.push_back(currCBR);
         //emit(MyCBRSignal,currCBR);
-        //Emitir estadistica para el estimador de Collisiones
+        //Emitir estadistica para el estimador de Colisiones
         //MyCollVec.record(mac->getMyCollisions());
         //emit(MyCollSignal,mac->getMyCollisions());
-        break;}
+        break;
+    }
     case PER_WSM: {
 
         WaveShortMessage* wsm = new WaveShortMessage();
@@ -316,7 +327,7 @@ bool myWaveAppLayer::isNeighbor(std::list<std::pair<double,int>>mylist,int addre
         else return true;
 }
 
-// Función para reemplazar valor de utilidad correspondienteal vecino
+// Función para reemplazar valor de utilidad correspondiente al vecino
 
 std::list<std::pair<double,int>> myWaveAppLayer::replace(std::list<std::pair<double,int>>mylist,int addressSearch, double UtxReplace){
     std::list<std::pair<double,int>> replaceList;
@@ -327,7 +338,6 @@ std::list<std::pair<double,int>> myWaveAppLayer::replace(std::list<std::pair<dou
 
         if (it2->second == addressSearch) {
             it2->first = UtxReplace;
-
         }
         b=it2->first;
         a=it2->second;
@@ -337,7 +347,8 @@ std::list<std::pair<double,int>> myWaveAppLayer::replace(std::list<std::pair<dou
     return replaceList;
 }
 
-double myWaveAppLayer::calculateUtx(double CBR_n,double Dij_n, int Num_neig_n){
+double myWaveAppLayer::calculateUtx(simtime_t CBR_r,double Dij_n, int Num_neig_n){
+    double CBR_n = CBR_r.dbl();
     double N=fmin((Num_neig_n/TrAD_Neig),1);
     double D=fmin((Dij_n/TrAD_R),1);
     double W_CBR;

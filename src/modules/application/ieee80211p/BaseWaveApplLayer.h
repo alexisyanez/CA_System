@@ -202,7 +202,7 @@ class BaseWaveApplLayer : public BaseApplLayer {
         mutable std::list < std::pair < double, int >>::iterator it;
 
         // Channel Busy Ratio
-        double currCBR;
+        simtime_t currCBR;
 };
 
 #endif /* BASEWAVEAPPLLAYER_H_ */
