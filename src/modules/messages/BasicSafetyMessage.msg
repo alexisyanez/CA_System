@@ -29,5 +29,5 @@ packet BasicSafetyMessage extends WaveShortMessage {
 	Coord senderPos;
 	Coord senderSpeed;
 	int Num_Neig;
-	double CBR;
+	simtime_t CBR;
 }
