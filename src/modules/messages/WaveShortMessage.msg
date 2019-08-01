@@ -52,8 +52,11 @@ packet WaveShortMessage {
 	Coord senderSpeed;
 	
 	double angleRad=-1;
-	int priorityList[]; // Orden calculado por el nodo fuente
+	int priorityList[]; // Orden calculado por el nodo fuente para TrAD
 	int Oirigin_ID=-1;
 	Coord Origin_pos;
 	int ID =-1;
+	double cw; // contention window for DPS
+	int Parts; // Partitions for DPS
+	double PartitionArray[]; //Partition Disntance for DPS
 }

@@ -146,6 +146,8 @@ void Mac1609_4::initialize(int stage) {
 		//Setear estimador de colisiones
 		MyColl= 0;
 
+		MyCWcur= -1;
+
 		idleChannel = true;
 		lastBusy = simTime();
 		channelIdle(true);
@@ -879,6 +881,14 @@ simtime_t Mac1609_4::getSwitchingInterval() {
 
 simtime_t Mac1609_4::getBusyTime() {
     return statsTotalBusyTime;
+}
+
+int Mac1609_4::getCWcur() {
+    return MyCWcur;
+}
+
+void Mac1609_4::setCWcur(int CW_1) {
+    MyCWcur = CW_1;
 }
 
 long Mac1609_4::getMyCollisions() {
