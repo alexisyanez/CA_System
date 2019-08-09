@@ -128,7 +128,8 @@ void myWaveAppLayer::onWSM(WaveShortMessage* wsm) {
     findHost()->getDisplayString().updateWith("r=16,green");
     delay=simTime()-wsm->getTimestamp();
     distanceProp = Dij;
-
+    wsm->setCw(2);
+    wsm->setEm(1);
     //if (mobility->getRoadId()[0] != ':') traciVehicle->changeRoute(wsm->getWsmData(), 9999);
     if (!sentMessage) {
         sentMessage = true;
@@ -284,6 +285,8 @@ void myWaveAppLayer::handlePositionUpdate(cObject* obj) {
             wsm->setSenderSpeed(curSpeed);
             wsm->setOirigin_ID(myId);
             wsm->setOrigin_pos(curPosition);
+            wsm->setCw(2);
+            wsm->setEm(1);
 
             setingPLinWSM(makePriorList(Neig),wsm);
 

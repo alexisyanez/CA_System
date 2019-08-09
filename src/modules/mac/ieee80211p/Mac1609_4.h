@@ -97,6 +97,7 @@ class Mac1609_4 : public BaseMacLayer,
 				const cObject *getThisPtr() const  {return NULL;}
 				const char *getClassName() const {return "Mac1609_4::EDCA"; }
 				void createQueue(int aifsn, int cwMin, int cwMax,t_access_category);
+				void modifyQueue(int aifsn, int cwMin, int cwMax,t_access_category);
 				int queuePacket(t_access_category AC,WaveShortMessage* cmsg);
 				void backoff(t_access_category ac);
 				simtime_t startContent(simtime_t idleSince, bool guardActive);

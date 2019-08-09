@@ -277,6 +277,19 @@ void Mac1609_4::handleUpperMsg(cMessage* msg) {
 		chan = type_SCH;
 	}
 
+	if (thisMsg->getEm()==1){
+	        myEDCA[chan]->myQueues[ac].cwMax = 5;
+	        myEDCA[chan]->myQueues[ac].cwMin = 2;
+	        //myEDCA[chan]->modifyQueue(2,(((CWMIN_11P+1)/4)-2),(((CWMIN_11P +1)/2)-2),AC_VO);
+
+	        DBG_MAC << "Received a message from upper layer for channel "
+	                << thisMsg->getChannelNumber() << " Access Category (Priority):  "
+	                << ac << " Suggested CW from WSM :  "
+	                << thisMsg->getCw() << " Now the CW Min is :  "
+	                << myEDCA[chan]->myQueues[ac].cwMin << " Now the CW Max is :  "
+	                << myEDCA[chan]->myQueues[ac].cwMax << std::endl;
+	    }
+
 	int num = myEDCA[chan]->queuePacket(ac,thisMsg);
 
 	//packet was dropped in Mac
@@ -552,11 +565,23 @@ int Mac1609_4::EDCA::queuePacket(t_access_category ac,WaveShortMessage* msg) {
 void Mac1609_4::EDCA::createQueue(int aifsn, int cwMin, int cwMax,t_access_category ac) {
 
 	if (myQueues.find(ac) != myQueues.end()) {
+
+
 		throw cRuntimeError("You can only add one queue per Access Category per EDCA subsystem");
 	}
 
 	EDCAQueue newQueue(aifsn,cwMin,cwMax,ac);
 	myQueues[ac] = newQueue;
+}
+
+void Mac1609_4::EDCA::modifyQueue(int aifsn, int cwMin, int cwMax,t_access_category ac) { //método para cambiar la ventana de contención de la cola
+
+    if (myQueues.find(ac) != myQueues.end()) {
+        throw cRuntimeError("You can only add one queue per Access Category per EDCA subsystem");
+    }
+
+    EDCAQueue newQueue(aifsn,cwMin,cwMax,ac);
+    myQueues[ac] = newQueue;
 }
 
 Mac1609_4::t_access_category Mac1609_4::mapUserPriority(int prio) {

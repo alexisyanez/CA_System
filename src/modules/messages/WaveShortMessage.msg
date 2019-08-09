@@ -42,7 +42,9 @@ packet WaveShortMessage {
 	int wsmLength;
 	//Data of Wave Short Message
 	string wsmData = "Some Data";
-
+	//Emergency message
+	int em = 0;
+	
 	int senderAddress = 0;
 	int recipientAddress = -1;
 	int serial = 0;
