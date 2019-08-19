@@ -49,6 +49,9 @@ class myWaveAppLayer : public BaseWaveApplLayer{
         double TrAD_Neig;
         double TrAD_R;
 
+        //DPS
+        bool DPSEnabled;
+
         //Accident
         double Acc_start;
         bool meACC;
@@ -79,7 +82,8 @@ class myWaveAppLayer : public BaseWaveApplLayer{
 
         enum WaveApplMessageKinds {
             CALC_CBR,
-            PER_WSM
+            PER_WSM,
+            DPS_START
         };
 
     protected:
@@ -145,6 +149,7 @@ class myWaveAppLayer : public BaseWaveApplLayer{
 
         cMessage* calcCBR_EV;
         cMessage* periodic_WSM_EV;
+        cMessage* DPS_start;
 
         uint32_t generatedWSMsSource;
     };

@@ -44,6 +44,10 @@ void myWaveAppLayer::initialize(int stage) {
         TrAD_Neig = par("TrAD_Neig");
         TrAD_R = par("TrAD_R");
 
+        // DPS
+        DPSEnabled = par("DPS");
+        DPS_start = new cMessage("DPS Start", DPS_START);
+
         // Accident
         Acc_start = par("Accident_start");
         meACC=par("MeInAcc");
@@ -153,6 +157,9 @@ void myWaveAppLayer::onWSM(WaveShortMessage* wsm) {
             simtime_t TS =  TrAD_ti*rank;
             scheduleAt(simTime() + TS , wsm->dup());
             }
+        else if(DPSEnabled==true){
+            // Code from paper
+        }
         else {
         scheduleAt(simTime() + 2 + uniform(0.01,0.2), wsm->dup());
         }
@@ -214,6 +221,9 @@ void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
         EV << "Sending WSM" << endl;
         break;
         }
+    case DPS_START:{
+
+    }
     }
 
     if (WaveShortMessage* wsm = dynamic_cast<WaveShortMessage*>(msg)) {
