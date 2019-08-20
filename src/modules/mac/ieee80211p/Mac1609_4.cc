@@ -920,6 +920,14 @@ long Mac1609_4::getMyCollisions() {
     return MyColl;
 }
 
+long Mac1609_4::getNTIB() {
+    return statsNumBackoff;
+}
+
+long Mac1609_4::getNBR() {
+    return statsReceivedBroadcasts;
+}
+
 bool Mac1609_4::isCurrentChannelCCH() {
     return (activeChannel ==  type_CCH);
 }

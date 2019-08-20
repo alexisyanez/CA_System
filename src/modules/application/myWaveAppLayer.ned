@@ -37,8 +37,8 @@ simple myWaveAppLayer extends BaseWaveApplLayer
     double TrAD_Neig= default(0); 
     double TrAD_R= default(0); 
     
-    //DPS
-    bool DPS = default(false); 
+    //DSP
+    bool DSP = default(false); 
     
     //Accident
     bool MeInAcc= default(false);

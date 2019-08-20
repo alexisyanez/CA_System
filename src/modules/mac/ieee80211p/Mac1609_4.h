@@ -150,9 +150,15 @@ class Mac1609_4 : public BaseMacLayer,
 
         long getMyCollisions();  // Función para obtener estimación de las colisiones
 
-        int getCWcur(); // get the value of current CW for DPS
+        int getCWcur(); // get the value of current CW for DSP
 
         void setCWcur(int CW_1);
+
+        long getNTIB(); // Método para obtener el número de de veces que entra en el backoff
+
+        long getNBR();  // Método para obtener el número de paquetes en broadcast recibidos
+
+
 		/**
 		 * @brief Change the default tx power the NIC card is using
 		 *

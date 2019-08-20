@@ -47,7 +47,12 @@ class WaveAppToMac1609_4Interface {
 
         virtual int getCWcur() = 0; // Obtener CW
 
-        virtual long getMyCollisions() =  0;  // Función para obtener estimación de las colisiones
+        virtual long getMyCollisions() =  0;  // Método para obtener estimación de las colisiones
+
+        virtual long getNTIB() = 0; // Método para obtener el número de de veces que entra en el backoff
+
+        virtual long getNBR() = 0; // Método para obtener el número de paquetes en broadcast recibidos
+
 
         virtual ~WaveAppToMac1609_4Interface() {} ;
 };

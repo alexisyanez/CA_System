@@ -49,8 +49,8 @@ class myWaveAppLayer : public BaseWaveApplLayer{
         double TrAD_Neig;
         double TrAD_R;
 
-        //DPS
-        bool DPSEnabled;
+        //DSP
+        bool DSPEnabled;
 
         //Accident
         double Acc_start;
@@ -63,6 +63,12 @@ class myWaveAppLayer : public BaseWaveApplLayer{
         //Señal para emitir medida del CBR
         //simsignal_t MyCBRSignal;
         cOutVector MyCBRVec;
+
+        // Vector para almacenar Normalize Times Into Back-Off
+        cOutVector NTIB;
+
+        // Vector para almacenar Normalize Broadcast Received
+        cOutVector NBR;
 
         //Señal para emitir medida de MyColl
         //simsignal_t MyCollSignal;
@@ -83,7 +89,7 @@ class myWaveAppLayer : public BaseWaveApplLayer{
         enum WaveApplMessageKinds {
             CALC_CBR,
             PER_WSM,
-            DPS_START
+            DSP_START
         };
 
     protected:
@@ -98,6 +104,12 @@ class myWaveAppLayer : public BaseWaveApplLayer{
         //Coord currspeed;
 
         simtime_t lastBusyT;
+
+        long lastNTIB;
+        long currNTIB;
+
+        long lastNBR;
+        long currNBR;
 
         // Promedio de Channel Busy Rate
         //mutable std::list < double > meanCBR;
@@ -149,7 +161,7 @@ class myWaveAppLayer : public BaseWaveApplLayer{
 
         cMessage* calcCBR_EV;
         cMessage* periodic_WSM_EV;
-        cMessage* DPS_start;
+        cMessage* DSP_start;
 
         uint32_t generatedWSMsSource;
     };

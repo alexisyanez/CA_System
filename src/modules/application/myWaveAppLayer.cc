@@ -44,9 +44,9 @@ void myWaveAppLayer::initialize(int stage) {
         TrAD_Neig = par("TrAD_Neig");
         TrAD_R = par("TrAD_R");
 
-        // DPS
-        DPSEnabled = par("DPS");
-        DPS_start = new cMessage("DPS Start", DPS_START);
+        // DSP
+        DSPEnabled = par("DSP");
+        DSP_start = new cMessage("DSP Start", DSP_START);
 
         // Accident
         Acc_start = par("Accident_start");
@@ -55,6 +55,12 @@ void myWaveAppLayer::initialize(int stage) {
         // Self message para calculcar CBR
         calcCBR_EV = new cMessage("CBR evt", CALC_CBR);
         lastBusyT = 0;
+
+        // Inicilizar Numero de veces que entra al backoff
+        lastNTIB = 0;
+
+        // Inicilizar número de broadcast recibidos
+        lastNBR = 0;
 
        // WSM periódico
         SendP_WSM = par("Send_Per_WSM");
@@ -157,7 +163,7 @@ void myWaveAppLayer::onWSM(WaveShortMessage* wsm) {
             simtime_t TS =  TrAD_ti*rank;
             scheduleAt(simTime() + TS , wsm->dup());
             }
-        else if(DPSEnabled==true){
+        else if(DSPEnabled==true){
             // Code from paper
         }
         else {
@@ -187,7 +193,15 @@ void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
         lastBusyT = (mac->getBusyTime()).dbl();
         //Emitir estadistica para el CBR
         MyCBRVec.record(currCBR);
-        //
+
+        // Guardar valor para el número de veces que entra al Back-off
+        currNTIB= mac->getNTIB() - lastNTIB;
+        NTIB.record(currNTIB);
+
+        // Guardar valor para el número de broadcast recibidos
+        currNBR= mac->getNBR() - lastNBR;
+        NBR.record(currNBR);
+
 
         //meanCBR.push_back(currCBR);
         //emit(MyCBRSignal,currCBR);
@@ -221,7 +235,7 @@ void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
         EV << "Sending WSM" << endl;
         break;
         }
-    case DPS_START:{
+    case DSP_START:{
 
     }
     }

@@ -58,7 +58,7 @@ packet WaveShortMessage {
 	int Oirigin_ID=-1;
 	Coord Origin_pos;
 	int ID =-1;
-	double cw; // contention window for DPS
-	int Parts; // Partitions for DPS
+	double cw; // contention window for DSP
+	int Parts; // Partitions for DSP
 	double PartitionArray[]; //Partition Disntance for DPS
 }
