@@ -39,6 +39,7 @@ simple myWaveAppLayer extends BaseWaveApplLayer
     
     //DSP
     bool DSP = default(false); 
+    double tauDSP = default(0) @unit(s);
     
     //Accident
     bool MeInAcc= default(false);

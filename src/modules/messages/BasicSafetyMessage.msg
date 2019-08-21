@@ -28,7 +28,7 @@ class noncobject Coord;
 packet BasicSafetyMessage extends WaveShortMessage {
 	//Coord senderPos;
 	//Coord senderSpeed;
-	Coord senderAcc; // For DPS
+	Coord senderAcc; // For DSP
 	//double angleRad=-1;
 	int Num_Neig;
 	simtime_t CBR;

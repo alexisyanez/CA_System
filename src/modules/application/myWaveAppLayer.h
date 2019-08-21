@@ -105,6 +105,10 @@ class myWaveAppLayer : public BaseWaveApplLayer{
 
         simtime_t lastBusyT;
 
+        simtime_t muDSP;
+
+        double tauDSP;
+
         long lastNTIB;
         long currNTIB;
 
@@ -161,7 +165,7 @@ class myWaveAppLayer : public BaseWaveApplLayer{
 
         cMessage* calcCBR_EV;
         cMessage* periodic_WSM_EV;
-        cMessage* DSP_start;
+        cMessage* DSP_start_EV;
 
         uint32_t generatedWSMsSource;
     };

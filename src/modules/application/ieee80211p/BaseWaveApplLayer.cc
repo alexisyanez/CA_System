@@ -186,6 +186,24 @@ void BaseWaveApplLayer::populateWSM(WaveShortMessage* wsm, int rcvId, int serial
         wsa->setPsid(currentOfferedServiceId);
         wsa->setServiceDescription(currentServiceDescription.c_str());
     }
+    else if (RTBmessage* rtb = dynamic_cast<RTBmessage*>(wsm) ) {
+        rtb->setChannelNumber(Channels::CCH);
+       // rtb->setTargetChannel(currentServiceChannel);
+        rtb->setPsid(currentOfferedServiceId);
+       // rtb->setServiceDescription(currentServiceDescription.c_str());
+    }
+    else if (WINmessage* win = dynamic_cast<WINmessage*>(wsm) ) {
+        win->setChannelNumber(Channels::CCH);
+        //win->setTargetChannel(currentServiceChannel);
+        win->setPsid(currentOfferedServiceId);
+        //win->setServiceDescription(currentServiceDescription.c_str());
+    }
+    else if (ACKmessage* ack = dynamic_cast<ACKmessage*>(wsm) ) {
+        ack->setChannelNumber(Channels::CCH);
+        //ack->setTargetChannel(currentServiceChannel);
+        ack->setPsid(currentOfferedServiceId);
+        //ack->setServiceDescription(currentServiceDescription.c_str());
+    }
     else {
         if (dataOnSch) wsm->setChannelNumber(Channels::SCH1); //will be rewritten at Mac1609_4 to actual Service Channel. This is just so no controlInfo is needed
         else wsm->setChannelNumber(Channels::CCH);

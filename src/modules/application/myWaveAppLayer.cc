@@ -46,7 +46,8 @@ void myWaveAppLayer::initialize(int stage) {
 
         // DSP
         DSPEnabled = par("DSP");
-        DSP_start = new cMessage("DSP Start", DSP_START);
+        DSP_start_EV = new cMessage("DSP Start", DSP_START);
+        tauDSP =par("tauDSP");
 
         // Accident
         Acc_start = par("Accident_start");
@@ -236,6 +237,8 @@ void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
         break;
         }
     case DSP_START:{
+        // Aqui se escribe la dinámica de DSP
+
 
     }
     }
@@ -316,9 +319,15 @@ void myWaveAppLayer::handlePositionUpdate(cObject* obj) {
 
             wsm->setID(1);
 
+            if(DSPEnabled == true){
+                muDSP = uniform(0,tauDSP);
+                scheduleAt(simTime()+muDSP,DSP_start_EV);
+
+            }
+            else{
             populateWSM(wsm);
             wsm->setWsmData(mobility->getRoadId().c_str());
-
+            }
             //host is standing still due to crash
             if (dataOnSch) {
                 //startService(Channels::SCH2, 42, "Traffic Information Service");
