@@ -22,6 +22,8 @@ package ca_system.nodes;
 
 import org.car2x.veins.base.modules.*;
 import ca_system.modules.nic.Nic80211p;
+import org.car2x.veins.modules.nic.INic80211p;
+
 
 module Car
 {
@@ -29,14 +31,15 @@ module Car
         string applType; //type of the application layer
         string nicType = default("Nic80211p"); // type of network interface card
         string veinsmobilityType = default("org.car2x.veins.modules.mobility.traci.TraCIMobility"); //type of the mobility module
-        
+
         //Señal para guardar CBR
         @signal[MyCBR](type="double");
         @statistic[MyCBR](title="Calculo de Channel Busy Ratio"; source="MyCBR"; record=vector,stats; interpolationmode=none);
 
 		//Señal para guardar My Collisions
         @signal[MyCollisions](type="long");
-		@statistic[MyCollisions](title="Collision estimator from backoff"; source="MyColl"; record=vector,stats; interpolationmode=none);
+        @statistic[MyCollisions](title="Collision estimator from backoff"; source="MyColl"; record=vector,stats; interpolationmode=none);
+        @display("bgb=307,273");
     gates:
         input veinsradioIn; // gate for sendDirect
     submodules:
@@ -54,13 +57,24 @@ module Car
             parameters:
                 @display("p=130,172;i=block/cogwheel");
         }
-        
+
+        nic2: <nicType> like org.car2x.veins.modules.nic.INic80211p {
+            parameters:
+                @display("p=239,50");
+        }
     connections:
         nic.upperLayerOut --> appl.lowerLayerIn;
         nic.upperLayerIn <-- appl.lowerLayerOut;
         nic.upperControlOut --> appl.lowerControlIn;
         nic.upperControlIn <-- appl.lowerControlOut;
-
+        
         veinsradioIn --> nic.radioIn;
+
+        nic2.upperLayerOut --> appl.lowerLayerIn;
+        nic2.upperLayerIn <-- appl.lowerLayerOut;
+        nic2.upperControlOut --> appl.lowerControlIn;
+        nic2.upperControlIn <-- appl.lowerControlOut;
+
+        veinsradioIn --> nic2.radioIn;
 
 }

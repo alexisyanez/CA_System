@@ -105,9 +105,10 @@ class myWaveAppLayer : public BaseWaveApplLayer{
 
         simtime_t lastBusyT;
 
+        // Variables para la implementación de DSP
         simtime_t muDSP;
-
         double tauDSP;
+        bool BT; //Busy tone
 
         long lastNTIB;
         long currNTIB;
@@ -132,7 +133,7 @@ class myWaveAppLayer : public BaseWaveApplLayer{
         double Utx_n;
         double Dij;
 
-        // Ultimo Wsm recivido
+        // último Wsm recibido
         int lastWSMid;
 
         /* stats */

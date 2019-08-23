@@ -238,6 +238,64 @@ void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
         }
     case DSP_START:{
         // Aqui se escribe la dinámica de DSP
+        if (lastWSMid != 1){ // Step 3
+            if (BT==true){ // Step 4
+                cancelEvent(DSP_start_EV);
+                muDSP = uniform(0,tauDSP); // Step 1
+                scheduleAt(simTime()+muDSP,DSP_start_EV); // Step 2
+
+            }
+            else { // Step 5
+                // a) Turn On 2R-BT
+
+                // b) Broadcast RTB Packet
+                RTBmessage* rtb = new WaveShortMessage();
+                rtb->setID(generatedWSMsSource);
+                populateWSM(rtb);
+                sendDown(rtb);
+                // c) Turn Off 2R-BT
+                // d) Wait for BT activation
+                // e) Trun On R-BT
+
+                // f)Broadcast EM
+                WaveShortMessage* wsm = new WaveShortMessage();
+                     // Seteando valores agreagdos al paquete My_wsm
+                wsm->setAngleRad(angleRad);
+                wsm->setSenderPos(curPosition);
+                wsm->setSenderSpeed(curSpeed);
+                wsm->setOirigin_ID(myId);
+                wsm->setOrigin_pos(curPosition);
+                wsm->setCw(2);
+                wsm->setEm(1);
+                setingPLinWSM(makePriorList(Neig),wsm);
+                wsm->setID(1);
+                populateWSM(wsm);
+                wsm->setWsmData(mobility->getRoadId().c_str());
+
+                  //host is standing still due to crash
+                if (dataOnSch) {
+                      //startService(Channels::SCH2, 42, "Traffic Information Service");
+                      //started service and server advertising, schedule message to self to send later
+                      scheduleAt(computeAsynchronousSendingTime(1,type_SCH),wsm);
+                  }
+                else {
+                      //send right away on CCH, because channel switching is disabled
+                      sendDown(wsm);
+                      generatedWSMsSource++;
+                      if(SendP_WSM){
+                      //cancelEvent(periodic_WSM_EV);
+                      scheduleAt(simTime() + WSM_interval, periodic_WSM_EV);}
+                  }
+
+                // g) Wait for Win Packet for Delta Duration
+                // h)
+                // i)
+
+            }
+
+         }
+
+
 
 
     }
@@ -314,14 +372,12 @@ void myWaveAppLayer::handlePositionUpdate(cObject* obj) {
             wsm->setOrigin_pos(curPosition);
             wsm->setCw(2);
             wsm->setEm(1);
-
             setingPLinWSM(makePriorList(Neig),wsm);
-
             wsm->setID(1);
 
             if(DSPEnabled == true){
-                muDSP = uniform(0,tauDSP);
-                scheduleAt(simTime()+muDSP,DSP_start_EV);
+                muDSP = uniform(0,tauDSP); // Step 1
+                scheduleAt(simTime()+muDSP,DSP_start_EV); // Step 2
 
             }
             else{
