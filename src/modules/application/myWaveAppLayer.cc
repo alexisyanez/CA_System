@@ -249,7 +249,7 @@ void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
                 // a) Turn On 2R-BT
 
                 // b) Broadcast RTB Packet
-                RTBmessage* rtb = new WaveShortMessage();
+                RTBmessage* rtb = new RTBmessage();
                 rtb->setID(generatedWSMsSource);
                 populateWSM(rtb);
                 sendDown(rtb);
