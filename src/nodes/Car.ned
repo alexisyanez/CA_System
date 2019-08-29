@@ -31,7 +31,8 @@ module Car
         string applType; //type of the application layer
         string nicType = default("Nic80211p"); // type of network interface card
         string veinsmobilityType = default("org.car2x.veins.modules.mobility.traci.TraCIMobility"); //type of the mobility module
-
+		int numRadios = default(1);
+		
         //Señal para guardar CBR
         @signal[MyCBR](type="double");
         @statistic[MyCBR](title="Calculo de Channel Busy Ratio"; source="MyCBR"; record=vector,stats; interpolationmode=none);
@@ -41,14 +42,14 @@ module Car
         @statistic[MyCollisions](title="Collision estimator from backoff"; source="MyColl"; record=vector,stats; interpolationmode=none);
         @display("bgb=307,273");
     gates:
-        input veinsradioIn; // gate for sendDirect
+        input veinsradioIn[numRadios] @directIn; // gate for sendDirect
     submodules:
         appl: <applType> like org.car2x.veins.base.modules.IBaseApplLayer {
             parameters:
                 @display("p=60,50");
         }
 
-        nic: <nicType> like org.car2x.veins.modules.nic.INic80211p {
+        nic[numRadios]: <nicType> like org.car2x.veins.modules.nic.INic80211p {
             parameters:
                 @display("p=60,166");
         }
@@ -58,23 +59,14 @@ module Car
                 @display("p=130,172;i=block/cogwheel");
         }
 
-        nic2: <nicType> like org.car2x.veins.modules.nic.INic80211p {
-            parameters:
-                @display("p=239,50");
-        }
     connections:
-        nic.upperLayerOut --> appl.lowerLayerIn;
-        nic.upperLayerIn <-- appl.lowerLayerOut;
-        nic.upperControlOut --> appl.lowerControlIn;
-        nic.upperControlIn <-- appl.lowerControlOut;
         
-        veinsradioIn --> nic.radioIn;
-
-        nic2.upperLayerOut --> appl.lowerLayerIn;
-        nic2.upperLayerIn <-- appl.lowerLayerOut;
-        nic2.upperControlOut --> appl.lowerControlIn;
-        nic2.upperControlIn <-- appl.lowerControlOut;
-
-        veinsradioIn --> nic2.radioIn;
-
+        for i=0..numRadios-1 {
+        nic[i].upperLayerOut --> appl.lowerLayerIn;
+        nic[i].upperLayerIn <-- appl.lowerLayerOut;
+        nic[i].upperControlOut --> appl.lowerControlIn;
+        nic[i].upperControlIn <-- appl.lowerControlOut;
+        
+        veinsradioIn[i] --> nic[i].radioIn;
+        }
 }
