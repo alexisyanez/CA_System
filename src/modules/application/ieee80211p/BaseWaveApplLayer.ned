@@ -57,8 +57,8 @@ simple BaseWaveApplLayer like IBaseApplLayer
         bool communicateWhileParked = default(false); //whether the car should communicate when it is parked in SUMO
 
     gates:
-        input lowerLayerIn; // from mac layer
-        output lowerLayerOut; // to mac layer
-        input lowerControlIn;
-        output lowerControlOut;
+        input lowerLayerIn[]; // from mac layer
+        output lowerLayerOut[]; // to mac layer
+        input lowerControlIn[];
+        output lowerControlOut[];
 }

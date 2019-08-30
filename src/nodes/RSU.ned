@@ -47,10 +47,10 @@ module RSU
         }
         
     connections:
-        nic.upperLayerOut --> appl.lowerLayerIn;
-        nic.upperLayerIn <-- appl.lowerLayerOut;
-        nic.upperControlOut --> appl.lowerControlIn;
-        nic.upperControlIn <-- appl.lowerControlOut;
+        //nic.upperLayerOut --> appl.lowerLayerIn;
+        //nic.upperLayerIn <-- appl.lowerLayerOut;
+        //nic.upperControlOut --> appl.lowerControlIn;
+        //nic.upperControlIn <-- appl.lowerControlOut;
 
         veinsradioIn --> nic.radioIn;
 }

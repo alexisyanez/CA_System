@@ -35,11 +35,11 @@ import ca_system.modules.mac.ieee80211p.Mac1609_4;
 module Nic80211p like INic80211p
 {
     gates:
-        input upperLayerIn[]; // to upper layers
-        output upperLayerOut[]; // from upper layers
-        output upperControlOut[]; // control information
-        input upperControlIn[]; // control information
-        input radioIn[]; // radioIn gate for sendDirect
+        input upperLayerIn; // to upper layers
+        output upperLayerOut; // from upper layers
+        output upperControlOut; // control information
+        input upperControlIn; // control information
+        input radioIn; // radioIn gate for sendDirect
 
     submodules:
         phy80211p: PhyLayer80211p {

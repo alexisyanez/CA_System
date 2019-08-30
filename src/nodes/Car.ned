@@ -22,6 +22,7 @@ package ca_system.nodes;
 
 import org.car2x.veins.base.modules.*;
 import ca_system.modules.nic.Nic80211p;
+//import ca_system.modules.application.ieee80211p.IBaseAppLayer;
 import org.car2x.veins.modules.nic.INic80211p;
 
 
@@ -31,7 +32,7 @@ module Car
         string applType; //type of the application layer
         string nicType = default("Nic80211p"); // type of network interface card
         string veinsmobilityType = default("org.car2x.veins.modules.mobility.traci.TraCIMobility"); //type of the mobility module
-		int numRadios = default(1);
+		int numRadios = default(2);
 		
         //Señal para guardar CBR
         @signal[MyCBR](type="double");
@@ -62,10 +63,10 @@ module Car
     connections:
         
         for i=0..numRadios-1 {
-        nic[i].upperLayerOut --> appl.lowerLayerIn;
-        nic[i].upperLayerIn <-- appl.lowerLayerOut;
-        nic[i].upperControlOut --> appl.lowerControlIn;
-        nic[i].upperControlIn <-- appl.lowerControlOut;
+        nic[i].upperLayerOut --> appl.lowerLayerIn[i];
+        nic[i].upperLayerIn <-- appl.lowerLayerOut[i];
+        nic[i].upperControlOut --> appl.lowerControlIn[i];
+        nic[i].upperControlIn <-- appl.lowerControlOut[i];
         
         veinsradioIn[i] --> nic[i].radioIn;
         }
