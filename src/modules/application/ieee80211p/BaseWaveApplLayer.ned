@@ -19,7 +19,7 @@
 //
 
 package ca_system.modules.application.ieee80211p;
-import org.car2x.veins.base.modules.IBaseApplLayer;
+import ca_system.modules.application.ieee80211p.IBaseApplLayer;
 
 //
 // WAVE application layer base class.
@@ -57,8 +57,13 @@ simple BaseWaveApplLayer like IBaseApplLayer
         bool communicateWhileParked = default(false); //whether the car should communicate when it is parked in SUMO
 
     gates:
-        input lowerLayerIn[]; // from mac layer
-        output lowerLayerOut[]; // to mac layer
-        input lowerControlIn[];
-        output lowerControlOut[];
+        input lowerLayerIn; // from mac layer
+        output lowerLayerOut; // to mac layer
+        input lowerControlIn;
+        output lowerControlOut;
+        
+        input lowerLayerIn2; // from mac layer DPS
+        output lowerLayerOut2; // to mac layer
+        input lowerControlIn2;
+        output lowerControlOut2;
 }

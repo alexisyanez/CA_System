@@ -23,7 +23,10 @@ package ca_system.nodes;
 import org.car2x.veins.base.modules.*;
 import ca_system.modules.nic.Nic80211p;
 //import ca_system.modules.application.ieee80211p.IBaseAppLayer;
-import org.car2x.veins.modules.nic.INic80211p;
+import ca_system.modules.nic.INic80211p;
+
+import ca_system.modules.nic.Nic80211p2;
+import ca_system.modules.nic.INic80211p2;
 
 
 module Car
@@ -32,8 +35,8 @@ module Car
         string applType; //type of the application layer
         string nicType = default("Nic80211p"); // type of network interface card
         string veinsmobilityType = default("org.car2x.veins.modules.mobility.traci.TraCIMobility"); //type of the mobility module
-		int numRadios = default(2);
-		
+        int numRadios = default(2);
+
         //Señal para guardar CBR
         @signal[MyCBR](type="double");
         @statistic[MyCBR](title="Calculo de Channel Busy Ratio"; source="MyCBR"; record=vector,stats; interpolationmode=none);
@@ -43,31 +46,44 @@ module Car
         @statistic[MyCollisions](title="Collision estimator from backoff"; source="MyColl"; record=vector,stats; interpolationmode=none);
         @display("bgb=307,273");
     gates:
-        input veinsradioIn[numRadios] @directIn; // gate for sendDirect
+        input veinsradioIn; // gate for sendDirect
+        input veinsradioIn2; // gate for DPS
     submodules:
         appl: <applType> like org.car2x.veins.base.modules.IBaseApplLayer {
             parameters:
                 @display("p=60,50");
         }
 
-        nic[numRadios]: <nicType> like org.car2x.veins.modules.nic.INic80211p {
+        nic: <nicType> like org.car2x.veins.modules.nic.INic80211p {
             parameters:
                 @display("p=60,166");
         }
 
+        nic2: <nicType> like org.car2x.veins.modules.nic.INic80211p {
+            parameters:
+                @display("p=153,50");
+        }
         veinsmobility: <veinsmobilityType> like org.car2x.veins.base.modules.IMobility {
             parameters:
                 @display("p=130,172;i=block/cogwheel");
         }
 
     connections:
-        
-        for i=0..numRadios-1 {
-        nic[i].upperLayerOut --> appl.lowerLayerIn[i];
-        nic[i].upperLayerIn <-- appl.lowerLayerOut[i];
-        nic[i].upperControlOut --> appl.lowerControlIn[i];
-        nic[i].upperControlIn <-- appl.lowerControlOut[i];
-        
-        veinsradioIn[i] --> nic[i].radioIn;
-        }
+
+        //for i=0..numRadios-1 {
+        nic.upperLayerOut --> appl.lowerLayerIn;
+        nic.upperLayerIn <-- appl.lowerLayerOut;
+        nic.upperControlOut --> appl.lowerControlIn;
+        nic.upperControlIn <-- appl.lowerControlOut;
+
+        veinsradioIn --> nic.radioIn;
+
+        nic2.upperLayerOut --> appl.lowerLayerIn2;
+        nic2.upperLayerIn <-- appl.lowerLayerOut2;
+        nic2.upperControlOut --> appl.lowerControlIn2;
+        nic2.upperControlIn <-- appl.lowerControlOut2;
+
+        veinsradioIn2 --> nic2.radioIn;
+        //}
+
 }
