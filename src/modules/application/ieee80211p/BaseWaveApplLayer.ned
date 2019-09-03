@@ -63,7 +63,7 @@ simple BaseWaveApplLayer like IBaseApplLayer
         output lowerControlOut;
         
         input lowerLayerIn2; // from mac layer DPS
-        output lowerLayerOut2; // to mac layer
+        output lowerLayerOut2; // to mac layer DPS
         input lowerControlIn2;
         output lowerControlOut2;
 }

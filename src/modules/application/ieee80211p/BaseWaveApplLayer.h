@@ -38,6 +38,7 @@
 #include "modules/messages/WINmessage_m.h"
 #include "modules/messages/ACKmessage_m.h"
 #include "modules/mac/ieee80211p/WaveAppToMac1609_4Interface.h"
+#include "modules/phy/DSP/WaveAppToPhy80211pInterface.h"
 
 
 using Veins::TraCIMobility;
@@ -157,6 +158,11 @@ class BaseWaveApplLayer : public BaseApplLayer {
 
         AnnotationManager* annotations;
         WaveAppToMac1609_4Interface* mac;
+
+        /*For new phy class enabling DSP protocol
+         *
+         */
+        WaveAppToPhy80211pInterface* myPhy;
 
         /* support for parking currently only works with TraCI */
         bool isParked;

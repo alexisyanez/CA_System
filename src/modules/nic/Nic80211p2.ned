@@ -20,7 +20,7 @@
 
 package ca_system.modules.nic;
 
-import ca_system.modules.phy.PhyLayer80211p;
+import ca_system.modules.phy.DSP.PhyLayer80211p2;
 import ca_system.modules.mac.ieee80211p.Mac1609_4;
 
 //
@@ -42,7 +42,7 @@ module Nic80211p2 like INic80211p2
         input radioIn2; // radioIn gate for sendDirect
 
     submodules:
-        phy80211p: PhyLayer80211p {
+        phy80211p2: PhyLayer80211p2 {
             @display("p=69,218;i=block/process_s");
         }
 
@@ -51,12 +51,12 @@ module Nic80211p2 like INic80211p2
         }
 
     connections:
-        radioIn2 --> phy80211p.radioIn;
+        radioIn2 --> phy80211p2.radioIn;
 
-        mac1609_4.lowerControlOut --> phy80211p.upperControlIn;
-        mac1609_4.lowerLayerOut --> phy80211p.upperLayerIn;
-        phy80211p.upperLayerOut --> mac1609_4.lowerLayerIn;
-        phy80211p.upperControlOut --> mac1609_4.lowerControlIn;
+        mac1609_4.lowerControlOut --> phy80211p2.upperControlIn;
+        mac1609_4.lowerLayerOut --> phy80211p2.upperLayerIn;
+        phy80211p2.upperLayerOut --> mac1609_4.lowerLayerIn;
+        phy80211p2.upperControlOut --> mac1609_4.lowerControlIn;
         
         mac1609_4.upperControlIn <-- upperControlIn2;
         mac1609_4.upperLayerIn <-- upperLayerIn2;

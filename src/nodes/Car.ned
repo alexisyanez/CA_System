@@ -49,17 +49,17 @@ module Car
         input veinsradioIn; // gate for sendDirect
         input veinsradioIn2; // gate for DPS
     submodules:
-        appl: <applType> like org.car2x.veins.base.modules.IBaseApplLayer {
+        appl: <applType> like ca_system.modules.application.ieee80211p.IBaseApplLayer {
             parameters:
                 @display("p=60,50");
         }
 
-        nic: <nicType> like org.car2x.veins.modules.nic.INic80211p {
+        nic: <nicType> like ca_system.modules.nic.INic80211p {
             parameters:
                 @display("p=60,166");
         }
 
-        nic2: <nicType> like org.car2x.veins.modules.nic.INic80211p {
+        nic2: <nicType> like ca_system.modules.nic.INic80211p2 {
             parameters:
                 @display("p=153,50");
         }
@@ -78,12 +78,12 @@ module Car
 
         veinsradioIn --> nic.radioIn;
 
-        nic2.upperLayerOut --> appl.lowerLayerIn2;
-        nic2.upperLayerIn <-- appl.lowerLayerOut2;
-        nic2.upperControlOut --> appl.lowerControlIn2;
-        nic2.upperControlIn <-- appl.lowerControlOut2;
+        nic2.upperLayerOut2 --> appl.lowerLayerIn2;
+        nic2.upperLayerIn2 <-- appl.lowerLayerOut2;
+        nic2.upperControlOut2 --> appl.lowerControlIn2;
+        nic2.upperControlIn2 <-- appl.lowerControlOut2;
 
-        veinsradioIn2 --> nic2.radioIn;
+        veinsradioIn2 --> nic2.radioIn2;
         //}
 
 }
