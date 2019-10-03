@@ -19,13 +19,15 @@
 
 class WaveAppToPhy80211pInterface {
 public:
-    virtual ~WaveAppToPhy80211pInterface() {};
+
 
     virtual void turnOnBT(bool state)=0;
     virtual void turnOn2BT(bool state)=0;
-    virtual int listenBT()=0;
+    virtual bool listenBT()=0;
 
+    virtual void initialize(int stage)=0;
 
+    virtual ~WaveAppToPhy80211pInterface() {};
 };
 
 #endif /* MODULES_PHY_DSP_WAVEAPPTOPHY80211PINTERFACE_H_ */

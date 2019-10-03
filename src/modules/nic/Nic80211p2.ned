@@ -21,7 +21,7 @@
 package ca_system.modules.nic;
 
 import ca_system.modules.phy.DSP.PhyLayer80211p2;
-import ca_system.modules.mac.ieee80211p.Mac1609_4;
+import ca_system.modules.mac.ieee80211p.DSP.Mac1609_4_2;
 
 //
 // This NIC implements an 802.11p network interface card.
@@ -46,21 +46,21 @@ module Nic80211p2 like INic80211p2
             @display("p=69,218;i=block/process_s");
         }
 
-        mac1609_4: Mac1609_4 {
+        mac1609_4_2: Mac1609_4_2 {
             @display("p=69,82");
         }
 
-    connections:
-        radioIn2 --> phy80211p2.radioIn;
+    connections allowunconnected:
+        radioIn2 --> phy80211p2.radioIn2;
 
-        mac1609_4.lowerControlOut --> phy80211p2.upperControlIn;
-        mac1609_4.lowerLayerOut --> phy80211p2.upperLayerIn;
-        phy80211p2.upperLayerOut --> mac1609_4.lowerLayerIn;
-        phy80211p2.upperControlOut --> mac1609_4.lowerControlIn;
+        mac1609_4_2.lowerControlOut2 --> phy80211p2.upperControlIn2;
+        mac1609_4_2.lowerLayerOut2 --> phy80211p2.upperLayerIn2;
+        phy80211p2.upperLayerOut2 --> mac1609_4_2.lowerLayerIn2;
+        phy80211p2.upperControlOut2 --> mac1609_4_2.lowerControlIn2;
         
-        mac1609_4.upperControlIn <-- upperControlIn2;
-        mac1609_4.upperLayerIn <-- upperLayerIn2;
+        mac1609_4_2.upperControlIn2 <-- upperControlIn2;
+        mac1609_4_2.upperLayerIn2 <-- upperLayerIn2;
 
-        mac1609_4.upperLayerOut --> upperLayerOut2;
-        mac1609_4.upperControlOut--> upperControlOut2;
+        mac1609_4_2.upperLayerOut2 --> upperLayerOut2;
+        mac1609_4_2.upperControlOut2--> upperControlOut2;
 }

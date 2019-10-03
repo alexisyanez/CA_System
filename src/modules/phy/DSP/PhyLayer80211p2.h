@@ -22,13 +22,16 @@
 #define PHYLAYER80211P2_H_
 
 #include "veins/base/phyLayer/BasePhyLayer.h"
-#include "modules/mac/ieee80211p/Mac80211pToPhy11pInterface.h"
+#include "modules/mac/ieee80211p/DSP/Mac80211pToPhy11pInterface_2.h"
+
 #include "modules/phy/DSP/Decider80211p2.h"
+
 #include "veins/modules/analogueModel/SimplePathlossModel.h"
 #include "veins/modules/analogueModel/LogNormalShadowing.h"
 #include "modules/phy/SNRThresholdDecider.h"
 #include "veins/modules/analogueModel/JakesFading.h"
 #include "veins/base/connectionManager/BaseConnectionManager.h"
+
 #include "modules/phy/DSP/Decider80211pToPhy80211p2Interface.h"
 #include "modules/phy/DSP/WaveAppToPhy80211pInterface.h"
 #include "veins/base/utils/Move.h"
@@ -52,8 +55,8 @@ using Veins::AirFrame;
  * @see Decider80211p
  */
 class PhyLayer80211p2	: 	public BasePhyLayer,
-	public Mac80211pToPhy11pInterface,
-	public WaveAppToPhy80211pInterface,
+	public Mac80211pToPhy11pInterface_2,
+	//public WaveAppToPhy80211pInterface,
 	public Decider80211pToPhy80211p2Interface
 
 
@@ -179,7 +182,7 @@ class PhyLayer80211p2	: 	public BasePhyLayer,
 
 		virtual void turnOnBT(bool state);
 		virtual void turnOn2BT(bool state);
-	    virtual int listenBT();
+	    virtual bool listenBT();
 
 };
 

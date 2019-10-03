@@ -19,9 +19,9 @@ moduleinterface INic80211p2
 {
     @display("i=block/ifcard");
     gates:
-        input upperLayerIn2; // to upper layers
-        output upperLayerOut2; // from upper layers
-        output upperControlOut2; // control information
-        input upperControlIn2; // control information
-        input radioIn2; // radioIn gate for sendDirect
+        input upperLayerIn2 @loose; // to upper layers
+        output upperLayerOut2 @loose; // from upper layers
+        output upperControlOut2 @loose; // control information
+        input upperControlIn2 @loose; // control information
+        input radioIn2 @loose; // radioIn gate for sendDirect
 }

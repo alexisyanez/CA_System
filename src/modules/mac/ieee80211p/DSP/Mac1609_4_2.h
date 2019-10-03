@@ -18,8 +18,8 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 //
 
-#ifndef ___MAC1609_4_H_
-#define ___MAC1609_4_H_
+#ifndef ___Mac1609_4_2_H_
+#define ___Mac1609_4_2_H_
 
 #include <assert.h>
 #include <omnetpp.h>
@@ -28,7 +28,7 @@
 #include "veins/base/modules/BaseLayer.h"
 #include "veins/base/phyLayer/MacToPhyControlInfo.h"
 
-#include "modules/phy/PhyLayer80211p.h"
+#include "modules/phy/DSP/PhyLayer80211p2.h"
 //#include "veins/modules/mac/ieee80211p/WaveAppToMac1609_4Interface.h"
 #include "veins/modules/utility/Consts80211p.h"
 #include "veins/base/utils/FindModule.h"
@@ -36,7 +36,7 @@
 //#include "veins/modules/messages/WaveShortMessage_m.h"
 #include "veins/base/modules/BaseMacLayer.h"
 
-#include "modules/mac/ieee80211p/WaveAppToMac1609_4Interface.h"
+#include "modules/mac/ieee80211p/DSP/WaveAppToMac1609_4Interface_2.h"
 #include "modules/messages/WaveShortMessage_m.h"
 
 #include "veins/modules/utility/ConstsPhy.h"
@@ -59,8 +59,8 @@
  * @see Decider80211p
  */
 
-class Mac1609_4 : public BaseMacLayer,
-	public WaveAppToMac1609_4Interface {
+class Mac1609_4_2 : public BaseMacLayer,
+	public WaveAppToMac1609_4Interface_2 {
 
 	public:
 
@@ -134,7 +134,7 @@ class Mac1609_4 : public BaseMacLayer,
 		};
 
 	public:
-		~Mac1609_4() { };
+		~Mac1609_4_2() { };
 
 		/**
 		 * @brief return true if alternate access is enabled
@@ -293,7 +293,7 @@ class Mac1609_4 : public BaseMacLayer,
 		/** @brief Id for debug messages */
 		std::string myId;
 
-		Mac80211pToPhy11pInterface* phy11p;
+		Mac80211pToPhy11pInterface_2* phy11p;
 
 		//tell to anybody which is interested when the channel turns busy or idle
 		simsignal_t sigChannelBusy;
@@ -303,4 +303,4 @@ class Mac1609_4 : public BaseMacLayer,
         //simsignal_t sigMyCollStat;
 };
 
-#endif /* ___MAC1609_4_H_*/
+#endif /* ___Mac1609_4_2_H_*/

@@ -80,7 +80,6 @@ class myWaveAppLayer : public BaseWaveApplLayer{
         //Vecinos segundo salto
         cOutVector Veci2mean;
 
-
     public:
         virtual void initialize(int stage);
         virtual void finish();

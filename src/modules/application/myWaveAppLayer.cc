@@ -86,6 +86,16 @@ void myWaveAppLayer::initialize(int stage) {
 
         Veci.setName("Neighbor1-hop");
         Veci2mean.setName("Neighbot2-hop");
+
+        /*lowerLayerIn[0]   = findGate("upperLayerIn",0);
+        lowerLayerOut[0] = findGate("upperLayerOut",0);
+        lowerControlIn[0]   = findGate("lowerLayerIn",0);
+        lowerControlIn[0]  = findGate("lowerLayerOut",0);
+        lowerLayerIn[1]   = findGate("upperLayerIn",1);
+        lowerLayerOut[1] = findGate("upperLayerOut",1);
+        lowerControlIn[1]   = findGate("lowerLayerIn",1);
+        lowerControlIn[1]  = findGate("lowerLayerOut",1);*/
+
     }
     else if (stage == 1) {
         //if(sendWSA){
@@ -202,6 +212,7 @@ void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
         // Guardar valor para el número de broadcast recibidos
         currNBR= mac->getNBR() - lastNBR;
         NBR.record(currNBR);
+
 
 
         //meanCBR.push_back(currCBR);

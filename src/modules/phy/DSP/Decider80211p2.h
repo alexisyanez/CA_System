@@ -24,7 +24,7 @@
 
 #include "veins/base/phyLayer/BaseDecider.h"
 #include "veins/modules/utility/Consts80211p.h"
-#include "modules/mac/ieee80211p/Mac80211pToPhy11pInterface.h"
+#include "modules/mac/ieee80211p/DSP/Mac80211pToPhy11pInterface_2.h"
 #include "modules/phy/DSP/Decider80211pToPhy80211p2Interface.h"
 
 using Veins::AirFrame;

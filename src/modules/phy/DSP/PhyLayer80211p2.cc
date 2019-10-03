@@ -50,6 +50,7 @@ void PhyLayer80211p2::initialize(int stage) {
 		ccaThreshold = pow(10, par("ccaThreshold").doubleValue() / 10);
 		allowTxDuringRx = par("allowTxDuringRx").boolValue();
 		collectCollisionStatistics = par("collectCollisionStatistics").boolValue();
+		coreEV << "Initializing second NIC for busy tone implementation" << endl;
 	}
 	BasePhyLayer::initialize(stage);
 	if (stage == 0) {
@@ -488,8 +489,8 @@ double PhyLayer80211p2::getCCAThreshold() {
 	return 10 * log10(ccaThreshold);
 }
 
-int PhyLayer80211p2::listenBT() {
-    return 0;
+bool PhyLayer80211p2::listenBT() {
+    return true;
 };
 
 void PhyLayer80211p2::turnOnBT(bool state) {

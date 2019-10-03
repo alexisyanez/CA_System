@@ -40,6 +40,15 @@ void BaseWaveApplLayer::initialize(int stage) {
             traciVehicle = NULL;
         }
 
+        lowerLayerIn[0]   = findGate("upperLayerIn",0);
+        lowerLayerOut[0] = findGate("upperLayerOut",0);
+        lowerControlIn[0]   = findGate("lowerLayerIn",0);
+        lowerControlIn[0]  = findGate("lowerLayerOut",0);
+        lowerLayerIn[1]   = findGate("upperLayerIn",1);
+        lowerLayerOut[1] = findGate("upperLayerOut",1);
+        lowerControlIn[1]   = findGate("lowerLayerIn",1);
+        lowerControlIn[1]  = findGate("lowerLayerOut",1);
+
         annotations = AnnotationManagerAccess().getIfExists();
         ASSERT(annotations);
 
@@ -47,7 +56,18 @@ void BaseWaveApplLayer::initialize(int stage) {
                 getParentModule());
         assert(mac);
 
+        //mac = FindModule<WaveAppToMac1609_4Interface*>::findSubModule(
+                       // getParentModule());
+          //      assert(mac[1]);
+
+        mac2 = FindModule<WaveAppToMac1609_4Interface_2*>::findSubModule(
+                        getParentModule());
+        //assert(mac2);
+
+        //EV << "Initializing second NIC for busy tone implementation" << endl;
+
         myId = getParentModule()->getId();
+
 
         //read parameters
         headerLength = par("headerLength").longValue();
@@ -178,7 +198,7 @@ void BaseWaveApplLayer::populateWSM(WaveShortMessage* wsm, int rcvId, int serial
         bsm->addBitLength(beaconLengthBits);
         bsm->setNum_Neig(Neig.size());
         bsm->setCBR(currCBR);
-        wsm->setUserPriority(beaconUserPriority);
+        bsm->setUserPriority(beaconUserPriority);
     }
     else if (WaveServiceAdvertisment* wsa = dynamic_cast<WaveServiceAdvertisment*>(wsm)) {
         wsa->setChannelNumber(Channels::CCH);
@@ -268,7 +288,11 @@ void BaseWaveApplLayer::handleSelfMsg(cMessage* msg) {
     case SEND_BEACON_EVT: {
         BasicSafetyMessage* bsm = new BasicSafetyMessage();
         populateWSM(bsm);
-        sendDown(bsm);
+
+        int decider = uniform(0,1);
+        if (decider > 0.5){
+        sendDown(bsm,0);}
+        else sendDown(bsm,1);
         cancelEvent(sendBeaconEvt);
         scheduleAt(simTime() + beaconInterval, sendBeaconEvt);
         break;
@@ -329,6 +353,11 @@ void BaseWaveApplLayer::stopService() {
 void BaseWaveApplLayer::sendDown(cMessage* msg) {
     checkAndTrackPacket(msg);
     BaseApplLayer::sendDown(msg);
+}
+
+void BaseWaveApplLayer::sendDown(cMessage* msg,int index) {
+    recordPacket(PassedMessage::OUTGOING,PassedMessage::LOWER_DATA,msg);
+    send(msg,lowerLayerOut[index]);
 }
 
 void BaseWaveApplLayer::sendDelayedDown(cMessage* msg, simtime_t delay) {

@@ -25,7 +25,7 @@
  */
 
 #include "modules/phy/DSP/Decider80211p2.h"
-#include "modules/phy/DeciderResult80211.h"
+#include "modules/phy/DSP/DeciderResult80211_2.h"
 #include "veins/modules/messages/Mac80211Pkt_m.h"
 #include "veins/base/phyLayer/Signal_.h"
 #include "veins/modules/messages/AirFrame11p_m.h"
@@ -228,13 +228,13 @@ DeciderResult* Decider80211p2::checkIfSignalOk(AirFrame* frame) {
 	double payloadBitrate = bitrateIt->getValue();
 	delete bitrateIt;
 
-	DeciderResult80211* result = 0;
+	DeciderResult80211_2* result = 0;
 
 	switch (packetOk(snirMin, snrMin, frame->getBitLength(), payloadBitrate)) {
 
 		case DECODED:
 			DBG_D11P << "Packet is fine! We can decode it" << std::endl;
-			result = new DeciderResult80211(true, payloadBitrate, snirMin, recvPower_dBm, false);
+			result = new DeciderResult80211_2(true, payloadBitrate, snirMin, recvPower_dBm, false);
 			break;
 
 		case NOT_DECODED:
@@ -244,13 +244,13 @@ DeciderResult* Decider80211p2::checkIfSignalOk(AirFrame* frame) {
 			else {
 				DBG_D11P << "Packet has bit Errors due to low power. Lost " << std::endl;
 			}
-			result = new DeciderResult80211(false, payloadBitrate, snirMin, recvPower_dBm, false);
+			result = new DeciderResult80211_2(false, payloadBitrate, snirMin, recvPower_dBm, false);
 			break;
 
 		case COLLISION:
 			DBG_D11P << "Packet has bit Errors due to collision. Lost " << std::endl;
 			collisions++;
-			result = new DeciderResult80211(false, payloadBitrate, snirMin, recvPower_dBm, true);
+			result = new DeciderResult80211_2(false, payloadBitrate, snirMin, recvPower_dBm, true);
 			break;
 
 		default:
@@ -439,12 +439,12 @@ simtime_t Decider80211p2::processSignalEnd(AirFrame* msg) {
 
 	if (frame->getUnderSensitivity()) {
 		//this frame was not even detected by the radio card
-		result = new DeciderResult80211(false,0,0,recvPower_dBm);
+		result = new DeciderResult80211_2(false,0,0,recvPower_dBm);
 	}
 	else if (frame->getWasTransmitting() || phy11p->getRadioState() == Radio::TX) {
 		//this frame was received while sending
 		whileSending = true;
-		result = new DeciderResult80211(false,0,0,recvPower_dBm);
+		result = new DeciderResult80211_2(false,0,0,recvPower_dBm);
 	}
 	else {
 
@@ -460,7 +460,7 @@ simtime_t Decider80211p2::processSignalEnd(AirFrame* msg) {
 		}
 		else {
 			//if this is not the frame we are synced on, we cannot receive it
-			result = new DeciderResult80211(false, 0, 0,recvPower_dBm);
+			result = new DeciderResult80211_2(false, 0, 0,recvPower_dBm);
 		}
 	}
 
@@ -479,7 +479,7 @@ simtime_t Decider80211p2::processSignalEnd(AirFrame* msg) {
 		}
 		else {
 			DBG_D11P << "packet was not received correctly, sending it as control message to upper layer\n";
-			if (((DeciderResult80211 *)result)->isCollision()) {
+			if (((DeciderResult80211_2 *)result)->isCollision()) {
 				phy->sendControlMsgToMac(new cMessage("Error", Decider80211p2::COLLISION));
 			}
 			else {
@@ -511,8 +511,8 @@ simtime_t Decider80211p2::processSignalEnd(AirFrame* msg) {
 void Decider80211p2::setChannelIdleStatus(bool isIdle) {
 	isChannelIdle = isIdle;
 	channelStateChanged();
-	if (isIdle) phy->sendControlMsgToMac(new cMessage("ChannelStatus",Mac80211pToPhy11pInterface::CHANNEL_IDLE));
-	else phy->sendControlMsgToMac(new cMessage("ChannelStatus",Mac80211pToPhy11pInterface::CHANNEL_BUSY));
+	if (isIdle) phy->sendControlMsgToMac(new cMessage("ChannelStatus",Mac80211pToPhy11pInterface_2::CHANNEL_IDLE));
+	else phy->sendControlMsgToMac(new cMessage("ChannelStatus",Mac80211pToPhy11pInterface_2::CHANNEL_BUSY));
 }
 
 void Decider80211p2::changeFrequency(double freq) {

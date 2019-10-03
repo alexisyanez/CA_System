@@ -37,8 +37,11 @@
 #include "modules/messages/RTBmessage_m.h"
 #include "modules/messages/WINmessage_m.h"
 #include "modules/messages/ACKmessage_m.h"
+
 #include "modules/mac/ieee80211p/WaveAppToMac1609_4Interface.h"
-#include "modules/phy/DSP/WaveAppToPhy80211pInterface.h"
+#include "modules/mac/ieee80211p/DSP/WaveAppToMac1609_4Interface_2.h"
+
+//#include "modules/phy/DSP/WaveAppToPhy80211pInterface.h"
 
 
 using Veins::TraCIMobility;
@@ -139,7 +142,20 @@ class BaseWaveApplLayer : public BaseApplLayer {
          *
          * @param msg the message to be sent. Must be a WSM/BSM/WSA
          * @param delay the delay for the message
+         *
          */
+
+        virtual void sendDown(cMessage* msg, int index);
+
+        /**
+         * @brief overloaded for error handling and stats recording purposes
+         *
+         * @param msg the message to be sent. Must be a WSM/BSM/WSA
+         * @param delay the delay for the message
+         *
+         */
+
+
         virtual void sendDelayedDown(cMessage* msg, simtime_t delay);
 
         /**
@@ -159,12 +175,16 @@ class BaseWaveApplLayer : public BaseApplLayer {
         AnnotationManager* annotations;
         WaveAppToMac1609_4Interface* mac;
 
+        WaveAppToMac1609_4Interface_2* mac2;
+
+
         /*For new phy class enabling DSP protocol
          *
          */
-        WaveAppToPhy80211pInterface* myPhy;
+        // WaveAppToPhy80211pInterface* myPhy;
 
         /* support for parking currently only works with TraCI */
+
         bool isParked;
         bool communicateWhileParked;
 
@@ -212,6 +232,11 @@ class BaseWaveApplLayer : public BaseApplLayer {
 
         // Channel Busy Ratio
         simtime_t currCBR;
+
+        int lowerLayerIn[];
+        int lowerLayerOut[];
+        int lowerControlIn[];
+        int lowerControlOut[];
 };
 
 #endif /* BASEWAVEAPPLLAYER_H_ */
