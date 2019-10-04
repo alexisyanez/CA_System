@@ -24,9 +24,10 @@ import org.car2x.veins.base.modules.*;
 import ca_system.modules.nic.Nic80211p;
 //import ca_system.modules.application.ieee80211p.IBaseAppLayer;
 import ca_system.modules.nic.INic80211p;
-import org.car2x.veins.base.modules.IBaseApplLayer;
+import ca_system.modules.application.ieee80211p.IBaseApplLayer;
 import ca_system.modules.nic.Nic80211p2;
 import ca_system.modules.nic.INic80211p2;
+
 
 
 module Car
@@ -55,13 +56,12 @@ module Car
                 @display("p=60,50");
             gates:
                 lowerLayerIn[numRadios]; // from network layer
-        		lowerLayerOut[numRadios]; // to network layer
+        	    lowerLayerOut[numRadios]; // to network layer
         		lowerControlIn[numRadios]; // control from network layer
         		lowerControlOut[numRadios]; // control to network layerlowerControlIn[numRadios]; // control from network layer
-
         }
 
-        nic[numRadios]: <nicType> like ca_system.modules.nic.INic80211p {
+        nic[numRadios]: <nicType> like org.car2x.veins.modules.nic.INic80211p {
             parameters:
                 @display("p=60,166");
         }
@@ -85,6 +85,7 @@ module Car
 
         veinsradioIn[i] --> nic[i].radioIn;
         }
+        
        	nic2.upperLayerOut2 --> appl.lowerLayerIn2;
        	nic2.upperLayerIn2 <-- appl.lowerLayerOut2;
        	nic2.upperControlOut2 --> appl.lowerControlIn2;

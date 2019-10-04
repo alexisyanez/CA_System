@@ -5,11 +5,12 @@ moduleinterface IBaseApplLayer
 {
     parameters:
         int headerLength @unit("bit"); // length of the application message header (in bits)
+        //int numRadios = default(2);
     gates:
-        input lowerLayerIn[]; // from network layer
-        output lowerLayerOut[]; // to network layer
-        input lowerControlIn[]; // control from network layer
-        output lowerControlOut[]; // control to network layer
+        input lowerLayerIn[2]; // from network layer
+        output lowerLayerOut[2]; // to network layer
+        input lowerControlIn[2]; // control from network layer
+        output lowerControlOut[2]; // control to network layer
         
         input lowerLayerIn2 @losse; // from network layer
         output lowerLayerOut2 @loose; // to network layer

@@ -233,10 +233,10 @@ class BaseWaveApplLayer : public BaseApplLayer {
         // Channel Busy Ratio
         simtime_t currCBR;
 
-        int lowerLayerIn[];
-        int lowerLayerOut[];
-        int lowerControlIn[];
-        int lowerControlOut[];
+        int lowerLayerIn[2];
+        int lowerLayerOut[2];
+        int lowerControlIn[2];
+        int lowerControlOut[2];
 };
 
 #endif /* BASEWAVEAPPLLAYER_H_ */

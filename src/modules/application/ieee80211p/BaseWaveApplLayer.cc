@@ -40,14 +40,14 @@ void BaseWaveApplLayer::initialize(int stage) {
             traciVehicle = NULL;
         }
 
-        lowerLayerIn[0]   = findGate("upperLayerIn",0);
-        lowerLayerOut[0] = findGate("upperLayerOut",0);
-        lowerControlIn[0]   = findGate("lowerLayerIn",0);
-        lowerControlIn[0]  = findGate("lowerLayerOut",0);
-        lowerLayerIn[1]   = findGate("upperLayerIn",1);
-        lowerLayerOut[1] = findGate("upperLayerOut",1);
-        lowerControlIn[1]   = findGate("lowerLayerIn",1);
-        lowerControlIn[1]  = findGate("lowerLayerOut",1);
+        lowerLayerIn[0]   = findGate("lowerLayerIn",0);
+        lowerLayerOut[0] = findGate("lowerLayerOut",0);
+        lowerControlIn[0]   = findGate("lowerControlIn",0);
+        lowerControlOut[0]  = findGate("lowerControlOut",0);
+        lowerLayerIn[1]   = findGate("lowerLayerIn",1);
+        lowerLayerOut[1] = findGate("lowerLayerOut",1);
+        lowerControlIn[1]   = findGate("lowerControlIn",1);
+        lowerControlIn[1]  = findGate("lowerControlIn",1);
 
         annotations = AnnotationManagerAccess().getIfExists();
         ASSERT(annotations);
