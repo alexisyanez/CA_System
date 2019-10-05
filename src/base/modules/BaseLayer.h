@@ -51,14 +51,14 @@ protected:
 
     /** @name gate ids*/
     /*@{*/
-    int upperLayerIn;
-    int upperLayerOut;
-    int lowerLayerIn;
-    int lowerLayerOut;
-    int upperControlIn;
-    int upperControlOut;
-    int lowerControlIn;
-    int lowerControlOut;
+    int upperLayerIn[];
+    int upperLayerOut[];
+    int lowerLayerIn[];
+    int lowerLayerOut[];
+    int upperControlIn[];
+    int upperControlOut[];
+    int lowerControlIn[];
+    int lowerControlOut[];
     /*@}*/
 
     /** @brief The last message passed through this layer. This variable will be only not NULL if we are

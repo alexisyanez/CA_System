@@ -20,7 +20,7 @@
  ***************************************************************************/
 
 
-#include "veins/base/modules/BaseApplLayer.h"
+#include "base/modules/BaseApplLayer.h"
 #include "veins/base/utils/PassedMessage.h"
 
 /**

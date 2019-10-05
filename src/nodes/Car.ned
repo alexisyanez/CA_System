@@ -45,7 +45,7 @@ module Car
         input veinsradioIn[numRadios] @directIn; // gate for sendDirect
         input veinsradioIn2; // gate for DPS
     submodules:
-        appl: <applType> like org.car2x.veins.base.modules.IBaseApplLayer {
+        appl: ca_system.modules.application.myWaveAppLayer {
             parameters:
                 @display("p=60,50");
             gates:

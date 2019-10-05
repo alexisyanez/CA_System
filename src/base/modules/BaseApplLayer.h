@@ -26,7 +26,7 @@
 #include <assert.h>
 
 #include "veins/base/utils/MiXiMDefs.h"
-#include "veins/base/modules/BaseLayer.h"
+#include "base/modules/BaseLayer.h"
 #include "veins/base/utils/SimpleAddress.h"
 
 /**
