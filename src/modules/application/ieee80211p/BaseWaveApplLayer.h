@@ -22,7 +22,7 @@
 #define BASEWAVEAPPLLAYER_H_
 
 #include <map>
-#include "veins/base/modules/BaseApplLayer.h"
+#include "base/modules/BaseApplLayer.h"
 #include "veins/modules/utility/Consts80211p.h"
 //#include "veins/modules/messages/WaveShortMessage_m.h"
 #include "veins/modules/messages/WaveServiceAdvertisement_m.h"
@@ -39,7 +39,7 @@
 #include "modules/messages/ACKmessage_m.h"
 
 #include "modules/mac/ieee80211p/WaveAppToMac1609_4Interface.h"
-#include "modules/mac/ieee80211p/DSP/WaveAppToMac1609_4Interface_2.h"
+
 
 //#include "modules/phy/DSP/WaveAppToPhy80211pInterface.h"
 
@@ -145,7 +145,7 @@ class BaseWaveApplLayer : public BaseApplLayer {
          *
          */
 
-        virtual void sendDown(cMessage* msg, int index);
+      //  virtual void sendDown(cMessage* msg, int index);
 
         /**
          * @brief overloaded for error handling and stats recording purposes
@@ -174,9 +174,6 @@ class BaseWaveApplLayer : public BaseApplLayer {
 
         AnnotationManager* annotations;
         WaveAppToMac1609_4Interface* mac;
-
-        WaveAppToMac1609_4Interface_2* mac2;
-
 
         /*For new phy class enabling DSP protocol
          *

@@ -56,16 +56,6 @@ void BaseWaveApplLayer::initialize(int stage) {
                 getParentModule());
         assert(mac);
 
-        //mac = FindModule<WaveAppToMac1609_4Interface*>::findSubModule(
-                       // getParentModule());
-          //      assert(mac[1]);
-
-        mac2 = FindModule<WaveAppToMac1609_4Interface_2*>::findSubModule(
-                        getParentModule());
-        //assert(mac2);
-
-        //EV << "Initializing second NIC for busy tone implementation" << endl;
-
         myId = getParentModule()->getId();
 
 
@@ -288,11 +278,11 @@ void BaseWaveApplLayer::handleSelfMsg(cMessage* msg) {
     case SEND_BEACON_EVT: {
         BasicSafetyMessage* bsm = new BasicSafetyMessage();
         populateWSM(bsm);
-
-        int decider = uniform(0,1);
-        if (decider > 0.5){
-        sendDown(bsm,0);}
-        else sendDown(bsm,1);
+        sendDown(bsm);
+//        int decider = uniform(0,1);
+//        if (decider > 0.5){
+//        sendDown(bsm,0);}
+//        else sendDown(bsm,1);
         cancelEvent(sendBeaconEvt);
         scheduleAt(simTime() + beaconInterval, sendBeaconEvt);
         break;
@@ -353,12 +343,13 @@ void BaseWaveApplLayer::stopService() {
 void BaseWaveApplLayer::sendDown(cMessage* msg) {
     checkAndTrackPacket(msg);
     BaseApplLayer::sendDown(msg);
+    //send(msg,lowerLayerOut[1]);
 }
 
-void BaseWaveApplLayer::sendDown(cMessage* msg,int index) {
-    recordPacket(PassedMessage::OUTGOING,PassedMessage::LOWER_DATA,msg);
-    send(msg,lowerLayerOut[index]);
-}
+//void BaseWaveApplLayer::sendDown(cMessage* msg,int index) {
+//    recordPacket(PassedMessage::OUTGOING,PassedMessage::LOWER_DATA,msg);
+//    send(msg,lowerLayerOut[index]);
+//}
 
 void BaseWaveApplLayer::sendDelayedDown(cMessage* msg, simtime_t delay) {
     checkAndTrackPacket(msg);

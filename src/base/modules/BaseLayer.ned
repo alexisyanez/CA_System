@@ -13,15 +13,23 @@
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 // 
 
-package ca_system.modules.nic;
+package ca_system.base.modules;
 
-moduleinterface INic80211p2
+//
+// Base module for all layer modules. Defines the in and out gates
+//
+simple BaseLayer
 {
-    @display("i=block/ifcard");
+    parameters:
+        bool notAffectedByHostState = default(false);
+        
     gates:
-        input upperLayerIn2 @loose; // to upper layers
-        output upperLayerOut2 @loose; // from upper layers
-        output upperControlOut2 @loose; // control information
-        input upperControlIn2 @loose; // control information
-        input radioIn2 @loose; // radioIn gate for sendDirect
-}
+        input upperLayerIn; // from upper layer
+        output upperLayerOut; // to uppe layer
+        input upperControlIn; // control from upper layer
+        output upperControlOut; // control to upper layer
+        input lowerLayerIn; // from lower layer
+        output lowerLayerOut; // to lower layer
+        input lowerControlIn; // control from lower layer
+        output lowerControlOut; // control to lower layer}
+ }

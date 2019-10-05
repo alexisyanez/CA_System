@@ -20,7 +20,7 @@
 
 package ca_system.modules.nic;
 
-import ca_system.modules.phy.PhyLayer80211p;
+import org.car2x.veins.modules.phy.PhyLayer80211p;
 import ca_system.modules.mac.ieee80211p.Mac1609_4;
 
 //
