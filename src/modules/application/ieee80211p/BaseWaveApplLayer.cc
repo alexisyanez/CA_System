@@ -40,14 +40,14 @@ void BaseWaveApplLayer::initialize(int stage) {
             traciVehicle = NULL;
         }
 
-        lowerLayerIn[0]   = findGate("lowerLayerIn",0);
-        lowerLayerOut[0] = findGate("lowerLayerOut",0);
-        lowerControlIn[0]   = findGate("lowerControlIn",0);
-        lowerControlOut[0]  = findGate("lowerControlOut",0);
-        lowerLayerIn[1]   = findGate("lowerLayerIn",1);
-        lowerLayerOut[1] = findGate("lowerLayerOut",1);
-        lowerControlIn[1]   = findGate("lowerControlIn",1);
-        lowerControlIn[1]  = findGate("lowerControlIn",1);
+        lowerLayerIn[0]   = findGate("lowerLayerIn",1);
+        lowerLayerOut[0] = findGate("lowerLayerOut",1);
+        lowerControlIn[0]   = findGate("lowerControlIn",1);
+        lowerControlOut[0]  = findGate("lowerControlOut",1);
+        lowerLayerIn[1]   = findGate("lowerLayerIn",2);
+        lowerLayerOut[1] = findGate("lowerLayerOut",2);
+        lowerControlIn[1]   = findGate("lowerControlIn",2);
+        lowerControlIn[1]  = findGate("lowerControlIn",2);
 
         annotations = AnnotationManagerAccess().getIfExists();
         ASSERT(annotations);
@@ -99,10 +99,10 @@ void BaseWaveApplLayer::initialize(int stage) {
     else if (stage == 1) {
         //simulate asynchronous channel access
 
-        if (dataOnSch == true && !mac->isChannelSwitchingActive()) {
+        /*if (dataOnSch == true && !mac->isChannelSwitchingActive()) {
             dataOnSch = false;
             std::cerr << "App wants to send data on SCH but MAC doesn't use any SCH. Sending all data on CCH" << std::endl;
-        }
+        }*/
         simtime_t firstBeacon = simTime();//beaconAtTime;
 
         if (par("avoidBeaconSynchronization").boolValue() == true) {

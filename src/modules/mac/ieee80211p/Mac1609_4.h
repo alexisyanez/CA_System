@@ -33,7 +33,7 @@
 #include "veins/base/utils/FindModule.h"
 #include "veins/modules/messages/Mac80211Pkt_m.h"
 //#include "veins/modules/messages/WaveShortMessage_m.h"
-#include "veins/base/modules/BaseMacLayer.h"
+#include "base/modules/BaseMacLayer.h"
 
 #include "modules/mac/ieee80211p/WaveAppToMac1609_4Interface.h"
 #include "modules/messages/WaveShortMessage_m.h"

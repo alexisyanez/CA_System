@@ -49,14 +49,14 @@ void BaseLayer::initialize(int stage)
                 passedMsg->fromModule = getId();
             }
         }
-        upperLayerIn[1]  = findGate("upperLayerIn");
-        upperLayerOut[1] = findGate("upperLayerOut");
-        lowerLayerIn[1]  = findGate("lowerLayerIn");
-        lowerLayerOut[1] = findGate("lowerLayerOut");
-        upperControlIn[1]  = findGate("upperControlIn");
-        upperControlOut[1] = findGate("upperControlOut");
-        lowerControlIn[1]  = findGate("lowerControlIn");
-        lowerControlOut[1] = findGate("lowerControlOut");
+        upperLayerIn[1]  = findGate("upperLayerIn",1);
+        upperLayerOut[1] = findGate("upperLayerOut",1);
+        lowerLayerIn[1]  = findGate("lowerLayerIn",1);
+        lowerLayerOut[1] = findGate("lowerLayerOut",1);
+        upperControlIn[1]  = findGate("upperControlIn",1);
+        upperControlOut[1] = findGate("upperControlOut",1);
+        lowerControlIn[1]  = findGate("lowerControlIn",1);
+        lowerControlOut[1] = findGate("lowerControlOut",1);
     }
 }
 
