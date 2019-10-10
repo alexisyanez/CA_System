@@ -51,16 +51,15 @@ protected:
 
     /** @name gate ids*/
     /*@{*/
-    int upperLayerIn[];
-    int upperLayerOut[];
-    int lowerLayerIn[];
-    int lowerLayerOut[];
-    int upperControlIn[];
-    int upperControlOut[];
-    int lowerControlIn[];
-    int lowerControlOut[];
+    int upperLayerIn;
+    int upperLayerOut;
+    int lowerLayerIn;
+    int lowerLayerOut;
+    int upperControlIn;
+    int upperControlOut;
+    int lowerControlIn;
+    int lowerControlOut;
     /*@}*/
-
     /** @brief The last message passed through this layer. This variable will be only not NULL if we are
      * in statistic recording mode.*/
     PassedMessage *passedMsg;
@@ -142,6 +141,8 @@ protected:
      */
     void sendDown(cMessage *msg);
 
+   // void sendDownAP(cMessage *msg, int index);
+
     /** @brief Sends a message to the upper layer
      *
      * Short hand for send(msg, upperLayerOut);
@@ -156,6 +157,9 @@ protected:
 
     /** @brief Sends a control message to a lower layer */
     void sendControlDown(cMessage *msg);
+
+    /** @brief Sends a control message to a lower layer */
+   // void sendControlDownAP(cMessage *msg,int index);
 
     void recordPacket(PassedMessage::direction_t dir,
                       PassedMessage::gates_t gate,

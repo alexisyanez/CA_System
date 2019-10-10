@@ -25,7 +25,7 @@
 #include <omnetpp.h>
 #include <queue>
 #include <stdint.h>
-#include "base/modules/BaseLayer.h"
+#include "veins/base/modules/BaseLayer.h"
 #include "veins/base/phyLayer/MacToPhyControlInfo.h"
 //#include "veins/modules/phy/PhyLayer80211p.h"
 //#include "veins/modules/mac/ieee80211p/WaveAppToMac1609_4Interface.h"
@@ -33,7 +33,7 @@
 #include "veins/base/utils/FindModule.h"
 #include "veins/modules/messages/Mac80211Pkt_m.h"
 //#include "veins/modules/messages/WaveShortMessage_m.h"
-#include "base/modules/BaseMacLayer.h"
+#include "veins/base/modules/BaseMacLayer.h"
 
 #include "modules/mac/ieee80211p/WaveAppToMac1609_4Interface.h"
 #include "modules/messages/WaveShortMessage_m.h"

@@ -43,16 +43,16 @@ module Car
         @display("bgb=307,273");
     gates:
         input veinsradioIn[numRadios] @directIn; // gate for sendDirect
-        input veinsradioIn2; // gate for DPS
+        //input veinsradioIn2; // gate for DPS
     submodules:
         appl: ca_system.modules.application.myWaveAppLayer {
             parameters:
                 @display("p=60,50");
             gates:
-                lowerLayerIn[numRadios]; // from network layer
-        	    lowerLayerOut[numRadios]; // to network layer
-        		lowerControlIn[numRadios]; // control from network layer
-        		lowerControlOut[numRadios]; // control to network layerlowerControlIn[numRadios]; // control from network layer
+                lowerLayerInAP[numRadios]; // from network layer
+                lowerLayerOutAP[numRadios]; // to network layer
+                lowerControlInAP[numRadios]; // control from network layer
+                lowerControlOutAP[numRadios]; // control to network layerlowerControlIn[numRadios]; // control from network layer
         }
 
         nic[numRadios]: ca_system.modules.nic.Nic80211p {
@@ -60,26 +60,26 @@ module Car
                 @display("p=60,166");
         }
 
-//       	nic2: <nicType2> like ca_system.modules.nic.INic80211p2 {
-//           	parameters:
-//                @display("p=153,50");
-//        }
+        //       	nic2: <nicType2> like ca_system.modules.nic.INic80211p2 {
+        //           	parameters:
+        //                @display("p=153,50");
+        //        }
         veinsmobility: <veinsmobilityType> like org.car2x.veins.base.modules.IMobility {
             parameters:
-                @display("p=130,172;i=block/cogwheel");
+                @display("p=191,166;i=block/cogwheel");
         }
 
     connections allowunconnected:
 
         for i=0..numRadios-1 {
-        nic[i].upperLayerOut --> appl.lowerLayerIn[i];
-        nic[i].upperLayerIn <-- appl.lowerLayerOut[i];
-        nic[i].upperControlOut --> appl.lowerControlIn[i];
-        nic[i].upperControlIn <-- appl.lowerControlOut[i];
+            nic[i].upperLayerOut --> appl.lowerLayerInAP[i];
+            nic[i].upperLayerIn <-- appl.lowerLayerOutAP[i];
+            nic[i].upperControlOut --> appl.lowerControlInAP[i];
+            nic[i].upperControlIn <-- appl.lowerControlOutAP[i];
 
-        veinsradioIn[i] --> nic[i].radioIn;
+            veinsradioIn[i] --> nic[i].radioIn;
         }
-        
+
 //       	nic2.upperLayerOut2 --> appl.lowerLayerIn2;
 //       	nic2.upperLayerIn2 <-- appl.lowerLayerOut2;
 //       	nic2.upperControlOut2 --> appl.lowerControlIn2;

@@ -22,7 +22,7 @@
 #define BASEWAVEAPPLLAYER_H_
 
 #include <map>
-#include "base/modules/BaseApplLayer.h"
+#include "veins/base/modules/BaseApplLayer.h"
 #include "veins/modules/utility/Consts80211p.h"
 //#include "veins/modules/messages/WaveShortMessage_m.h"
 #include "veins/modules/messages/WaveServiceAdvertisement_m.h"
@@ -135,7 +135,7 @@ class BaseWaveApplLayer : public BaseApplLayer {
          *
          * @param msg the message to be sent. Must be a WSM/BSM/WSA
          */
-        virtual void sendDown(cMessage* msg);
+        virtual void sendDownAP(cMessage* msg,int index);
 
         /**
          * @brief overloaded for error handling and stats recording purposes
@@ -156,7 +156,7 @@ class BaseWaveApplLayer : public BaseApplLayer {
          */
 
 
-        virtual void sendDelayedDown(cMessage* msg, simtime_t delay);
+        virtual void sendDelayedDown(cMessage* msg, simtime_t delay, int index);
 
         /**
          * @brief helper function for error handling and stats recording purposes
@@ -173,7 +173,7 @@ class BaseWaveApplLayer : public BaseApplLayer {
         TraCICommandInterface::Vehicle* traciVehicle;
 
         AnnotationManager* annotations;
-        WaveAppToMac1609_4Interface* mac;
+        WaveAppToMac1609_4Interface* mac[2];
 
         /*For new phy class enabling DSP protocol
          *

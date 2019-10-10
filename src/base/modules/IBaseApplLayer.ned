@@ -6,9 +6,10 @@ moduleinterface IBaseApplLayer
     parameters:
         int headerLength @unit("bit"); // length of the application message header (in bits)
     gates:
-        input lowerLayerIn[]; // from network layer
-        output lowerLayerOut[]; // to network layer
-        input lowerControlIn[]; // control from network layer
-        output lowerControlOut[]; // control to network layer
+        
+        input lowerLayerInAP[]; // from network layer
+        output lowerLayerOutAP[]; // to network layer
+        input lowerControlInAP[]; // control from network layer
+        output lowerControlOutAP[]; // control to network layer
 }
 

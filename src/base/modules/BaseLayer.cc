@@ -49,14 +49,34 @@ void BaseLayer::initialize(int stage)
                 passedMsg->fromModule = getId();
             }
         }
-        upperLayerIn[1]  = findGate("upperLayerIn",1);
-        upperLayerOut[1] = findGate("upperLayerOut",1);
-        lowerLayerIn[1]  = findGate("lowerLayerIn",1);
-        lowerLayerOut[1] = findGate("lowerLayerOut",1);
-        upperControlIn[1]  = findGate("upperControlIn",1);
-        upperControlOut[1] = findGate("upperControlOut",1);
-        lowerControlIn[1]  = findGate("lowerControlIn",1);
-        lowerControlOut[1] = findGate("lowerControlOut",1);
+        upperLayerIn  = findGate("upperLayerIn");
+        upperLayerOut = findGate("upperLayerOut");
+        lowerLayerIn  = findGate("lowerLayerIn");
+        lowerLayerOut = findGate("lowerLayerOut");
+        upperControlIn  = findGate("upperControlIn");
+        upperControlOut = findGate("upperControlOut");
+        lowerControlIn  = findGate("lowerControlIn");
+        lowerControlOut = findGate("lowerControlOut");
+
+
+       /* lowerLayerInAP[0]  = findGate("lowerLayerInAP",0);
+        lowerLayerOutAP[0] = findGate("lowerLayerOutAP",0);
+        lowerControlInAP[0]  = findGate("lowerControlInAP",0);
+        lowerControlOutAP[0] = findGate("lowerControlOutAP",0);
+
+        lowerLayerInAP[1]  = findGate("lowerLayerInAP",1);
+        lowerLayerOutAP[1] = findGate("lowerLayerOutAP",1);
+        lowerControlInAP[1]  = findGate("lowerControlInAP",1);
+        lowerControlOutAP[1] = findGate("lowerControlOutAP",1);*/
+
+        /*upperLayerIn[0]  = findGate("upperLayerIn",0);
+        upperLayerOut[0] = findGate("upperLayerOut",0);
+        lowerLayerIn[0]  = findGate("lowerLayerIn",0);
+        lowerLayerOut[0] = findGate("lowerLayerOut",0);
+        upperControlIn[0]  = findGate("upperControlIn",0);
+        upperControlOut[0] = findGate("upperControlOut",0);
+        lowerControlIn[0]  = findGate("lowerControlIn",0);
+        lowerControlOut[0] = findGate("lowerControlOut",0);*/
     }
 }
 
@@ -76,19 +96,25 @@ void BaseLayer::handleMessage(cMessage* msg)
 {
     if (msg->isSelfMessage()){
         handleSelfMsg(msg);
-    } else if(msg->getArrivalGateId()==upperLayerIn[1]) {
+    } else if(msg->getArrivalGateId()==upperLayerIn) {
         recordPacket(PassedMessage::INCOMING,PassedMessage::UPPER_DATA,msg);
         handleUpperMsg(msg);
-    } else if(msg->getArrivalGateId()==upperControlIn[1]) {
+    } else if(msg->getArrivalGateId()==upperControlIn) {
         recordPacket(PassedMessage::INCOMING,PassedMessage::UPPER_CONTROL,msg);
         handleUpperControl(msg);
-    } else if(msg->getArrivalGateId()==lowerControlIn[1]){
+    } else if(msg->getArrivalGateId()==lowerControlIn){
         recordPacket(PassedMessage::INCOMING,PassedMessage::LOWER_CONTROL,msg);
         handleLowerControl(msg);
-    } else if(msg->getArrivalGateId()==lowerLayerIn[1]){
+    } else if(msg->getArrivalGateId()==lowerLayerIn){
         recordPacket(PassedMessage::INCOMING,PassedMessage::LOWER_DATA,msg);
         handleLowerMsg(msg);
-    }
+    }/* else if(msg->getArrivalGateId()==lowerControlInAP[1]){
+        recordPacket(PassedMessage::INCOMING,PassedMessage::LOWER_CONTROL,msg);
+        handleLowerControl(msg);
+    } else if(msg->getArrivalGateId()==lowerLayerInAP[1]){
+        recordPacket(PassedMessage::INCOMING,PassedMessage::LOWER_DATA,msg);
+        handleLowerMsg(msg);
+    }*/
     else if(msg->getArrivalGateId()==-1) {
         /* Classes extending this class may not use all the gates, f.e.
          * BaseApplLayer has no upper gates. In this case all upper gate-
@@ -109,18 +135,23 @@ void BaseLayer::handleMessage(cMessage* msg)
 
 void BaseLayer::sendDown(cMessage *msg) {
     recordPacket(PassedMessage::OUTGOING,PassedMessage::LOWER_DATA,msg);
-    send(msg,lowerLayerOut[1]);
+    send(msg,lowerLayerOut);
 }
+
+/*void BaseLayer::sendDownAP(cMessage *msg, int index) {
+    recordPacket(PassedMessage::OUTGOING,PassedMessage::LOWER_DATA,msg);
+    send(msg,lowerLayerOutAP[index]);
+}*/
 
 void BaseLayer::sendUp(cMessage *msg) {
     recordPacket(PassedMessage::OUTGOING,PassedMessage::UPPER_DATA,msg);
-    send(msg, upperLayerOut[1]);
+    send(msg, upperLayerOut);
 }
 
 void BaseLayer::sendControlUp(cMessage *msg) {
     recordPacket(PassedMessage::OUTGOING,PassedMessage::UPPER_CONTROL,msg);
-    if (gate(upperControlOut[1])->isPathOK())
-        send(msg, upperControlOut[1]);
+    if (gate(upperControlOut)->isPathOK())
+        send(msg, upperControlOut);
     else {
         EV << "BaseLayer: upperControlOut is not connected; dropping message" << std::endl;
         delete msg;
@@ -129,13 +160,24 @@ void BaseLayer::sendControlUp(cMessage *msg) {
 
 void BaseLayer::sendControlDown(cMessage *msg) {
     recordPacket(PassedMessage::OUTGOING,PassedMessage::LOWER_CONTROL,msg);
-    if (gate(lowerControlOut[1])->isPathOK())
-        send(msg, lowerControlOut[1]);
+    if (gate(lowerControlOut)->isPathOK())
+        send(msg, lowerControlOut);
     else {
         EV << "BaseLayer: lowerControlOut is not connected; dropping message" << std::endl;
         delete msg;
     }
 }
+
+/*void BaseLayer::sendControlDownAP(cMessage *msg,int index) {
+    recordPacket(PassedMessage::OUTGOING,PassedMessage::LOWER_CONTROL,msg);
+    if (gate(lowerControlOutAP[index])->isPathOK())
+        send(msg, lowerControlOutAP[index]);
+    else {
+        EV << "BaseLayer: lowerControlOut is not connected; dropping message" << std::endl;
+        delete msg;
+    }
+}*/
+
 
 void BaseLayer::recordPacket(PassedMessage::direction_t dir,
                              PassedMessage::gates_t     gate,
