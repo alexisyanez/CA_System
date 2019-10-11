@@ -40,7 +40,11 @@ network Scenario
         annotations: AnnotationManager {
             @display("p=260,50");
         }
-        connectionManager: ConnectionManager {
+        connectionManager1: ConnectionManager {
+            parameters:
+                @display("p=150,0;i=abstract/multicast");
+        }
+        connectionManager2: ConnectionManager {
             parameters:
                 @display("p=150,0;i=abstract/multicast");
         }
