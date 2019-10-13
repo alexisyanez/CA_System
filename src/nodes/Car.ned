@@ -21,6 +21,7 @@
 package ca_system.nodes;
 
 import org.car2x.veins.base.modules.*;
+
 //import ca_system.modules.nic.Nic80211p;
 //import ca_system.modules.nic.INic80211p;
 
@@ -42,7 +43,8 @@ module Car
         @statistic[MyCollisions](title="Collision estimator from backoff"; source="MyColl"; record=vector,stats; interpolationmode=none);
         @display("bgb=307,273");
     gates:
-        input veinsradioIn[numRadios] @directIn; // gate for sendDirect
+        input veinsradioIn1 @directIn; // gate for sendDirect
+        input veinsradioIn2 @directIn; 
         //input veinsradioIn2; // gate for DPS
     submodules:
         appl: ca_system.modules.application.myWaveAppLayer {
@@ -71,14 +73,22 @@ module Car
 
     connections allowunconnected:
 
-        for i=0..numRadios-1 {
-            nic[i].upperLayerOut --> appl.lowerLayerInAP[i];
-            nic[i].upperLayerIn <-- appl.lowerLayerOutAP[i];
-            nic[i].upperControlOut --> appl.lowerControlInAP[i];
-            nic[i].upperControlIn <-- appl.lowerControlOutAP[i];
+        //for i=0..numRadios-1 {
+            nic[0].upperLayerOut --> appl.lowerLayerInAP[0];
+            nic[0].upperLayerIn <-- appl.lowerLayerOutAP[0];
+            nic[0].upperControlOut --> appl.lowerControlInAP[0];
+            nic[0].upperControlIn <-- appl.lowerControlOutAP[0];
 
-            veinsradioIn[i] --> nic[i].radioIn;
-        }
+            veinsradioIn1 --> nic[0].radioIn;
+            
+            nic[1].upperLayerOut --> appl.lowerLayerInAP[1];
+            nic[1].upperLayerIn <-- appl.lowerLayerOutAP[1];
+            nic[1].upperControlOut --> appl.lowerControlInAP[1];
+            nic[1].upperControlIn <-- appl.lowerControlOutAP[1];
+
+            veinsradioIn2 --> nic[1].radioIn; // Fot the use of SendDirect is necessary to separte radio, 
+            								  //the vector gate for veinsRadioin not recognized diferents gates 
+        //}
 
 //       	nic2.upperLayerOut2 --> appl.lowerLayerIn2;
 //       	nic2.upperLayerIn2 <-- appl.lowerLayerOut2;

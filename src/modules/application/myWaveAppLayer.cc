@@ -240,7 +240,7 @@ void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
         wsm->setID(generatedWSMsSource);
         populateWSM(wsm);
         wsm->setWsmData(mobility->getRoadId().c_str());
-        sendDownAP(wsm,1);
+        sendDown(wsm,1);
 
         cancelEvent(periodic_WSM_EV);
         scheduleAt(simTime() + WSM_interval, periodic_WSM_EV);
@@ -263,7 +263,7 @@ void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
                 RTBmessage* rtb = new RTBmessage();
                 rtb->setID(generatedWSMsSource);
                 populateWSM(rtb);
-                sendDownAP(rtb,1);
+                sendDown(rtb,1);
                 // c) Turn Off 2R-BT
                 // d) Wait for BT activation
                 // e) Trun On R-BT
@@ -291,7 +291,7 @@ void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
                   }
                 else {
                       //send right away on CCH, because channel switching is disabled
-                      sendDownAP(wsm,1);
+                      sendDown(wsm,1);
                       generatedWSMsSource++;
                       if(SendP_WSM){
                       //cancelEvent(periodic_WSM_EV);
@@ -315,7 +315,7 @@ void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
     if (WaveShortMessage* wsm = dynamic_cast<WaveShortMessage*>(msg)) {
         //send this message on the service channel until the counter is 3 or higher.
         //this code only runs when channel switching is enabled
-        sendDownAP(wsm->dup(),1);
+        sendDown(wsm->dup(),1);
         wsm->setSerial(wsm->getSerial() +1);
         if (wsm->getSerial() >= 3) {
             //stop service advertisements
@@ -403,7 +403,7 @@ void myWaveAppLayer::handlePositionUpdate(cObject* obj) {
             }
             else {
                 //send right away on CCH, because channel switching is disabled
-                sendDownAP(wsm,1);
+                sendDown(wsm,1);
                 generatedWSMsSource++;
                 if(SendP_WSM){
                 //cancelEvent(periodic_WSM_EV);

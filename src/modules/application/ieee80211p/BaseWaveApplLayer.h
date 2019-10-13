@@ -89,7 +89,7 @@ class BaseWaveApplLayer : public BaseApplLayer {
         static const simsignalwrap_t parkingStateChangedSignal;
 
         /** @brief handle messages from below and calls the onWSM, onBSM, and onWSA functions accordingly */
-        virtual void handleLowerMsg(cMessage* msg);
+        virtual void handleLowerMsg(cMessage* msg, int index);
 
         /** @brief handle self messages */
         virtual void handleSelfMsg(cMessage* msg);
@@ -135,7 +135,7 @@ class BaseWaveApplLayer : public BaseApplLayer {
          *
          * @param msg the message to be sent. Must be a WSM/BSM/WSA
          */
-        virtual void sendDownAP(cMessage* msg,int index);
+        virtual void sendDown(cMessage* msg,int index);
 
         /**
          * @brief overloaded for error handling and stats recording purposes
@@ -164,6 +164,15 @@ class BaseWaveApplLayer : public BaseApplLayer {
          * @param msg the message to be checked and tracked
          */
         virtual void checkAndTrackPacket(cMessage* msg);
+
+        /** @brief handle messages from below and calls the onWSM, onBSM, and onWSA functions accordingly */
+        virtual void handleMessage(cMessage* msg);
+
+        //
+        virtual void sendControlDown(cMessage *msg, int index);
+
+        /** @brief Handle control messages from lower layer */
+        //virtual void handleLowerControl(cMessage *msg, int index) = 0;
 
     protected:
 
