@@ -57,7 +57,9 @@ void BaseWaveApplLayer::initialize(int stage) {
       //  assert(mac);
 
         mac[0] = check_and_cast<WaveAppToMac1609_4Interface*>(getModuleByPath("^.nic[0].mac1609_4"));
+        assert(mac[0]);
         mac[1] = check_and_cast<WaveAppToMac1609_4Interface*>(getModuleByPath("^.nic[1].mac1609_4"));
+        assert(mac[1]);
 
 
         myId = getParentModule()->getId();
@@ -103,7 +105,7 @@ void BaseWaveApplLayer::initialize(int stage) {
     else if (stage == 1) {
         //simulate asynchronous channel access
 
-        if (dataOnSch == true && !mac[0]->isChannelSwitchingActive()) {
+        if (dataOnSch == true && !mac[1]->isChannelSwitchingActive()) {
             dataOnSch = false;
             std::cerr << "App wants to send data on SCH but MAC doesn't use any SCH. Sending all data on CCH" << std::endl;
         }
@@ -114,9 +116,9 @@ void BaseWaveApplLayer::initialize(int stage) {
             simtime_t randomOffset = dblrand() * beaconInterval;
             firstBeacon = simTime() + randomOffset; //
 
-            if (mac[0]->isChannelSwitchingActive() == true) {
-                if ( beaconInterval.raw() % (mac[0]->getSwitchingInterval().raw()*2)) {
-                    std::cerr << "The beacon interval (" << beaconInterval << ") is smaller than or not a multiple of  one synchronization interval (" << 2*mac[0]->getSwitchingInterval() << "). "
+            if (mac[1]->isChannelSwitchingActive() == true) {
+                if ( beaconInterval.raw() % (mac[1]->getSwitchingInterval().raw()*2)) {
+                    std::cerr << "The beacon interval (" << beaconInterval << ") is smaller than or not a multiple of  one synchronization interval (" << 2*mac[1]->getSwitchingInterval() << "). "
                             << "This means that beacons are generated during SCH intervals" << std::endl;
                 }
                 firstBeacon = computeAsynchronousSendingTime(beaconInterval, type_CCH);
@@ -141,7 +143,7 @@ simtime_t BaseWaveApplLayer::computeAsynchronousSendingTime(simtime_t interval, 
 
     simtime_t randomOffset = dblrand() * beaconInterval;
     simtime_t firstEvent;
-    simtime_t switchingInterval = mac[0]->getSwitchingInterval(); //usually 0.050s
+    simtime_t switchingInterval = mac[1]->getSwitchingInterval(); //usually 0.050s
     simtime_t nextCCH;
 
     /*
@@ -150,7 +152,7 @@ simtime_t BaseWaveApplLayer::computeAsynchronousSendingTime(simtime_t interval, 
      * depending on type of current interval
      */
 
-    if (mac[0]->isCurrentChannelCCH()) {
+    if (mac[1]->isCurrentChannelCCH()) {
         nextCCH = simTime() - SimTime().setRaw(simTime().raw() % switchingInterval.raw()) + switchingInterval*2;
     }
     else {
@@ -218,6 +220,12 @@ void BaseWaveApplLayer::populateWSM(WaveShortMessage* wsm, int rcvId, int serial
         ack->setPsid(currentOfferedServiceId);
         //ack->setServiceDescription(currentServiceDescription.c_str());
     }
+    else if (BTmessage* bt = dynamic_cast<BTmessage*>(wsm) ) {
+            bt->setChannelNumber(Channels::CCH);
+            //ack->setTargetChannel(currentServiceChannel);
+            bt->setPsid(currentOfferedServiceId);
+            //ack->setServiceDescription(currentServiceDescription.c_str());
+    }
     else {
         if (dataOnSch) wsm->setChannelNumber(Channels::SCH1); //will be rewritten at Mac1609_4 to actual Service Channel. This is just so no controlInfo is needed
         else wsm->setChannelNumber(Channels::CCH);
@@ -282,11 +290,11 @@ void BaseWaveApplLayer::handleSelfMsg(cMessage* msg) {
     case SEND_BEACON_EVT: {
         BasicSafetyMessage* bsm = new BasicSafetyMessage();
         populateWSM(bsm);
-        //sendDown(bsm,1);
-        int decider = uniform(0,1);
-        if (decider > 0.5){
-        sendDown(bsm,0);}
-        else sendDown(bsm,1);
+        sendDown(bsm,1);
+        //int decider = uniform(0,1);
+        //if (decider > 0.5){
+        //sendDown(bsm,0);}
+        //else sendDown(bsm,1);
         cancelEvent(sendBeaconEvt);
         scheduleAt(simTime() + beaconInterval, sendBeaconEvt);
         break;
@@ -329,7 +337,7 @@ void BaseWaveApplLayer::startService(Channels::ChannelNumber channel, int servic
         error("Starting service although another service was already started");
     }
 
-    mac[0]->changeServiceChannel(channel);
+    mac[1]->changeServiceChannel(channel);
     currentOfferedServiceId = serviceId;
     currentServiceChannel = channel;
     currentServiceDescription = serviceDescription;

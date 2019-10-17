@@ -23,6 +23,7 @@
 //#include "modules/messages/my_WSM_m.h"
 
 #include "modules/messages/WaveShortMessage_m.h"
+#include "modules/messages/BTmessage_m.h"
 #include <iostream>
 #include <list>
 
@@ -88,7 +89,9 @@ class myWaveAppLayer : public BaseWaveApplLayer{
         enum WaveApplMessageKinds {
             CALC_CBR,
             PER_WSM,
-            DSP_START
+            DSP_START,
+            SEND_BT
+
         };
 
     protected:
@@ -166,6 +169,7 @@ class myWaveAppLayer : public BaseWaveApplLayer{
         cMessage* calcCBR_EV;
         cMessage* periodic_WSM_EV;
         cMessage* DSP_start_EV;
+        cMessage* sendBT_EV;
 
         uint32_t generatedWSMsSource;
     };

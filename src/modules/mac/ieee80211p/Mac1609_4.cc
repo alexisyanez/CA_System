@@ -507,6 +507,10 @@ void Mac1609_4::changeServiceChannel(int cN) {
 void Mac1609_4::setTxPower(double txPower_mW) {
 	txPower = txPower_mW;
 }
+
+double Mac1609_4::getTxPower() {
+    return txPower;
+}
 void Mac1609_4::setMCS(enum PHY_MCS mcs) {
 	ASSERT2(mcs != MCS_DEFAULT, "invalid MCS selected");
 	bitrate = getOfdmDatarate(mcs, BW_OFDM_10_MHZ);

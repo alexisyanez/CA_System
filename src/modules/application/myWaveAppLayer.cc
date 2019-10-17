@@ -87,6 +87,11 @@ void myWaveAppLayer::initialize(int stage) {
         Veci.setName("Neighbor1-hop");
         Veci2mean.setName("Neighbot2-hop");
 
+
+
+        sendBT_EV = new cMessage("BT Event", SEND_BT);
+        BT= false;
+
         /*lowerLayerIn[0]   = findGate("upperLayerIn",0);
         lowerLayerOut[0] = findGate("upperLayerOut",0);
         lowerControlIn[0]   = findGate("lowerLayerIn",0);
@@ -258,7 +263,10 @@ void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
             }
             else { // Step 5
                 // a) Turn On 2R-BT
+                double myTX = mac[0]->getTxPower();
 
+                mac[0]->setTxPower(myTX*2);
+                BT=true;
                 // b) Broadcast RTB Packet
                 RTBmessage* rtb = new RTBmessage();
                 rtb->setID(generatedWSMsSource);
@@ -309,6 +317,16 @@ void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
 
 
 
+    }
+    case SEND_BT: {
+        BTmessage* bt = new BTmessage();
+        populateWSM(bt);
+        sendDown(bt,0);
+        cancelEvent(sendBT_EV);
+        if (BT){
+            scheduleAt(simTime() + beaconInterval, sendBT_EV);
+        }
+        break;
     }
     }
 

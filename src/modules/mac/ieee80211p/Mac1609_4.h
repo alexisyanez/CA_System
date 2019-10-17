@@ -160,6 +160,8 @@ class Mac1609_4 : public BaseMacLayer,
 
         long getNBR();  // Método para obtener el número de paquetes en broadcast recibidos
 
+        double getTxPower();
+
 
 		/**
 		 * @brief Change the default tx power the NIC card is using

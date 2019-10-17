@@ -37,6 +37,7 @@
 #include "modules/messages/RTBmessage_m.h"
 #include "modules/messages/WINmessage_m.h"
 #include "modules/messages/ACKmessage_m.h"
+#include "modules/messages/BTmessage_m.h"
 
 #include "modules/mac/ieee80211p/WaveAppToMac1609_4Interface.h"
 
