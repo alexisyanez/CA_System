@@ -49,6 +49,13 @@ void myWaveAppLayer::initialize(int stage) {
         DSP_start_EV = new cMessage("DSP Start", DSP_START);
         tauDSP =par("tauDSP");
 
+        sendBT_EV = new cMessage("BT Event", SEND_BT);
+        BT= false;
+
+        StepDSP = 0;
+        LastRTBemID = 0;
+
+
         // Accident
         Acc_start = par("Accident_start");
         meACC=par("MeInAcc");
@@ -87,10 +94,6 @@ void myWaveAppLayer::initialize(int stage) {
         Veci.setName("Neighbor1-hop");
         Veci2mean.setName("Neighbot2-hop");
 
-
-
-        sendBT_EV = new cMessage("BT Event", SEND_BT);
-        BT= false;
 
         /*lowerLayerIn[0]   = findGate("upperLayerIn",0);
         lowerLayerOut[0] = findGate("upperLayerOut",0);
@@ -180,6 +183,9 @@ void myWaveAppLayer::onWSM(WaveShortMessage* wsm) {
             scheduleAt(simTime() + TS , wsm->dup());
             }
         else if(DSPEnabled==true){
+            scheduleAt(simTime(),DSP_start_EV);
+            StepDSP=1;
+
             // Code from paper
         }
         else {
@@ -199,23 +205,36 @@ void myWaveAppLayer::onWSA(WaveServiceAdvertisment* wsa) {
 
 }
 
+void myWaveAppLayer::onRTB(RTBmessage* rtb) {
+    LastRTBemID = rtb->getEM();
+    //Your application has received a service advertisement from another car or RSU
+    //code for handling the message goes here, see TraciDemo11p.cc for examples
+
+}
+void myWaveAppLayer::onWIN(WINmessage* win) {
+    LastWINemID = win->getEM();
+    //Your application has received a service advertisement from another car or RSU
+    //code for handling the message goes here, see TraciDemo11p.cc for examples
+
+}
+
 void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
     switch (msg->getKind()) {
     case CALC_CBR: {
-        currCBR = mac[0]->getBusyTime() - lastBusyT;
+        currCBR = mac[1]->getBusyTime() - lastBusyT;
         cancelEvent(calcCBR_EV);
         scheduleAt(simTime() + 1, calcCBR_EV);
         EV << "CBR=" << currCBR << endl;
-        lastBusyT = (mac[0]->getBusyTime()).dbl();
+        lastBusyT = (mac[1]->getBusyTime()).dbl();
         //Emitir estadistica para el CBR
         MyCBRVec.record(currCBR);
 
         // Guardar valor para el número de veces que entra al Back-off
-        currNTIB= mac[0]->getNTIB() - lastNTIB;
+        currNTIB= mac[1]->getNTIB() - lastNTIB;
         NTIB.record(currNTIB);
 
         // Guardar valor para el número de broadcast recibidos
-        currNBR= mac[0]->getNBR() - lastNBR;
+        currNBR= mac[1]->getNBR() - lastNBR;
         NBR.record(currNBR);
 
 
@@ -253,32 +272,67 @@ void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
         break;
         }
     case DSP_START:{
-        // Aqui se escribe la dinámica de DSP
-        if (lastWSMid != 1){ // Step 3
-            if (BT==true){ // Step 4
-                cancelEvent(DSP_start_EV);
-                muDSP = uniform(0,tauDSP); // Step 1
-                scheduleAt(simTime()+muDSP,DSP_start_EV); // Step 2
-
+        switch(StepDSP){
+        case 1:// Step 1 from DSP algorithm
+            cancelEvent(DSP_start_EV);
+            muDSP = uniform(0,tauDSP); // Step 1
+            scheduleAt(simTime()+muDSP,DSP_start_EV); // Step 2
+            StepDSP=3;
+            break;
+        case 3:
+            cancelEvent(DSP_start_EV);
+            if(LastRTBemID!=1){ // Step 3
+                StepDSP=4;
             }
-            else { // Step 5
-                // a) Turn On 2R-BT
-                double myTX = mac[0]->getTxPower();
+            else{
+                StepDSP=0;
+                break;
+            }
 
+        case 4:
+            if(mac[0]->getIdleChannel()){ //Step 4
+                StepDSP=5;
+            }
+            else StepDSP=1;
+
+        case 5:
+            double myTX;
+            StepDSP=51;
+            switch (StepDSP){
+            case 51:
+                // a) Turn On 2R-BT
+                myTX = mac[0]->getTxPower();
                 mac[0]->setTxPower(myTX*2);
+                scheduleAt(simTime(), sendBT_EV);
                 BT=true;
+                StepDSP=52;
+            case 52:
                 // b) Broadcast RTB Packet
                 RTBmessage* rtb = new RTBmessage();
                 rtb->setID(generatedWSMsSource);
+                rtb->setEM(1);
                 populateWSM(rtb);
                 sendDown(rtb,1);
+                StepDSP=53;
+            case 53:
                 // c) Turn Off 2R-BT
+                BT=false;
+                StepDSP=54;
+            case 54:
                 // d) Wait for BT activation
-                // e) Trun On R-BT
-
-                // f)Broadcast EM
+                while(mac[0]->getIdleChannel()){
+                    EV << "Waiting for BT activation " << endl;
+                }
+                StepDSP=55;
+            case 55:// e) Turn On R-BT
+                myTX = mac[0]->getTxPower();
+                mac[0]->setTxPower(myTX/2);
+                scheduleAt(simTime(), sendBT_EV);
+                BT=true;
+                StepDSP=56;
+            case 56:// f)Broadcast EM
                 WaveShortMessage* wsm = new WaveShortMessage();
-                     // Seteando valores agreagdos al paquete My_wsm
+                    // Seteando valores agreagdos al paquete My_wsm
                 wsm->setAngleRad(angleRad);
                 wsm->setSenderPos(curPosition);
                 wsm->setSenderSpeed(curSpeed);
@@ -290,41 +344,52 @@ void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
                 wsm->setID(1);
                 populateWSM(wsm);
                 wsm->setWsmData(mobility->getRoadId().c_str());
-
-                  //host is standing still due to crash
+                //host is standing still due to crash
                 if (dataOnSch) {
-                      //startService(Channels::SCH2, 42, "Traffic Information Service");
-                      //started service and server advertising, schedule message to self to send later
-                      scheduleAt(computeAsynchronousSendingTime(1,type_SCH),wsm);
-                  }
+                    //startService(Channels::SCH2, 42, "Traffic Information Service");
+                    //started service and server advertising, schedule message to self to send later
+                    scheduleAt(computeAsynchronousSendingTime(1,type_SCH),wsm);
+                }
                 else {
-                      //send right away on CCH, because channel switching is disabled
-                      sendDown(wsm,1);
-                      generatedWSMsSource++;
-                      if(SendP_WSM){
-                      //cancelEvent(periodic_WSM_EV);
-                      scheduleAt(simTime() + WSM_interval, periodic_WSM_EV);}
-                  }
-
-                // g) Wait for Win Packet for Delta Duration
-                // h)
-                // i)
-
+                    //send right away on CCH, because channel switching is disabled
+                    sendDown(wsm,1);
+                    generatedWSMsSource++;
+                    if(SendP_WSM){
+                    //cancelEvent(periodic_WSM_EV);
+                    scheduleAt(simTime() + WSM_interval, periodic_WSM_EV);}
+                }
+                StepDSP=57;
+            case 57: // G) Wait For WIN Packet
+                cancelEvent(DSP_start_EV);
+                StepDSP=571;
+                scheduleAt(simTime()+ DeltaDSP,DSP_start_EV);
+                break;
+            case 571:
+                if (LastWINemID==1){
+                        StepDSP=58;
+                }
+                else StepDSP=56;
+            case 58: //H) Broadcast ACK
+                ACKmessage* ack = new ACKmessage();
+                ack->setID(generatedWSMsSource);
+                ack->setEM(1);
+                populateWSM(ack);
+                sendDown(ack,1);
+                StepDSP=59;
+            case 59: //I) Turn Off
+                BT=false;
+                break;
             }
-
-         }
-
-
-
-
-    }
+            break;
+          }
+        }
     case SEND_BT: {
         BTmessage* bt = new BTmessage();
         populateWSM(bt);
         sendDown(bt,0);
         cancelEvent(sendBT_EV);
         if (BT){
-            scheduleAt(simTime() + beaconInterval, sendBT_EV);
+            scheduleAt(simTime() + BTInterval, sendBT_EV);
         }
         break;
     }

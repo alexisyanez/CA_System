@@ -55,7 +55,9 @@ class WaveAppToMac1609_4Interface {
 
         virtual double getTxPower() =0;
 
-        virtual void setTxPower(double TxPower) =0;
+        virtual void setTxPower(double TxPower) = 0;
+
+        virtual bool getIdleChannel() = 0;
 
         virtual ~WaveAppToMac1609_4Interface() {} ;
 };

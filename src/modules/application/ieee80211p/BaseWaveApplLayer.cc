@@ -72,6 +72,10 @@ void BaseWaveApplLayer::initialize(int stage) {
         beaconUserPriority = par("beaconUserPriority").longValue();
         beaconInterval =  par("beaconInterval");
 
+        //DSP parameters
+        BTInterval = par("BTInterval");
+        DeltaDSP = par("DeltaDSP");
+
         //Start beaconing at time
         beaconAtTime = par("beaconAtTime");
 
@@ -276,6 +280,14 @@ void BaseWaveApplLayer::handleLowerMsg(cMessage* msg,int index) {
     else if (WaveServiceAdvertisment* wsa = dynamic_cast<WaveServiceAdvertisment*>(wsm)) {
         receivedWSAs++;
         onWSA(wsa);
+    }
+    else if (RTBmessage* rtb = dynamic_cast<RTBmessage*>(wsm)) {
+        //receivedWSAs++;
+        onRTB(rtb);
+    }
+    else if (WINmessage* win = dynamic_cast<WINmessage*>(wsm)) {
+        //receivedWSAs++;
+        onWIN(win);
     }
     else {
         receivedWSMs++;

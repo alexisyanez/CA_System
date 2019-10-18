@@ -111,6 +111,9 @@ class myWaveAppLayer : public BaseWaveApplLayer{
         simtime_t muDSP;
         double tauDSP;
         bool BT; //Busy tone
+        int StepDSP;
+        int LastRTBemID;
+        int LastWINemID;
 
         long lastNTIB;
         long currNTIB;
@@ -151,6 +154,8 @@ class myWaveAppLayer : public BaseWaveApplLayer{
         virtual void onBSM(BasicSafetyMessage* bsm);
         virtual void onWSM(WaveShortMessage* wsm);
         virtual void onWSA(WaveServiceAdvertisment* wsa);
+        virtual void onRTB(RTBmessage* rtb);
+        virtual void onWIN(RTBmessage* win);
 
         virtual void handleSelfMsg(cMessage* msg);
         virtual void handlePositionUpdate(cObject* obj);

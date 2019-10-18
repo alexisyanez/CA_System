@@ -162,6 +162,7 @@ class Mac1609_4 : public BaseMacLayer,
 
         double getTxPower();
 
+        bool getIdleChannel();
 
 		/**
 		 * @brief Change the default tx power the NIC card is using

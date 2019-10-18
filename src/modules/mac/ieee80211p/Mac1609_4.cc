@@ -932,6 +932,9 @@ long Mac1609_4::getNBR() {
     return statsReceivedBroadcasts;
 }
 
+long Mac1609_4::getIdleChannel() {
+    return idleChannel;
+}
 bool Mac1609_4::isCurrentChannelCCH() {
     return (activeChannel ==  type_CCH);
 }
