@@ -39,7 +39,8 @@ simple myWaveAppLayer extends BaseWaveApplLayer
     
     //DSP
     bool DSP = default(false); 
-    double tauDSP = default(0) @unit(s);
+    double tauDSP = default(0.000039s) @unit(s); //Author suggest 2*SIFS
+    double thetaDSP = default(0s) @unit(s);
     
     //Accident
     bool MeInAcc= default(false);

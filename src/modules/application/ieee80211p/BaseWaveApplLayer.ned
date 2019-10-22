@@ -56,6 +56,8 @@ simple BaseWaveApplLayer like IBaseApplLayer
 
         bool communicateWhileParked = default(false); //whether the car should communicate when it is parked in SUMO
 
+		double BTInterval = default(.1s) @unit(s); // Frcuencia para Busy Tone
+		double DeltaDSP = default(0s) @unit(s);  
     gates:
         input lowerLayerInAP[]; // from mac layer
         output lowerLayerOutAP[]; // to mac layer

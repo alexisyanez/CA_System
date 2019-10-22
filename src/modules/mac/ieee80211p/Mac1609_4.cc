@@ -278,15 +278,15 @@ void Mac1609_4::handleUpperMsg(cMessage* msg) {
 	}
 
 	if (thisMsg->getEm()==1){
-	        myEDCA[chan]->myQueues[ac].cwMax = 5;
-	        myEDCA[chan]->myQueues[ac].cwMin = 2;
-	        //myEDCA[chan]->modifyQueue(2,(((CWMIN_11P+1)/4)-2),(((CWMIN_11P +1)/2)-2),AC_VO);
+	        /*myEDCA[chan]->myQueues[ac].cwMax = 5;
+	        myEDCA[chan]->myQueues[ac].cwMin = 2;*/
+	        myEDCA[chan]->modifyQueue(2,(((CWMIN_11P+1)/4)-2),(((CWMIN_11P +1)/2)-2),AC_VO);
 
 	        DBG_MAC << "Received a message from upper layer for channel "
 	                << thisMsg->getChannelNumber() << " Access Category (Priority):  "
 	                << ac << " Suggested CW from WSM :  "
 	                << thisMsg->getCw() << " Now the CW Min is :  "
-	                << myEDCA[chan]->myQueues[ac].cwMin << " Now the CW Max is :  "
+	                << myEDCA[chan]->myQueues[ac].cwMin << " Now the CW Max is :  " //debug for Contention Window AY
 	                << myEDCA[chan]->myQueues[ac].cwMax << std::endl;
 	    }
 
@@ -932,7 +932,7 @@ long Mac1609_4::getNBR() {
     return statsReceivedBroadcasts;
 }
 
-long Mac1609_4::getIdleChannel() {
+bool Mac1609_4::getIdleChannel() {
     return idleChannel;
 }
 bool Mac1609_4::isCurrentChannelCCH() {

@@ -24,8 +24,11 @@
 
 #include "modules/messages/WaveShortMessage_m.h"
 #include "modules/messages/BTmessage_m.h"
+#include "modules/messages/RTBmessage_m.h"
+#include "modules/messages/WINmessage_m.h"
 #include <iostream>
 #include <list>
+#include <fstream>
 
 
 //#include "veins/modules/mac/ieee80211p/Mac1609_4.h"
@@ -90,6 +93,7 @@ class myWaveAppLayer : public BaseWaveApplLayer{
             CALC_CBR,
             PER_WSM,
             DSP_START,
+            DSP_START_REC,
             SEND_BT
 
         };
@@ -110,16 +114,22 @@ class myWaveAppLayer : public BaseWaveApplLayer{
         // Variables para la implementación de DSP
         simtime_t muDSP;
         double tauDSP;
+        double thetaDSP;
         bool BT; //Busy tone
         int StepDSP;
+        int StepDSP_REC;
         int LastRTBemID;
         int LastWINemID;
+        int LastACKemID;
+        int LastWSM_EM;
+        int MyPartition;
+        int CW_sug;
 
-        long lastNTIB;
-        long currNTIB;
+        double lastNTIB;
+        double currNTIB;
 
-        long lastNBR;
-        long currNBR;
+        double lastNBR;
+        double currNBR;
 
         // Promedio de Channel Busy Rate
         //mutable std::list < double > meanCBR;
@@ -147,6 +157,8 @@ class myWaveAppLayer : public BaseWaveApplLayer{
         //Distancia de propagación del mensaje
         double distanceProp;
 
+        std::ofstream outFile;
+        FILE *pyin;
 
         //
 
@@ -155,10 +167,12 @@ class myWaveAppLayer : public BaseWaveApplLayer{
         virtual void onWSM(WaveShortMessage* wsm);
         virtual void onWSA(WaveServiceAdvertisment* wsa);
         virtual void onRTB(RTBmessage* rtb);
-        virtual void onWIN(RTBmessage* win);
+        virtual void onWIN(WINmessage* win);
+        virtual void onACK(ACKmessage* ack);
 
         virtual void handleSelfMsg(cMessage* msg);
         virtual void handlePositionUpdate(cObject* obj);
+        virtual int getDescriptor(double CBR,double NTIB,double NBR);
 
         // Funciones para obtener Utx
 
@@ -170,12 +184,14 @@ class myWaveAppLayer : public BaseWaveApplLayer{
         int getMyRank(WaveShortMessage* wsm, int my_id);
         double avg(std::list<double> list);
 
+        // Funcion para obtener partición de DSP
+        int getMyPartition(WaveShortMessage* wsm,double Dist);
 
         cMessage* calcCBR_EV;
         cMessage* periodic_WSM_EV;
         cMessage* DSP_start_EV;
+        cMessage* DSP_start_REC_EV;
         cMessage* sendBT_EV;
-
         uint32_t generatedWSMsSource;
     };
 

@@ -111,7 +111,10 @@ class BaseWaveApplLayer : public BaseApplLayer {
         virtual void onRTB(RTBmessage* rtb) { };
 
         /** @brief this function is called upon receiving a WaveServiceAdvertisement */
-        virtual void onWIN(RTBmessage* win) { };
+        virtual void onWIN(WINmessage* win) { };
+
+        /** @brief this function is called upon receiving a WaveServiceAdvertisement */
+        virtual void onACK(ACKmessage* ack) { };
 
         /** @brief this function is called every time the vehicle receives a position update signal */
         virtual void handlePositionUpdate(cObject* obj);
@@ -252,8 +255,8 @@ class BaseWaveApplLayer : public BaseApplLayer {
         int lowerControlOut[2];
 
         // Paremters for DSP;
-        simtime_t BTInterval;
-        simtime_t DeltaDSP;
+        double BTInterval;
+        double DeltaDSP;
 };
 
 #endif /* BASEWAVEAPPLLAYER_H_ */
