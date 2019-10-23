@@ -57,9 +57,9 @@ void BaseWaveApplLayer::initialize(int stage) {
       //  assert(mac);
 
         mac[0] = check_and_cast<WaveAppToMac1609_4Interface*>(getModuleByPath("^.nic[0].mac1609_4"));
-        assert(mac[0]);
+        //assert(mac[0]);
         mac[1] = check_and_cast<WaveAppToMac1609_4Interface*>(getModuleByPath("^.nic[1].mac1609_4"));
-        assert(mac[1]);
+        //assert(mac[1]);
 
 
         myId = getParentModule()->getId();

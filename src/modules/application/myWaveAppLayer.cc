@@ -246,7 +246,7 @@ void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
         currCBR = mac[1]->getBusyTime() - lastBusyT;
         cancelEvent(calcCBR_EV);
         scheduleAt(simTime() + 1, calcCBR_EV);
-        EV << "CBR=" << currCBR << endl;
+        EV << "Channel Busy Ratio CBR= " << currCBR << endl;
         lastBusyT = (mac[1]->getBusyTime()).dbl();
         //Emitir estadistica para el CBR
         MyCBRVec.record(currCBR);
@@ -254,10 +254,12 @@ void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
         // Guardar valor para el número de veces que entra al Back-off
         currNTIB= mac[1]->getNTIB() - lastNTIB;
         NTIB.record(currNTIB);
+        EV << "Normalize Time Into BackOff NTIB= " << currNTIB << endl;
 
         // Guardar valor para el número de broadcast recibidos
         currNBR= mac[1]->getNBR() - lastNBR;
         NBR.record(currNBR);
+        EV << "Normalize Broadcast Received NBR=" << currNBR << endl;
         EV <<"Se envian métricas para la clasificación del contexto, Descriptor: " << getDescriptor(currCBR.dbl(),currNTIB,currNBR) << endl;
 
 
@@ -727,7 +729,7 @@ int myWaveAppLayer::getDescriptor(double CBR,double NTIB, double NBR){
     sprintf(cmd,"%s %f %f %f","python /home/alexis/git/CA_System/pyUtils/client.py",CBR,NTIB,NBR);
     EV << "******* " << cmd << std::endl;
     pyin = popen(cmd, "r");
-    fscanf(pyin, "%lf", &Desc);
+    fscanf(pyin, "%i", &Desc);
     pclose(pyin);
     return Desc;
 

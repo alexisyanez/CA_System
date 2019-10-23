@@ -5,12 +5,6 @@
 			<parameter name="alpha" type="double" value="3"/>  <!-- value="2.6"/ se utiliza 3.0 en base a TrAD-->  
 			<parameter name="carrierFrequency" type="double" value="2.890e+9"/>
 		</AnalogueModel>
-		<AnalogueModel type="SimpleObstacleShadowing">
-			<parameter name="carrierFrequency" type="double" value="2.890e+9"/>
-			<obstacles>
-				<type id="building" db-per-cut="9" db-per-meter="0.4" />
-			</obstacles>
-		</AnalogueModel>
 	</AnalogueModels>
 	<Decider type="Decider80211p">
 		<!-- The center frequency on which the phy listens-->
