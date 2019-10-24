@@ -97,6 +97,8 @@ void myWaveAppLayer::initialize(int stage) {
         //
         // MyCollVec.setName("MyColl");
         MyCBRVec.setName("MyCBR");
+        NTIB.setName("NTIB");
+        NBR.setName("NBR");
 
         //Número de vecinos
 
@@ -245,9 +247,9 @@ void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
     case CALC_CBR: {
         currCBR = mac[1]->getBusyTime() - lastBusyT;
         cancelEvent(calcCBR_EV);
-        scheduleAt(simTime() + 1, calcCBR_EV);
+        scheduleAt(simTime() + 0.1, calcCBR_EV);
         EV << "Channel Busy Ratio CBR= " << currCBR << endl;
-        lastBusyT = (mac[1]->getBusyTime()).dbl();
+
         //Emitir estadistica para el CBR
         MyCBRVec.record(currCBR);
 
@@ -256,13 +258,16 @@ void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
         NTIB.record(currNTIB);
         EV << "Normalize Time Into BackOff NTIB= " << currNTIB << endl;
 
+
         // Guardar valor para el número de broadcast recibidos
         currNBR= mac[1]->getNBR() - lastNBR;
         NBR.record(currNBR);
         EV << "Normalize Broadcast Received NBR=" << currNBR << endl;
-        EV <<"Se envian métricas para la clasificación del contexto, Descriptor: " << getDescriptor(currCBR.dbl(),currNTIB,currNBR) << endl;
+        EV << "Se envian métricas para la clasificación del contexto, Descriptor: " << getDescriptor(currCBR.dbl(),currNTIB,currNBR) << endl;
 
-
+        lastNBR = mac[1]->getNBR();
+        lastNTIB = mac[1]->getNTIB();
+        lastBusyT = mac[1]->getBusyTime();
         //meanCBR.push_back(currCBR);
         //emit(MyCBRSignal,currCBR);
         //Emitir estadistica para el estimador de Colisiones
@@ -274,7 +279,7 @@ void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
 
         WaveShortMessage* wsm = new WaveShortMessage();
 
-                    // Seteando valores agreagdos al paquete My_wsm
+        // Seteando valores agreagdos al paquete My_wsm
         wsm->setAngleRad(angleRad);
         wsm->setSenderPos(curPosition);
         wsm->setSenderSpeed(curSpeed);

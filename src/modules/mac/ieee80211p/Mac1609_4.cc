@@ -280,7 +280,7 @@ void Mac1609_4::handleUpperMsg(cMessage* msg) {
 	if (thisMsg->getEm()==1){
 	        /*myEDCA[chan]->myQueues[ac].cwMax = 5;
 	        myEDCA[chan]->myQueues[ac].cwMin = 2;*/
-	        myEDCA[chan]->modifyQueue(2,(((CWMIN_11P+1)/4)-2),(((CWMIN_11P +1)/2)-2),AC_VO);
+	        //myEDCA[chan]->modifyQueue(2,(((CWMIN_11P+1)/4)-2),(((CWMIN_11P +1)/2)-2),AC_VO);
 
 	        DBG_MAC << "Received a message from upper layer for channel "
 	                << thisMsg->getChannelNumber() << " Access Category (Priority):  "
