@@ -291,6 +291,9 @@ class Mac1609_4 : public BaseMacLayer,
 		/** @brief the bit rate at which we transmit */
 		uint64_t bitrate;
 
+		// fecuency at mac
+		long macNumb;
+
 		/** @brief N_DBPS, derived from bitrate, for frame length calculation */
 		double n_dbps;
 

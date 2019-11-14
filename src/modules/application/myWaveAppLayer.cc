@@ -166,6 +166,7 @@ void myWaveAppLayer::onBSM(BasicSafetyMessage* bsm) {
 }
 
 void myWaveAppLayer::onWSM(WaveShortMessage* wsm) {
+
     LastWSM_EM=wsm->getEm();
     if (wsm->getID()!=lastWSMid && wsm->getOirigin_ID()!=myId ){
     findHost()->getDisplayString().updateWith("r=16,green");
@@ -735,7 +736,7 @@ int myWaveAppLayer::getMyPartition(WaveShortMessage* wsm,double Dist){
 int myWaveAppLayer::getDescriptor(double CBR,double NTIB, double NBR){
     int Desc;
     char cmd[110];
-    sprintf(cmd,"%s %f %f %f","python /home/alexis/git/CA_System/pyUtils/client.py",CBR,NTIB,NBR);
+    sprintf(cmd,"%s %f %f %f","python /home/aware/git/CA_System/pyUtils/client.py",CBR,NTIB,NBR);
     EV << "******* " << cmd << std::endl;
     pyin = popen(cmd, "r");
     fscanf(pyin, "%i", &Desc);

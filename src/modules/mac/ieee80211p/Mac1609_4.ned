@@ -50,7 +50,10 @@ simple Mac1609_4 extends BaseMacLayer
 
         // bit rate 
         double bitrate @unit(bps) = default(6 Mbps);
-
+        
+        // Numero de nic
+        int macNum = default(1);
+        
         // maximum artificial asynchronization between cars to avoid synchronization effects
         double syncOffset @unit(s) = default(0.0003s);
 
