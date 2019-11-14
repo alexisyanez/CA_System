@@ -125,11 +125,11 @@ class myWaveAppLayer : public BaseWaveApplLayer{
         int MyPartition;
         int CW_sug;
 
-        double lastNTIB;
-        double currNTIB;
+        long lastNTIB;
+        long currNTIB;
 
-        double lastNBR;
-        double currNBR;
+        long lastNBR;
+        long currNBR;
 
         // Promedio de Channel Busy Rate
         //mutable std::list < double > meanCBR;

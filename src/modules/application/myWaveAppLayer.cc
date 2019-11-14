@@ -75,9 +75,11 @@ void myWaveAppLayer::initialize(int stage) {
 
         // Inicilizar Numero de veces que entra al backoff
         lastNTIB = 0;
+        currNTIB = 0;
 
         // Inicilizar número de broadcast recibidos
         lastNBR = 0;
+        currNBR = 0;
 
        // WSM periódico
         SendP_WSM = par("Send_Per_WSM");
@@ -167,6 +169,8 @@ void myWaveAppLayer::onWSM(WaveShortMessage* wsm) {
     LastWSM_EM=wsm->getEm();
     if (wsm->getID()!=lastWSMid && wsm->getOirigin_ID()!=myId ){
     findHost()->getDisplayString().updateWith("r=16,green");
+    EV << "I am green because onWSM function was activated" << endl;
+
     delay=simTime()-wsm->getTimestamp();
     distanceProp = mobility->getPositionAt(SimTime()).distance(wsm->getSenderPos()); //Dij;
     wsm->setCw(2);
@@ -247,7 +251,7 @@ void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
     case CALC_CBR: {
         currCBR = mac[1]->getBusyTime() - lastBusyT;
         cancelEvent(calcCBR_EV);
-        scheduleAt(simTime() + 0.1, calcCBR_EV);
+        scheduleAt(simTime() + 1, calcCBR_EV);
         EV << "Channel Busy Ratio CBR= " << currCBR << endl;
 
         //Emitir estadistica para el CBR
@@ -518,7 +522,7 @@ void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
     }
     }
 
-    if (WaveShortMessage* wsm = dynamic_cast<WaveShortMessage*>(msg)) {
+    /* if (WaveShortMessage* wsm = dynamic_cast<WaveShortMessage*>(msg)) {
         //send this message on the service channel until the counter is 3 or higher.
         //this code only runs when channel switching is enabled
         sendDown(wsm->dup(),1);
@@ -547,9 +551,9 @@ void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
 //        }
         }
     }
-    else {
+    else {*/
         BaseWaveApplLayer::handleSelfMsg(msg);
-    }
+    //}
 
 
     //this method is for self messages (mostly timers)
