@@ -922,6 +922,10 @@ bool Mac1609_4::isCurrentChannelCCH() {
     return (activeChannel ==  type_CCH);
 }
 
+double Mac1609_4::getTxPower() {
+    return txPower;
+}
+
 simtime_t Mac1609_4::getFrameDuration(int payloadLengthBits, enum PHY_MCS mcs) const {
     simtime_t duration;
     if (mcs == MCS_DEFAULT) {

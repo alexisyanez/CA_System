@@ -40,17 +40,17 @@ void BaseWaveApplLayer::initialize(int stage) {
             traciVehicle = NULL;
         }
 
-        lowerLayerIn   = findGate("lowerLayerIn");
+        /*lowerLayerIn   = findGate("lowerLayerIn");
         lowerLayerOut = findGate("lowerLayerOut");
         lowerControlIn   = findGate("lowerControlIn");
-        lowerControlOut  = findGate("lowerControlOut");
+        lowerControlOut  = findGate("lowerControlOut");*/
 
         annotations = AnnotationManagerAccess().getIfExists();
         ASSERT(annotations);
 
 
         mac = FindModule<WaveAppToMac1609_4Interface*>::findSubModule(getParentModule());
-       assert(mac);
+        assert(mac);
 
        /* mac[0] = check_and_cast<WaveAppToMac1609_4Interface*>(getModuleByPath("^.nic[0].mac1609_4"));
         assert(mac[0]);
@@ -362,8 +362,11 @@ void BaseWaveApplLayer::stopService() {
 }
 
 void BaseWaveApplLayer::sendDown(cMessage* msg) {
-    recordPacket(PassedMessage::OUTGOING,PassedMessage::LOWER_DATA,msg);
-    send(msg,lowerLayerOut);
+    checkAndTrackPacket(msg);
+    BaseApplLayer::sendDown(msg);
+    //recordPacket(PassedMessage::OUTGOING,PassedMessage::LOWER_DATA,msg);
+    //send(msg,lowerLayerOut);
+
 }
 
 //void BaseWaveApplLayer::sendDown(cMessage* msg,int index) {
@@ -371,10 +374,9 @@ void BaseWaveApplLayer::sendDown(cMessage* msg) {
 //    send(msg,lowerLayerOut[index]);
 //}
 
-void BaseWaveApplLayer::sendDelayedDown(cMessage* msg, simtime_t delay, int index) {
+void BaseWaveApplLayer::sendDelayedDown(cMessage* msg, simtime_t delay) {
     checkAndTrackPacket(msg);
-    recordPacket(PassedMessage::OUTGOING, PassedMessage::LOWER_DATA, msg);
-    sendDelayed(msg, delay, lowerLayerOut);
+    BaseApplLayer::sendDelayedDown(msg, delay);
 }
 
 void BaseWaveApplLayer::checkAndTrackPacket(cMessage* msg) {
@@ -389,46 +391,46 @@ void BaseWaveApplLayer::checkAndTrackPacket(cMessage* msg) {
         generatedWSAs++;
     }
     else if (dynamic_cast<WaveShortMessage*>(msg)) {
-        DBG_APP << "sending down a wsm" << std::endl;
+        DBG_APP << "sending down a WSM" << std::endl;
         generatedWSMs++;
     }
 }
 
-void BaseWaveApplLayer::handleMessage(cMessage* msg)
-{
-    if (msg->isSelfMessage()){
-        handleSelfMsg(msg);
-    } else if(msg->getArrivalGateId()==lowerControlIn){
-        recordPacket(PassedMessage::INCOMING,PassedMessage::LOWER_CONTROL,msg);
-        handleLowerControl(msg);
-    } else if(msg->getArrivalGateId()==lowerLayerIn){
-        recordPacket(PassedMessage::INCOMING,PassedMessage::LOWER_DATA,msg);
-        handleLowerMsg(msg);
-    }
-    else if(msg->getArrivalGateId()==-1) {
-        /* Classes extending this class may not use all the gates, f.e.
-         * BaseApplLayer has no upper gates. In this case all upper gate-
-         * handles are initialized to -1. When getArrivalGateId() equals -1,
-         * it would be wrong to forward the message to one of these gates,
-         * as they actually don't exist, so raise an error instead.
-         */
-        throw cRuntimeError("No self message and no gateID?? Check configuration.");
-    } else {
-        /* msg->getArrivalGateId() should be valid, but it isn't recognized
-         * here. This could signal the case that this class is extended
-         * with extra gates, but handleMessage() isn't overridden to
-         * check for the new gate(s).
-         */
-        throw cRuntimeError("Unknown gateID?? Check configuration or override handleMessage().");
-    }
-}
+//void BaseWaveApplLayer::handleMessage(cMessage* msg)
+//{
+//    if (msg->isSelfMessage()){
+//        handleSelfMsg(msg);
+//    } else if(msg->getArrivalGateId()==lowerControlIn){
+//        recordPacket(PassedMessage::INCOMING,PassedMessage::LOWER_CONTROL,msg);
+//        handleLowerControl(msg);
+//    } else if(msg->getArrivalGateId()==lowerLayerIn){
+//        recordPacket(PassedMessage::INCOMING,PassedMessage::LOWER_DATA,msg);
+//        handleLowerMsg(msg);
+//    }
+//    else if(msg->getArrivalGateId()==-1) {
+//        /* Classes extending this class may not use all the gates, f.e.
+//         * BaseApplLayer has no upper gates. In this case all upper gate-
+//         * handles are initialized to -1. When getArrivalGateId() equals -1,
+//         * it would be wrong to forward the message to one of these gates,
+//         * as they actually don't exist, so raise an error instead.
+//         */
+//        throw cRuntimeError("No self message and no gateID?? Check configuration.");
+//    } else {
+//        /* msg->getArrivalGateId() should be valid, but it isn't recognized
+//         * here. This could signal the case that this class is extended
+//         * with extra gates, but handleMessage() isn't overridden to
+//         * check for the new gate(s).
+//         */
+//        throw cRuntimeError("Unknown gateID?? Check configuration or override handleMessage().");
+//    }
+//}
 
-void BaseWaveApplLayer::sendControlDown(cMessage *msg) {
+/*void BaseWaveApplLayer::sendControlDown(cMessage *msg) {
     recordPacket(PassedMessage::OUTGOING,PassedMessage::LOWER_CONTROL,msg);
     if (gate(lowerControlOut)->isPathOK())
         send(msg, lowerControlOut);
     else {
         EV << "BaseLayer: lowerControlOut is not connected; dropping message" << std::endl;
         delete msg;
-    }
-}
+    }*/
+//}

@@ -22,7 +22,8 @@ package ca_system.nodes;
 
 import org.car2x.veins.base.connectionManager.ConnectionManager;
 import org.car2x.veins.base.modules.BaseWorldUtility;
-import org.car2x.veins.modules.mobility.traci.TraCIScenarioManagerLaunchd;
+//import org.car2x.veins.modules.mobility.traci.TraCIScenarioManagerLaunchd;
+import ca_system.nodes.TraCIScenarioManagerLaunchd;
 import org.car2x.veins.modules.obstacle.ObstacleControl;
 import org.car2x.veins.modules.world.annotations.AnnotationManager;
 
@@ -40,14 +41,14 @@ network Scenario
         annotations: AnnotationManager {
             @display("p=260,50");
         }
-        connectionManager1: ConnectionManager {
+        connectionManager: ConnectionManager {
             parameters:
                 @display("p=150,0;i=abstract/multicast");
         }
-        connectionManager2: ConnectionManager {
-            parameters:
-                @display("p=150,0;i=abstract/multicast");
-        }
+        //connectionManager2: ConnectionManager {
+        //    parameters:
+        //        @display("p=150,0;i=abstract/multicast");
+        //}
         world: BaseWorldUtility {
             parameters:
                 playgroundSizeX = playgroundSizeX;

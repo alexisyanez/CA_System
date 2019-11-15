@@ -65,7 +65,8 @@ void myWaveAppLayer::initialize(int stage) {
        // WSM periódico
         SendP_WSM = par("Send_Per_WSM");
         WSM_interval = par("wsmInterval");
-        periodic_WSM_EV = new cMessage("WSM Periodic Transmision evt", PER_WSM);
+        //periodic_WSM_EV = new cMessage("WSM Periodic Transmision evt", PER_WSM);
+
         generatedWSMsSource= 0;
 
         // Identificar WSM
@@ -143,7 +144,7 @@ void myWaveAppLayer::onWSM(WaveShortMessage* wsm) {
     //LastWSM_EM=wsm->getEm();
     if (wsm->getID()!=lastWSMid && wsm->getOirigin_ID()!=myId ){
     findHost()->getDisplayString().updateWith("r=16,green");
-   // EV << "I am green because onWSM function was activated" << endl;
+    EV << "I am green because onWSM function was activated" << endl;
 
     delay=simTime()-wsm->getTimestamp();
     distanceProp = mobility->getPositionAt(SimTime()).distance(wsm->getSenderPos()); //Dij;
@@ -224,7 +225,7 @@ void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
     }
     case PER_WSM: {
 
-        WaveShortMessage* wsm = new WaveShortMessage();
+        /* WaveShortMessage* wsm = new WaveShortMessage();
 
         // Seteando valores agreagdos al paquete My_wsm
         wsm->setAngleRad(angleRad);
@@ -243,8 +244,8 @@ void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
         sendDown(wsm);
 
         cancelEvent(periodic_WSM_EV);
-        scheduleAt(simTime() + WSM_interval, periodic_WSM_EV);
-        EV << "Sending WSM" << endl;
+        scheduleAt(simTime() + WSM_interval, periodic_WSM_EV);*/
+        EV << "Sending WSM -> Into the PER_WSM" << endl;
         break;
         }
     }
@@ -279,7 +280,7 @@ void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
         }
     }
     else {*/
-        BaseWaveApplLayer::handleSelfMsg(msg);
+       BaseWaveApplLayer::handleSelfMsg(msg);
     //}
 
 
@@ -337,9 +338,9 @@ void myWaveAppLayer::handlePositionUpdate(cObject* obj) {
                 //send right away on CCH, because channel switching is disabled
                 sendDown(wsm);
                 generatedWSMsSource++;
-                if(SendP_WSM){
+                //if(SendP_WSM){
                 //cancelEvent(periodic_WSM_EV);
-                scheduleAt(simTime() + WSM_interval, periodic_WSM_EV);}
+                //scheduleAt(simTime() + WSM_interval, periodic_WSM_EV);}
             }
         //}
     }
@@ -437,7 +438,7 @@ double myWaveAppLayer::avg(std::list<double> list)
 int myWaveAppLayer::getDescriptor(double CBR,double NTIB, double NBR){
     int Desc;
     char cmd[110];
-    sprintf(cmd,"%s %f %f %f","python /home/alexis/git/CA_System/pyUtils/client.py",CBR,NTIB,NBR);
+    sprintf(cmd,"%s %f %f %f","python /home/aware/git/CA_System/pyUtils/client.py",CBR,NTIB,NBR);
     EV << "******* " << cmd << std::endl;
     pyin = popen(cmd, "r");
     fscanf(pyin, "%i", &Desc);

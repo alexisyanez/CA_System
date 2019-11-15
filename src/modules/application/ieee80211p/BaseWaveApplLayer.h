@@ -166,7 +166,7 @@ class BaseWaveApplLayer : public BaseApplLayer {
          */
 
 
-        virtual void sendDelayedDown(cMessage* msg, simtime_t delay, int index);
+        virtual void sendDelayedDown(cMessage* msg, simtime_t delay);
 
         /**
          * @brief helper function for error handling and stats recording purposes
@@ -176,10 +176,10 @@ class BaseWaveApplLayer : public BaseApplLayer {
         virtual void checkAndTrackPacket(cMessage* msg);
 
         /** @brief handle messages from below and calls the onWSM, onBSM, and onWSA functions accordingly */
-        virtual void handleMessage(cMessage* msg);
+        //virtual void handleMessage(cMessage* msg);
 
         //
-        virtual void sendControlDown(cMessage *msg);
+        //virtual void sendControlDown(cMessage *msg);
 
         /** @brief Handle control messages from lower layer */
         //virtual void handleLowerControl(cMessage *msg, int index) = 0;
@@ -249,10 +249,10 @@ class BaseWaveApplLayer : public BaseApplLayer {
         // Channel Busy Ratio
         simtime_t currCBR;
 
-        int lowerLayerIn;
+       /* int lowerLayerIn;
         int lowerLayerOut;
         int lowerControlIn;
-        int lowerControlOut;
+        int lowerControlOut;*/
 };
 
 #endif /* BASEWAVEAPPLLAYER_H_ */
