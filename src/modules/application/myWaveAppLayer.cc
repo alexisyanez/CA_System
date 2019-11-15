@@ -44,26 +44,7 @@ void myWaveAppLayer::initialize(int stage) {
         TrAD_Neig = par("TrAD_Neig");
         TrAD_R = par("TrAD_R");
 
-        // DSP
-        DSPEnabled = par("DSP");
-        DSP_start_EV = new cMessage("DSP Start", DSP_START);
-        tauDSP =par("tauDSP");
-        thetaDSP =par("thetaDSP");
-
-        sendBT_EV = new cMessage("BT Event", SEND_BT);
-        BT= false;
-
-        StepDSP = 0;
-        StepDSP_REC=0;
-        LastRTBemID = 0;
-        LastWINemID = 0;
-        LastACKemID = 0;
-        LastWSM_EM= 0;
-        MyPartition = -1;
-        CW_sug = -1;
-
-        DSP_start_REC_EV = new cMessage("DSP Start Receiver", DSP_START_REC);
-
+        
 
         // Accident
         Acc_start = par("Accident_start");
@@ -108,14 +89,6 @@ void myWaveAppLayer::initialize(int stage) {
         Veci2mean.setName("Neighbot2-hop");
 
 
-        /*lowerLayerIn[0]   = findGate("upperLayerIn",0);
-        lowerLayerOut[0] = findGate("upperLayerOut",0);
-        lowerControlIn[0]   = findGate("lowerLayerIn",0);
-        lowerControlIn[0]  = findGate("lowerLayerOut",0);
-        lowerLayerIn[1]   = findGate("upperLayerIn",1);
-        lowerLayerOut[1] = findGate("upperLayerOut",1);
-        lowerControlIn[1]   = findGate("lowerLayerIn",1);
-        lowerControlIn[1]  = findGate("lowerLayerOut",1);*/
 
     }
     else if (stage == 1) {
@@ -166,15 +139,16 @@ void myWaveAppLayer::onBSM(BasicSafetyMessage* bsm) {
 }
 
 void myWaveAppLayer::onWSM(WaveShortMessage* wsm) {
-    LastWSM_EM=wsm->getEm();
+    
+    //LastWSM_EM=wsm->getEm();
     if (wsm->getID()!=lastWSMid && wsm->getOirigin_ID()!=myId ){
     findHost()->getDisplayString().updateWith("r=16,green");
-    EV << "I am green because onWSM function was activated" << endl;
+   // EV << "I am green because onWSM function was activated" << endl;
 
     delay=simTime()-wsm->getTimestamp();
     distanceProp = mobility->getPositionAt(SimTime()).distance(wsm->getSenderPos()); //Dij;
-    wsm->setCw(2);
-    wsm->setEm(1);
+   // wsm->setCw(2);
+   // wsm->setEm(1);
     //if (mobility->getRoadId()[0] != ':') traciVehicle->changeRoute(wsm->getWsmData(), 9999);
     if (!sentMessage) {
         sentMessage = true;
@@ -198,11 +172,6 @@ void myWaveAppLayer::onWSM(WaveShortMessage* wsm) {
             simtime_t TS =  TrAD_ti*rank;
             scheduleAt(simTime() + TS , wsm->dup());
             }
-        else if (DSPEnabled==true)
-            {
-            MyPartition = getMyPartition(wsm,distanceProp);
-            CW_sug = wsm->getCw();
-            }
         else {
         scheduleAt(simTime() + 2 + uniform(0.01,0.2), wsm->dup());
         }
@@ -220,58 +189,32 @@ void myWaveAppLayer::onWSA(WaveServiceAdvertisment* wsa) {
 
 }
 
-void myWaveAppLayer::onRTB(RTBmessage* rtb) {
-    LastRTBemID = rtb->getEm();
-    //Your application has received a service advertisement from another car or RSU
-    //code for handling the message goes here, see TraciDemo11p.cc for examples
-    if(DSPEnabled==true){
-                scheduleAt(simTime(),DSP_start_REC_EV);
-                StepDSP_REC=1;
-               // Code from paper
-
-    }
-
-}
-void myWaveAppLayer::onWIN(WINmessage* win) {
-    LastWINemID = win->getEm();
-    //Your application has received a service advertisement from another car or RSU
-    //code for handling the message goes here, see TraciDemo11p.cc for examples
-    if(DSPEnabled==true){
-                scheduleAt(simTime(),DSP_start_REC_EV);
-                StepDSP_REC=2;
-               // Code from paper
-    }
-}
-
-void myWaveAppLayer::onACK(ACKmessage* ack) {
-    LastACKemID = ack->getEm();
-}
 void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
     switch (msg->getKind()) {
     case CALC_CBR: {
-        currCBR = mac[1]->getBusyTime() - lastBusyT;
+        currCBR = mac->getBusyTime() - lastBusyT;
         cancelEvent(calcCBR_EV);
         scheduleAt(simTime() + 1, calcCBR_EV);
-        EV << "Channel Busy Ratio CBR= " << currCBR << endl;
-
+        EV << "CBR=" << currCBR << endl;
+        lastBusyT = (mac->getBusyTime()).dbl();
         //Emitir estadistica para el CBR
         MyCBRVec.record(currCBR);
 
         // Guardar valor para el número de veces que entra al Back-off
-        currNTIB= mac[1]->getNTIB() - lastNTIB;
+        currNTIB= mac->getNTIB() - lastNTIB;
         NTIB.record(currNTIB);
         EV << "Normalize Time Into BackOff NTIB= " << currNTIB << endl;
 
 
         // Guardar valor para el número de broadcast recibidos
-        currNBR= mac[1]->getNBR() - lastNBR;
+        currNBR= mac->getNBR() - lastNBR;
         NBR.record(currNBR);
         EV << "Normalize Broadcast Received NBR=" << currNBR << endl;
         EV << "Se envian métricas para la clasificación del contexto, Descriptor: " << getDescriptor(currCBR.dbl(),currNTIB,currNBR) << endl;
 
-        lastNBR = mac[1]->getNBR();
-        lastNTIB = mac[1]->getNTIB();
-        lastBusyT = mac[1]->getBusyTime();
+        lastNBR = mac->getNBR();
+        lastNTIB = mac->getNTIB();
+        lastBusyT = mac->getBusyTime();
         //meanCBR.push_back(currCBR);
         //emit(MyCBRSignal,currCBR);
         //Emitir estadistica para el estimador de Colisiones
@@ -297,229 +240,13 @@ void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
         wsm->setID(generatedWSMsSource);
         populateWSM(wsm);
         wsm->setWsmData(mobility->getRoadId().c_str());
-        sendDown(wsm,1);
+        sendDown(wsm);
 
         cancelEvent(periodic_WSM_EV);
         scheduleAt(simTime() + WSM_interval, periodic_WSM_EV);
         EV << "Sending WSM" << endl;
         break;
         }
-    case DSP_START:{
-        switch(StepDSP){
-        case 1:// Step 1 from DSP algorithm
-            cancelEvent(DSP_start_EV);
-            muDSP = uniform(0,tauDSP); // Step 1
-            scheduleAt(simTime()+muDSP,DSP_start_EV); // Step 2
-            StepDSP=3;
-            break;
-        case 3:
-            cancelEvent(DSP_start_EV);
-            if(LastRTBemID!=1){ // Step 3
-                StepDSP=4;
-            }
-            else{
-                StepDSP=0;
-                break;
-            }
-
-        case 4:
-            if(mac[0]->getIdleChannel()){ //Step 4
-                StepDSP=5;
-            }
-            else StepDSP=1;
-
-        case 5:
-            double myTX;
-            StepDSP=51;
-            switch (StepDSP){
-                case 51:
-                    // a) Turn On 2R-BT
-                    myTX = mac[0]->getTxPower();
-                    mac[0]->setTxPower(myTX*2);
-                    cancelEvent(sendBT_EV);
-                    scheduleAt(simTime(), sendBT_EV);
-                    BT=true;
-                    StepDSP=52;
-                case 52:{
-
-                    // b) Broadcast RTB Packet
-                    RTBmessage* rtb = new RTBmessage();
-                    rtb->setID(generatedWSMsSource);
-                    rtb->setEm(1);
-                    populateWSM(rtb);
-                    sendDown(rtb,1);
-                    StepDSP=53;
-
-                }
-                case 53:{
-                    // c) Turn Off 2R-BT
-                    BT=false;
-                    StepDSP=54;
-                }
-                case 54:
-                    // d) Wait for BT activation
-                    while(mac[0]->getIdleChannel()){
-                        EV << "Waiting for BT activation " << endl;
-                    }
-                    StepDSP=55;
-                case 55:// e) Turn On R-BT
-                    myTX = mac[0]->getTxPower();
-                    mac[0]->setTxPower(myTX/2);
-                    scheduleAt(simTime(), sendBT_EV);
-                    BT=true;
-                    StepDSP=56;
-                case 56:{
-                    // f)Broadcast EM
-                    WaveShortMessage* wsm = new WaveShortMessage();
-                        // Seteando valores agreagdos al paquete My_wsm
-                    wsm->setAngleRad(angleRad);
-                    wsm->setSenderPos(curPosition);
-                    wsm->setSenderSpeed(curSpeed);
-                    wsm->setOirigin_ID(myId);
-                    wsm->setOrigin_pos(curPosition);
-                    wsm->setCw(2);
-                    wsm->setEm(1);
-                    setingPLinWSM(makePriorList(Neig),wsm);
-                    wsm->setID(1);
-                    populateWSM(wsm);
-                    wsm->setWsmData(mobility->getRoadId().c_str());
-                    //Falta confeccionar el arreglo de particiones!!
-
-
-                    //host is standing still due to crash
-                    if (dataOnSch) {
-                        //startService(Channels::SCH2, 42, "Traffic Information Service");
-                        //started service and server advertising, schedule message to self to send later
-                        scheduleAt(computeAsynchronousSendingTime(1,type_SCH),wsm);
-                    }
-                    else {
-                        //send right away on CCH, because channel switching is disabled
-                        sendDown(wsm,1);
-                        generatedWSMsSource++;
-                        if(SendP_WSM){
-                        //cancelEvent(periodic_WSM_EV);
-                        scheduleAt(simTime() + WSM_interval, periodic_WSM_EV);}
-                    }
-                    StepDSP=57;
-                }
-                case 57:{ // G) Wait For WIN Packet
-
-                    cancelEvent(DSP_start_EV);
-                    StepDSP=571;
-                    scheduleAt(simTime()+ DeltaDSP,DSP_start_EV);
-                    break;
-                }
-                case 571:{
-                    if (LastWINemID==1){
-                            StepDSP=58;
-                    }
-                    else StepDSP=56;
-                }
-                case 58:{ //H) Broadcast ACK
-                    ACKmessage* ack = new ACKmessage();
-                    ack->setID(generatedWSMsSource);
-                    ack->setEm(1);
-                    populateWSM(ack);
-                    sendDown(ack,1);
-                    StepDSP=59;
-                }
-                case 59:{ //I) Turn Off
-                    BT=false;
-                    break;
-                }
-              }
-            break;
-          }
-        }
-    case DSP_START_REC:{
-            switch(StepDSP_REC){
-            case 1:{
-                StepDSP_REC = 11;
-                switch(StepDSP_REC){
-                case 11:{
-                    /*myTX = mac[0]->getTxPower();
-                    mac[0]->setTxPower(myTX*2);*/
-                    cancelEvent(sendBT_EV);
-                    scheduleAt(simTime(), sendBT_EV);
-                    BT=true;
-                    StepDSP_REC=12;
-                }
-                case 12:
-                    while(LastWSM_EM!=1){
-                    EV << "Waiting for EM message " << endl;
-                    }
-                    StepDSP_REC=13;
-                case 13:
-                    /*Find the Matching partition S, based on its distance to the sender and partition edge inside the EM header   */
-                    EV << "My Partition is:" << MyPartition << endl;
-                    StepDSP_REC=14;
-                case 14:
-                    /*Randomly select a contention window from CW_a, and enter the contention phase with a back-off timer. when the timer expires go to next step (e) */
-
-                    StepDSP_REC=15;
-                case 15:
-                    /*If no WIN packet (with the same EM id) is received, broadcast WIN packet and go to next step (f)*/
-                    if(LastWINemID!=1){
-                        WINmessage* win = new WINmessage();
-                        win->setID(generatedWSMsSource);
-                        win->setEm(1);
-                        populateWSM(win);
-                        sendDown(win,1);
-                        StepDSP_REC=16;
-
-                    }
-                    else{
-                        StepDSP_REC=0;
-                        break;
-                    }
-                case 16:
-                    /*Wait for ACK packet from sender. If ACK is received during time \theta, go to next step (g); otherwise, turn off R-BT and stop.*/
-                    cancelEvent(DSP_start_REC_EV);
-                    scheduleAt(simTime()+ thetaDSP,DSP_start_EV);
-                    StepDSP_REC=161;
-                    break;
-                case 161:
-                    if (LastACKemID ==1) StepDSP_REC=17;
-                    else{
-                        BT=false;
-                        break;
-                    }
-                case 17:{
-                    /*Turn off R-BT and Run Sender Procedure*/
-                    BT=false;
-                    StepDSP=1;
-                    scheduleAt(simTime(),DSP_start_EV); // Run sender procedure
-                    break;
-                }
-                }
-
-            }
-
-            case 2:{ // Else if WIN packet is received
-                StepDSP_REC = 21;
-                switch(StepDSP_REC){
-                case 21:
-                    /*If the packet has the same EM id with the EM id of the vehicle contention phase,go to next step (b); else do nothing  */
-                    if(LastWINemID==1) StepDSP_REC = 22;
-                    else break;
-                case 22:
-                    /*Exit the contention phase; se necesita clarificar mejor la fase de contención*/
-                    StepDSP_REC = 23;
-                }
-            }
-            break;
-            }
-    }
-    case SEND_BT: {
-        BTmessage* bt = new BTmessage();
-        populateWSM(bt);
-        sendDown(bt,0);
-        cancelEvent(sendBT_EV);
-        if (BT){
-            scheduleAt(simTime() + BTInterval, sendBT_EV);
-        }
-        break;
-    }
     }
 
     /* if (WaveShortMessage* wsm = dynamic_cast<WaveShortMessage*>(msg)) {
@@ -591,21 +318,15 @@ void myWaveAppLayer::handlePositionUpdate(cObject* obj) {
             wsm->setSenderSpeed(curSpeed);
             wsm->setOirigin_ID(myId);
             wsm->setOrigin_pos(curPosition);
-            wsm->setCw(2);
-            wsm->setEm(1);
+
             setingPLinWSM(makePriorList(Neig),wsm);
             wsm->setID(1);
 
-            if(DSPEnabled == true){
-                //muDSP = uniform(0,tauDSP);
-                StepDSP=1;
-                scheduleAt(simTime(),DSP_start_EV);
+            wsm->setID(1);
 
-            }
-            else{
             populateWSM(wsm);
             wsm->setWsmData(mobility->getRoadId().c_str());
-            }
+
             //host is standing still due to crash
             if (dataOnSch) {
                 //startService(Channels::SCH2, 42, "Traffic Information Service");
@@ -614,7 +335,7 @@ void myWaveAppLayer::handlePositionUpdate(cObject* obj) {
             }
             else {
                 //send right away on CCH, because channel switching is disabled
-                sendDown(wsm,1);
+                sendDown(wsm);
                 generatedWSMsSource++;
                 if(SendP_WSM){
                 //cancelEvent(periodic_WSM_EV);
@@ -711,26 +432,7 @@ double myWaveAppLayer::avg(std::list<double> list)
 
 }
 
-int myWaveAppLayer::getMyPartition(WaveShortMessage* wsm,double Dist){
-    //wsm->setPriorityListArraySize(sizeof(list));
-    int in=0;
-    unsigned int i;
-    for(i=0;i < wsm->getPartitionArrayArraySize();i+=2){
-        //wsm->setPriorityList(i,list[i]);
-        if(wsm->getPartitionArray(i)<Dist && wsm->getPartitionArray(i+1)>Dist){
-            in=1;
-            break;
-        }
-        }
-    if(in==0){
-        EV<<"No está dentro de ninguna partición"<<endl;
-        return -1;
-    }
-    else{
-        EV<<"Vehiculo está dentro de la partición"<< i/2 << endl;
-        return i/2;
-    }
-}
+
 
 int myWaveAppLayer::getDescriptor(double CBR,double NTIB, double NBR){
     int Desc;

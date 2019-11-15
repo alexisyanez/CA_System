@@ -23,9 +23,9 @@
 //#include "modules/messages/my_WSM_m.h"
 
 #include "modules/messages/WaveShortMessage_m.h"
-#include "modules/messages/BTmessage_m.h"
+/*#include "modules/messages/BTmessage_m.h"
 #include "modules/messages/RTBmessage_m.h"
-#include "modules/messages/WINmessage_m.h"
+#include "modules/messages/WINmessage_m.h"*/
 #include <iostream>
 #include <list>
 #include <fstream>
@@ -52,9 +52,6 @@ class myWaveAppLayer : public BaseWaveApplLayer{
         double TrAD_alpha;
         double TrAD_Neig;
         double TrAD_R;
-
-        //DSP
-        bool DSPEnabled;
 
         //Accident
         double Acc_start;
@@ -91,11 +88,7 @@ class myWaveAppLayer : public BaseWaveApplLayer{
 
         enum WaveApplMessageKinds {
             CALC_CBR,
-            PER_WSM,
-            DSP_START,
-            DSP_START_REC,
-            SEND_BT
-
+            PER_WSM
         };
 
     protected:
@@ -112,19 +105,7 @@ class myWaveAppLayer : public BaseWaveApplLayer{
         simtime_t lastBusyT;
 
         // Variables para la implementación de DSP
-        simtime_t muDSP;
-        double tauDSP;
-        double thetaDSP;
-        bool BT; //Busy tone
-        int StepDSP;
-        int StepDSP_REC;
-        int LastRTBemID;
-        int LastWINemID;
-        int LastACKemID;
-        int LastWSM_EM;
-        int MyPartition;
-        int CW_sug;
-
+       
         long lastNTIB;
         long currNTIB;
 
@@ -166,9 +147,6 @@ class myWaveAppLayer : public BaseWaveApplLayer{
         virtual void onBSM(BasicSafetyMessage* bsm);
         virtual void onWSM(WaveShortMessage* wsm);
         virtual void onWSA(WaveServiceAdvertisment* wsa);
-        virtual void onRTB(RTBmessage* rtb);
-        virtual void onWIN(WINmessage* win);
-        virtual void onACK(ACKmessage* ack);
 
         virtual void handleSelfMsg(cMessage* msg);
         virtual void handlePositionUpdate(cObject* obj);
@@ -184,14 +162,10 @@ class myWaveAppLayer : public BaseWaveApplLayer{
         int getMyRank(WaveShortMessage* wsm, int my_id);
         double avg(std::list<double> list);
 
-        // Funcion para obtener partición de DSP
-        int getMyPartition(WaveShortMessage* wsm,double Dist);
 
         cMessage* calcCBR_EV;
         cMessage* periodic_WSM_EV;
-        cMessage* DSP_start_EV;
-        cMessage* DSP_start_REC_EV;
-        cMessage* sendBT_EV;
+
         uint32_t generatedWSMsSource;
     };
 

@@ -34,10 +34,10 @@
 
 #include "modules/messages/BasicSafetyMessage_m.h"
 #include "modules/messages/WaveShortMessage_m.h"
-#include "modules/messages/RTBmessage_m.h"
+/*#include "modules/messages/RTBmessage_m.h"
 #include "modules/messages/WINmessage_m.h"
 #include "modules/messages/ACKmessage_m.h"
-#include "modules/messages/BTmessage_m.h"
+#include "modules/messages/BTmessage_m.h"*/
 
 #include "modules/mac/ieee80211p/WaveAppToMac1609_4Interface.h"
 
@@ -90,7 +90,7 @@ class BaseWaveApplLayer : public BaseApplLayer {
         static const simsignalwrap_t parkingStateChangedSignal;
 
         /** @brief handle messages from below and calls the onWSM, onBSM, and onWSA functions accordingly */
-        virtual void handleLowerMsg(cMessage* msg, int index);
+        virtual void handleLowerMsg(cMessage* msg);
 
         /** @brief handle self messages */
         virtual void handleSelfMsg(cMessage* msg);
@@ -108,13 +108,13 @@ class BaseWaveApplLayer : public BaseApplLayer {
         virtual void onWSA(WaveServiceAdvertisment* wsa) { };
 
         /** @brief this function is called upon receiving a WaveServiceAdvertisement */
-        virtual void onRTB(RTBmessage* rtb) { };
+        //virtual void onRTB(RTBmessage* rtb) { };
 
         /** @brief this function is called upon receiving a WaveServiceAdvertisement */
-        virtual void onWIN(WINmessage* win) { };
+        //virtual void onWIN(WINmessage* win) { };
 
         /** @brief this function is called upon receiving a WaveServiceAdvertisement */
-        virtual void onACK(ACKmessage* ack) { };
+       // virtual void onACK(ACKmessage* ack) { };
 
         /** @brief this function is called every time the vehicle receives a position update signal */
         virtual void handlePositionUpdate(cObject* obj);
@@ -145,7 +145,7 @@ class BaseWaveApplLayer : public BaseApplLayer {
          *
          * @param msg the message to be sent. Must be a WSM/BSM/WSA
          */
-        virtual void sendDown(cMessage* msg,int index);
+        virtual void sendDown(cMessage* msg);
 
         /**
          * @brief overloaded for error handling and stats recording purposes
@@ -179,7 +179,7 @@ class BaseWaveApplLayer : public BaseApplLayer {
         virtual void handleMessage(cMessage* msg);
 
         //
-        virtual void sendControlDown(cMessage *msg, int index);
+        virtual void sendControlDown(cMessage *msg);
 
         /** @brief Handle control messages from lower layer */
         //virtual void handleLowerControl(cMessage *msg, int index) = 0;
@@ -192,7 +192,7 @@ class BaseWaveApplLayer : public BaseApplLayer {
         TraCICommandInterface::Vehicle* traciVehicle;
 
         AnnotationManager* annotations;
-        WaveAppToMac1609_4Interface* mac[2];
+        WaveAppToMac1609_4Interface* mac;
 
         /*For new phy class enabling DSP protocol
          *
@@ -249,14 +249,10 @@ class BaseWaveApplLayer : public BaseApplLayer {
         // Channel Busy Ratio
         simtime_t currCBR;
 
-        int lowerLayerIn[2];
-        int lowerLayerOut[2];
-        int lowerControlIn[2];
-        int lowerControlOut[2];
-
-        // Paremters for DSP;
-        double BTInterval;
-        double DeltaDSP;
+        int lowerLayerIn;
+        int lowerLayerOut;
+        int lowerControlIn;
+        int lowerControlOut;
 };
 
 #endif /* BASEWAVEAPPLLAYER_H_ */

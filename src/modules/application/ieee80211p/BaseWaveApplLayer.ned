@@ -59,8 +59,8 @@ simple BaseWaveApplLayer like IBaseApplLayer
 		double BTInterval = default(.1s) @unit(s); // Frcuencia para Busy Tone
 		double DeltaDSP = default(0s) @unit(s);  
     gates:
-        input lowerLayerInAP[]; // from mac layer
-        output lowerLayerOutAP[]; // to mac layer
-        input lowerControlInAP[];// @labels(App);
-        output lowerControlOutAP[];// @labels(App);
+        input lowerLayerIn; // from mac layer
+        output lowerLayerOut; // to mac layer
+        input lowerControlIn;// @labels(App);
+        output lowerControlOut;// @labels(App);
 }

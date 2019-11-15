@@ -40,26 +40,22 @@ void BaseWaveApplLayer::initialize(int stage) {
             traciVehicle = NULL;
         }
 
-        lowerLayerIn[0]   = findGate("lowerLayerInAP",0);
-        lowerLayerOut[0] = findGate("lowerLayerOutAP",0);
-        lowerControlIn[0]   = findGate("lowerControlInAP",0);
-        lowerControlOut[0]  = findGate("lowerControlOutAP",0);
-        lowerLayerIn[1]   = findGate("lowerLayerInAP",1);
-        lowerLayerOut[1] = findGate("lowerLayerOutAP",1);
-        lowerControlIn[1]   = findGate("lowerControlInAP",1);
-        lowerControlIn[1]  = findGate("lowerControlInAP",1);
+        lowerLayerIn   = findGate("lowerLayerIn");
+        lowerLayerOut = findGate("lowerLayerOut");
+        lowerControlIn   = findGate("lowerControlIn");
+        lowerControlOut  = findGate("lowerControlOut");
 
         annotations = AnnotationManagerAccess().getIfExists();
         ASSERT(annotations);
 
 
-      //  mac[0] = FindModule<WaveAppToMac1609_4Interface*>::findSubModule(getParentModule());
-      //  assert(mac);
+        mac = FindModule<WaveAppToMac1609_4Interface*>::findSubModule(getParentModule());
+       assert(mac);
 
-        mac[0] = check_and_cast<WaveAppToMac1609_4Interface*>(getModuleByPath("^.nic[0].mac1609_4"));
+       /* mac[0] = check_and_cast<WaveAppToMac1609_4Interface*>(getModuleByPath("^.nic[0].mac1609_4"));
         assert(mac[0]);
         mac[1] = check_and_cast<WaveAppToMac1609_4Interface*>(getModuleByPath("^.nic[1].mac1609_4"));
-        assert(mac[1]);
+        assert(mac[1]);*/
 
 
         myId = getParentModule()->getId();
@@ -73,8 +69,8 @@ void BaseWaveApplLayer::initialize(int stage) {
         beaconInterval =  par("beaconInterval");
 
         //DSP parameters
-        BTInterval = par("BTInterval");
-        DeltaDSP = par("DeltaDSP");
+       /* BTInterval = par("BTInterval");
+        DeltaDSP = par("DeltaDSP");*/
 
         //Start beaconing at time
         beaconAtTime = par("beaconAtTime");
@@ -109,7 +105,7 @@ void BaseWaveApplLayer::initialize(int stage) {
     else if (stage == 1) {
         //simulate asynchronous channel access
 
-        if (dataOnSch == true && !mac[1]->isChannelSwitchingActive()) {
+        if (dataOnSch == true && !mac->isChannelSwitchingActive()) {
             dataOnSch = false;
             std::cerr << "App wants to send data on SCH but MAC doesn't use any SCH. Sending all data on CCH" << std::endl;
         }
@@ -120,9 +116,9 @@ void BaseWaveApplLayer::initialize(int stage) {
             simtime_t randomOffset = dblrand() * beaconInterval;
             firstBeacon = simTime() + randomOffset; //
 
-            if (mac[1]->isChannelSwitchingActive() == true) {
-                if ( beaconInterval.raw() % (mac[1]->getSwitchingInterval().raw()*2)) {
-                    std::cerr << "The beacon interval (" << beaconInterval << ") is smaller than or not a multiple of  one synchronization interval (" << 2*mac[1]->getSwitchingInterval() << "). "
+            if (mac->isChannelSwitchingActive() == true) {
+                if ( beaconInterval.raw() % (mac->getSwitchingInterval().raw()*2)) {
+                    std::cerr << "The beacon interval (" << beaconInterval << ") is smaller than or not a multiple of  one synchronization interval (" << 2*mac->getSwitchingInterval() << "). "
                             << "This means that beacons are generated during SCH intervals" << std::endl;
                 }
                 firstBeacon = computeAsynchronousSendingTime(beaconInterval, type_CCH);
@@ -147,7 +143,7 @@ simtime_t BaseWaveApplLayer::computeAsynchronousSendingTime(simtime_t interval, 
 
     simtime_t randomOffset = dblrand() * beaconInterval;
     simtime_t firstEvent;
-    simtime_t switchingInterval = mac[1]->getSwitchingInterval(); //usually 0.050s
+    simtime_t switchingInterval = mac->getSwitchingInterval(); //usually 0.050s
     simtime_t nextCCH;
 
     /*
@@ -156,7 +152,7 @@ simtime_t BaseWaveApplLayer::computeAsynchronousSendingTime(simtime_t interval, 
      * depending on type of current interval
      */
 
-    if (mac[1]->isCurrentChannelCCH()) {
+    if (mac->isCurrentChannelCCH()) {
         nextCCH = simTime() - SimTime().setRaw(simTime().raw() % switchingInterval.raw()) + switchingInterval*2;
     }
     else {
@@ -206,7 +202,7 @@ void BaseWaveApplLayer::populateWSM(WaveShortMessage* wsm, int rcvId, int serial
         wsa->setPsid(currentOfferedServiceId);
         wsa->setServiceDescription(currentServiceDescription.c_str());
     }
-    else if (RTBmessage* rtb = dynamic_cast<RTBmessage*>(wsm) ) {
+   /* else if (RTBmessage* rtb = dynamic_cast<RTBmessage*>(wsm) ) {
         rtb->setChannelNumber(Channels::CCH);
        // rtb->setTargetChannel(currentServiceChannel);
         rtb->setPsid(currentOfferedServiceId);
@@ -229,7 +225,7 @@ void BaseWaveApplLayer::populateWSM(WaveShortMessage* wsm, int rcvId, int serial
             //ack->setTargetChannel(currentServiceChannel);
             bt->setPsid(currentOfferedServiceId);
             //ack->setServiceDescription(currentServiceDescription.c_str());
-    }
+    }*/
     else {
         if (dataOnSch) wsm->setChannelNumber(Channels::SCH1); //will be rewritten at Mac1609_4 to actual Service Channel. This is just so no controlInfo is needed
         else wsm->setChannelNumber(Channels::CCH);
@@ -268,7 +264,7 @@ void BaseWaveApplLayer::handleParkingUpdate(cObject* obj) {
     }
 }
 
-void BaseWaveApplLayer::handleLowerMsg(cMessage* msg,int index) {
+void BaseWaveApplLayer::handleLowerMsg(cMessage* msg) {
 
     WaveShortMessage* wsm = dynamic_cast<WaveShortMessage*>(msg);
     ASSERT(wsm);
@@ -281,20 +277,18 @@ void BaseWaveApplLayer::handleLowerMsg(cMessage* msg,int index) {
         receivedWSAs++;
         onWSA(wsa);
     }
-    else if (RTBmessage* rtb = dynamic_cast<RTBmessage*>(wsm)) {
+    /*else if (RTBmessage* rtb = dynamic_cast<RTBmessage*>(wsm)) {
         //receivedWSAs++;
         onRTB(rtb);
     }
     else if (WINmessage* win = dynamic_cast<WINmessage*>(wsm)) {
         //receivedWSAs++;
         onWIN(win);
-    }
-    else if (WaveShortMessage* wsm = dynamic_cast<WaveShortMessage*>(wsm)) {
-
+    }*/
+    else {
         receivedWSMs++;
-        if (index==1){
         onWSM(wsm);
-        }
+
     }
 
     delete(msg);
@@ -305,7 +299,7 @@ void BaseWaveApplLayer::handleSelfMsg(cMessage* msg) {
     case SEND_BEACON_EVT: {
         BasicSafetyMessage* bsm = new BasicSafetyMessage();
         populateWSM(bsm);
-        sendDown(bsm,1);
+        sendDown(bsm);
         //int decider = uniform(0,1);
         //if (decider > 0.5){
         //sendDown(bsm,0);}
@@ -317,7 +311,7 @@ void BaseWaveApplLayer::handleSelfMsg(cMessage* msg) {
     case SEND_WSA_EVT:   {
         WaveServiceAdvertisment* wsa = new WaveServiceAdvertisment();
         populateWSM(wsa);
-        sendDown(wsa,1);
+        sendDown(wsa);
         cancelEvent(sendWSAEvt);
         scheduleAt(simTime() + wsaInterval, sendWSAEvt);
         break;
@@ -352,7 +346,7 @@ void BaseWaveApplLayer::startService(Channels::ChannelNumber channel, int servic
         error("Starting service although another service was already started");
     }
 
-    mac[1]->changeServiceChannel(channel);
+    mac->changeServiceChannel(channel);
     currentOfferedServiceId = serviceId;
     currentServiceChannel = channel;
     currentServiceDescription = serviceDescription;
@@ -367,9 +361,9 @@ void BaseWaveApplLayer::stopService() {
     currentOfferedServiceId = -1;
 }
 
-void BaseWaveApplLayer::sendDown(cMessage* msg,int index) {
+void BaseWaveApplLayer::sendDown(cMessage* msg) {
     recordPacket(PassedMessage::OUTGOING,PassedMessage::LOWER_DATA,msg);
-    send(msg,lowerLayerOut[index]);
+    send(msg,lowerLayerOut);
 }
 
 //void BaseWaveApplLayer::sendDown(cMessage* msg,int index) {
@@ -380,7 +374,7 @@ void BaseWaveApplLayer::sendDown(cMessage* msg,int index) {
 void BaseWaveApplLayer::sendDelayedDown(cMessage* msg, simtime_t delay, int index) {
     checkAndTrackPacket(msg);
     recordPacket(PassedMessage::OUTGOING, PassedMessage::LOWER_DATA, msg);
-    sendDelayed(msg, delay, lowerLayerOut[index]);
+    sendDelayed(msg, delay, lowerLayerOut);
 }
 
 void BaseWaveApplLayer::checkAndTrackPacket(cMessage* msg) {
@@ -404,18 +398,12 @@ void BaseWaveApplLayer::handleMessage(cMessage* msg)
 {
     if (msg->isSelfMessage()){
         handleSelfMsg(msg);
-    } else if(msg->getArrivalGateId()==lowerControlIn[0]){
+    } else if(msg->getArrivalGateId()==lowerControlIn){
         recordPacket(PassedMessage::INCOMING,PassedMessage::LOWER_CONTROL,msg);
         handleLowerControl(msg);
-    } else if(msg->getArrivalGateId()==lowerLayerIn[0]){
+    } else if(msg->getArrivalGateId()==lowerLayerIn){
         recordPacket(PassedMessage::INCOMING,PassedMessage::LOWER_DATA,msg);
-        handleLowerMsg(msg,0);
-    } else if(msg->getArrivalGateId()==lowerControlIn[1]){
-        recordPacket(PassedMessage::INCOMING,PassedMessage::LOWER_CONTROL,msg);
-        handleLowerControl(msg);
-    } else if(msg->getArrivalGateId()==lowerLayerIn[1]){
-        recordPacket(PassedMessage::INCOMING,PassedMessage::LOWER_DATA,msg);
-        handleLowerMsg(msg,1);
+        handleLowerMsg(msg);
     }
     else if(msg->getArrivalGateId()==-1) {
         /* Classes extending this class may not use all the gates, f.e.
@@ -435,10 +423,10 @@ void BaseWaveApplLayer::handleMessage(cMessage* msg)
     }
 }
 
-void BaseWaveApplLayer::sendControlDown(cMessage *msg, int index) {
+void BaseWaveApplLayer::sendControlDown(cMessage *msg) {
     recordPacket(PassedMessage::OUTGOING,PassedMessage::LOWER_CONTROL,msg);
-    if (gate(lowerControlOut[index])->isPathOK())
-        send(msg, lowerControlOut[index]);
+    if (gate(lowerControlOut)->isPathOK())
+        send(msg, lowerControlOut);
     else {
         EV << "BaseLayer: lowerControlOut is not connected; dropping message" << std::endl;
         delete msg;

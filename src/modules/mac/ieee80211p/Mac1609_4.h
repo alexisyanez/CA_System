@@ -127,9 +127,6 @@ class Mac1609_4 : public BaseMacLayer,
 				/** Estimador de Colisiones */
 				long MyColl;
 
-				/** CW for DPS **/
-				//int MyCWcur;
-
 				/** @brief Id for debug messages */
 				std::string myId;
 		};
@@ -152,9 +149,6 @@ class Mac1609_4 : public BaseMacLayer,
 
         long getMyCollisions();  // Función para obtener estimación de las colisiones
 
-        int getCWcur(); // get the value of current CW for DSP
-
-        void setCWcur(int CW_1);
 
         long getNTIB(); // Método para obtener el número de de veces que entra en el backoff
 
@@ -278,9 +272,6 @@ class Mac1609_4 : public BaseMacLayer,
 
         /** Estimador de Colisiones */
         long MyColl;
-
-        /** CW for DPS **/
-        int MyCWcur;
 
 		/** @brief This MAC layers MAC address.*/
 		int myMacAddress;

@@ -146,7 +146,7 @@ void Mac1609_4::initialize(int stage) {
 		//Setear estimador de colisiones
 		MyColl= 0;
 
-		MyCWcur= -1;
+		//MyCWcur= -1;
 
 		idleChannel = true;
 		lastBusy = simTime();
@@ -276,19 +276,6 @@ void Mac1609_4::handleUpperMsg(cMessage* msg) {
 		thisMsg->setChannelNumber(mySCH);
 		chan = type_SCH;
 	}
-
-	if (thisMsg->getEm()==1){
-	        /*myEDCA[chan]->myQueues[ac].cwMax = 5;
-	        myEDCA[chan]->myQueues[ac].cwMin = 2;*/
-	        //myEDCA[chan]->modifyQueue(2,(((CWMIN_11P+1)/4)-2),(((CWMIN_11P +1)/2)-2),AC_VO);
-
-	        DBG_MAC << "Received a message from upper layer for channel "
-	                << thisMsg->getChannelNumber() << " Access Category (Priority):  "
-	                << ac << " Suggested CW from WSM :  "
-	                << thisMsg->getCw() << " Now the CW Min is :  "
-	                << myEDCA[chan]->myQueues[ac].cwMin << " Now the CW Max is :  " //debug for Contention Window AY
-	                << myEDCA[chan]->myQueues[ac].cwMax << std::endl;
-	    }
 
 	int num = myEDCA[chan]->queuePacket(ac,thisMsg);
 
@@ -506,10 +493,6 @@ void Mac1609_4::changeServiceChannel(int cN) {
 
 void Mac1609_4::setTxPower(double txPower_mW) {
 	txPower = txPower_mW;
-}
-
-double Mac1609_4::getTxPower() {
-    return txPower;
 }
 void Mac1609_4::setMCS(enum PHY_MCS mcs) {
 	ASSERT2(mcs != MCS_DEFAULT, "invalid MCS selected");
@@ -912,27 +895,20 @@ simtime_t Mac1609_4::getBusyTime() {
     return statsTotalBusyTime;
 }
 
-int Mac1609_4::getCWcur() {
-    return MyCWcur;
-}
-
-void Mac1609_4::setCWcur(int CW_1) {
-    MyCWcur = CW_1;
-}
-
 long Mac1609_4::getMyCollisions() {
     return MyColl;
 }
 
 long Mac1609_4::getNTIB() {
+long mystatsNumBackoff=0;
     for (std::map<t_channel,EDCA*>::iterator iter = myEDCA.begin(); iter != myEDCA.end(); iter++) {
         //statsNumInternalContention += iter->second->statsNumInternalContention;
-        statsNumBackoff += iter->second->statsNumBackoff;
+        mystatsNumBackoff += iter->second->statsNumBackoff;
         //statsSlotsBackoff += iter->second->statsSlotsBackoff;
         //iter->second->cleanUp();
         //delete iter->second;
     }
-    return statsNumBackoff;
+    return statsNumBackoff+mystatsNumBackoff;
 }
 
 long Mac1609_4::getNBR() {

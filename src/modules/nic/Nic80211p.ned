@@ -52,9 +52,9 @@ module Nic80211p like INic80211p
             @display("p=69,82");
         }
 
-    connections allowunconnected:
+    connections:
         radioIn --> phy80211p.radioIn;
-        		
+
         mac1609_4.lowerControlOut --> phy80211p.upperControlIn;
         mac1609_4.lowerLayerOut --> phy80211p.upperLayerIn;
         phy80211p.upperLayerOut --> mac1609_4.lowerLayerIn;
@@ -65,5 +65,4 @@ module Nic80211p like INic80211p
 
         mac1609_4.upperLayerOut --> upperLayerOut;
         mac1609_4.upperControlOut --> upperControlOut;
-		
 }
