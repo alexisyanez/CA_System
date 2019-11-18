@@ -50,17 +50,18 @@ void myWaveAppLayer::initialize(int stage) {
         Acc_start = par("Accident_start");
         meACC=par("MeInAcc");
 
-        // Self message para calculcar CBR
-        calcCBR_EV = new cMessage("CBR evt", CALC_CBR);
-        lastBusyT = 0;
-
-        // Inicilizar Numero de veces que entra al backoff
-        lastNTIB = 0;
-        currNTIB = 0;
-
-        // Inicilizar número de broadcast recibidos
-        lastNBR = 0;
-        currNBR = 0;
+//        // Self message para calculcar CBR
+//        calcCBR_EV = new cMessage("CBR evt", CALC_CBR);
+//
+//        lastBusyT = 0;
+//
+//        // Inicilizar Numero de veces que entra al backoff
+//        lastNTIB = 0;
+//        currNTIB = 0;
+//
+//        // Inicilizar número de broadcast recibidos
+//        lastNBR = 0;
+//        currNBR = 0;
 
        // WSM periódico
         SendP_WSM = par("Send_Per_WSM");
@@ -80,14 +81,16 @@ void myWaveAppLayer::initialize(int stage) {
 
         //
         // MyCollVec.setName("MyColl");
-        MyCBRVec.setName("MyCBR");
-        NTIB.setName("NTIB");
-        NBR.setName("NBR");
-
-        //Número de vecinos
-
+//        MyCBRVec.setName("MyCBR");
+//        NTIB.setName("NTIB");
+//        NBR.setName("NBR");
+//
+//        //Número de vecinos
+//
         Veci.setName("Neighbor1-hop");
         Veci2mean.setName("Neighbot2-hop");
+//
+//        CBR_Int= par("CBRInterval");
 
 
 
@@ -96,6 +99,8 @@ void myWaveAppLayer::initialize(int stage) {
         //if(sendWSA){
         //startService(Channels::SCH2, 42, "Traffic Information Service");}
         //Initializing members that require initialized other modules goes here
+        //cancelEvent(calcCBR_EV);
+        //scheduleAt(simTime() + CBR_Int, calcCBR_EV);
 
     }
 }
@@ -192,38 +197,38 @@ void myWaveAppLayer::onWSA(WaveServiceAdvertisment* wsa) {
 
 void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
     switch (msg->getKind()) {
-    case CALC_CBR: {
-        currCBR = mac->getBusyTime() - lastBusyT;
-        cancelEvent(calcCBR_EV);
-        scheduleAt(simTime() + 1, calcCBR_EV);
-        EV << "CBR=" << currCBR << endl;
-        lastBusyT = (mac->getBusyTime()).dbl();
-        //Emitir estadistica para el CBR
-        MyCBRVec.record(currCBR);
-
-        // Guardar valor para el número de veces que entra al Back-off
-        currNTIB= mac->getNTIB() - lastNTIB;
-        NTIB.record(currNTIB);
-        EV << "Normalize Time Into BackOff NTIB= " << currNTIB << endl;
-
-
-        // Guardar valor para el número de broadcast recibidos
-        currNBR= mac->getNBR() - lastNBR;
-        NBR.record(currNBR);
-        EV << "Normalize Broadcast Received NBR=" << currNBR << endl;
-        EV << "Se envian métricas para la clasificación del contexto, Descriptor: " << getDescriptor(currCBR.dbl(),currNTIB,currNBR) << endl;
-
-        lastNBR = mac->getNBR();
-        lastNTIB = mac->getNTIB();
-        lastBusyT = mac->getBusyTime();
-        //meanCBR.push_back(currCBR);
-        //emit(MyCBRSignal,currCBR);
-        //Emitir estadistica para el estimador de Colisiones
-        //MyCollVec.record(mac->getMyCollisions());
-        //emit(MyCollSignal,mac->getMyCollisions());
-        break;
-    }
-    case PER_WSM: {
+//    case CALC_CBR: {
+//        currCBR = mac->getBusyTime() - lastBusyT;
+//        cancelEvent(calcCBR_EV);
+//        scheduleAt(simTime() + CBR_Int, calcCBR_EV);
+//        EV << "CBR=" << currCBR << endl;
+//        lastBusyT = (mac->getBusyTime()).dbl();
+//        //Emitir estadistica para el CBR
+//        MyCBRVec.record(currCBR);
+//
+//        // Guardar valor para el número de veces que entra al Back-off
+//        currNTIB= mac->getNTIB() - lastNTIB;
+//        NTIB.record(currNTIB);
+//        EV << "Normalize Time Into BackOff NTIB= " << currNTIB << endl;
+//
+//
+//        // Guardar valor para el número de broadcast recibidos
+//        currNBR= mac->getNBR() - lastNBR;
+//        NBR.record(currNBR);
+//        EV << "Normalize Broadcast Received NBR=" << currNBR << endl;
+//        EV << "Se envian métricas para la clasificación del contexto, Descriptor: " << getDescriptor(currCBR.dbl(),currNTIB,currNBR) << endl;
+//
+//        lastNBR = mac->getNBR();
+//        lastNTIB = mac->getNTIB();
+//        lastBusyT = mac->getBusyTime();
+//        //meanCBR.push_back(currCBR);
+//        //emit(MyCBRSignal,currCBR);
+//        //Emitir estadistica para el estimador de Colisiones
+//        //MyCollVec.record(mac->getMyCollisions());
+//        //emit(MyCollSignal,mac->getMyCollisions());
+//        break;
+//    }
+   // case PER_WSM: {
 
         /* WaveShortMessage* wsm = new WaveShortMessage();
 
@@ -245,9 +250,9 @@ void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
 
         cancelEvent(periodic_WSM_EV);
         scheduleAt(simTime() + WSM_interval, periodic_WSM_EV);*/
-        EV << "Sending WSM -> Into the PER_WSM" << endl;
+       /* EV << "Sending WSM -> Into the PER_WSM" << endl;
         break;
-        }
+        }*/
     }
 
     /* if (WaveShortMessage* wsm = dynamic_cast<WaveShortMessage*>(msg)) {
@@ -280,7 +285,7 @@ void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
         }
     }
     else {*/
-       BaseWaveApplLayer::handleSelfMsg(msg);
+     BaseWaveApplLayer::handleSelfMsg(msg);
     //}
 
 
@@ -438,7 +443,7 @@ double myWaveAppLayer::avg(std::list<double> list)
 int myWaveAppLayer::getDescriptor(double CBR,double NTIB, double NBR){
     int Desc;
     char cmd[110];
-    sprintf(cmd,"%s %f %f %f","python /home/aware/git/CA_System/pyUtils/client.py",CBR,NTIB,NBR);
+    sprintf(cmd,"%s %f %f %f","python /home/alexis/git/CA_System/pyUtils/client.py",CBR,NTIB,NBR);
     EV << "******* " << cmd << std::endl;
     pyin = popen(cmd, "r");
     fscanf(pyin, "%i", &Desc);

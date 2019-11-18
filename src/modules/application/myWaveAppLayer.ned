@@ -49,5 +49,7 @@ simple myWaveAppLayer extends BaseWaveApplLayer
     //WSM periodico
     bool Send_Per_WSM = default(false);
     double wsmInterval =  default(1s) @unit(s);
+    
+   // double CBRInterval = default(1s) @unit(s);
 }
 

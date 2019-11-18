@@ -71,6 +71,16 @@ using Veins::AnnotationManagerAccess;
  * @see Decider80211p
  */
 class BaseWaveApplLayer : public BaseApplLayer {
+    private:
+    //Señal para emitir medida del CBR
+    //simsignal_t MyCBRSignal;
+    cOutVector MyCBRVec;
+
+    // Vector para almacenar Normalize Times Into Back-Off
+    cOutVector NTIB;
+
+    // Vector para almacenar Normalize Broadcast Received
+    cOutVector NBR;
 
     public:
         ~BaseWaveApplLayer();
@@ -81,7 +91,8 @@ class BaseWaveApplLayer : public BaseApplLayer {
 
         enum WaveApplMessageKinds {
             SEND_BEACON_EVT,
-            SEND_WSA_EVT
+            SEND_WSA_EVT,
+            CALC_CBR
         };
 
     protected:
@@ -241,6 +252,7 @@ class BaseWaveApplLayer : public BaseApplLayer {
         /* messages for periodic events such as beacon and WSA transmissions */
         cMessage* sendBeaconEvt;
         cMessage* sendWSAEvt;
+        cMessage* calcCBR_EV;
 
         // Neighbor list
         mutable std::list < std::pair < double, int >> Neig;
@@ -248,6 +260,23 @@ class BaseWaveApplLayer : public BaseApplLayer {
 
         // Channel Busy Ratio
         simtime_t currCBR;
+
+        //Señal para emitir medida de MyColl
+        //simsignal_t MyCollSignal;
+        //cOutVector MyCollVec;
+
+        // CBR interval
+        simtime_t CBR_Int;
+
+        simtime_t lastBusyT;
+
+        // Variables para la implementación de DSP
+
+        long lastNTIB;
+        long currNTIB;
+
+        long lastNBR;
+        long currNBR;
 
        /* int lowerLayerIn;
         int lowerLayerOut;

@@ -23,9 +23,9 @@
 //#include "modules/messages/my_WSM_m.h"
 
 #include "modules/messages/WaveShortMessage_m.h"
-/*#include "modules/messages/BTmessage_m.h"
-#include "modules/messages/RTBmessage_m.h"
-#include "modules/messages/WINmessage_m.h"*/
+//#include "modules/messages/BTmessage_m.h"
+//#include "modules/messages/RTBmessage_m.h"
+//#include "modules/messages/WINmessage_m.h"
 #include <iostream>
 #include <list>
 #include <fstream>
@@ -62,24 +62,27 @@ class myWaveAppLayer : public BaseWaveApplLayer{
         double WSM_interval;
 
         //Señal para emitir medida del CBR
-        //simsignal_t MyCBRSignal;
-        cOutVector MyCBRVec;
-
-        // Vector para almacenar Normalize Times Into Back-Off
-        cOutVector NTIB;
-
-        // Vector para almacenar Normalize Broadcast Received
-        cOutVector NBR;
-
-        //Señal para emitir medida de MyColl
-        //simsignal_t MyCollSignal;
-        //cOutVector MyCollVec;
-
+//        //simsignal_t MyCBRSignal;
+//        cOutVector MyCBRVec;
+//
+//        // Vector para almacenar Normalize Times Into Back-Off
+//        cOutVector NTIB;
+//
+//        // Vector para almacenar Normalize Broadcast Received
+//        cOutVector NBR;
+//
+//        //Señal para emitir medida de MyColl
+//        //simsignal_t MyCollSignal;
+//        //cOutVector MyCollVec;
+//
         //Vecinos
         cOutVector Veci;
 
         //Vecinos segundo salto
         cOutVector Veci2mean;
+
+//        // CBR interval
+//        simtime_t CBR_Int;
 
     public:
         virtual void initialize(int stage);
@@ -87,7 +90,7 @@ class myWaveAppLayer : public BaseWaveApplLayer{
         double distance(const Coord& a, const Coord& b);
 
         enum WaveApplMessageKinds {
-            CALC_CBR,
+            //CALC_CBR,
             PER_WSM
         };
 
@@ -102,15 +105,15 @@ class myWaveAppLayer : public BaseWaveApplLayer{
         //Coord currposition;
         //Coord currspeed;
 
-        simtime_t lastBusyT;
-
-        // Variables para la implementación de DSP
-       
-        long lastNTIB;
-        long currNTIB;
-
-        long lastNBR;
-        long currNBR;
+//        simtime_t lastBusyT;
+//
+//        // Variables para la implementación de DSP
+//
+//        long lastNTIB;
+//        long currNTIB;
+//
+//        long lastNBR;
+//        long currNBR;
 
         // Promedio de Channel Busy Rate
         //mutable std::list < double > meanCBR;
@@ -163,8 +166,8 @@ class myWaveAppLayer : public BaseWaveApplLayer{
         double avg(std::list<double> list);
 
 
-        cMessage* calcCBR_EV;
-        cMessage* periodic_WSM_EV;
+//        cMessage* calcCBR_EV;
+        //cMessage* periodic_WSM_EV;
 
         uint32_t generatedWSMsSource;
     };
