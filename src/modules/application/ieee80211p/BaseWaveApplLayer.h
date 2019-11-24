@@ -186,6 +186,8 @@ class BaseWaveApplLayer : public BaseApplLayer {
          */
         virtual void checkAndTrackPacket(cMessage* msg);
 
+        virtual int getDescriptor(double CBR,double NTIB, double NBR, double NN);
+
         /** @brief handle messages from below and calls the onWSM, onBSM, and onWSA functions accordingly */
         //virtual void handleMessage(cMessage* msg);
 
@@ -194,6 +196,10 @@ class BaseWaveApplLayer : public BaseApplLayer {
 
         /** @brief Handle control messages from lower layer */
         //virtual void handleLowerControl(cMessage *msg, int index) = 0;
+
+        std::ofstream outFile;
+        FILE *pyin;
+
 
     protected:
 

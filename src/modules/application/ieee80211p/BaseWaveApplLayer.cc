@@ -369,7 +369,12 @@ void BaseWaveApplLayer::handleSelfMsg(cMessage* msg) {
         lastNBR = mac->getNBR();
         lastNTIB = mac->getNTIB();
         lastBusyT = mac->getBusyTime();
+
+        EV << "Descriptor: " << getDescriptor(currCBR.dbl(),(double)currNTIB,(double)currNBR,(double)Neig.size()) << endl;
+
         break;
+
+
     }
     default: {
         if (msg)
@@ -489,3 +494,15 @@ void BaseWaveApplLayer::checkAndTrackPacket(cMessage* msg) {
         delete msg;
     }*/
 //}
+
+int BaseWaveApplLayer::getDescriptor(double CBR,double NTIB, double NBR, double NN){
+    int Desc;
+    char cmd[110];
+    sprintf(cmd,"%s %f %f %f %f","python3 /home/alexis/git/CA_System/pyUtils/client.py",CBR,NTIB,NBR,NN);
+    EV << "******* " << cmd << std::endl;
+    pyin = popen(cmd, "r");
+    fscanf(pyin, "%i", &Desc);
+    pclose(pyin);
+    return Desc;
+
+}

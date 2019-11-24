@@ -141,8 +141,8 @@ class myWaveAppLayer : public BaseWaveApplLayer{
         //Distancia de propagación del mensaje
         double distanceProp;
 
-        std::ofstream outFile;
-        FILE *pyin;
+//        std::ofstream outFile;
+//        FILE *pyin;
 
         //
 
@@ -153,7 +153,7 @@ class myWaveAppLayer : public BaseWaveApplLayer{
 
         virtual void handleSelfMsg(cMessage* msg);
         virtual void handlePositionUpdate(cObject* obj);
-        virtual int getDescriptor(double CBR,double NTIB,double NBR);
+       // virtual int getDescriptor(double CBR,double NTIB,double NBR);
 
         // Funciones para obtener Utx
 

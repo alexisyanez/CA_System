@@ -439,16 +439,16 @@ double myWaveAppLayer::avg(std::list<double> list)
 }
 
 
-
-int myWaveAppLayer::getDescriptor(double CBR,double NTIB, double NBR){
-    int Desc;
-    char cmd[110];
-    sprintf(cmd,"%s %f %f %f","python /home/alexis/git/CA_System/pyUtils/client.py",CBR,NTIB,NBR);
-    EV << "******* " << cmd << std::endl;
-    pyin = popen(cmd, "r");
-    fscanf(pyin, "%i", &Desc);
-    pclose(pyin);
-    return Desc;
-
-}
+//
+//int myWaveAppLayer::getDescriptor(double CBR,double NTIB, double NBR){
+//    int Desc;
+//    char cmd[110];
+//    sprintf(cmd,"%s %f %f %f","python /home/alexis/git/CA_System/pyUtils/client.py",CBR,NTIB,NBR);
+//    EV << "******* " << cmd << std::endl;
+//    pyin = popen(cmd, "r");
+//    fscanf(pyin, "%i", &Desc);
+//    pclose(pyin);
+//    return Desc;
+//
+//}
 
