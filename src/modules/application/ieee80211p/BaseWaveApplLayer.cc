@@ -498,11 +498,12 @@ void BaseWaveApplLayer::checkAndTrackPacket(cMessage* msg) {
 int BaseWaveApplLayer::getDescriptor(double CBR,double NTIB, double NBR, double NN){
     int Desc;
     char cmd[110];
-    sprintf(cmd,"%s %f %f %f %f","python3 /home/alexis/git/CA_System/pyUtils/client.py",CBR,NTIB,NBR,NN);
+    sprintf(cmd,"%s %f %f %f %f","python3 /home/aware/git/CA_System/pyUtils/client.py",CBR,NTIB,NBR,NN);
     EV << "******* " << cmd << std::endl;
     pyin = popen(cmd, "r");
     fscanf(pyin, "%i", &Desc);
     pclose(pyin);
+    EV << "Valor del descriptor es " << Desc << std::endl;
     return Desc;
 
 }
