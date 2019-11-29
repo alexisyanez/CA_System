@@ -15,7 +15,12 @@ from sklearn.utils.multiclass import unique_labels
 #############################################
 # Extraer datos desde vectores para BAJA densidad
 ##############################################
+
+# Target label  
+# 'BSM:2HZ' 'BSM:10Hz' 'BSM:10Hz+WSA:1Hz'
 C=['C1','C2','C3']
+
+# Features 
 # CBR: Channel Busy Ratio, NBR: Normalize Broadcast Received, NTIB: Normalize Times Into Back-Off
 Met=['CBR','NBR','NTIB']
 Y=[]
@@ -39,10 +44,10 @@ for i in C:
 	print(len(Y))
 
 ########################################
-### Trasponer la data vector para Keras
+### Trasponer la data para Keras
 X2=list(map(list, zip(*X)))
 ########################################
-### Desde acá la data esta en tipo Lista
+### Desde acá la data esta en tipo Lista Dimensiones 
 
 DATA=[X2,Y]
 
