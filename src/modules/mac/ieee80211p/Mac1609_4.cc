@@ -959,14 +959,15 @@ long Mac1609_4::getMyCollisions() {
 }
 
 long Mac1609_4::getNTIB() {
+long mystatsNumBackoff=0;
     for (std::map<t_channel,EDCA*>::iterator iter = myEDCA.begin(); iter != myEDCA.end(); iter++) {
         //statsNumInternalContention += iter->second->statsNumInternalContention;
-        statsNumBackoff += iter->second->statsNumBackoff;
+        mystatsNumBackoff += iter->second->statsNumBackoff;
         //statsSlotsBackoff += iter->second->statsSlotsBackoff;
         //iter->second->cleanUp();
         //delete iter->second;
     }
-    return statsNumBackoff;
+    return statsNumBackoff+mystatsNumBackoff;
 }
 
 long Mac1609_4::getNBR() {

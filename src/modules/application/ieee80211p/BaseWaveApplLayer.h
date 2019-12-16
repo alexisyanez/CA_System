@@ -71,6 +71,16 @@ using Veins::AnnotationManagerAccess;
  * @see Decider80211p
  */
 class BaseWaveApplLayer : public BaseApplLayer {
+    private:
+    //Señal para emitir medida del CBR
+    //simsignal_t MyCBRSignal;
+    cOutVector MyCBRVec;
+
+    // Vector para almacenar Normalize Times Into Back-Off
+    cOutVector NTIB;
+
+    // Vector para almacenar Normalize Broadcast Received
+    cOutVector NBR;
 
     public:
         ~BaseWaveApplLayer();
@@ -81,7 +91,8 @@ class BaseWaveApplLayer : public BaseApplLayer {
 
         enum WaveApplMessageKinds {
             SEND_BEACON_EVT,
-            SEND_WSA_EVT
+            SEND_WSA_EVT,
+            CALC_CBR
         };
 
     protected:
@@ -184,6 +195,10 @@ class BaseWaveApplLayer : public BaseApplLayer {
         /** @brief Handle control messages from lower layer */
         //virtual void handleLowerControl(cMessage *msg, int index) = 0;
 
+        std::ofstream outFile;
+        FILE *pyin;
+
+
     protected:
 
         /* pointers will be set when used with TraCIMobility */
@@ -257,6 +272,19 @@ class BaseWaveApplLayer : public BaseApplLayer {
         // Paremters for DSP;
         double BTInterval;
         double DeltaDSP;
+        
+        // CBR interval
+        simtime_t CBR_Int;
+
+        simtime_t lastBusyT;
+
+        // Variables para la extracción de métricas
+
+        long lastNTIB;
+        long currNTIB;
+
+        long lastNBR;
+        long currNBR;
 };
 
 #endif /* BASEWAVEAPPLLAYER_H_ */

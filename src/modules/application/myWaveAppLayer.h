@@ -65,19 +65,19 @@ class myWaveAppLayer : public BaseWaveApplLayer{
         double WSM_interval;
 
         //Señal para emitir medida del CBR
-        //simsignal_t MyCBRSignal;
-        cOutVector MyCBRVec;
-
-        // Vector para almacenar Normalize Times Into Back-Off
-        cOutVector NTIB;
-
-        // Vector para almacenar Normalize Broadcast Received
-        cOutVector NBR;
-
-        //Señal para emitir medida de MyColl
-        //simsignal_t MyCollSignal;
-        //cOutVector MyCollVec;
-
+//        //simsignal_t MyCBRSignal;
+//        cOutVector MyCBRVec;
+//
+//        // Vector para almacenar Normalize Times Into Back-Off
+//        cOutVector NTIB;
+//
+//        // Vector para almacenar Normalize Broadcast Received
+//        cOutVector NBR;
+//
+//        //Señal para emitir medida de MyColl
+//        //simsignal_t MyCollSignal;
+//        //cOutVector MyCollVec;
+//
         //Vecinos
         cOutVector Veci;
 
@@ -90,7 +90,7 @@ class myWaveAppLayer : public BaseWaveApplLayer{
         double distance(const Coord& a, const Coord& b);
 
         enum WaveApplMessageKinds {
-            CALC_CBR,
+            //CALC_CBR,
             PER_WSM,
             DSP_START,
             DSP_START_REC,
@@ -125,11 +125,11 @@ class myWaveAppLayer : public BaseWaveApplLayer{
         int MyPartition;
         int CW_sug;
 
-        long lastNTIB;
-        long currNTIB;
+        //long lastNTIB;
+       // long currNTIB;
 
-        long lastNBR;
-        long currNBR;
+        //long lastNBR;
+        //long currNBR;
 
         // Promedio de Channel Busy Rate
         //mutable std::list < double > meanCBR;
@@ -157,8 +157,8 @@ class myWaveAppLayer : public BaseWaveApplLayer{
         //Distancia de propagación del mensaje
         double distanceProp;
 
-        std::ofstream outFile;
-        FILE *pyin;
+//        std::ofstream outFile;
+//        FILE *pyin;
 
         //
 
@@ -172,7 +172,7 @@ class myWaveAppLayer : public BaseWaveApplLayer{
 
         virtual void handleSelfMsg(cMessage* msg);
         virtual void handlePositionUpdate(cObject* obj);
-        virtual int getDescriptor(double CBR,double NTIB,double NBR);
+       // virtual int getDescriptor(double CBR,double NTIB,double NBR);
 
         // Funciones para obtener Utx
 

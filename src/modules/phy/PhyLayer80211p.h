@@ -29,7 +29,7 @@
 #include "modules/phy/SNRThresholdDecider.h"
 #include "veins/modules/analogueModel/JakesFading.h"
 #include "veins/base/connectionManager/BaseConnectionManager.h"
-#include "modules/phy/Decider80211pToPhy80211pInterface.h"
+#include "veins/modules/phy/Decider80211pToPhy80211pInterface.h"
 #include "veins/base/utils/Move.h"
 
 using Veins::AirFrame;

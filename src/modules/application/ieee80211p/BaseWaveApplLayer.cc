@@ -105,6 +105,33 @@ void BaseWaveApplLayer::initialize(int stage) {
         receivedWSAs = 0;
         receivedWSMs = 0;
 
+        // Self message para calculcar CBR
+        calcCBR_EV = new cMessage("CBR evt", CALC_CBR);
+
+        lastBusyT = 0;
+
+        // Inicilizar Numero de veces que entra al backoff
+        lastNTIB = 0;
+        currNTIB = 0;
+
+        // Inicilizar número de broadcast recibidos
+        lastNBR = 0;
+        currNBR = 0;
+
+
+        MyCBRVec.setName("MyCBR");
+        NTIB.setName("NTIB");
+        NBR.setName("NBR");
+
+        //Número de vecinos
+
+       // Veci.setName("Neighbor1-hop");
+        //Veci2mean.setName("Neighbot2-hop");
+
+        CBR_Int= par("CBRInterval");
+
+
+
     }
     else if (stage == 1) {
         //simulate asynchronous channel access
@@ -135,6 +162,8 @@ void BaseWaveApplLayer::initialize(int stage) {
 
             }
         }
+
+        scheduleAt(simTime() + CBR_Int, calcCBR_EV);
     }
 }
 
@@ -322,6 +351,37 @@ void BaseWaveApplLayer::handleSelfMsg(cMessage* msg) {
         scheduleAt(simTime() + wsaInterval, sendWSAEvt);
         break;
     }
+    case CALC_CBR: {
+        currCBR = mac->getBusyTime() - lastBusyT;
+        cancelEvent(calcCBR_EV);
+        scheduleAt(simTime() + CBR_Int, calcCBR_EV);
+        EV << "CBR=" << currCBR << endl;
+        lastBusyT = (mac->getBusyTime()).dbl();
+        //Emitir estadistica para el CBR
+        MyCBRVec.record(currCBR);
+
+        // Guardar valor para el número de veces que entra al Back-off
+        currNTIB= mac->getNTIB() - lastNTIB;
+        NTIB.record(currNTIB);
+        EV << "Normalize Time Into BackOff NTIB= " << currNTIB << endl;
+
+
+        // Guardar valor para el número de broadcast recibidos
+        currNBR= mac->getNBR() - lastNBR;
+        NBR.record(currNBR);
+        EV << "Normalize Broadcast Received NBR=" << currNBR << endl;
+//        EV << "Se envian métricas para la clasificación del contexto, Descriptor: " << getDescriptor(currCBR.dbl(),currNTIB,currNBR) << endl;
+
+        lastNBR = mac->getNBR();
+        lastNTIB = mac->getNTIB();
+        lastBusyT = mac->getBusyTime();
+
+        EV << "Descriptor: " << getDescriptor(currCBR.dbl(),(double)currNTIB,(double)currNBR,(double)Neig.size()) << endl;
+
+        break;
+
+
+    }
     default: {
         if (msg)
             DBG_APP << "APP: Error: Got Self Message of unknown kind! Name: " << msg->getName() << endl;
@@ -395,7 +455,7 @@ void BaseWaveApplLayer::checkAndTrackPacket(cMessage* msg) {
         generatedWSAs++;
     }
     else if (dynamic_cast<WaveShortMessage*>(msg)) {
-        DBG_APP << "sending down a wsm" << std::endl;
+        DBG_APP << "sending down a WSM" << std::endl;
         generatedWSMs++;
     }
 }
@@ -443,4 +503,17 @@ void BaseWaveApplLayer::sendControlDown(cMessage *msg, int index) {
         EV << "BaseLayer: lowerControlOut is not connected; dropping message" << std::endl;
         delete msg;
     }
+//}
+
+int BaseWaveApplLayer::getDescriptor(double CBR,double NTIB, double NBR, double NN){
+    int Desc;
+    char cmd[110];
+    sprintf(cmd,"%s %f %f %f %f","python3 /home/aware/git/CA_System/pyUtils/client.py",CBR,NTIB,NBR,NN);
+    EV << "******* " << cmd << std::endl;
+    pyin = popen(cmd, "r");
+    fscanf(pyin, "%i", &Desc);
+    pclose(pyin);
+    EV << "Valor del descriptor es " << Desc << std::endl;
+    return Desc;
+
 }
