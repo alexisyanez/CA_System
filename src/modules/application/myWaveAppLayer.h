@@ -163,7 +163,7 @@ class myWaveAppLayer : public BaseWaveApplLayer{
         int* makePriorList(std::list<std::pair<double,int>>mylist);
         void setingPLinWSM(int* list,WaveShortMessage* wsm);
         int getMyRank(WaveShortMessage* wsm, int my_id);
-        double avg(std::list<double> list);
+        //double avg(std::list<double> list);
 
 
 //        cMessage* calcCBR_EV;

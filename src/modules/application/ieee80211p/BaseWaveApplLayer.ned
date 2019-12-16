@@ -57,6 +57,10 @@ simple BaseWaveApplLayer like IBaseApplLayer
         bool communicateWhileParked = default(false); //whether the car should communicate when it is parked in SUMO
 
 		double CBRInterval = default(1s) @unit(s);
+		
+		int NTL_target = default(-1);
+		
+		bool aware = default(false);
 
 		//double BTInterval = default(.1s) @unit(s); // Frcuencia para Busy Tone
 		//double DeltaDSP = default(0s) @unit(s);  

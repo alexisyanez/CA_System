@@ -163,6 +163,10 @@ void myWaveAppLayer::onWSM(WaveShortMessage* wsm) {
         wsm->setSerial(3);
         if (Slotted1Enabled==true) // Aplicar Retardo según distancia
             {
+            if(Enable_aware==true){
+                Slotted_Ns=Ns_sug;
+            }
+
             // Inicializar variables para calcular el retardo del timeSlot para slotted-1-persistant
             double Sij = Slotted_Ns*(1-(fmin(Dij,Slotted_R)/Slotted_R));
             simtime_t Tslot=Sij*Slotted_tau;
@@ -428,15 +432,15 @@ int myWaveAppLayer::getMyRank(WaveShortMessage* wsm, int my_id){
     return i;
 }
 
-double myWaveAppLayer::avg(std::list<double> list)
-{
-    double avg = 0;
-    std::list<double>::const_iterator it3;
-    for(it3 = list.begin(); it3 != list.end(); it3++) avg += *it3;
-    avg /= list.size();
-    return avg;
-
-}
+//double myWaveAppLayer::avg(std::list<double> list)
+//{
+//    double avg = 0;
+//    std::list<double>::const_iterator it3;
+//    for(it3 = list.begin(); it3 != list.end(); it3++) avg += *it3;
+//    avg /= list.size();
+//    return avg;
+//
+//}
 
 
 //

@@ -41,6 +41,8 @@
 
 #include "modules/mac/ieee80211p/WaveAppToMac1609_4Interface.h"
 
+#include <list>
+
 
 //#include "modules/phy/DSP/WaveAppToPhy80211pInterface.h"
 
@@ -81,6 +83,7 @@ class BaseWaveApplLayer : public BaseApplLayer {
 
     // Vector para almacenar Normalize Broadcast Received
     cOutVector NBR;
+
 
     public:
         ~BaseWaveApplLayer();
@@ -188,6 +191,8 @@ class BaseWaveApplLayer : public BaseApplLayer {
 
         virtual int getDescriptor(double CBR,double NTIB, double NBR, double NN);
 
+        virtual double avg(std::list<double> list);
+
         /** @brief handle messages from below and calls the onWSM, onBSM, and onWSA functions accordingly */
         //virtual void handleMessage(cMessage* msg);
 
@@ -283,6 +288,18 @@ class BaseWaveApplLayer : public BaseApplLayer {
 
         long lastNBR;
         long currNBR;
+
+        // Habilitar clasificación de escenario
+        bool Enable_aware;
+
+        // Valor objetivo del descriptor
+        int NTL_tar;
+
+        // Aciertos de clásificación
+        mutable std::list < double > hit;
+
+        //  variable para guardar valor de Slotted
+        int Ns_sug;
 
        /* int lowerLayerIn;
         int lowerLayerOut;

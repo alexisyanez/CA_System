@@ -126,6 +126,9 @@ void BaseWaveApplLayer::initialize(int stage) {
 
         CBR_Int= par("CBRInterval");
 
+        NTL_tar= par("NTL_target");
+
+        Enable_aware = par("aware");
 
 
     }
@@ -370,10 +373,34 @@ void BaseWaveApplLayer::handleSelfMsg(cMessage* msg) {
         lastNTIB = mac->getNTIB();
         lastBusyT = mac->getBusyTime();
 
-        EV << "Descriptor: " << getDescriptor(currCBR.dbl(),(double)currNTIB,(double)currNBR,(double)Neig.size()) << endl;
+        if (Enable_aware == true){
+            int Predict_NTL = getDescriptor(currCBR.dbl(),(double)currNTIB,(double)currNBR,(double)Neig.size());
+            EV << "Descriptor: " << Predict_NTL << endl;
+
+            // Gaurdar valores de aciertos en la clasificación
+            if (Predict_NTL == NTL_tar){
+                // the classification was success
+                hit.push_back(1);
+            }
+            else{
+                // the classification was wrong
+                hit.push_back(0);
+            }
+
+            // Entregar valor sugerido para Ns
+
+            if (Neig.size() < 80){
+                Ns_sug=2;
+            }
+            else if (Neig.size() >= 80 && Predict_NTL == 2){
+                Ns_sug=5;
+            }
+            else if (Neig.size() >= 80 && (Predict_NTL == 0 || Predict_NTL == 1 )){
+                Ns_sug=7;
+            }
+        }
 
         break;
-
 
     }
     default: {
@@ -393,6 +420,8 @@ void BaseWaveApplLayer::finish() {
 
     recordScalar("generatedWSAs",generatedWSAs);
     recordScalar("receivedWSAs",receivedWSAs);
+
+    recordScalar("Hit_Class",avg(hit));
 }
 
 BaseWaveApplLayer::~BaseWaveApplLayer() {
@@ -505,5 +534,15 @@ int BaseWaveApplLayer::getDescriptor(double CBR,double NTIB, double NBR, double 
     pclose(pyin);
     EV << "Valor del descriptor es " << Desc << std::endl;
     return Desc;
+
+}
+
+double BaseWaveApplLayer::avg(std::list<double> list)
+{
+    double avg = 0;
+    std::list<double>::const_iterator it3;
+    for(it3 = list.begin(); it3 != list.end(); it3++) avg += *it3;
+    avg /= list.size();
+    return avg;
 
 }
