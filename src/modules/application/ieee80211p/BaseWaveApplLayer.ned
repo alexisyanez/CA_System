@@ -60,6 +60,10 @@ simple BaseWaveApplLayer like IBaseApplLayer
 		double DeltaDSP = default(0s) @unit(s);  
 		
 		double CBRInterval = default(1s) @unit(s);
+		
+		int NTL_target = default(-1);
+		
+		bool aware = default(false);
     gates:
         input lowerLayerInAP[]; // from mac layer
         output lowerLayerOutAP[]; // to mac layer

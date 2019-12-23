@@ -41,52 +41,46 @@ while True:
     req = client.recv(150)
     cbr, ntib, nbr, nn = req.split()
     print('CBR:' + cbr.decode('ascii') +' NBR:'+ nbr.decode('ascii')+ ' NTIB:' + ntib.decode('ascii')+' NN:'+nn.decode('ascii'))
-    print(type(cbr))
-    print(type(nbr))
-    print(type(ntib))
-    print(type(nn))
-    
+   #print(type(cbr))
+   #print(type(nbr))
+   # print(type(ntib))
+   # print(type(nn))
     nn=float(nn.decode('ascii'))
-    print(type(nn))
+   # print(type(nn))
     CBR=float(cbr.decode('ascii'))
     NBR=float(nbr.decode('ascii'))
     NTIB=float(ntib.decode('ascii'))
+    X=[CBR,NBR,NTIB]
+    X=np.asarray(X)
+    X=np.expand_dims(X,-1)
+    X=np.transpose(X)
+    DATA = pd.DataFrame(X,columns=['CBR','NBR','NTIB'])
+    hf = h2o.H2OFrame(DATA)
 
-    
-    if nn < 60:
+    if nn < 80:
         print('Low Density Chosen with NN:'+str(nn))
-        X=[CBR,NBR,NTIB]
-        X=np.asarray(X)
-        X=np.expand_dims(X,-1)
-        X=np.transpose(X) 
-        DATA = pd.DataFrame(X,columns=['CBR','NBR','NTIB'])
-        hf = h2o.H2OFrame(DATA)
-        model_perf = model_Low .predict(hf)
+        model_perf = model_Low.predict(hf)
         #model_perf
         m=model_perf.as_data_frame().values
-        Desc1 = m[0][0]         
+        Desc1 = m[0][0]
         #Desc1 = np.argmax(Desc1,axis=-1)
-        Desc1 = str(Desc1[0])
+        Desc1 = int(Desc1)
+        Desc1 = str(Desc1)
         client.send(Desc1.encode('ascii'))#bytes([Desc1])
         print('El valor del descriptor es: ')
         print(Desc1)
     else:
-		    print('High Density Chosen with NN:'+str(nn))
-		    X=[CBR,NBR,NTIB]
-		    X=np.asarray(X)
-		    X=np.expand_dims(X,-1)
-		    X=np.transpose(X)
-		    #format(test.shape)
-		    DATA = pd.DataFrame(X,columns=['CBR','NBR','NTIB'])
-		    hf = h2o.H2OFrame(DATA)		
-		    model_perf = model_Low .predict(hf)
-		    #model_perf
-		    m=model_perf.as_data_frame().values
-		    Desc1 = m[0][0] 
+        print('High Density Chosen with NN:'+str(nn))
+        model_perf = model_High.predict(hf)
+        #model_perf
+        m=model_perf.as_data_frame().values
+        Desc1 = m[0][0]
+        Desc1 = int(Desc1)
         #Desc1 = np.argmax(Desc1,axis=-1)
-		    Desc1 = str(Desc1[0])
-		    client.send(Desc1.encode('ascii'))#bytes([Desc1])
-		    print('El valor del descriptor es: ')
-		    print(Desc1)
+        Desc1 = str(Desc1)
+        client.send(Desc1.encode('ascii'))#bytes([Desc1])
+        print('El valor del descriptor es: ')
+        print(Desc1)
 client.close()
 server.close()
+

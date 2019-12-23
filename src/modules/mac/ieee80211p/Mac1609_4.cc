@@ -63,20 +63,22 @@ void Mac1609_4::initialize(int stage) {
 		myMacAddress = intuniform(0,0xFFFFFFFE);
 		myId = getParentModule()->getParentModule()->getFullPath();
 
-		macNumb = par("macNum").longValue();
+		//macNumb = par("macNum").longValue();
 
 		//DBG_MAC <<  "Mi numero de mac es: " << macNumb << std::endl;
 
 		//create frequency mappings
 
 		//if(macNum==0){
-		frequency.insert(std::pair<int, double>(Channels::CRIT_SOL, 5.86e9));
-        frequency.insert(std::pair<int, double>(Channels::SCH1, 5.87e9));
-        frequency.insert(std::pair<int, double>(Channels::SCH2, 5.88e9));
-        frequency.insert(std::pair<int, double>(Channels::CCH, 5.89e9));
-        frequency.insert(std::pair<int, double>(Channels::SCH3, 5.90e9));
-        frequency.insert(std::pair<int, double>(Channels::SCH4, 5.91e9));
-        frequency.insert(std::pair<int, double>(Channels::HPPS, 5.92e9));
+		myFreq = par("myFreq");
+
+		frequency.insert(std::pair<int, double>(Channels::CRIT_SOL, myFreq));
+        frequency.insert(std::pair<int, double>(Channels::SCH1, myFreq+0.01e9));
+        frequency.insert(std::pair<int, double>(Channels::SCH2, myFreq+0.02e9));
+        frequency.insert(std::pair<int, double>(Channels::CCH, myFreq+0.03e9));
+        frequency.insert(std::pair<int, double>(Channels::SCH3, myFreq+0.04e9));
+        frequency.insert(std::pair<int, double>(Channels::SCH4, myFreq+0.05e9));
+        frequency.insert(std::pair<int, double>(Channels::HPPS, myFreq+0.06e9));
 		/*}
 		else if(macNum==1){
 		    frequency.insert(std::pair<int, double>(Channels::CRIT_SOL, 5.86e9));

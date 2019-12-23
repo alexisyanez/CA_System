@@ -14108,3 +14108,137 @@ Tcl error: moduleinspector.cc#244: tagOrId "f3" doesn't match any items
 ".network.c raise submodext f3"
 
 
+---- 20191218-12:46:01 ---------------------------------------------------------
+
+
+Tcl error: tkutil.cc#524: unknown option "0 0 0 0"
+  while directly invoking Tcl command proc at 1
+  with args:  'dummy' 'create' 'group' '0 0 0 0' '-matrix' '{0.243825 0} {0 0.243825} {0 0}' '-tags' 'fig f2 ptr0x3f682d0'
+
+
+
+Tcl error: tkutil.cc#524: unknown option "0 0 0 0"
+  while directly invoking Tcl command proc at 1
+  with args:  'dummy' 'create' 'group' '0 0 0 0' '-matrix' '{0.243825 0} {0 0.243825} {0 0}' '-tags' 'fig f1 ptr0x3f61340'
+
+
+
+Tcl error: tkutil.cc#524: unknown option "0 0 0 0"
+  while directly invoking Tcl command proc at 1
+  with args:  'dummy' 'create' 'group' '0 0 0 0' '-matrix' '{0.243825 0} {0 0.243825} {0 0}' '-tags' 'fig f3 ptr0x3f68380'
+
+
+
+Tcl error: moduleinspector.cc#244: tagOrId "f3" doesn't match any items
+    while executing
+".network.c raise submodext f3"
+
+
+Tcl error: tkutil.cc#524: unknown option "0 0 0 0"
+  while directly invoking Tcl command proc at 1
+  with args:  'dummy' 'create' 'group' '0 0 0 0' '-matrix' '{0.243825 0} {0 0.243825} {0 0}' '-tags' 'fig f2 ptr0x3f682d0'
+
+
+
+Tcl error: tkutil.cc#524: unknown option "0 0 0 0"
+  while directly invoking Tcl command proc at 1
+  with args:  'dummy' 'create' 'group' '0 0 0 0' '-matrix' '{0.243825 0} {0 0.243825} {0 0}' '-tags' 'fig f1 ptr0x3f61340'
+
+
+
+Tcl error: tkutil.cc#524: unknown option "0 0 0 0"
+  while directly invoking Tcl command proc at 1
+  with args:  'dummy' 'create' 'group' '0 0 0 0' '-matrix' '{0.243825 0} {0 0.243825} {0 0}' '-tags' 'fig f3 ptr0x3f68380'
+
+
+
+Tcl error: moduleinspector.cc#244: tagOrId "f3" doesn't match any items
+    while executing
+".network.c raise submodext f3"
+
+
+Tcl error: moduleinspector.cc#244: tagOrId "f3" doesn't match any items
+    while executing
+".network.c raise submodext f3"
+
+
+---- 20191219-21:14:54 ---------------------------------------------------------
+
+
+Tcl error: tkutil.cc#524: unknown option "0 0 0 0"
+  while directly invoking Tcl command proc at 1
+  with args:  'dummy' 'create' 'group' '0 0 0 0' '-matrix' '{0.243825 0} {0 0.243825} {0 0}' '-tags' 'fig f2 ptr0x3f67060'
+
+
+
+Tcl error: tkutil.cc#524: unknown option "0 0 0 0"
+  while directly invoking Tcl command proc at 1
+  with args:  'dummy' 'create' 'group' '0 0 0 0' '-matrix' '{0.243825 0} {0 0.243825} {0 0}' '-tags' 'fig f1 ptr0x3f66f10'
+
+
+
+Tcl error: tkutil.cc#524: unknown option "0 0 0 0"
+  while directly invoking Tcl command proc at 1
+  with args:  'dummy' 'create' 'group' '0 0 0 0' '-matrix' '{0.243825 0} {0 0.243825} {0 0}' '-tags' 'fig f3 ptr0x3f67110'
+
+
+
+Tcl error: moduleinspector.cc#244: tagOrId "f3" doesn't match any items
+    while executing
+".network.c raise submodext f3"
+
+
+Tcl error: tkutil.cc#524: unknown option "0 0 0 0"
+  while directly invoking Tcl command proc at 1
+  with args:  'dummy' 'create' 'group' '0 0 0 0' '-matrix' '{0.243825 0} {0 0.243825} {0 0}' '-tags' 'fig f2 ptr0x3f67060'
+
+
+
+Tcl error: tkutil.cc#524: unknown option "0 0 0 0"
+  while directly invoking Tcl command proc at 1
+  with args:  'dummy' 'create' 'group' '0 0 0 0' '-matrix' '{0.243825 0} {0 0.243825} {0 0}' '-tags' 'fig f1 ptr0x3f66f10'
+
+
+
+Tcl error: tkutil.cc#524: unknown option "0 0 0 0"
+  while directly invoking Tcl command proc at 1
+  with args:  'dummy' 'create' 'group' '0 0 0 0' '-matrix' '{0.243825 0} {0 0.243825} {0 0}' '-tags' 'fig f3 ptr0x3f67110'
+
+
+
+Tcl error: moduleinspector.cc#244: tagOrId "f3" doesn't match any items
+    while executing
+".network.c raise submodext f3"
+
+
+Tcl error: moduleinspector.cc#244: tagOrId "f3" doesn't match any items
+    while executing
+".network.c raise submodext f3"
+
+
+---- 20191219-21:22:00 ---------------------------------------------------------
+
+
+Tcl error: tkutil.cc#524: unknown option "0 0 0 0"
+  while directly invoking Tcl command proc at 1
+  with args:  'dummy' 'create' 'group' '0 0 0 0' '-matrix' '{0.243825 0} {0 0.243825} {0 0}' '-tags' 'fig f2 ptr0x3f232e0'
+
+
+
+Tcl error: tkutil.cc#524: unknown option "0 0 0 0"
+  while directly invoking Tcl command proc at 1
+  with args:  'dummy' 'create' 'group' '0 0 0 0' '-matrix' '{0.243825 0} {0 0.243825} {0 0}' '-tags' 'fig f1 ptr0x3f23190'
+
+
+
+Tcl error: tkutil.cc#524: unknown option "0 0 0 0"
+  while directly invoking Tcl command proc at 1
+  with args:  'dummy' 'create' 'group' '0 0 0 0' '-matrix' '{0.243825 0} {0 0.243825} {0 0}' '-tags' 'fig f3 ptr0x3f67ef0'
+
+
+
+Tcl error: moduleinspector.cc#244: tagOrId "f3" doesn't match any items
+    while executing
+".network.c raise submodext f3"
+
+

@@ -292,7 +292,8 @@ class Mac1609_4 : public BaseMacLayer,
 		uint64_t bitrate;
 
 		// fecuency at mac
-		long macNumb;
+		//long macNumb;
+		double myFreq;
 
 		/** @brief N_DBPS, derived from bitrate, for frame length calculation */
 		double n_dbps;

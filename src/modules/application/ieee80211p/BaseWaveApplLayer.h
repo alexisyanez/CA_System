@@ -41,6 +41,7 @@
 
 #include "modules/mac/ieee80211p/WaveAppToMac1609_4Interface.h"
 
+#include <list>
 
 //#include "modules/phy/DSP/WaveAppToPhy80211pInterface.h"
 
@@ -192,6 +193,11 @@ class BaseWaveApplLayer : public BaseApplLayer {
         //
         virtual void sendControlDown(cMessage *msg, int index);
 
+        virtual int getDescriptor(double CBR,double NTIB, double NBR, double NN);
+
+        virtual double avg(std::list<double> list);
+
+
         /** @brief Handle control messages from lower layer */
         //virtual void handleLowerControl(cMessage *msg, int index) = 0;
 
@@ -256,6 +262,7 @@ class BaseWaveApplLayer : public BaseApplLayer {
         /* messages for periodic events such as beacon and WSA transmissions */
         cMessage* sendBeaconEvt;
         cMessage* sendWSAEvt;
+        cMessage* calcCBR_EV;
 
         // Neighbor list
         mutable std::list < std::pair < double, int >> Neig;
@@ -285,6 +292,19 @@ class BaseWaveApplLayer : public BaseApplLayer {
 
         long lastNBR;
         long currNBR;
+        
+        // Habilitar clasificación de escenario
+        bool Enable_aware;
+
+        // Valor objetivo del descriptor
+        int NTL_tar;
+
+        // Aciertos de clásificación
+        mutable std::list < double > hit;
+
+        //  variable para guardar valor de Slotted
+        int Ns_sug;
+        
 };
 
 #endif /* BASEWAVEAPPLLAYER_H_ */

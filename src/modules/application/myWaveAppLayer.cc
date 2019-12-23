@@ -205,7 +205,7 @@ void myWaveAppLayer::onWSM(WaveShortMessage* wsm) {
         else if (DSPEnabled==true)
             {
             MyPartition = getMyPartition(wsm,distanceProp);
-            CW_sug = wsm->getCw();
+            //CW_sug = wsm->getCw();
             }
         else {
         scheduleAt(simTime() + 2 + uniform(0.01,0.2), wsm->dup());
@@ -333,7 +333,7 @@ void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
         scheduleAt(simTime() + WSM_interval, periodic_WSM_EV);
         EV << "Sending WSM" << endl;
         break;
-        }
+        }*/
     case DSP_START:{
         switch(StepDSP){
         case 1:// Step 1 from DSP algorithm
