@@ -17,7 +17,7 @@ from matplotlib import pyplot as plt
 # load AutoML model Low Density
 h2o.init()
 
-model_Low = h2o.load_model('/home/aware/git/CA_System/pyUtils/XGBoost_grid_1_AutoML_20191206_032959_model_2_LD')
+model_Low = h2o.load_model('XGBoost_grid_1_AutoML_20191206_032959_model_2_LD')
 
 # summarize model.
 model_Low
