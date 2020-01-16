@@ -44,7 +44,7 @@ module Car
         @display("bgb=307,273");
     gates:
         input veinsradioIn1 @directIn; // gate for sendDirect
-        input veinsradioIn2 @directIn; 
+        input veinsradioIn2 @directIn;
         //input veinsradioIn2; // gate for DPS
     submodules:
         appl: ca_system.modules.application.myWaveAppLayer {
@@ -62,6 +62,7 @@ module Car
                 @display("p=60,166");
         }
 
+
         //       	nic2: <nicType2> like ca_system.modules.nic.INic80211p2 {
         //           	parameters:
         //                @display("p=153,50");
@@ -74,19 +75,19 @@ module Car
     connections allowunconnected:
 
         //for i=0..numRadios-1 {
-            nic[0].upperLayerOut --> appl.lowerLayerInAP[0];
-            nic[0].upperLayerIn <-- appl.lowerLayerOutAP[0];
-            nic[0].upperControlOut --> appl.lowerControlInAP[0];
-            nic[0].upperControlIn <-- appl.lowerControlOutAP[0];
+        nic[0].upperLayerOut --> appl.lowerLayerInAP[0];
+        nic[0].upperLayerIn <-- appl.lowerLayerOutAP[0];
+        nic[0].upperControlOut --> appl.lowerControlInAP[0];
+        nic[0].upperControlIn <-- appl.lowerControlOutAP[0];
 
-            veinsradioIn1 --> nic[0].radioIn;
-            
-            nic[1].upperLayerOut --> appl.lowerLayerInAP[1];
-            nic[1].upperLayerIn <-- appl.lowerLayerOutAP[1];
-            nic[1].upperControlOut --> appl.lowerControlInAP[1];
-            nic[1].upperControlIn <-- appl.lowerControlOutAP[1];
+        veinsradioIn1 --> nic[0].radioIn;
 
-            veinsradioIn2 --> nic[1].radioIn; // Fot the use of SendDirect is necessary to separte radio, 
+        nic[1].upperLayerOut --> appl.lowerLayerInAP[1];
+        nic[1].upperLayerIn <-- appl.lowerLayerOutAP[1];
+        nic[1].upperControlOut --> appl.lowerControlInAP[1];
+        nic[1].upperControlIn <-- appl.lowerControlOutAP[1];
+
+        veinsradioIn2 --> nic[1].radioIn; // Fot the use of SendDirect is necessary to separte radio, 
             								  //the vector gate for veinsRadioin not recognized diferents gates 
         //}
 

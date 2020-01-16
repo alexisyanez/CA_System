@@ -22,7 +22,7 @@ package ca_system.nodes;
 
 import org.car2x.veins.base.connectionManager.ConnectionManager;
 import org.car2x.veins.base.modules.BaseWorldUtility;
-import ca_system.nodes.TraCIScenarioManagerLaunchd;//org.car2x.veins.modules.mobility.traci.TraCIScenarioManagerLaunchd;
+import org.car2x.veins.modules.mobility.traci.TraCIScenarioManagerLaunchd; //ca_system.nodes.TraCIScenarioManagerLaunchd;//
 import org.car2x.veins.modules.obstacle.ObstacleControl;
 import org.car2x.veins.modules.world.annotations.AnnotationManager;
 
@@ -46,7 +46,7 @@ network Scenario
         }
         connectionManager2: ConnectionManager {
             parameters:
-                @display("p=150,0;i=abstract/multicast");
+                @display("p=150,100;i=abstract/multicast");
         }
         world: BaseWorldUtility {
             parameters:
