@@ -151,7 +151,7 @@ void BaseWaveApplLayer::initialize(int stage) {
             simtime_t randomOffset = dblrand() * beaconInterval;
             firstBeacon = simTime() + randomOffset; //
 
-            if (mac[1]->isChannelSwitchingActive() == true) {
+            if (mac[0]->isChannelSwitchingActive() == true) {
                 if ( beaconInterval.raw() % (mac[0]->getSwitchingInterval().raw()*2)) {
                     std::cerr << "The beacon interval (" << beaconInterval << ") is smaller than or not a multiple of  one synchronization interval (" << 2*mac[0]->getSwitchingInterval() << "). "
                             << "This means that beacons are generated during SCH intervals" << std::endl;
@@ -166,6 +166,33 @@ void BaseWaveApplLayer::initialize(int stage) {
 
             }
         }
+
+//        if (dataOnSch == true && !mac[1]->isChannelSwitchingActive()) {
+//                   dataOnSch = false;
+//                   std::cerr << "App wants to send data on SCH but MAC doesn't use any SCH. Sending all data on CCH" << std::endl;
+//               }
+//               firstBeacon = simTime();//beaconAtTime;
+//
+//               if (par("avoidBeaconSynchronization").boolValue() == true) {
+//
+//                   simtime_t randomOffset = dblrand() * beaconInterval;
+//                   firstBeacon = simTime() + randomOffset; //
+//
+//                   if (mac[1]->isChannelSwitchingActive() == true) {
+//                       if ( beaconInterval.raw() % (mac[1]->getSwitchingInterval().raw()*2)) {
+//                           std::cerr << "The beacon interval (" << beaconInterval << ") is smaller than or not a multiple of  one synchronization interval (" << 2*mac[1]->getSwitchingInterval() << "). "
+//                                   << "This means that beacons are generated during SCH intervals" << std::endl;
+//                       }
+//                       firstBeacon = computeAsynchronousSendingTime(beaconInterval, type_CCH);
+//                   }
+//                   if(sendWSAs){
+//                       startService(Channels::SCH2, 42, "Traffic Information Service");}
+//
+//                   if (sendBeacons) {
+//                       scheduleAt(firstBeacon, sendBeaconEvt);//beaconAtTime+
+//
+//                   }
+//               }
 
         scheduleAt(simTime() + CBR_Int, calcCBR_EV);
     }
@@ -189,7 +216,7 @@ simtime_t BaseWaveApplLayer::computeAsynchronousSendingTime(simtime_t interval, 
      * depending on type of current interval
      */
 
-    if (mac[1]->isCurrentChannelCCH()) {
+    if (mac[0]->isCurrentChannelCCH()) {
         nextCCH = simTime() - SimTime().setRaw(simTime().raw() % switchingInterval.raw()) + switchingInterval*2;
     }
     else {
@@ -338,10 +365,10 @@ void BaseWaveApplLayer::handleSelfMsg(cMessage* msg) {
     case SEND_BEACON_EVT: {
         BasicSafetyMessage* bsm = new BasicSafetyMessage();
         populateWSM(bsm);
-        sendDown(bsm,0);
+        //sendDown(bsm,1);
         //int decider = uniform(0,1);
         //if (decider > 0.5){
-        //sendDown(bsm,0);}
+        sendDown(bsm,0);//}
         //else sendDown(bsm,1);
         cancelEvent(sendBeaconEvt);
         scheduleAt(simTime() + beaconInterval, sendBeaconEvt);
