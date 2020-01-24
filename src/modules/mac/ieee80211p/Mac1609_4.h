@@ -36,7 +36,7 @@
 #include "veins/base/modules/BaseMacLayer.h"
 
 #include "modules/mac/ieee80211p/WaveAppToMac1609_4Interface.h"
-#include "modules/messages/WaveShortMessage_m.h"
+#include "veins/modules/messages/WaveShortMessage_m.h"
 
 #include "modules/phy/PhyLayer80211p.h"
 
@@ -160,9 +160,6 @@ class Mac1609_4 : public BaseMacLayer,
 
         long getNBR();  // Método para obtener el número de paquetes en broadcast recibidos
 
-        double getTxPower();
-
-        bool getIdleChannel();
 
 		/**
 		 * @brief Change the default tx power the NIC card is using
@@ -291,10 +288,6 @@ class Mac1609_4 : public BaseMacLayer,
 		/** @brief the bit rate at which we transmit */
 		uint64_t bitrate;
 
-		// fecuency at mac
-		//long macNumb;
-		double myFreq;
-
 		/** @brief N_DBPS, derived from bitrate, for frame length calculation */
 		double n_dbps;
 
@@ -309,6 +302,8 @@ class Mac1609_4 : public BaseMacLayer,
 		simsignal_t sigCollision;
         //tell to anybody which is interested when a my collision estimator occurred
         //simsignal_t sigMyCollStat;
+
+        bool macNum;
 };
 
 #endif /* ___MAC1609_4_H_*/

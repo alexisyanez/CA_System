@@ -69,24 +69,20 @@ void myWaveAppLayer::initialize(int stage) {
         Acc_start = par("Accident_start");
         meACC=par("MeInAcc");
 
-//        // Self message para calculcar CBR
-//        calcCBR_EV = new cMessage("CBR evt", CALC_CBR);
-//
-//        lastBusyT = 0;
-//
-//        // Inicilizar Numero de veces que entra al backoff
-//        lastNTIB = 0;
-//        currNTIB = 0;
-//
-//        // Inicilizar número de broadcast recibidos
-//        lastNBR = 0;
-//        currNBR = 0;
+        // Self message para calculcar CBR
+        //calcCBR_EV = new cMessage("CBR evt", CALC_CBR);
+        //lastBusyT = 0;
+
+        // Inicilizar Numero de veces que entra al backoff
+        //lastNTIB = 0;
+
+        // Inicilizar número de broadcast recibidos
+        //lastNBR = 0;
 
        // WSM periódico
         SendP_WSM = par("Send_Per_WSM");
         WSM_interval = par("wsmInterval");
-        //periodic_WSM_EV = new cMessage("WSM Periodic Transmision evt", PER_WSM);
-
+        periodic_WSM_EV = new cMessage("WSM Periodic Transmision evt", PER_WSM);
         generatedWSMsSource= 0;
 
         // Identificar WSM
@@ -100,15 +96,12 @@ void myWaveAppLayer::initialize(int stage) {
 
         //
         // MyCollVec.setName("MyColl");
-//        MyCBRVec.setName("MyCBR");
-//        NTIB.setName("NTIB");
-//        NBR.setName("NBR");
-//
-//        //Número de vecinos
-//
+        //MyCBRVec.setName("MyCBR");
+
+        //Número de vecinos
+
         Veci.setName("Neighbor1-hop");
         Veci2mean.setName("Neighbot2-hop");
-
 
         /*lowerLayerIn[0]   = findGate("upperLayerIn",0);
         lowerLayerOut[0] = findGate("upperLayerOut",0);
@@ -252,68 +245,37 @@ void myWaveAppLayer::onACK(ACKmessage* ack) {
 }
 void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
     switch (msg->getKind()) {
-//    case CALC_CBR: {
-//        currCBR = mac->getBusyTime() - lastBusyT;
-//        cancelEvent(calcCBR_EV);
-//        scheduleAt(simTime() + CBR_Int, calcCBR_EV);
-//        EV << "CBR=" << currCBR << endl;
-//        lastBusyT = (mac->getBusyTime()).dbl();
-//        //Emitir estadistica para el CBR
-//        MyCBRVec.record(currCBR);
-//
-//        // Guardar valor para el número de veces que entra al Back-off
-//        currNTIB= mac->getNTIB() - lastNTIB;
-//        NTIB.record(currNTIB);
-//        EV << "Normalize Time Into BackOff NTIB= " << currNTIB << endl;
-//
-//
-//        // Guardar valor para el número de broadcast recibidos
-//        currNBR= mac->getNBR() - lastNBR;
-//        NBR.record(currNBR);
-//        EV << "Normalize Broadcast Received NBR=" << currNBR << endl;
-//        EV << "Se envian métricas para la clasificación del contexto, Descriptor: " << getDescriptor(currCBR.dbl(),currNTIB,currNBR) << endl;
-//
-//        lastNBR = mac->getNBR();
-//        lastNTIB = mac->getNTIB();
-//        lastBusyT = mac->getBusyTime();
-//        //meanCBR.push_back(currCBR);
-//        //emit(MyCBRSignal,currCBR);
-//        //Emitir estadistica para el estimador de Colisiones
-//        //MyCollVec.record(mac->getMyCollisions());
-//        //emit(MyCollSignal,mac->getMyCollisions());
-//        break;
-//    }
-   // case PER_WSM: {
-
-        /* WaveShortMessage* wsm = new WaveShortMessage();
+    /*case CALC_CBR: {
+        currCBR = mac[0]->getBusyTime() - lastBusyT;
+        cancelEvent(calcCBR_EV);
+        scheduleAt(simTime() + 1, calcCBR_EV);
+        EV << "CBR=" << currCBR << endl;
+        lastBusyT = (mac[0]->getBusyTime()).dbl();
+        //Emitir estadistica para el CBR
+        MyCBRVec.record(currCBR);
 
         // Guardar valor para el número de veces que entra al Back-off
-        currNTIB= mac[1]->getNTIB() - lastNTIB;
+        currNTIB= mac[0]->getNTIB() - lastNTIB;
         NTIB.record(currNTIB);
-        EV << "Normalize Time Into BackOff NTIB= " << currNTIB << endl;
-
 
         // Guardar valor para el número de broadcast recibidos
-        currNBR= mac[1]->getNBR() - lastNBR;
+        currNBR= mac[0]->getNBR() - lastNBR;
         NBR.record(currNBR);
-        EV << "Normalize Broadcast Received NBR=" << currNBR << endl;
-        EV << "Se envian métricas para la clasificación del contexto, Descriptor: " << getDescriptor(currCBR.dbl(),currNTIB,currNBR) << endl;
 
-        lastNBR = mac[1]->getNBR();
-        lastNTIB = mac[1]->getNTIB();
-        lastBusyT = mac[1]->getBusyTime();
+
+
         //meanCBR.push_back(currCBR);
         //emit(MyCBRSignal,currCBR);
         //Emitir estadistica para el estimador de Colisiones
         //MyCollVec.record(mac->getMyCollisions());
         //emit(MyCollSignal,mac->getMyCollisions());
         break;
-    }
+    }*/
     case PER_WSM: {
 
         WaveShortMessage* wsm = new WaveShortMessage();
 
-        // Seteando valores agreagdos al paquete My_wsm
+                    // Seteando valores agreagdos al paquete My_wsm
         wsm->setAngleRad(angleRad);
         wsm->setSenderPos(curPosition);
         wsm->setSenderSpeed(curSpeed);
@@ -333,7 +295,7 @@ void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
         scheduleAt(simTime() + WSM_interval, periodic_WSM_EV);
         EV << "Sending WSM" << endl;
         break;
-        }*/
+        }
     case DSP_START:{
         switch(StepDSP){
         case 1:// Step 1 from DSP algorithm
@@ -353,19 +315,24 @@ void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
             }
 
         case 4:
-            if(mac[0]->getIdleChannel()){ //Step 4
+            //Decomentar cuando se arreglen las otras clases
+           /* if(mac[0]->getIdleChannel()){ //Step 4
                 StepDSP=5;
             }
-            else StepDSP=1;
+            else StepDSP=1;*/
 
         case 5:
-            double myTX;
+            //double myTX;
             StepDSP=51;
             switch (StepDSP){
                 case 51:
                     // a) Turn On 2R-BT
-                    myTX = mac[0]->getTxPower();
-                    mac[0]->setTxPower(myTX*2);
+
+                    //Decomentar cuando se arreglen las otras clases
+                   /* myTX = mac[0]->getTxPower();
+                    mac[0]->setTxPower(myTX*2);*/
+
+
                     cancelEvent(sendBT_EV);
                     scheduleAt(simTime(), sendBT_EV);
                     BT=true;
@@ -388,13 +355,19 @@ void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
                 }
                 case 54:
                     // d) Wait for BT activation
-                    while(mac[0]->getIdleChannel()){
+
+                    //Decomentar cuando se arreglen las otras clases
+                    //while(mac[0]->getIdleChannel()){
                         EV << "Waiting for BT activation " << endl;
                     }
                     StepDSP=55;
                 case 55:// e) Turn On R-BT
-                    myTX = mac[0]->getTxPower();
-                    mac[0]->setTxPower(myTX/2);
+
+                    //Decomentar cuando se arreglen las otras clases
+                   /* myTX = mac[0]->getTxPower();
+                    mac[0]->setTxPower(myTX/2);*/
+
+
                     scheduleAt(simTime(), sendBT_EV);
                     BT=true;
                     StepDSP=56;
@@ -436,7 +409,11 @@ void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
 
                     cancelEvent(DSP_start_EV);
                     StepDSP=571;
+
+                    //Decomentar cuando se arreglen las otras clases
                     scheduleAt(simTime()+ DeltaDSP,DSP_start_EV);
+
+
                     break;
                 }
                 case 571:{
@@ -460,7 +437,7 @@ void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
               }
             break;
           }
-        }
+        //}
     case DSP_START_REC:{
             switch(StepDSP_REC){
             case 1:{
@@ -546,13 +523,14 @@ void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
         sendDown(bt,0);
         cancelEvent(sendBT_EV);
         if (BT){
+            //Decomentar cuando se arreglen las otras clases
             scheduleAt(simTime() + BTInterval, sendBT_EV);
         }
         break;
     }
     }
 
-    /* if (WaveShortMessage* wsm = dynamic_cast<WaveShortMessage*>(msg)) {
+    /*if (WaveShortMessage* wsm = dynamic_cast<WaveShortMessage*>(msg)) {
         //send this message on the service channel until the counter is 3 or higher.
         //this code only runs when channel switching is enabled
         sendDown(wsm->dup(),1);
@@ -562,7 +540,7 @@ void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
             stopService();
             delete(wsm);
         }
-        else {
+        else {*/
 
 //        if (Slotted1Enabled==true) // Aplicar Retardo según distancia
 //            {
@@ -579,7 +557,7 @@ void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
 //        else {
 //            scheduleAt(simTime()+1, wsm);
 //        }
-        }
+      /*  }
     }
     else {*/
         BaseWaveApplLayer::handleSelfMsg(msg);

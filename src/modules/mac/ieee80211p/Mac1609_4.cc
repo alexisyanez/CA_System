@@ -63,49 +63,27 @@ void Mac1609_4::initialize(int stage) {
 		myMacAddress = intuniform(0,0xFFFFFFFE);
 		myId = getParentModule()->getParentModule()->getFullPath();
 
-		//macNumb = par("macNum").longValue();
-
-		//DBG_MAC <<  "Mi numero de mac es: " << macNumb << std::endl;
+		macNum = par("macNum").boolValue();
 
 		//create frequency mappings
-
-		//if(macNum==0){
-		myFreq = par("myFreq");
-
-		frequency.insert(std::pair<int, double>(Channels::CRIT_SOL, myFreq));
-        frequency.insert(std::pair<int, double>(Channels::SCH1, myFreq+0.01e9));
-        frequency.insert(std::pair<int, double>(Channels::SCH2, myFreq+0.02e9));
-        frequency.insert(std::pair<int, double>(Channels::CCH, myFreq+0.03e9));
-        frequency.insert(std::pair<int, double>(Channels::SCH3, myFreq+0.04e9));
-        frequency.insert(std::pair<int, double>(Channels::SCH4, myFreq+0.05e9));
-        frequency.insert(std::pair<int, double>(Channels::HPPS, myFreq+0.06e9));
-		/*}
-		else if(macNum==1){
-		    frequency.insert(std::pair<int, double>(Channels::CRIT_SOL, 5.86e9));
+		if(macNum){
+            frequency.insert(std::pair<int, double>(Channels::CRIT_SOL, 5.86e9));
             frequency.insert(std::pair<int, double>(Channels::SCH1, 5.87e9));
             frequency.insert(std::pair<int, double>(Channels::SCH2, 5.88e9));
             frequency.insert(std::pair<int, double>(Channels::CCH, 5.89e9));
             frequency.insert(std::pair<int, double>(Channels::SCH3, 5.90e9));
             frequency.insert(std::pair<int, double>(Channels::SCH4, 5.91e9));
             frequency.insert(std::pair<int, double>(Channels::HPPS, 5.92e9));
-		}*/
-            /*frequency.insert(std::pair<int, double>(Channels::CRIT_SOL, 2.86e9));
+		}
+		else {
+            frequency.insert(std::pair<int, double>(Channels::CRIT_SOL, 2.86e9));
             frequency.insert(std::pair<int, double>(Channels::SCH1, 2.87e9));
             frequency.insert(std::pair<int, double>(Channels::SCH2, 2.88e9));
             frequency.insert(std::pair<int, double>(Channels::CCH, 2.89e9));
             frequency.insert(std::pair<int, double>(Channels::SCH3, 2.90e9));
             frequency.insert(std::pair<int, double>(Channels::SCH4, 2.91e9));
-            frequency.insert(std::pair<int, double>(Channels::HPPS, 2.92e9));*/
-		//}
-
-        /*frequency.insert(std::pair<int, double>(Channels::CRIT_SOL, 5.86e9));
-        frequency.insert(std::pair<int, double>(Channels::SCH1, 5.87e9));
-        frequency.insert(std::pair<int, double>(Channels::SCH2, 5.88e9));
-        frequency.insert(std::pair<int, double>(Channels::CCH, 5.89e9));
-        frequency.insert(std::pair<int, double>(Channels::SCH3, 5.90e9));
-        frequency.insert(std::pair<int, double>(Channels::SCH4, 5.91e9));
-        frequency.insert(std::pair<int, double>(Channels::HPPS, 5.92e9));*/
-
+            frequency.insert(std::pair<int, double>(Channels::HPPS, 2.92e9));
+		}
 
 		//create two edca systems
 
@@ -314,15 +292,15 @@ void Mac1609_4::handleUpperMsg(cMessage* msg) {
 	}
 
 	if (thisMsg->getEm()==1){
-	        /*myEDCA[chan]->myQueues[ac].cwMax = 5;
-	        myEDCA[chan]->myQueues[ac].cwMin = 2;*/
+	        myEDCA[chan]->myQueues[ac].cwMax = 5;
+	        myEDCA[chan]->myQueues[ac].cwMin = 2;
 	        //myEDCA[chan]->modifyQueue(2,(((CWMIN_11P+1)/4)-2),(((CWMIN_11P +1)/2)-2),AC_VO);
 
 	        DBG_MAC << "Received a message from upper layer for channel "
 	                << thisMsg->getChannelNumber() << " Access Category (Priority):  "
 	                << ac << " Suggested CW from WSM :  "
 	                << thisMsg->getCw() << " Now the CW Min is :  "
-	                << myEDCA[chan]->myQueues[ac].cwMin << " Now the CW Max is :  " //debug for Contention Window AY
+	                << myEDCA[chan]->myQueues[ac].cwMin << " Now the CW Max is :  "
 	                << myEDCA[chan]->myQueues[ac].cwMax << std::endl;
 	    }
 
@@ -542,10 +520,6 @@ void Mac1609_4::changeServiceChannel(int cN) {
 
 void Mac1609_4::setTxPower(double txPower_mW) {
 	txPower = txPower_mW;
-}
-
-double Mac1609_4::getTxPower() {
-    return txPower;
 }
 void Mac1609_4::setMCS(enum PHY_MCS mcs) {
 	ASSERT2(mcs != MCS_DEFAULT, "invalid MCS selected");
@@ -976,9 +950,7 @@ long Mac1609_4::getNBR() {
     return statsReceivedBroadcasts;
 }
 
-bool Mac1609_4::getIdleChannel() {
-    return idleChannel;
-}
+
 bool Mac1609_4::isCurrentChannelCCH() {
     return (activeChannel ==  type_CCH);
 }

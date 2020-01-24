@@ -22,10 +22,10 @@
 #include "veins/base/utils/FWMath.h"
 //#include "modules/messages/my_WSM_m.h"
 
-#include "modules/messages/WaveShortMessage_m.h"
-#include "modules/messages/BTmessage_m.h"
-#include "modules/messages/RTBmessage_m.h"
-#include "modules/messages/WINmessage_m.h"
+#include "veins/modules/messages/WaveShortMessage_m.h"
+#include "veins/modules/messages/BTmessage_m.h"
+#include "veins/modules/messages/RTBmessage_m.h"
+#include "veins/modules/messages/WINmessage_m.h"
 #include <iostream>
 #include <list>
 #include <fstream>
@@ -65,19 +65,19 @@ class myWaveAppLayer : public BaseWaveApplLayer{
         double WSM_interval;
 
         //Señal para emitir medida del CBR
-//        //simsignal_t MyCBRSignal;
-//        cOutVector MyCBRVec;
-//
-//        // Vector para almacenar Normalize Times Into Back-Off
-//        cOutVector NTIB;
-//
-//        // Vector para almacenar Normalize Broadcast Received
-//        cOutVector NBR;
-//
-//        //Señal para emitir medida de MyColl
-//        //simsignal_t MyCollSignal;
-//        //cOutVector MyCollVec;
-//
+        //simsignal_t MyCBRSignal;
+        //cOutVector MyCBRVec;
+
+        // Vector para almacenar Normalize Times Into Back-Off
+        //cOutVector NTIB;
+
+        // Vector para almacenar Normalize Broadcast Received
+        //cOutVector NBR;
+
+        //Señal para emitir medida de MyColl
+        //simsignal_t MyCollSignal;
+        //cOutVector MyCollVec;
+
         //Vecinos
         cOutVector Veci;
 
@@ -126,7 +126,7 @@ class myWaveAppLayer : public BaseWaveApplLayer{
         int CW_sug;
 
         //long lastNTIB;
-       // long currNTIB;
+        //long currNTIB;
 
         //long lastNBR;
         //long currNBR;
@@ -157,8 +157,6 @@ class myWaveAppLayer : public BaseWaveApplLayer{
         //Distancia de propagación del mensaje
         double distanceProp;
 
-//        std::ofstream outFile;
-//        FILE *pyin;
 
         //
 
@@ -172,7 +170,6 @@ class myWaveAppLayer : public BaseWaveApplLayer{
 
         virtual void handleSelfMsg(cMessage* msg);
         virtual void handlePositionUpdate(cObject* obj);
-       // virtual int getDescriptor(double CBR,double NTIB,double NBR);
 
         // Funciones para obtener Utx
 
@@ -187,7 +184,7 @@ class myWaveAppLayer : public BaseWaveApplLayer{
         // Funcion para obtener partición de DSP
         int getMyPartition(WaveShortMessage* wsm,double Dist);
 
-        cMessage* calcCBR_EV;
+        // cMessage* calcCBR_EV;
         cMessage* periodic_WSM_EV;
         cMessage* DSP_start_EV;
         cMessage* DSP_start_REC_EV;

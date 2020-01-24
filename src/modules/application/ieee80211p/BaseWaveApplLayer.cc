@@ -57,9 +57,7 @@ void BaseWaveApplLayer::initialize(int stage) {
       //  assert(mac);
 
         mac[0] = check_and_cast<WaveAppToMac1609_4Interface*>(getModuleByPath("^.nic[0].mac1609_4"));
-       // assert(mac[0]);
         mac[1] = check_and_cast<WaveAppToMac1609_4Interface*>(getModuleByPath("^.nic[1].mac1609_4"));
-       // assert(mac[1]);
 
 
         myId = getParentModule()->getId();
@@ -166,35 +164,6 @@ void BaseWaveApplLayer::initialize(int stage) {
 
             }
         }
-
-//        if (dataOnSch == true && !mac[1]->isChannelSwitchingActive()) {
-//                   dataOnSch = false;
-//                   std::cerr << "App wants to send data on SCH but MAC doesn't use any SCH. Sending all data on CCH" << std::endl;
-//               }
-//               firstBeacon = simTime();//beaconAtTime;
-//
-//               if (par("avoidBeaconSynchronization").boolValue() == true) {
-//
-//                   simtime_t randomOffset = dblrand() * beaconInterval;
-//                   firstBeacon = simTime() + randomOffset; //
-//
-//                   if (mac[1]->isChannelSwitchingActive() == true) {
-//                       if ( beaconInterval.raw() % (mac[1]->getSwitchingInterval().raw()*2)) {
-//                           std::cerr << "The beacon interval (" << beaconInterval << ") is smaller than or not a multiple of  one synchronization interval (" << 2*mac[1]->getSwitchingInterval() << "). "
-//                                   << "This means that beacons are generated during SCH intervals" << std::endl;
-//                       }
-//                       firstBeacon = computeAsynchronousSendingTime(beaconInterval, type_CCH);
-//                   }
-//                   if(sendWSAs){
-//                       startService(Channels::SCH2, 42, "Traffic Information Service");}
-//
-//                   if (sendBeacons) {
-//                       scheduleAt(firstBeacon, sendBeaconEvt);//beaconAtTime+
-//
-//                   }
-//               }
-
-        scheduleAt(simTime() + CBR_Int, calcCBR_EV);
     }
 }
 
@@ -349,8 +318,7 @@ void BaseWaveApplLayer::handleLowerMsg(cMessage* msg,int index) {
         //receivedWSAs++;
         onWIN(win);
     }
-    else if (WaveShortMessage* wsm = dynamic_cast<WaveShortMessage*>(wsm)) {
-
+    else {
         receivedWSMs++;
         if (index==1){
         onWSM(wsm);
@@ -512,7 +480,7 @@ void BaseWaveApplLayer::checkAndTrackPacket(cMessage* msg) {
         generatedWSAs++;
     }
     else if (dynamic_cast<WaveShortMessage*>(msg)) {
-        DBG_APP << "sending down a WSM" << std::endl;
+        DBG_APP << "sending down a wsm" << std::endl;
         generatedWSMs++;
     }
 }

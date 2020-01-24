@@ -53,11 +53,6 @@ class WaveAppToMac1609_4Interface {
 
         virtual long getNBR() = 0; // Método para obtener el número de paquetes en broadcast recibidos
 
-        virtual double getTxPower() =0;
-
-        virtual void setTxPower(double TxPower) = 0;
-
-        virtual bool getIdleChannel() = 0;
 
         virtual ~WaveAppToMac1609_4Interface() {} ;
 };

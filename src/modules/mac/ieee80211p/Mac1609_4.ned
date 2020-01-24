@@ -50,10 +50,7 @@ simple Mac1609_4 extends BaseMacLayer
 
         // bit rate 
         double bitrate @unit(bps) = default(6 Mbps);
-        
-        // Frecuencia de nic
-        double myFreq = default(0);
-        
+
         // maximum artificial asynchronization between cars to avoid synchronization effects
         double syncOffset @unit(s) = default(0.0003s);
 
@@ -62,6 +59,10 @@ simple Mac1609_4 extends BaseMacLayer
 
         //the maximum queue size of an EDCA queue in the MAC. 0 for unlimited. Queue strategy is "drop if full"
         int queueSize = default(0);
+        
+        // For different frequency        
+        bool macNum = default(true);
+       
 
         // signal informing interested application about channel busy state
         @signal[sigChannelBusy](type=bool);
