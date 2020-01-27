@@ -19,7 +19,7 @@
 //
 
 package ca_system.modules.mac.ieee80211p;
-import ca_system.base.modules.BaseMacLayer;
+import org.car2x.veins.base.modules.BaseMacLayer;
 
 //
 // Manages timeslots for CCH and SCH listening and sending.

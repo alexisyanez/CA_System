@@ -21,7 +21,7 @@
 #include "modules/mac/ieee80211p/Mac1609_4.h"
 #include <iterator>
 
-#include "modules/phy/DeciderResult80211.h"
+#include "veins/modules/phy/DeciderResult80211.h"
 #include "veins/base/phyLayer/PhyToMacControlInfo.h"
 #include "veins/modules/messages/PhyControlMessage_m.h"
 
