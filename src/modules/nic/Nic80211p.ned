@@ -35,7 +35,7 @@ import ca_system.modules.mac.ieee80211p.Mac1609_4;
 module Nic80211p like INic80211p
 {
     parameters:
-        string conectionManagerName=default("");
+        string connectionManagerName=default("");
     gates:
         input upperLayerIn; // to upper layers
         output upperLayerOut; // from upper layers

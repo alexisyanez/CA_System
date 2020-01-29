@@ -21,15 +21,15 @@
 package ca_system.nodes;
 
 import org.car2x.veins.base.modules.*;
+import ca_system.modules.nic.Nic80211p;
 
-//import ca_system.modules.nic.Nic80211p;
 //import ca_system.modules.nic.INic80211p;
 
 module Car
 {
     parameters:
         string applType; //type of the application layer
-        string nicType = default("ca_system.modules.nic.Nic80211p"); // type of network interface card
+        string nicType =  default("ca_system.modules.nic.Nic80211p"); // type of network interface card
         string nicType2 = default("Nic80211p2"); // type of network interface card for DPS
         string veinsmobilityType = default("org.car2x.veins.modules.mobility.traci.TraCIMobility"); //type of the mobility module
         int numRadios = default(2);

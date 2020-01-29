@@ -22,10 +22,10 @@
 #include "veins/base/utils/FWMath.h"
 //#include "modules/messages/my_WSM_m.h"
 
-#include "veins/modules/messages/WaveShortMessage_m.h"
-#include "veins/modules/messages/BTmessage_m.h"
-#include "veins/modules/messages/RTBmessage_m.h"
-#include "veins/modules/messages/WINmessage_m.h"
+#include "modules/messages/WaveShortMessage_m.h"
+#include "modules/messages/BTmessage_m.h"
+#include "modules/messages/RTBmessage_m.h"
+#include "modules/messages/WINmessage_m.h"
 #include <iostream>
 #include <list>
 #include <fstream>

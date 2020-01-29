@@ -32,12 +32,12 @@
 #include "veins/modules/mobility/traci/TraCIMobility.h"
 #include "veins/modules/mobility/traci/TraCICommandInterface.h"
 
-#include "veins/modules/messages/BasicSafetyMessage_m.h"
-#include "veins/modules/messages/WaveShortMessage_m.h"
-#include "veins/modules/messages/RTBmessage_m.h"
-#include "veins/modules/messages/WINmessage_m.h"
-#include "veins/modules/messages/ACKmessage_m.h"
-#include "veins/modules/messages/BTmessage_m.h"
+#include "modules/messages/BasicSafetyMessage_m.h"
+#include "modules/messages/WaveShortMessage_m.h"
+#include "modules/messages/RTBmessage_m.h"
+#include "modules/messages/WINmessage_m.h"
+#include "modules/messages/ACKmessage_m.h"
+#include "modules/messages/BTmessage_m.h"
 
 #include "modules/mac/ieee80211p/WaveAppToMac1609_4Interface.h"
 

@@ -65,8 +65,16 @@ void Mac1609_4::initialize(int stage) {
 
 		macNum = par("macNum").boolValue();
 
+		frequency.insert(std::pair<int, double>(Channels::CRIT_SOL, 5.86e9));
+        frequency.insert(std::pair<int, double>(Channels::SCH1, 5.87e9));
+        frequency.insert(std::pair<int, double>(Channels::SCH2, 5.88e9));
+        frequency.insert(std::pair<int, double>(Channels::CCH, 5.89e9));
+        frequency.insert(std::pair<int, double>(Channels::SCH3, 5.90e9));
+        frequency.insert(std::pair<int, double>(Channels::SCH4, 5.91e9));
+        frequency.insert(std::pair<int, double>(Channels::HPPS, 5.92e9));
+
 		//create frequency mappings
-		if(macNum){
+		/*if(macNum){
             frequency.insert(std::pair<int, double>(Channels::CRIT_SOL, 5.86e9));
             frequency.insert(std::pair<int, double>(Channels::SCH1, 5.87e9));
             frequency.insert(std::pair<int, double>(Channels::SCH2, 5.88e9));
@@ -83,7 +91,7 @@ void Mac1609_4::initialize(int stage) {
             frequency.insert(std::pair<int, double>(Channels::SCH3, 2.90e9));
             frequency.insert(std::pair<int, double>(Channels::SCH4, 2.91e9));
             frequency.insert(std::pair<int, double>(Channels::HPPS, 2.92e9));
-		}
+		}*/
 
 		//create two edca systems
 

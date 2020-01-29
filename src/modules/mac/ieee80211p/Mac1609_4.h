@@ -36,7 +36,7 @@
 #include "veins/base/modules/BaseMacLayer.h"
 
 #include "modules/mac/ieee80211p/WaveAppToMac1609_4Interface.h"
-#include "veins/modules/messages/WaveShortMessage_m.h"
+#include "modules/messages/WaveShortMessage_m.h"
 
 #include "veins/modules/phy/PhyLayer80211p.h"
 
