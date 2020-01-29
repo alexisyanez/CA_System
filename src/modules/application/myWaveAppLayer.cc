@@ -289,7 +289,7 @@ void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
         wsm->setID(generatedWSMsSource);
         populateWSM(wsm);
         wsm->setWsmData(mobility->getRoadId().c_str());
-        sendDown(wsm,1);
+        //sendDown(wsm,1);
 
         cancelEvent(periodic_WSM_EV);
         scheduleAt(simTime() + WSM_interval, periodic_WSM_EV);
@@ -397,7 +397,7 @@ void myWaveAppLayer::handleSelfMsg(cMessage* msg) {
                     }
                     else {
                         //send right away on CCH, because channel switching is disabled
-                        sendDown(wsm,1);
+                        //sendDown(wsm,1);
                         generatedWSMsSource++;
                         if(SendP_WSM){
                         //cancelEvent(periodic_WSM_EV);
