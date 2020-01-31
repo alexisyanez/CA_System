@@ -40,14 +40,14 @@ network Scenario
         annotations: AnnotationManager {
             @display("p=260,50");
         }
-        connectionManager1: ConnectionManager {
+        connectionManager: ConnectionManager {
             parameters:
                 @display("p=150,0;i=abstract/multicast");
         }
-        connectionManager2: ConnectionManager {
-            parameters:
-                @display("p=150,0;i=abstract/multicast");
-        }
+//        connectionManager2: ConnectionManager {
+//            parameters:
+//                @display("p=150,0;i=abstract/multicast");
+//        }
         world: BaseWorldUtility {
             parameters:
                 playgroundSizeX = playgroundSizeX;

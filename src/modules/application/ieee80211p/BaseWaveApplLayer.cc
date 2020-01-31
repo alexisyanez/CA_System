@@ -320,9 +320,9 @@ void BaseWaveApplLayer::handleLowerMsg(cMessage* msg,int index) {
     }
     else {
         receivedWSMs++;
-        if (index==1){
+       // if (index==1){
         onWSM(wsm);
-        }
+      //  }
     }
 
     delete(msg);

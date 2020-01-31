@@ -32,13 +32,13 @@ void myWaveAppLayer::initialize(int stage) {
         currentSubscribedServiceId = -1;
 
         // Parametros para Slotted
-        Slotted1Enabled = par("Slotted1");
+        Slotted1Enabled = par("Slotted1").boolValue();
         Slotted_Ns = par("Slotted_Ns");
         Slotted_R = par("Slotted_R");
         Slotted_tau = par("Slotted_tau");
 
         // Parametros pas TrAD
-        TrADEnabled = par("TrAD");
+        TrADEnabled = par("TrAD").boolValue();
         TrAD_ti = par("TrAD_ti");
         TrAD_alpha = par("TrAD_alpha");
         TrAD_Neig = par("TrAD_Neig");
@@ -80,11 +80,12 @@ void myWaveAppLayer::initialize(int stage) {
         //lastNBR = 0;
 
        // WSM periódico
-        SendP_WSM = par("Send_Per_WSM");
+        SendP_WSM = par("Send_Per_WSM").boolValue();
         WSM_interval = par("wsmInterval");
         periodic_WSM_EV = new cMessage("WSM Periodic Transmision evt", PER_WSM);
         generatedWSMsSource= 0;
 
+        cancelEvent(periodic_WSM_EV);
         // Identificar WSM
         lastWSMid= -1;
 
