@@ -63,7 +63,7 @@ void Mac1609_4::initialize(int stage) {
 		myMacAddress = intuniform(0,0xFFFFFFFE);
 		myId = getParentModule()->getParentModule()->getFullPath();
 
-		macNum = par("macNum").boolValue();
+		macNum = par("macNum");
 /*
 		frequency.insert(std::pair<int, double>(Channels::CRIT_SOL, 5.86e9));
         frequency.insert(std::pair<int, double>(Channels::SCH1, 5.87e9));
@@ -74,14 +74,14 @@ void Mac1609_4::initialize(int stage) {
         frequency.insert(std::pair<int, double>(Channels::HPPS, 5.92e9));*/
 
 		//create frequency mappings
-		if(macNum){
-            frequency.insert(std::pair<int, double>(Channels::CRIT_SOL, 5.86e9));
-            frequency.insert(std::pair<int, double>(Channels::SCH1, 5.87e9));
-            frequency.insert(std::pair<int, double>(Channels::SCH2, 5.88e9));
-            frequency.insert(std::pair<int, double>(Channels::CCH, 5.89e9));
-            frequency.insert(std::pair<int, double>(Channels::SCH3, 5.90e9));
-            frequency.insert(std::pair<int, double>(Channels::SCH4, 5.91e9));
-            frequency.insert(std::pair<int, double>(Channels::HPPS, 5.92e9));
+		if(macNum==0){
+        frequency.insert(std::pair<int, double>(Channels::CRIT_SOL, 5.86e9));
+        frequency.insert(std::pair<int, double>(Channels::SCH1, 5.87e9));
+        frequency.insert(std::pair<int, double>(Channels::SCH2, 5.88e9));
+        frequency.insert(std::pair<int, double>(Channels::CCH, 5.89e9));
+        frequency.insert(std::pair<int, double>(Channels::SCH3, 5.90e9));
+        frequency.insert(std::pair<int, double>(Channels::SCH4, 5.91e9));
+        frequency.insert(std::pair<int, double>(Channels::HPPS, 5.92e9));
 		}
 		else {
             frequency.insert(std::pair<int, double>(Channels::CRIT_SOL, 2.86e9));
@@ -215,7 +215,9 @@ void Mac1609_4::handleSelfMsg(cMessage* msg) {
 		Mac80211Pkt* mac = new Mac80211Pkt(pktToSend->getName(), pktToSend->getKind());
 		mac->setDestAddr(LAddress::L2BROADCAST());
 		mac->setSrcAddr(myMacAddress);
+		mac->setMyNic(macNum);
 		mac->encapsulate(pktToSend->dup());
+
 
 		enum PHY_MCS mcs;
 		double txPower_mW;
@@ -543,13 +545,14 @@ void Mac1609_4::handleLowerMsg(cMessage* msg) {
 	Mac80211Pkt* macPkt = static_cast<Mac80211Pkt*>(msg);
 	ASSERT(macPkt);
 
+	if(macPkt->getMyNic()==0){
 	WaveShortMessage*  wsm =  dynamic_cast<WaveShortMessage*>(macPkt->decapsulate());
 
 	//pass information about received frame to the upper layers
 	DeciderResult80211 *macRes = dynamic_cast<DeciderResult80211 *>(PhyToMacControlInfo::getDeciderResult(msg));
 	ASSERT(macRes);
 	DeciderResult80211 *res = new DeciderResult80211(*macRes);
-	wsm->setControlInfo(new PhyToMacControlInfo(res));
+		wsm->setControlInfo(new PhyToMacControlInfo(res));
 
 	long dest = macPkt->getDestAddr();
 
@@ -572,6 +575,10 @@ void Mac1609_4::handleLowerMsg(cMessage* msg) {
 		delete wsm;
 	}
 	delete macPkt;
+	}
+	else{
+	    delete macPkt;
+	}
 }
 
 int Mac1609_4::EDCA::queuePacket(t_access_category ac,WaveShortMessage* msg) {

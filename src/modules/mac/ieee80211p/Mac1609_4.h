@@ -303,7 +303,7 @@ class Mac1609_4 : public BaseMacLayer,
         //tell to anybody which is interested when a my collision estimator occurred
         //simsignal_t sigMyCollStat;
 
-        bool macNum;
+        int macNum;
 };
 
 #endif /* ___MAC1609_4_H_*/

@@ -44,6 +44,8 @@ packet WaveShortMessage {
 	string wsmData = "Some Data";
 	//Emergency message
 	int em = 0;
+	//Nic ID
+	//int myNic=-1;
 	
 	int senderAddress = 0;
 	int recipientAddress = -1;

@@ -61,7 +61,7 @@ simple Mac1609_4 extends BaseMacLayer
         int queueSize = default(0);
         
         // For different frequency        
-        bool macNum = default(true);
+        int macNum = default(0);
        
 
         // signal informing interested application about channel busy state
