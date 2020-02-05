@@ -61,4 +61,6 @@ packet WaveShortMessage {
 	//double cw; // contention window for DSP
 	//int Parts; // Partitions for DSP
 	//double PartitionArray[]; //Partition Disntance for DPS
+	int Num_Neig;
+	simtime_t CBR;
 }

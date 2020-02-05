@@ -123,10 +123,10 @@ void myWaveAppLayer::onBSM(BasicSafetyMessage* bsm) {
     // Se calcula la distancia y la utilidad del nodo vecino
 
     Dij = mobility->getPositionAt(SimTime()).distance(bsm->getSenderPos());
-    Utx_n=calculateUtx(bsm->getCBR(),Dij,bsm->getNum_Neig());
+    // Utx_n=calculateUtx(bsm->getCBR(),Dij,bsm->getNum_Neig());
 
     //Guardar valor del número de vecinos de cada nodo
-    meanNeig2.push_back(bsm->getNum_Neig());
+    //meanNeig2.push_back(bsm->getNum_Neig());
 
     // Se agrega a la lista si no está indexado
     if(!isNeighbor(Neig,bsm->getSenderAddress())){

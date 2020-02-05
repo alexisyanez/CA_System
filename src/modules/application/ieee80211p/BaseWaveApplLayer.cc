@@ -224,9 +224,9 @@ void BaseWaveApplLayer::populateWSM(WaveShortMessage* wsm, int rcvId, int serial
         bsm->setPsid(-1);
         bsm->setChannelNumber(Channels::CCH);
         bsm->addBitLength(beaconLengthBits);
-        bsm->setNum_Neig(Neig.size());
-        bsm->setCBR(currCBR);
-        bsm->setUserPriority(beaconUserPriority);
+        //bsm->setNum_Neig(Neig.size());
+        //bsm->setCBR(currCBR);
+        //bsm->setUserPriority(beaconUserPriority);
     }
     else if (WaveServiceAdvertisment* wsa = dynamic_cast<WaveServiceAdvertisment*>(wsm)) {
         wsa->setChannelNumber(Channels::CCH);
