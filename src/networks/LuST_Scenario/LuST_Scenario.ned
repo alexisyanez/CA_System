@@ -18,7 +18,7 @@ import ca_system.nodes.Scenario;
 
 package ca_system.networks.LuST_Scenario;
 
-network Scenario_stg1 extends Scenario
+network LuST_Scenario extends Scenario
 {
         
     //submodules:

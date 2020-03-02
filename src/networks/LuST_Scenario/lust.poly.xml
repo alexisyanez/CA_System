@@ -3,11 +3,19 @@
 Luxembourg SUMO Traffic (LuST) Scenario
 This project is licensed under the terms of the MIT license.
 Author: Lara CODECA [codeca@gmail.com]
--->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+
+
     <location netOffset="-285448.66,-5492398.13" convBoundary="0.00,0.00,13613.76,11455.04" origBoundary="6.030969,49.549099,6.216758,49.652578" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <location netOffset="-345664.39,3702224.17" convBoundary="0.00,0.00,3572.53,2121.45" origBoundary="-70.660452,-33.448515,-70.621714,-33.429717" projParameter="+proj=utm +zone=19 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/> 
+</additional>   
+    
+    -->
+<shape>
     <poly id="-146876" type="building" color="red" fill="1" layer="2.00" shape="4832.24,6082.07 4872.51,6078.28 4876.19,6108.74 4835.92,6112.53 4832.24,6082.07"/>
     <poly id="-146878" type="building" color="red" fill="1" layer="2.00" shape="4815.60,6166.73 4786.37,6175.24 4789.64,6186.41 4818.86,6177.90 4815.60,6166.73"/>
     <poly id="-146880" type="building" color="red" fill="1" layer="2.00" shape="9273.83,7547.18 9254.66,7541.35 9258.27,7529.56 9277.44,7535.39 9273.83,7547.18"/>
@@ -14204,4 +14212,5 @@ Author: Lara CODECA [codeca@gmail.com]
     <poi id="-97720" type="building" color="red" layer="7.00" x="7515.93" y="6921.42"/>
     <poi id="-99424" type="amenity" color="grey" layer="7.00" x="7692.97" y="9210.24"/>
     <poi id="-99424#1" type="parking" color="grey" layer="7.00" x="7692.97" y="9210.24"/>
-</additional>
+</shape>
+
