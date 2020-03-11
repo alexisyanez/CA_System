@@ -39,7 +39,7 @@ Makefile
 
 examples/veins/results/
 examples/veins_inet/results/
-/src/networks/LuST_Scenario/lust.rou.xml
+src/networks/LuST_Scenario/lust.rou.xml
 #src/networks/scenario1/results/
 #src/networks/scenario1_SlowSpeed/results/
 #src/networks/scenario2/results/
