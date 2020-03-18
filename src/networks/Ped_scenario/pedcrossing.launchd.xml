@@ -1,0 +1,8 @@
+<launch>
+  <copy file="pedcrossing.net.xml"/>
+  <copy file="pedcrossing.rou.xml"/>
+  <copy file="pedestrians.trip.xml"/>
+  <copy file="pedcrossing.tll.xml"/>
+  <copy file="pedcrossing.sumocfg" type="config"/>
+  <copy file="viewsettings.xml"/>
+</launch>
