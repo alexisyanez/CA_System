@@ -4,23 +4,21 @@
 
     <input>
         <net-file value="pedcrossing.net.xml"/>
-        <route-files value="pedcrossing.rou.xml,pedestrians.trip.xml"/>
-        <additional-files value="pedcrossing.tll.xml"/>
+        <route-files value="pedcrossing2.rou.xml"/>
     </input>
 
+    <time>
+        <begin value="0"/>
+        <end value="2000"/>
+        <step-length value="1"/>
+    </time>
+
     <report>
-        <verbose value="true"/>
         <no-step-log value="true"/>
     </report>
 
-    <time>
-      <begin value="0"/>
-      <end value="2000"/>
-      <step-length value="1"/>
-    </time>
-
     <gui_only>
-        <gui-settings-file value="viewsettings.xml"/>
+        <start value="true"/>
     </gui_only>
 
 </configuration>

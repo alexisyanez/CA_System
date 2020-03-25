@@ -19,7 +19,7 @@
 //
 
 package ca_system.modules.application.ieee80211p;
-import ca_system.base.modules.IBaseApplLayer;
+import org.car2x.veins.base.modules.IBaseApplLayer;
 
 //
 // WAVE application layer base class.

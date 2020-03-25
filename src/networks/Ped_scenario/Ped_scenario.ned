@@ -16,9 +16,9 @@
 import ca_system.nodes.RSU;
 import ca_system.nodes.Scenario;
 
-package ca_system.networks.Xintersection_stgo;
+package ca_system.networks.Ped_scenario;
 
-network Xintersection_stgo extends Scenario
+network Ped_scenario extends Scenario
 {
         
     //submodules:

@@ -1,0 +1,5 @@
+<launch>
+  <copy file="pedcrossing.net.xml"/>
+  <copy file="pedcrossing2.rou.xml"/>
+  <copy file="pedcrossing2.sumocfg" type="config"/>
+ </launch>
