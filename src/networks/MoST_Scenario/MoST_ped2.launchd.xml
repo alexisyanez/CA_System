@@ -1,0 +1,8 @@
+<launch>
+  <copy file="MoST_ped.net.xml"/>
+  <copy file="MoST_ped2.rou.xml"/>
+  <copy file="MoST_ped2.poly.xml"/>
+  <copy file="busstop.add.xml"/>
+  <copy file="parking.add.xml"/>
+  <copy file="MoST_ped2.sumocfg" type="config"/>
+</launch>
