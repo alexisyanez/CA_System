@@ -4,8 +4,8 @@
 
     <input>
         <net-file value="MoST_ped.net.xml"/>
-        <route-files value="MoST_ped2.rou.xml"/>
-	<additional-files value="MoST_ped2.poly.xml, busstop.add.xml, parking.add.xml"/>
+        <route-files value="MoST_ped2.rou.xml, most.buses.flows.xml, most.commercial.rou.xml, most.highway.flows.xml, most.special.rou.xml"/>
+	<additional-files value="MoST_ped2.poly.xml, most.busstops.add.xml, most.parking.allvisible.add.xml"/> 
     </input>
 
     <time>

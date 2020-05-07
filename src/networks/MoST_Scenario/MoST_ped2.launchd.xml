@@ -2,7 +2,11 @@
   <copy file="MoST_ped.net.xml"/>
   <copy file="MoST_ped2.rou.xml"/>
   <copy file="MoST_ped2.poly.xml"/>
-  <copy file="busstop.add.xml"/>
-  <copy file="parking.add.xml"/>
+  <copy file="most.busstops.add.xml"/>
+  <copy file="most.parking.allvisible.add.xml"/>
+  <copy file="most.buses.flows.xml"/>
+  <copy file="most.commercial.rou.xml"/>
+  <copy file="most.highway.flows.xml"/>
+  <copy file="most.special.rou.xml"/>
   <copy file="MoST_ped2.sumocfg" type="config"/>
 </launch>
