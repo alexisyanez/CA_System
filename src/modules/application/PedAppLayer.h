@@ -70,6 +70,8 @@ class PedAppLayer : public BaseWaveApplLayer{
         //On-StreetPed
         bool OnStreet;
 
+        std::string curEdge;
+
         //Señal para emitir medida del CBR
 //        //simsignal_t MyCBRSignal;
 //        cOutVector MyCBRVec;

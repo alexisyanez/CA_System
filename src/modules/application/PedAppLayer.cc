@@ -210,14 +210,133 @@ void PedAppLayer::onWSA(WaveServiceAdvertisment* wsa) {
 
 void PedAppLayer::handleSelfMsg(cMessage* msg) {
     switch (msg->getKind()) {
-    }
+        case SEND_BEACON_EVT: {
+
+            EV << "My current Speed= " << curSpeed << endl;
+            EV << "My current Edge= " << curEdge << endl;
+            double mySpeed =sqrt(pow((curSpeed.x),2)+pow((curSpeed.y),2));
+
+            if ( OnStreet && curEdge.find("w")){
+                BasicSafetyMessage* bsm = new BasicSafetyMessage();
+                populateWSM(bsm);
+                sendDown(bsm);
+                cancelEvent(sendBeaconEvt);
+                scheduleAt(simTime() + beaconInterval, sendBeaconEvt);
+                break;
+            }
+            if ( MovinPed && mySpeed > 0){
+                BasicSafetyMessage* bsm = new BasicSafetyMessage();
+                populateWSM(bsm);
+                sendDown(bsm);
+                cancelEvent(sendBeaconEvt);
+                scheduleAt(simTime() + beaconInterval, sendBeaconEvt);
+                break;
+            }
+            if ( MultipleTx && mySpeed > 0){
+                BasicSafetyMessage* bsm = new BasicSafetyMessage();
+                populateWSM(bsm);
+                sendDown(bsm);
+                cancelEvent(sendBeaconEvt);
+                beaconInterval = 0.2;
+                scheduleAt(simTime() + beaconInterval, sendBeaconEvt);
+                break;
+            }
+            else if ( MultipleTx && mySpeed == 0){
+                BasicSafetyMessage* bsm = new BasicSafetyMessage();
+                populateWSM(bsm);
+                sendDown(bsm);
+                cancelEvent(sendBeaconEvt);
+                beaconInterval = 0.2;
+                scheduleAt(simTime() + beaconInterval, sendBeaconEvt);
+                break;
+            }
+            if (!OnStreet && !MultipleTx && !MovinPed){
+                BasicSafetyMessage* bsm = new BasicSafetyMessage();
+                populateWSM(bsm);
+                sendDown(bsm);
+                cancelEvent(sendBeaconEvt);
+                scheduleAt(simTime() + beaconInterval, sendBeaconEvt);
+                break;
+
+            }
+            }
+        case SEND_WSA_EVT:   {
+            WaveServiceAdvertisment* wsa = new WaveServiceAdvertisment();
+            populateWSM(wsa);
+            sendDown(wsa);
+            cancelEvent(sendWSAEvt);
+            scheduleAt(simTime() + wsaInterval, sendWSAEvt);
+            break;
+        }
+        case CALC_CBR: {
+            currCBR = mac->getBusyTime() - lastBusyT;
+            cancelEvent(calcCBR_EV);
+            scheduleAt(simTime() + CBR_Int, calcCBR_EV);
+            EV << "CBR=" << currCBR << endl;
+            lastBusyT = (mac->getBusyTime()).dbl();
+            //Emitir estadistica para el CBR
+            MyCBRVec.record(currCBR);
+
+            // Guardar valor para el número de veces que entra al Back-off
+            currNTIB= mac->getNTIB() - lastNTIB;
+            NTIB.record(currNTIB);
+            EV << "Normalize Time Into BackOff NTIB= " << currNTIB << endl;
+
+
+            // Guardar valor para el número de broadcast recibidos
+            currNBR= mac->getNBR() - lastNBR;
+            NBR.record(currNBR);
+            EV << "Normalize Broadcast Received NBR=" << currNBR << endl;
+    //        EV << "Se envian métricas para la clasificación del contexto, Descriptor: " << getDescriptor(currCBR.dbl(),currNTIB,currNBR) << endl;
+
+            lastNBR = mac->getNBR();
+            lastNTIB = mac->getNTIB();
+            lastBusyT = mac->getBusyTime();
+
+            if (Enable_aware == true){
+                int Predict_NTL = getDescriptor(currCBR.dbl(),(double)currNTIB,(double)currNBR,(double)Neig.size());
+                EV << "Descriptor: " << Predict_NTL << endl;
+
+                // Gaurdar valores de aciertos en la clasificación
+                if (Predict_NTL == NTL_tar){
+                    // the classification was success
+                    hit.push_back(1);
+                }
+                else{
+                    // the classification was wrong
+                    hit.push_back(0);
+                }
+
+                // Entregar valor sugerido para Ns
+
+                if (Neig.size() < 80){
+                    Ns_sug=2;
+                }
+                else if (Neig.size() >= 80 && Predict_NTL == 2){
+                    Ns_sug=5;
+                }
+                else if (Neig.size() >= 80 && (Predict_NTL == 0 || Predict_NTL == 1 )){
+                    Ns_sug=7;
+                }
+            }
+
+            break;
+
+        }
+        default: {
+            if (msg)
+                DBG_APP << "APP: Error: Got Self Message of unknown kind! Name: " << msg->getName() << endl;
+            break;
+        }
+        }
+
 
 }
 
 void PedAppLayer::handlePositionUpdate(cObject* obj) {
     BaseWaveApplLayer::handlePositionUpdate(obj);
 
-
+    curEdge = mobility->getRoadId();
     angleRad = mobility->getAngleRad();
     //currposition = mobility->getCurrentPosition();
     //currspeed = mobility->getCurrentSpeed();

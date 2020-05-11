@@ -73,7 +73,7 @@ using Veins::AnnotationManagerAccess;
  * @see Decider80211p
  */
 class BaseWaveApplLayer : public BaseApplLayer {
-    private:
+    public:
     //Señal para emitir medida del CBR
     //simsignal_t MyCBRSignal;
     cOutVector MyCBRVec;
@@ -212,6 +212,7 @@ class BaseWaveApplLayer : public BaseApplLayer {
         TraCIMobility* mobility;
         TraCICommandInterface* traci;
         TraCICommandInterface::Vehicle* traciVehicle;
+        //TraCICommandInterface::Pedestrian* traciPed;
 
         AnnotationManager* annotations;
         WaveAppToMac1609_4Interface* mac;
