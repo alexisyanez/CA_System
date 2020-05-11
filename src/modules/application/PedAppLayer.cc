@@ -220,45 +220,42 @@ void PedAppLayer::handleSelfMsg(cMessage* msg) {
                 BasicSafetyMessage* bsm = new BasicSafetyMessage();
                 populateWSM(bsm);
                 sendDown(bsm);
-                cancelEvent(sendBeaconEvt);
-                scheduleAt(simTime() + beaconInterval, sendBeaconEvt);
-                break;
+                EV << "I am on Street, so i will transmit "<< endl;
             }
+            else if ( OnStreet && !curEdge.find("w")){
+                beaconInterval = 1;
+            }
+
             if ( MovinPed && mySpeed > 0){
                 BasicSafetyMessage* bsm = new BasicSafetyMessage();
                 populateWSM(bsm);
                 sendDown(bsm);
-                cancelEvent(sendBeaconEvt);
-                scheduleAt(simTime() + beaconInterval, sendBeaconEvt);
-                break;
             }
+            else if ( MovinPed && mySpeed == 0){
+                beaconInterval = 1;
+            }
+
             if ( MultipleTx && mySpeed > 0){
                 BasicSafetyMessage* bsm = new BasicSafetyMessage();
                 populateWSM(bsm);
                 sendDown(bsm);
-                cancelEvent(sendBeaconEvt);
                 beaconInterval = 0.2;
-                scheduleAt(simTime() + beaconInterval, sendBeaconEvt);
-                break;
             }
             else if ( MultipleTx && mySpeed == 0){
                 BasicSafetyMessage* bsm = new BasicSafetyMessage();
                 populateWSM(bsm);
                 sendDown(bsm);
-                cancelEvent(sendBeaconEvt);
-                beaconInterval = 0.2;
-                scheduleAt(simTime() + beaconInterval, sendBeaconEvt);
-                break;
+                beaconInterval = 0.5;
             }
             if (!OnStreet && !MultipleTx && !MovinPed){
                 BasicSafetyMessage* bsm = new BasicSafetyMessage();
                 populateWSM(bsm);
                 sendDown(bsm);
-                cancelEvent(sendBeaconEvt);
-                scheduleAt(simTime() + beaconInterval, sendBeaconEvt);
-                break;
-
             }
+            cancelEvent(sendBeaconEvt);
+            scheduleAt(simTime() + beaconInterval, sendBeaconEvt);
+            break;
+
             }
         case SEND_WSA_EVT:   {
             WaveServiceAdvertisment* wsa = new WaveServiceAdvertisment();
