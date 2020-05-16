@@ -2,10 +2,13 @@ import sys
 import numpy as np
 
 #Create the name of the file, Ped_Crossing-BL-DEN=23500s,BL=0.1s,0.1s,0.1s,0.1s,23510s-#0.sca
-Pathresults= "/home/ayanez/CA_System/src/networks/MoST_Scenario/results/"
+#Pathresults= "/home/ayanez/CA_System/src/networks/MoST_Scenario/results/"
+
+Pathresults= "/home/aware/git/CA_System/src/networks/MoST_Scenario/results/"
 namePrefix = "Ped_Crossing-"
 
-Conf = "BL-DEN="
+#Conf = "BL-DEN="
+Conf = "MovinPed-DEN=" 
 DEN= ["23500s,","28500s,","33500s,","38500s,"]
 Interval = ["1s,","0.5s,","0.2s,","0.1s,"]
 END= ["23510s","28510s","33510s","38510s"]
@@ -59,34 +62,15 @@ for l in range(0,4):
 		MeanRunsCBR[l][k].append(np.mean(List1[1]))  
 		STDRunCBR [l][k].append(np.std(List1[1]))
 			
-		
-			
-out = "MeanMetrics-BL"
+#out = "MeanMetrics-BL"
+out = "MeanMetrics-MovinPed"
 
-#mean_PDR=np.zeros((4,4))
-#mean_CBR=np.zeros((4,4))
-
-#std_PDR=np.zeros((4,4))
-#std_CBR=np.zeros((4,4))
-
-#for i in range(0,4):
-	#for j in range(0,4):
-		#mean_PDR[i][j]=MeanRunsPDR[i][j]
-		#mean_CBR[i][j]=MeanRunsCBR[i][j]
-		#std_PDR[i][j]=STDRunPDR[i][j]
-		#std_CBR[i][j]=STDRunCBR[i][j]
-		
-		
-		
 #Imprimir datos en un archivo .txt
 
-MM1=np.asarray(MeanRunsPDR)
-MM2=np.asarray(MeanRunsCBR)
-MS1=np.asarray(STDRunPDR)
-MS2=np.asarray(STDRunCBR)
-
-#print("Numero de nodos por configuracion")
-#print(List3)
+#MM1=np.asarray(MeanRunsPDR)
+#MM2=np.asarray(MeanRunsCBR)
+#MS1=np.asarray(STDRunPDR)
+#MS2=np.asarray(STDRunCBR)
 
 print("MeanRuns PDR: "+ str(MeanRunsPDR))
 
