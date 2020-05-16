@@ -2,7 +2,7 @@ import sys
 import numpy as np
 
 #Create the name of the file, Ped_Crossing-BL-DEN=23500s,BL=0.1s,0.1s,0.1s,0.1s,23510s-#0.sca
-
+Pathresults= "/home/ayanez/CA_System/src/networks/MoST_Scenario/results/"
 namePrefix = "Ped_Crossing-" 
 
 Conf = "BL-DEN="
@@ -25,7 +25,7 @@ for l in range(0,4):
 		
 		for i in range(0,10):
 			
-			name= namePrefix + Conf + DEN[l] + "BL="+ Interval[k] + Interval[k] + Interval[k] + Interval[k] + END[l]  +"-#" + str(i) + ".sca" 
+			name= Pathresults + namePrefix + Conf + DEN[l] + "BL="+ Interval[k] + Interval[k] + Interval[k] + Interval[k] + END[l]  +"-#" + str(i) + ".sca" 
 		
 			f = open(name, 'r')
 			temp = f.readlines()    
