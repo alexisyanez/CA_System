@@ -1,0 +1,255 @@
+
+#
+# This makefile was generated with the following command:
+# /home/ayanez/omnetpp-5.1.1/bin/opp_runall -j8 -b2 ../../CA_System -m -u Cmdenv -c Ped_Crossing-OnStreet -n ../../../simulations:../..:../../../../omnetpp-5.1.1/samples/VRU/inet/src:../../../../omnetpp-5.1.1/samples/VRU/inet/examples:../../../../omnetpp-5.1.1/samples/VRU/inet/tutorials:../../../../omnetpp-5.1.1/samples/VRU/inet/showcases:../../../../Veins_Pedestrian/examples/veins:../../../../Veins_Pedestrian/src/veins:../../../../Veins_Pedestrian/subprojects/veins_inet/src/veins_inet:../../../../Veins_Pedestrian/subprojects/veins_inet/examples/veins_inet --image-path=../../../../omnetpp-5.1.1/samples/VRU/inet/images:../../../../Veins_Pedestrian/images -l ../../../../omnetpp-5.1.1/samples/VRU/inet/src/INET -l ../../../../Veins_Pedestrian/src/veins -l ../../../../Veins_Pedestrian/subprojects/veins_inet/src/veins_inet omnetpp2.ini
+#
+
+SIMULATIONCMD = ../../CA_System -m -u Cmdenv -c Ped_Crossing-OnStreet -n ../../../simulations:../..:../../../../omnetpp-5.1.1/samples/VRU/inet/src:../../../../omnetpp-5.1.1/samples/VRU/inet/examples:../../../../omnetpp-5.1.1/samples/VRU/inet/tutorials:../../../../omnetpp-5.1.1/samples/VRU/inet/showcases:../../../../Veins_Pedestrian/examples/veins:../../../../Veins_Pedestrian/src/veins:../../../../Veins_Pedestrian/subprojects/veins_inet/src/veins_inet:../../../../Veins_Pedestrian/subprojects/veins_inet/examples/veins_inet --image-path=../../../../omnetpp-5.1.1/samples/VRU/inet/images:../../../../Veins_Pedestrian/images -l ../../../../omnetpp-5.1.1/samples/VRU/inet/src/INET -l ../../../../Veins_Pedestrian/src/veins -l ../../../../Veins_Pedestrian/subprojects/veins_inet/src/veins_inet omnetpp2.ini -s --cmdenv-redirect-output=true
+TARGETS =  batch0 batch1 batch2 batch3 batch4 batch5 batch6 batch7 batch8 batch9 batch10 batch11 batch12 batch13 batch14 batch15 batch16 batch17 batch18 batch19 batch20 batch21 batch22 batch23 batch24 batch25 batch26 batch27 batch28 batch29 batch30 batch31 batch32 batch33 batch34 batch35 batch36 batch37 batch38 batch39 batch40 batch41 batch42 batch43 batch44 batch45 batch46 batch47 batch48 batch49 batch50 batch51 batch52 batch53 batch54 batch55 batch56 batch57 batch58 batch59 batch60 batch61 batch62 batch63 batch64 batch65 batch66 batch67 batch68 batch69 batch70 batch71 batch72 batch73 batch74 batch75 batch76 batch77 batch78 batch79
+
+.PHONY: $(TARGETS)
+
+all: $(TARGETS)
+	@echo All runs completed.
+
+batch0:
+	$(SIMULATIONCMD) -r 0,1
+
+batch1:
+	$(SIMULATIONCMD) -r 2,3
+
+batch2:
+	$(SIMULATIONCMD) -r 4,5
+
+batch3:
+	$(SIMULATIONCMD) -r 6,7
+
+batch4:
+	$(SIMULATIONCMD) -r 8,9
+
+batch5:
+	$(SIMULATIONCMD) -r 10,11
+
+batch6:
+	$(SIMULATIONCMD) -r 12,13
+
+batch7:
+	$(SIMULATIONCMD) -r 14,15
+
+batch8:
+	$(SIMULATIONCMD) -r 16,17
+
+batch9:
+	$(SIMULATIONCMD) -r 18,19
+
+batch10:
+	$(SIMULATIONCMD) -r 20,21
+
+batch11:
+	$(SIMULATIONCMD) -r 22,23
+
+batch12:
+	$(SIMULATIONCMD) -r 24,25
+
+batch13:
+	$(SIMULATIONCMD) -r 26,27
+
+batch14:
+	$(SIMULATIONCMD) -r 28,29
+
+batch15:
+	$(SIMULATIONCMD) -r 30,31
+
+batch16:
+	$(SIMULATIONCMD) -r 32,33
+
+batch17:
+	$(SIMULATIONCMD) -r 34,35
+
+batch18:
+	$(SIMULATIONCMD) -r 36,37
+
+batch19:
+	$(SIMULATIONCMD) -r 38,39
+
+batch20:
+	$(SIMULATIONCMD) -r 40,41
+
+batch21:
+	$(SIMULATIONCMD) -r 42,43
+
+batch22:
+	$(SIMULATIONCMD) -r 44,45
+
+batch23:
+	$(SIMULATIONCMD) -r 46,47
+
+batch24:
+	$(SIMULATIONCMD) -r 48,49
+
+batch25:
+	$(SIMULATIONCMD) -r 50,51
+
+batch26:
+	$(SIMULATIONCMD) -r 52,53
+
+batch27:
+	$(SIMULATIONCMD) -r 54,55
+
+batch28:
+	$(SIMULATIONCMD) -r 56,57
+
+batch29:
+	$(SIMULATIONCMD) -r 58,59
+
+batch30:
+	$(SIMULATIONCMD) -r 60,61
+
+batch31:
+	$(SIMULATIONCMD) -r 62,63
+
+batch32:
+	$(SIMULATIONCMD) -r 64,65
+
+batch33:
+	$(SIMULATIONCMD) -r 66,67
+
+batch34:
+	$(SIMULATIONCMD) -r 68,69
+
+batch35:
+	$(SIMULATIONCMD) -r 70,71
+
+batch36:
+	$(SIMULATIONCMD) -r 72,73
+
+batch37:
+	$(SIMULATIONCMD) -r 74,75
+
+batch38:
+	$(SIMULATIONCMD) -r 76,77
+
+batch39:
+	$(SIMULATIONCMD) -r 78,79
+
+batch40:
+	$(SIMULATIONCMD) -r 80,81
+
+batch41:
+	$(SIMULATIONCMD) -r 82,83
+
+batch42:
+	$(SIMULATIONCMD) -r 84,85
+
+batch43:
+	$(SIMULATIONCMD) -r 86,87
+
+batch44:
+	$(SIMULATIONCMD) -r 88,89
+
+batch45:
+	$(SIMULATIONCMD) -r 90,91
+
+batch46:
+	$(SIMULATIONCMD) -r 92,93
+
+batch47:
+	$(SIMULATIONCMD) -r 94,95
+
+batch48:
+	$(SIMULATIONCMD) -r 96,97
+
+batch49:
+	$(SIMULATIONCMD) -r 98,99
+
+batch50:
+	$(SIMULATIONCMD) -r 100,101
+
+batch51:
+	$(SIMULATIONCMD) -r 102,103
+
+batch52:
+	$(SIMULATIONCMD) -r 104,105
+
+batch53:
+	$(SIMULATIONCMD) -r 106,107
+
+batch54:
+	$(SIMULATIONCMD) -r 108,109
+
+batch55:
+	$(SIMULATIONCMD) -r 110,111
+
+batch56:
+	$(SIMULATIONCMD) -r 112,113
+
+batch57:
+	$(SIMULATIONCMD) -r 114,115
+
+batch58:
+	$(SIMULATIONCMD) -r 116,117
+
+batch59:
+	$(SIMULATIONCMD) -r 118,119
+
+batch60:
+	$(SIMULATIONCMD) -r 120,121
+
+batch61:
+	$(SIMULATIONCMD) -r 122,123
+
+batch62:
+	$(SIMULATIONCMD) -r 124,125
+
+batch63:
+	$(SIMULATIONCMD) -r 126,127
+
+batch64:
+	$(SIMULATIONCMD) -r 128,129
+
+batch65:
+	$(SIMULATIONCMD) -r 130,131
+
+batch66:
+	$(SIMULATIONCMD) -r 132,133
+
+batch67:
+	$(SIMULATIONCMD) -r 134,135
+
+batch68:
+	$(SIMULATIONCMD) -r 136,137
+
+batch69:
+	$(SIMULATIONCMD) -r 138,139
+
+batch70:
+	$(SIMULATIONCMD) -r 140,141
+
+batch71:
+	$(SIMULATIONCMD) -r 142,143
+
+batch72:
+	$(SIMULATIONCMD) -r 144,145
+
+batch73:
+	$(SIMULATIONCMD) -r 146,147
+
+batch74:
+	$(SIMULATIONCMD) -r 148,149
+
+batch75:
+	$(SIMULATIONCMD) -r 150,151
+
+batch76:
+	$(SIMULATIONCMD) -r 152,153
+
+batch77:
+	$(SIMULATIONCMD) -r 154,155
+
+batch78:
+	$(SIMULATIONCMD) -r 156,157
+
+batch79:
+	$(SIMULATIONCMD) -r 158,159
+
+
