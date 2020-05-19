@@ -9,10 +9,13 @@ namePrefix = "Ped_Crossing-"
 
 #Conf = "BL-DEN="
 #Conf = "MovinPed-DEN=" 
-Conf = "OnStreet-DEN=" 
+#Conf = "OnStreet-DEN=" 
+#Ped_Crossing-MultipleTx-DEN=28500s,28510s-#0.sca
+
+Conf = "MultipleTx-DEN="
 
 DEN= ["23500s,","28500s,","33500s,","38500s,"]
-Interval = ["1s,","0.5s,","0.2s,","0.1s,"]
+#Interval = ["1s,","0.5s,","0.2s,","0.1s,"]
 END= ["23510s","28510s","33510s","38510s"]
 
 
@@ -22,12 +25,12 @@ MeanRunsCBR = [[[],[],[],[]],[[],[],[],[]],[[],[],[],[]],[[],[],[],[]]] # Filas 
 STDRunCBR = [[[],[],[],[]],[[],[],[],[]],[[],[],[],[]],[[],[],[],[]]] # Filas Densidad de menos a mas, columnas Beconing 1,2,5 y 10 Hz
 
 for l in range(0,4):
-	for k in range(0,4):
+	#for k in range(0,4):
 		List1 = [[],[]] #PDR - CBR
 		
 		for i in range(0,10):
 			
-			name= Pathresults + namePrefix + Conf + DEN[l] + "BL="+ Interval[k] + Interval[k] + Interval[k] + Interval[k] + END[l]  +"-#" + str(i) + ".sca" 
+			name= Pathresults + namePrefix + Conf + DEN[l] + END[l]  +"-#" + str(i) + ".sca" #"BL="+ Interval[k] + Interval[k] + Interval[k] + Interval[k] + END[l]  +"-#" + str(i) + ".sca" 
 		
 			f = open(name, 'r')
 			temp = f.readlines()    
@@ -58,15 +61,15 @@ for l in range(0,4):
 				j=j+1							
 			f.close()			
 			
-		MeanRunsPDR[l][k].append(np.mean(List1[0]))  
-		STDRunPDR[l][k].append(np.std(List1[0])) 
-
-		MeanRunsCBR[l][k].append(np.mean(List1[1]))  
-		STDRunCBR [l][k].append(np.std(List1[1]))
+		MeanRunsPDR[l][0].append(np.mean(List1[0]))  
+		STDRunPDR[l][0].append(np.std(List1[0])) 
+#[k] en lugar de cero
+		MeanRunsCBR[l][0].append(np.mean(List1[1]))  
+		STDRunCBR [l][0].append(np.std(List1[1]))
 			
 #out = "MeanMetrics-BL"
 #out = "MeanMetrics-MovinPed"
-out = "MeanMetrics-OnStreet"
+out = "MeanMetrics-MultipleTx"
 
 #Imprimir datos en un archivo .txt
 
