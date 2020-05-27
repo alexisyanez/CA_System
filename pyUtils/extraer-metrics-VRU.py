@@ -1,22 +1,21 @@
 import sys
 import numpy as np
 
-#Create the name of the file, Ped_Crossing-BL-DEN=23500s,BL=0.1s,0.1s,0.1s,0.1s,
-23510s-#0.sca
+#Create the name of the file, Ped_Crossing-BL-DEN=23500s,BL=0.1s,0.1s,0.1s,0.1s,23510s-#0.sca
 Pathresults= "/home/ayanez/CA_System/src/networks/MoST_Scenario/results/"
 
 #Pathresults= "/home/aware/git/CA_System/src/networks/MoST_Scenario/results/"
 namePrefix = "Ped_Crossing-"
 
 #Conf = "BL-DEN="
-Conf = "MovinPed-DEN=" 
+#Conf = "MovinPed-DEN=" 
 #Conf = "OnStreet-DEN=" 
 #Ped_Crossing-MultipleTx-DEN=28500s,28510s-#0.sca
 
-#Conf = "MultipleTx-DEN="
+Conf = "MultipleTx-DEN="
 
 DEN= ["23500s,","28500s,","33500s,","38500s,"]
-#Interval = ["1s,","0.5s,","0.2s,","0.1s,"]
+Interval = ["1s,","0.5s,","0.2s,","0.1s,"]
 END= ["23510s","28510s","33510s","38510s"]
 
 
@@ -26,14 +25,13 @@ MeanRunsCBR = [[[],[],[],[]],[[],[],[],[]],[[],[],[],[]],[[],[],[],[]]] # Filas 
 STDRunCBR = [[[],[],[],[]],[[],[],[],[]],[[],[],[],[]],[[],[],[],[]]] # Filas Densidad de menos a mas, columnas Beconing 1,2,5 y 10 Hz
 
 for l in range(0,4):
-	#for k in range(0,4):
+#	for k in range(0,4):
 		List1 = [[],[]] #PDR - CBR
 		
 		for i in range(0,10):
 			
-			name= Pathresults + namePrefix + Conf + DEN[l] + END[l]  +"-#" + str(i) + ".sca" #"BL="+ Interval[k] + Interval[k] + Interval[
-k] + Interval[k] + END[l]  +"-#" + str(i) + ".sca" 
-		
+			name= Pathresults + namePrefix + Conf +  DEN[l] + END[l]  +"-#" + str(i) + ".sca" #"BL="+ Interval[k] + Interval[k] + Interval[k] + Interval[k] + END[l]  +"-#" + str(i) + ".sca" 
+
 			f = open(name, 'r')
 			temp = f.readlines()    
 			j=0
@@ -75,8 +73,9 @@ k] + Interval[k] + END[l]  +"-#" + str(i) + ".sca"
 		STDRunCBR [l][0].append(np.std(List1[1]))
 			
 #out = "MeanMetrics-BL"
-out = "MeanMetrics-MovinPed"
-#out = "MeanMetrics-MultipleTx"
+#out = "MeanMetrics-MovinPed"
+#out = "MeanMetrics-OnStreet"
+out = "MeanMetrics-MultipleTx"
 
 #Imprimir datos en un archivo .txt
 
