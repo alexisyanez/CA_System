@@ -9,10 +9,12 @@ namePrefix = "Ped_Crossing-"
 
 #Conf = "BL-DEN="
 #Conf = "MovinPed-DEN=" 
-Conf = "OnStreet-DEN=" 
+#Conf = "OnStreet-DEN=" 
 #Ped_Crossing-MultipleTx-DEN=28500s,28510s-#0.sca
 
+Conf = "BL-NoObstacle-DEN="
 #Conf = "MultipleTx-DEN="
+
 
 DEN= ["23500s,","28500s,","33500s,","38500s,"]
 Interval = ["1s,","0.5s,","0.2s,","0.1s,"]
@@ -52,7 +54,7 @@ for l in range(0,4):
 					value3 = temp[j+3].split()
 					PKT_Rec = float(value3[3]) 
 					
-					value4 = temp[j+23].split()
+					value4 = temp[j+10].split()
 					Busy_T = float(value4[3]) 
 					
 					
@@ -60,7 +62,7 @@ for l in range(0,4):
 					delta_t=Sto_T-Sta_T
 					if Total_T > 0 and PKT_Rec>0:
 						PDR = 1-(PKT_Lost/(PKT_Rec+PKT_Lost))
-						CBR = Busy_T/Total_T
+						CBR = Busy_T #/Total_T
 						List1[0].append(PDR)
 						List1[1].append(CBR)						
 				j=j+1							
@@ -74,8 +76,9 @@ for l in range(0,4):
 			
 #out = "MeanMetrics-BL"
 #out = "MeanMetrics-MovinPed"
-out = "MeanMetrics-OnStreet"
+#out = "MeanMetrics-OnStreet"
 #out = "MeanMetrics-MultipleTx"
+out = "MeanMetrics-BL-NoObstacle"
 
 #Imprimir datos en un archivo .txt
 

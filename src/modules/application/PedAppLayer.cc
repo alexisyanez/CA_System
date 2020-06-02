@@ -216,23 +216,34 @@ void PedAppLayer::handleSelfMsg(cMessage* msg) {
             EV << "My current Edge= " << curEdge << endl;
             double mySpeed =sqrt(pow((curSpeed.x),2)+pow((curSpeed.y),2));
 
+            EV << "My boolean OnStreet is= " << OnStreet << endl;
+            EV << "My boolean MovinPed is= " << MovinPed << endl;
+            EV << "My boolean MultipleTx is= " << MultipleTx  << endl;
+
+            EV << "My absolute current Speed Calculated= " << mySpeed << endl;
+            // EV << "My current Edge= " << curEdge << endl;
+
+
             if ( OnStreet && curEdge.find("w")){
                 BasicSafetyMessage* bsm = new BasicSafetyMessage();
                 populateWSM(bsm);
                 sendDown(bsm);
-                EV << "I am on Street, so i will transmit "<< endl;
+                EV << "I'm On Street, so i will transmit "<< endl;
             }
             else if ( OnStreet && !curEdge.find("w")){
                 beaconInterval = 1;
+                EV << "I'm not On Street, so i won't transmit "<< endl;
             }
 
             if ( MovinPed && mySpeed > 0){
                 BasicSafetyMessage* bsm = new BasicSafetyMessage();
                 populateWSM(bsm);
                 sendDown(bsm);
+                EV << "I'm Moving, so i will transmit "<< endl;
             }
             else if ( MovinPed && mySpeed == 0){
                 beaconInterval = 1;
+                EV << "I'm not Moving, so i won't transmit "<< endl;
             }
 
             if ( MultipleTx && mySpeed > 0){
@@ -240,18 +251,22 @@ void PedAppLayer::handleSelfMsg(cMessage* msg) {
                 populateWSM(bsm);
                 sendDown(bsm);
                 beaconInterval = 0.2;
+                EV << "I'm moving, so i will transmit with multiple Tx "<< endl;
             }
             else if ( MultipleTx && mySpeed == 0){
                 BasicSafetyMessage* bsm = new BasicSafetyMessage();
                 populateWSM(bsm);
                 sendDown(bsm);
                 beaconInterval = 0.5;
+                EV << "I'm moving, so i will transmit with multiple Tx "<< endl;
             }
             if (!OnStreet && !MultipleTx && !MovinPed){
                 BasicSafetyMessage* bsm = new BasicSafetyMessage();
                 populateWSM(bsm);
                 sendDown(bsm);
+                EV << "No have rules, so transmit with Beacon-interval "<< endl;
             }
+
             cancelEvent(sendBeaconEvt);
             scheduleAt(simTime() + beaconInterval, sendBeaconEvt);
             break;
