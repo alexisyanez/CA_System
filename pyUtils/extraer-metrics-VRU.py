@@ -28,10 +28,11 @@ STDRunCBR = [[[],[],[],[]],[[],[],[],[]],[[],[],[],[]],[[],[],[],[]]] # Filas De
 
 for l in range(0,4):
 	for k in range(0,4):
-		List1 = [[],[]] #PDR - CBR
+		#List1 = [[],[]] #PDR - CBR
 		
 		for i in range(0,10):
 			
+			List1 = [[],[]]
 			name= Pathresults + namePrefix + Conf +  DEN[l] + "BL="+ Interval[k] + Interval[k] + Interval[k] + Interval[k] + END[l]  +"-#" + str(i) + ".sca" 
 
 			f = open(name, 'r')
