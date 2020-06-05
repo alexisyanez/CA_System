@@ -15,6 +15,7 @@
 
 #include "PedAppLayer.h"
 
+
 Define_Module(PedAppLayer);
 
 void PedAppLayer::initialize(int stage) {
@@ -222,6 +223,10 @@ void PedAppLayer::handleSelfMsg(cMessage* msg) {
 
             EV << "My absolute current Speed Calculated= " << mySpeed << endl;
             // EV << "My current Edge= " << curEdge << endl;
+
+            if ( std::isnan(mySpeed) == 1 ){
+                mySpeed =1;
+            }
 
 
             if ( OnStreet && curEdge.find("w")){

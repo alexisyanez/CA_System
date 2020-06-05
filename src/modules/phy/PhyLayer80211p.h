@@ -173,6 +173,11 @@ class PhyLayer80211p	: 	public BasePhyLayer,
 		virtual void handleSelfMessage(cMessage* msg);
 		virtual int getRadioState();
 		virtual simtime_t setRadioState(int rs);
+
+	    /** @brief Save the value of the propagation delay */
+	    //cOutVector Channels;
+	    //cOutVector DurationAirFrame;
+
 };
 
 #endif /* PHYLAYER80211P_H_ */

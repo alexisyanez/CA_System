@@ -58,6 +58,11 @@ void PhyLayer80211p::initialize(int stage) {
 		}
 		//erase the RadioStateAnalogueModel
 		analogueModels.erase(analogueModels.begin());
+
+        //initialize Duration Transmision
+        //Channels.setName("ChannelsTx");
+        //DurationAirFrame.setName("DurationAirFrameTx");
+
 	}
 }
 
@@ -453,6 +458,14 @@ AirFrame *PhyLayer80211p::encapsMsg(cPacket *macPkt)
 	frame->setId(world->getUniqueAirFrameId());
 	frame->setChannel(radio->getCurrentChannel());
 
+
+    // Code By Alexis
+
+    coreEV << "The duration of Transmision is: " << s->getDuration() << endl;
+    //DurationAirFrame.record(s->getDuration());
+
+    coreEV << "Transmision is over the channel: " << radio->getCurrentChannel() << endl;
+    //Channels.record(radio->getCurrentChannel());
 
 	// pointer and Signal not needed anymore
 	delete s;
