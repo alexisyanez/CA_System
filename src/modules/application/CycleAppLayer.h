@@ -13,8 +13,8 @@
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 // 
 
-#ifndef MODULES_APPLICATION_PEDAPPLAYER_H_
-#define MODULES_APPLICATION_PEDAPPLAYER_H_
+#ifndef MODULES_APPLICATION_CYCLEAPPLAYER_H_
+#define MODULES_APPLICATION_CYCLEAPPLAYER_H_
 
 #include <omnetpp.h>
 #include "modules/application/ieee80211p/BaseWaveApplLayer.h"
