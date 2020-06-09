@@ -119,6 +119,8 @@ void BaseWaveApplLayer::initialize(int stage) {
         NTIB.setName("NTIB");
         NBR.setName("NBR");
 
+        MyChann.setName("ChannelTx");
+
         //Número de vecinos
 
        // Veci.setName("Neighbor1-hop");
@@ -219,14 +221,16 @@ void BaseWaveApplLayer::populateWSM(WaveShortMessage* wsm, int rcvId, int serial
 
     if (BasicSafetyMessage* bsm = dynamic_cast<BasicSafetyMessage*>(wsm) ) {
         bsm->setSenderPos(curPosition);
-       // bsm->setSenderPos(curPosition);
+        //bsm->setSenderPos(curPosition);
         bsm->setSenderSpeed(curSpeed);
         bsm->setPsid(-1);
+        bsm->setCw(10);
+        bsm->setPsc("Hola mundo como estas");
         bsm->setChannelNumber(Channels::CCH);
         bsm->addBitLength(beaconLengthBits);
-        //bsm->setNum_Neig(Neig.size());
-        //bsm->setCBR(currCBR);
-        //bsm->setUserPriority(beaconUserPriority);
+        bsm->setUserPriority(beaconUserPriority);
+
+        MyChann.record(Channels::CCH);
     }
     else if (WaveServiceAdvertisment* wsa = dynamic_cast<WaveServiceAdvertisment*>(wsm)) {
         wsa->setChannelNumber(Channels::CCH);

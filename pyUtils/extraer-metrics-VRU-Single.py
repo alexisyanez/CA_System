@@ -35,31 +35,33 @@ List1 = [[],[]] #PDR - CBR
 
 #name= Pathresults + namePrefix + Conf + DEN[l] + END[l]  +"-#" + str(i) + ".sca" #"BL="+ Interval[k] + Interval[k] + Interval[k] + Interval[k] + END[l]  +"-#" + str(i) + ".sca" 
 #Ped_Crossing-BL-NoObstacle-DEN=23500s,BL=1s,1s,1s,1s,23510s-#0.sca
-name="/home/alexis/git/CA_System/src/networks/MoST_Scenario/results/Ped_Crossing-BL-NoObstacle-DEN=38500s,BL=0.1s,0.1s,0.1s,0.1s,38510s-#9.sca"
+name="/home/alexis/git/CA_System/src/networks/MoST_Scenario/results/Ped_Crossing-BL-NoObstacle-DEN=38500s,BL=0.1s,0.1s,0.1s,0.1s,38510s-#9.sca" #Ped_Crossing-BL-NoObstacle-DEN=23500s,BL=1s,1s,1s,1s,23510s-#0.sca" #
 
+#CBR =[];
 f = open(name, 'r')
-temp = f.readlines()    
+temp = f.readlines()
 j=0
 
 while j<len(temp):
-    if "generatedWSMs" in temp[j]:  
+    if "generatedWSMs" in temp[j]:
         value = temp[j+24].split()
         Sta_T = float(value[3])
-        
-        value1 = temp[j+26].split()	
+
+        value1 = temp[j+26].split()
         Sto_T = float(value1[3])
 
-        value5 = temp[j+25].split()	
+        value5 = temp[j+25].split()
         Total_T = float(value5[3])
 
-        value2 = temp[j+17].split() 
+        value2 = temp[j+17].split()
         PKT_Lost = float(value2[3])
 
         value3 = temp[j+3].split()
-        PKT_Rec = float(value3[3]) 
+        PKT_Rec = float(value3[3])
 
         value4 = temp[j+23].split()
-        Busy_T = float(value4[3]) 		
+        Busy_T = float(value4[3])
+        #CBR.append(SenNumber)
 #MoST_scenario.Bikenode[17].nic.mac1609_4
 #value5 = temp[j+23].split()
         if "Bikenode" in str(value4[1]):
@@ -87,15 +89,16 @@ while j<len(temp):
     j=j+1							
 
 f.close()			
+#List1[1].append(sum(CBR))#*0.000304)/10)
 
 MeanRunsPDR[0][0].append(np.mean(List1[0]))  
 STDRunPDR[0][0].append(np.std(List1[0])) 
 #[k] en lugar de cero
-MeanRunsCBR[0][0].append(np.mean(List1[1]))  
+MeanRunsCBR[0][0].append(np.mean(List1[1]))#))  
 STDRunCBR [0][0].append(np.std(List1[1]))
 			
 #out = "MeanMetrics-BL"
-out = "MeanMetrics-NoObstacle-HD-2"
+out = "MeanMetrics-NoObstacle-HD-200Bytes"
 #out = "MeanMetrics-MultipleTx"
 #out = "MeanMetrics-OnStreet"
 #Imprimir datos en un archivo .txt

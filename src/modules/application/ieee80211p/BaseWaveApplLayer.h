@@ -275,7 +275,9 @@ class BaseWaveApplLayer : public BaseApplLayer {
 
         //Señal para emitir medida de MyColl
         //simsignal_t MyCollSignal;
-        //cOutVector MyCollVec;
+
+        //Cannal de transmición
+        cOutVector MyChann;
 
         // CBR interval
         simtime_t CBR_Int;
