@@ -12,7 +12,7 @@ namePrefix = "Ped_Crossing-"
 #Conf = "OnStreet-DEN=" 
 #Ped_Crossing-MultipleTx-DEN=28500s,28510s-#0.sca
 
-Conf = "BL-NoObstacle-DEN="
+Conf = "BL-NoObstacle-200bytes-DEN="
 #Conf = "MultipleTx-DEN="
 
 
@@ -30,12 +30,12 @@ for l in range(0,4):
 	for k in range(0,4):
 		List1 = [[],[]] #PDR - CBR
 		
-		for i in range(0,10):
+		for i in range(0,5): #(0,10):
 			
 			#List1 = [[],[]]
 			name= Pathresults + namePrefix + Conf +  DEN[l] + "BL="+ Interval[k] + Interval[k] + Interval[k] + Interval[k] + END[l]  +"-#" + str(i) + ".sca" 
 
-			CBR =[];
+			#CBR =[];
 			f = open(name, 'r')
 			temp = f.readlines()    
 			j=0
@@ -56,21 +56,23 @@ for l in range(0,4):
 					value3 = temp[j+3].split()
 					PKT_Rec = float(value3[3]) 
 					
-					value4 = temp[j+2].split()
-					SenNumber = float(value4[3]) 
+					value4 = temp[j+23].split()
+					Busy_T = float(value4[3]) 
 					
-					CBR.append(SenNumber)
+					#SenNumber = float(value4[3]) 
+					#CBR.append(SenNumber)
 					
 					#print("Delay:"+ str(Del) + " Distancia:"+ str(DiS) +" Start_time:"+str(Sta_T) + " Stop_time:" + str(Sto_T))
 					delta_t=Sto_T-Sta_T
 					if Total_T > 0 and PKT_Rec>0:
 						PDR = 1-(PKT_Lost/(PKT_Rec+PKT_Lost))
-						#CBR = Busy_T #/Total_T
+						CBR = Busy_T #/Total_T
+						List1[1].append(CBR)
 						List1[0].append(PDR)
 												
 				j=j+1	
 			f.close()			
-			List1[1].append((sum(CBR)*0.000104)/10)
+			
 			
 		MeanRunsPDR[l][k].append(np.mean(List1[0]))  
 		STDRunPDR[l][k].append(np.std(List1[0])) 
@@ -82,7 +84,7 @@ for l in range(0,4):
 #out = "MeanMetrics-MovinPed"
 #out = "MeanMetrics-OnStreet"
 #out = "MeanMetrics-MultipleTx"
-out = "MeanMetrics-BL-NoObstacle"
+out = "MeanMetrics-BL-NoObstacle-200bytes"
 
 #Imprimir datos en un archivo .txt
 
