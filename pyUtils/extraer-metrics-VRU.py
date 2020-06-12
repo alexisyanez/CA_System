@@ -66,7 +66,7 @@ for l in range(0,4):
 					delta_t=Sto_T-Sta_T
 					if Total_T > 0 and PKT_Rec>0:
 						PDR = 1-(PKT_Lost/(PKT_Rec+PKT_Lost))
-						CBR = Busy_T #/Total_T
+						CBR = Busy_T/Total_T
 						List1[1].append(CBR)
 						List1[0].append(PDR)
 												
