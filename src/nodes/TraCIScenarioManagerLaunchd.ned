@@ -61,7 +61,7 @@ simple TraCIScenarioManagerLaunchd
         string moduleDisplayString = default("'i=veins/node/car;is=vs'"); //*=
         
         //code by Alexis Yáñez
-        string PedmoduleType = default("org.car2x.veins.nodes.Car");  // module type to be used in the simulation for each managed vehicle
+        string PedmoduleType = default("ca_system.nodes.Ped");  // module type to be used in the simulation for each managed vehicle
         string PedmoduleName = default("Pednode");  // module name to be used in the simulation for each managed vehicle
         string PedmoduleDisplayString = default("i=veins/node/pedestrian;is=vs");
         

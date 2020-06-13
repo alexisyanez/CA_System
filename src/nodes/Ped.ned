@@ -1,7 +1,7 @@
 package ca_system.nodes;
 
 import org.car2x.veins.base.modules.*;
-
+import ca_system.base.modules.*;
 //import ca_system.modules.nic.Nic80211p;
 //import ca_system.modules.nic.INic80211p;
 
@@ -27,7 +27,7 @@ module Ped
         //input veinsradioIn2 @directIn; 
         //input veinsradioIn2; // gate for DPS
     submodules:
-        appl: ca_system.modules.application.myWaveAppLayer {
+        appl: <applType> like org.car2x.veins.base.modules.IBaseApplLayer{ // ca_system.modules.application.myWaveAppLayer {
             parameters:
                 @display("p=60,50");
             gates:

@@ -20,6 +20,8 @@ DEN= ["23500s,","28500s,","33500s,","38500s,"]
 Interval = ["1s,","0.5s,","0.2s,","0.1s,"]
 END= ["23510s","28510s","33510s","38510s"]
 
+Total_Nodes = [23 , 54, 35, 44] 
+
 
 MeanRunsPDR = [[[],[],[],[]],[[],[],[],[]],[[],[],[],[]],[[],[],[],[]]]  # Filas Densidad de menos a mas, columnas Beconing 1,2,5 y 10 Hz
 STDRunPDR = [[[],[],[],[]],[[],[],[],[]],[[],[],[],[]],[[],[],[],[]]]  # Filas Densidad de menos a mas, columnas Beconing 1,2,5 y 10 Hz
@@ -30,8 +32,10 @@ for l in range(0,4):
 	for k in range(0,4):
 		List1 = [[],[]] #PDR - CBR
 		
+		
 		for i in range(0,5): #(0,10):
-			
+			PKT_Total_Rec = [] 
+			PKT_Total_Send = []
 			#List1 = [[],[]]
 			name= Pathresults + namePrefix + Conf +  DEN[l] + "BL="+ Interval[k] + Interval[k] + Interval[k] + Interval[k] + END[l]  +"-#" + str(i) + ".sca" 
 
@@ -50,8 +54,8 @@ for l in range(0,4):
 					value1 = temp[j+26].split()	
 					Sto_T = float(value1[3])
 													
-					value2 = temp[j+17].split() 
-					PKT_Lost = float(value2[3])
+					value2 = temp[j+2].split() 
+					PKT_send = float(value2[3])
 					
 					value3 = temp[j+3].split()
 					PKT_Rec = float(value3[3]) 
@@ -65,13 +69,19 @@ for l in range(0,4):
 					#print("Delay:"+ str(Del) + " Distancia:"+ str(DiS) +" Start_time:"+str(Sta_T) + " Stop_time:" + str(Sto_T))
 					delta_t=Sto_T-Sta_T
 					if Total_T > 0 and PKT_Rec>0:
-						PDR = 1-(PKT_Lost/(PKT_Rec+PKT_Lost))
+						#PDR = 1-(PKT_Lost/(PKT_Rec+PKT_Lost))
+						PKT_Total_Rec.append(PKT_Rec)
+						PKT_Total_Send.append(PKT_send)
 						CBR = Busy_T/Total_T
 						List1[1].append(CBR)
-						List1[0].append(PDR)
+						
+						#List1[0].append(PDR)
 												
 				j=j+1	
-			f.close()			
+			f.close()
+			PDR = (sum(PKT_Total_Send)*Total_Nodes(l))/sum(PKT_Total_Rec))			
+			List1[0].append(PDR)
+						
 			
 			
 		MeanRunsPDR[l][k].append(np.mean(List1[0]))  
