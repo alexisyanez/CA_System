@@ -20,7 +20,7 @@ DEN= ["23500s,","28500s,","33500s,","38500s,"]
 Interval = ["1s,","0.5s,","0.2s,","0.1s,"]
 END= ["23510s","28510s","33510s","38510s"]
 
-Total_Nodes = [ 44, 192, 370, 552] 
+Total_Nodes = [45,193,372,553]
 
 
 MeanRunsPDR = [[[],[],[],[]],[[],[],[],[]],[[],[],[],[]],[[],[],[],[]]]  # Filas Densidad de menos a mas, columnas Beconing 1,2,5 y 10 Hz
@@ -31,8 +31,7 @@ STDRunCBR = [[[],[],[],[]],[[],[],[],[]],[[],[],[],[]],[[],[],[],[]]] # Filas De
 for l in range(0,4):
 	for k in range(0,4):
 		List1 = [[],[]] #PDR - CBR
-		
-		
+
 		for i in range(0,5): #(0,10):
 			PKT_Total_Rec = [] 
 			PKT_Total_Send = []
@@ -68,22 +67,22 @@ for l in range(0,4):
 					
 					#print("Delay:"+ str(Del) + " Distancia:"+ str(DiS) +" Start_time:"+str(Sta_T) + " Stop_time:" + str(Sto_T))
 					delta_t=Sto_T-Sta_T
-					if Total_T > 0 and PKT_Rec>0:
+					#if Total_T > 0 and PKT_Rec>0:
 						#PDR = 1-(PKT_Lost/(PKT_Rec+PKT_Lost))
-						PKT_Total_Rec.append(PKT_Rec)
-						PKT_Total_Send.append(PKT_send)
-						CBR = Busy_T/Total_T
-						List1[1].append(CBR)
-						
+					PKT_Total_Rec.append(PKT_Rec)
+					PKT_Total_Send.append(PKT_send)
+					CBR = Busy_T/(Total_T+1)
+					List1[1].append(CBR)
+
 						#List1[0].append(PDR)
-												
-				j=j+1	
+
+				j=j+1
 			f.close()
-			PDR = (sum(PKT_Total_Send)*Total_Nodes(l))/sum(PKT_Total_Rec))			
+			Suma_Send = sum(PKT_Total_Send)
+			Num_Nodes = Total_Nodes[l] #sum(PKT_Total_Rec)
+			PDR = sum(PKT_Total_Rec)/(Suma_Send*Num_Nodes)
 			List1[0].append(PDR)
-						
-			
-			
+
 		MeanRunsPDR[l][k].append(np.mean(List1[0]))  
 		STDRunPDR[l][k].append(np.std(List1[0])) 
 #[k] en lugar de cero
