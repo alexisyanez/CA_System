@@ -20,7 +20,7 @@ DEN= ["23500s,","28500s,","33500s,","38500s,"]
 Interval = ["1s,","0.5s,","0.2s,","0.1s,"]
 END= ["23510s","28510s","33510s","38510s"]
 
-Total_Nodes = [23 , 54, 35, 44] 
+Total_Nodes = [ 44, 192, 370, 552] 
 
 
 MeanRunsPDR = [[[],[],[],[]],[[],[],[],[]],[[],[],[],[]],[[],[],[],[]]]  # Filas Densidad de menos a mas, columnas Beconing 1,2,5 y 10 Hz
