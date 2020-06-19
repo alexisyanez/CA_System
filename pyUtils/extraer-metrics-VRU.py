@@ -12,7 +12,8 @@ namePrefix = "Ped_Crossing-"
 #Conf = "OnStreet-DEN=" 
 #Ped_Crossing-MultipleTx-DEN=28500s,28510s-#0.sca
 
-Conf = "BL-NoObstacle-200bytes-DEN="
+#Conf = "BL-NoObstacle-200bytes-DEN="
+Conf = "OnStreet-200bytes-DEN="
 #Conf = "MultipleTx-DEN="
 
 
@@ -71,10 +72,10 @@ for l in range(0,4):
 						#PDR = 1-(PKT_Lost/(PKT_Rec+PKT_Lost))
 					PKT_Total_Rec.append(PKT_Rec)
 					PKT_Total_Send.append(PKT_send)
-					CBR = Busy_T/(Total_T+1)
-					List1[1].append(CBR)
-
-						#List1[0].append(PDR)
+					if Total_T > 0:
+                                            CBR = Busy_T/Total_T
+                                            List1[1].append(CBR)
+                                            #List1[0].append(PDR)
 
 				j=j+1
 			f.close()
@@ -93,7 +94,7 @@ for l in range(0,4):
 #out = "MeanMetrics-MovinPed"
 #out = "MeanMetrics-OnStreet"
 #out = "MeanMetrics-MultipleTx"
-out = "MeanMetrics-BL-NoObstacle-200bytes"
+out = "MeanMetrics-OnStreet-200bytes"
 
 #Imprimir datos en un archivo .txt
 
