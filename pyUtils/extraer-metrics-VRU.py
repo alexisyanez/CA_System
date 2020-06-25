@@ -8,13 +8,13 @@ Pathresults= "/home/ayanez/CA_System/src/networks/MoST_Scenario/results/"
 namePrefix = "Ped_Crossing-"
 
 #Conf = "BL-DEN="
-#Conf = "MovinPed-DEN=" 
+#Conf = "MovinPed-200bytes-DEN=" 
 #Conf = "OnStreet-DEN=" 
 #Ped_Crossing-MultipleTx-DEN=28500s,28510s-#0.sca
 
-#Conf = "BL-NoObstacle-200bytes-DEN="
-Conf = "OnStreet-200bytes-DEN="
-#Conf = "MultipleTx-DEN="
+#Conf = "BL-WithObstacle-200bytes-DEN="
+#Conf = "OnStreet-200bytes-DEN="
+Conf = "MultipleTx-200bytes-DEN="
 
 
 DEN= ["23500s,","28500s,","33500s,","38500s,"]
@@ -22,6 +22,7 @@ Interval = ["1s,","0.5s,","0.2s,","0.1s,"]
 END= ["23510s","28510s","33510s","38510s"]
 
 Total_Nodes = [45,193,372,553]
+bec_freq = [1,2,5,10]
 
 
 MeanRunsPDR = [[[],[],[],[]],[[],[],[],[]],[[],[],[],[]],[[],[],[],[]]]  # Filas Densidad de menos a mas, columnas Beconing 1,2,5 y 10 Hz
@@ -29,15 +30,24 @@ STDRunPDR = [[[],[],[],[]],[[],[],[],[]],[[],[],[],[]],[[],[],[],[]]]  # Filas D
 MeanRunsCBR = [[[],[],[],[]],[[],[],[],[]],[[],[],[],[]],[[],[],[],[]]] # Filas Densidad de menos a mas, columnas Beconing 1,2,5 y 10 Hz
 STDRunCBR = [[[],[],[],[]],[[],[],[],[]],[[],[],[],[]],[[],[],[],[]]] # Filas Densidad de menos a mas, columnas Beconing 1,2,5 y 10 Hz
 
+RealSendPkt = [[[],[],[],[]],[[],[],[],[]],[[],[],[],[]],[[],[],[],[]]] # Filas Densidad de menos a mas, columnas Beconing 1,2,5 y 10 Hz
+DesiredSendPkt = [[[],[],[],[]],[[],[],[],[]],[[],[],[],[]],[[],[],[],[]]] # Filas Densidad de menos a mas, columnas Beconing 1,2,5 y 10 Hz
+
+MeanPDR2 = [[[],[],[],[]],[[],[],[],[]],[[],[],[],[]],[[],[],[],[]]] # Filas Densidad de menos a mas, columnas Beconing 1,2,5 y 10 Hz
+STDPDR2 = [[[],[],[],[]],[[],[],[],[]],[[],[],[],[]],[[],[],[],[]]] # Filas Densidad de menos a mas, columnas Beconing 1,2,5 y 10 Hz
+
+
 for l in range(0,4):
 	for k in range(0,4):
 		List1 = [[],[]] #PDR - CBR
-
+		PDR2 = [] #New PDR
+		Suma_Send = []
+		Desired_Send = []
 		for i in range(0,5): #(0,10):
-			PKT_Total_Rec = [] 
+			PKT_Total_Rec = []
 			PKT_Total_Send = []
 			#List1 = [[],[]]
-			name= Pathresults + namePrefix + Conf +  DEN[l] + "BL="+ Interval[k] + Interval[k] + Interval[k] + Interval[k] + END[l]  +"-#" + str(i) + ".sca" 
+			name= Pathresults + namePrefix + Conf +  DEN[l] + END[l]  +"-#" + str(i) + ".sca" #Para multiple Tx  "BL="+ Interval[k] + Interval[k] + Interval[k] + Interval[k] + END[l]  +"-#" + str(i) + ".sca" 
 
 			#CBR =[];
 			f = open(name, 'r')
@@ -54,7 +64,7 @@ for l in range(0,4):
 					value1 = temp[j+26].split()	
 					Sto_T = float(value1[3])
 													
-					value2 = temp[j+2].split() 
+					value2 = temp[j+14].split() 
 					PKT_send = float(value2[3])
 					
 					value3 = temp[j+3].split()
@@ -79,22 +89,35 @@ for l in range(0,4):
 
 				j=j+1
 			f.close()
-			Suma_Send = sum(PKT_Total_Send)
+			Suma_Send.append(sum(PKT_Total_Send))
+
 			Num_Nodes = Total_Nodes[l] #sum(PKT_Total_Rec)
-			PDR = sum(PKT_Total_Rec)/(Suma_Send*Num_Nodes)
+
+			Desired_Send.append(bec_freq[k]*10*Num_Nodes)
+
+			PDR = sum(PKT_Total_Rec)/(sum(PKT_Total_Send*Num_Nodes)) #(bec_freq[k]*10*Num_Nodes)
 			List1[0].append(PDR)
+
+			PDR_n = sum(PKT_Total_Rec)/(bec_freq[k]*10*Num_Nodes*Num_Nodes) 
+			PDR2.append(PDR_n)
 
 		MeanRunsPDR[l][k].append(np.mean(List1[0]))  
 		STDRunPDR[l][k].append(np.std(List1[0])) 
 #[k] en lugar de cero
 		MeanRunsCBR[l][k].append(np.mean(List1[1]))  
 		STDRunCBR [l][k].append(np.std(List1[1]))
-			
-#out = "MeanMetrics-BL"
-#out = "MeanMetrics-MovinPed"
+
+		DesiredSendPkt[l][k].append(np.mean(Desired_Send))
+		RealSendPkt[l][k].append(np.mean(Suma_Send))
+
+		MeanPDR2[l][k].append(np.mean(PDR2))
+		STDPDR2[l][k].append(np.std(PDR2))
+ 
+#out = "MeanMetrics-BL-WithObstacle-200bytes-newPDR"
+#out = "MeanMetrics-MovinPed-200bytes-newPDR"
 #out = "MeanMetrics-OnStreet"
-#out = "MeanMetrics-MultipleTx"
-out = "MeanMetrics-OnStreet-200bytes"
+out = "MeanMetrics-MultipleTx-200bytes-newPDR"
+#out = "MeanMetrics-OnStreet-200bytes-newPDR"
 
 #Imprimir datos en un archivo .txt
 
@@ -107,7 +130,7 @@ print("MeanRuns PDR: "+ str(MeanRunsPDR))
 
 nameOut = out+".txt" 
 fw = open(nameOut, 'w')
-fw.write("Filas Densidad de menos a mas, columnas Beconing 1,2,5 y 10 Hz")
+fw.write("Filas Densidad de menos a mas, columnas Beconing 1,2,5 y 10 Hz \n Cálculo realizado con paquetes generados en la capa MAC \n")
 fw.write("Promedio PDR:\n")
 for line in  MeanRunsPDR:
     fw.write(str(line))
@@ -122,6 +145,23 @@ for line in  STDRunPDR:
     fw.write("\n")
 fw.write("STD CBR:\n")
 for line in STDRunCBR:
+    fw.write(str(line))
+    fw.write("\n")
+fw.write("Número estimado real de paquetes enviados\n")
+for line in RealSendPkt:
+    fw.write(str(line))
+    fw.write("\n")
+fw.write("Número deseado de paquetes enviados\n")
+for line in DesiredSendPkt:
+    fw.write(str(line))
+    fw.write("\n")
+
+fw.write("Cálculo realizado con estimación de los paquetes enviados deseados \n Promedio CBR:\n")
+for line in MeanPDR2:
+    fw.write(str(line))
+    fw.write("\n")
+fw.write("STD PDR:\n")
+for line in  STDPDR2:
     fw.write(str(line))
     fw.write("\n")
 
