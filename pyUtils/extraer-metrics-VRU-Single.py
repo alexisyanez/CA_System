@@ -35,7 +35,7 @@ List1 = [[],[]] #PDR - CBR
 
 #name= Pathresults + namePrefix + Conf + DEN[l] + END[l]  +"-#" + str(i) + ".sca" #"BL="+ Interval[k] + Interval[k] + Interval[k] + Interval[k] + END[l]  +"-#" + str(i) + ".sca" 
 #Ped_Crossing-BL-NoObstacle-DEN=23500s,BL=1s,1s,1s,1s,23510s-#0.sca
-name="/home/ayanez/CA_System/src/networks/MoST_Scenario/results/Ped_Crossing-BL-WithObstacle-200bytes-S2-DEN=31000s,BL=1s,1s,1s,1s,31010s-#0.sca" #Ped_Crossing-BL-NoObstacle-DEN=23500s,BL=1s,1s,1s,1s,23510s-#0.sca" #
+name="/home/ayanez/CA_System/src/networks/MoST_Scenario/results/Ped_Crossing-BL-WithObstacle-200bytes-S2-DEN=38500s,BL=1s,1s,1s,1s,38510s-#0.sca" #Ped_Crossing-BL-NoObstacle-DEN=23500s,BL=1s,1s,1s,1s,23510s-#0.sca" #
 
 #CBR =[];
 f = open(name, 'r')
@@ -98,7 +98,7 @@ MeanRunsCBR[0][0].append(np.mean(List1[1]))#))
 STDRunCBR [0][0].append(np.std(List1[1]))
 			
 #out = "MeanMetrics-BL"
-out = "MeanMetrics-WithObstacle-200Bytes-S2-n4"
+out = "MeanMetrics-WithObstacle-200Bytes-S2-n9"
 #out = "MeanMetrics-MultipleTx"
 #out = "MeanMetrics-OnStreet"
 #Imprimir datos en un archivo .txt
