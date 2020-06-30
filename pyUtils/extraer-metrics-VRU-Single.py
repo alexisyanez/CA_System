@@ -35,7 +35,7 @@ List1 = [[],[]] #PDR - CBR
 
 #name= Pathresults + namePrefix + Conf + DEN[l] + END[l]  +"-#" + str(i) + ".sca" #"BL="+ Interval[k] + Interval[k] + Interval[k] + Interval[k] + END[l]  +"-#" + str(i) + ".sca" 
 #Ped_Crossing-BL-NoObstacle-DEN=23500s,BL=1s,1s,1s,1s,23510s-#0.sca
-name="/home/ayanez/CA_System/src/networks/MoST_Scenario/results/Ped_Crossing-BL-WithObstacle-200bytes-S2-DEN=38500s,BL=1s,1s,1s,1s,38510s-#0.sca" #Ped_Crossing-BL-NoObstacle-DEN=23500s,BL=1s,1s,1s,1s,23510s-#0.sca" #
+name="/home/ayanez/CA_System/src/networks/MoST_Scenario/results/Ped_Crossing-BL-WithObstacle-200bytes-S3-#0.sca" #Ped_Crossing-BL-NoObstacle-DEN=23500s,BL=1s,1s,1s,1s,23510s-#0.sca" #
 
 #CBR =[];
 f = open(name, 'r')
@@ -76,29 +76,29 @@ while j<len(temp):
 #str(value4[1]) 	
 #print("Delay:"+ str(Del) + " Distancia:"+ str(DiS) +" Start_time:"+str(Sta_T) + " Stop_time:" + str(Sto_T))
         delta_t=Sto_T-Sta_T
-        if Total_T > 0 and PKT_Rec>0:
+        if 1>0 :
 
             PPM[0].append(Sta_T)
             PPM[1].append(Sto_T)
             PPM[2].append(Nodo)
 
-            PDR = 1-(PKT_Lost/(PKT_Rec+PKT_Lost))
-            CBR = Busy_T/Total_T
-            List1[0].append(PDR)
-            List1[1].append(CBR)
+            #PDR = 1-(PKT_Lost/(PKT_Rec+PKT_Lost))
+#            CBR = Busy_T/Total_T
+#            List1[0].append(PDR)
+#            List1[1].append(CBR)
     j=j+1							
 
 f.close()			
 #List1[1].append(sum(CBR))#*0.000304)/10)
 
-MeanRunsPDR[0][0].append(np.mean(List1[0]))  
-STDRunPDR[0][0].append(np.std(List1[0])) 
+#MeanRunsPDR[0][0].append(np.mean(List1[0]))  
+#STDRunPDR[0][0].append(np.std(List1[0])) 
 #[k] en lugar de cero
-MeanRunsCBR[0][0].append(np.mean(List1[1]))#))  
-STDRunCBR [0][0].append(np.std(List1[1]))
+#MeanRunsCBR[0][0].append(np.mean(List1[1]))#))  
+#STDRunCBR [0][0].append(np.std(List1[1]))
 			
 #out = "MeanMetrics-BL"
-out = "MeanMetrics-WithObstacle-200Bytes-S2-n9"
+out = "MeanMetrics-WithObstacle-200Bytes-S3"
 #out = "MeanMetrics-MultipleTx"
 #out = "MeanMetrics-OnStreet"
 #Imprimir datos en un archivo .txt
@@ -112,23 +112,23 @@ print("MeanRuns PDR: "+ str(MeanRunsPDR))
 
 nameOut = out+".txt" 
 fw = open(nameOut, 'w')
-fw.write("Filas Densidad de menos a mas, columnas Beconing 1,2,5 y 10 Hz")
-fw.write("Promedio PDR:\n")
-for line in  MeanRunsPDR:
-    fw.write(str(line))
-    fw.write("\n")
-fw.write("Promedio CBR:\n")
-for line in MeanRunsCBR:
-    fw.write(str(line))
-    fw.write("\n")
-fw.write("STD PDR:\n")
-for line in  STDRunPDR:
-    fw.write(str(line))
-    fw.write("\n")
-fw.write("STD CBR:\n")
-for line in STDRunCBR:
-    fw.write(str(line))
-    fw.write("\n")    
+#fw.write("Filas Densidad de menos a mas, columnas Beconing 1,2,5 y 10 Hz")
+#fw.write("Promedio PDR:\n")
+#for line in  MeanRunsPDR:
+#    fw.write(str(line))
+#    fw.write("\n")
+#fw.write("Promedio CBR:\n")
+#for line in MeanRunsCBR:
+#    fw.write(str(line))
+#    fw.write("\n")
+#fw.write("STD PDR:\n")
+#for line in  STDRunPDR:
+#    fw.write(str(line))
+#    fw.write("\n")
+#fw.write("STD CBR:\n")
+#for line in STDRunCBR:
+#    fw.write(str(line))
+#    fw.write("\n")    
 for line in PPM:
     fw.write(str(line))
     fw.write("\n")
