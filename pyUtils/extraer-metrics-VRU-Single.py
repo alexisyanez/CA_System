@@ -34,8 +34,8 @@ List1 = [[],[]] #PDR - CBR
 #for i in range(0,10):
 
 #name= Pathresults + namePrefix + Conf + DEN[l] + END[l]  +"-#" + str(i) + ".sca" #"BL="+ Interval[k] + Interval[k] + Interval[k] + Interval[k] + END[l]  +"-#" + str(i) + ".sca" 
-#Ped_Crossing-BL-NoObstacle-DEN=23500s,BL=1s,1s,1s,1s,23510s-#0.sca
-name="/home/ayanez/CA_System/src/networks/MoST_Scenario/results/Ped_Crossing-BL-WithObstacle-200bytes-S3-#0.sca" #Ped_Crossing-BL-NoObstacle-DEN=23500s,BL=1s,1s,1s,1s,23510s-#0.sca" #
+#Ped_Crossing-BL-NoObstacle-DEN=23500s,BL=1s,1s,1s,1s,23510s-#0.sca [22406 22409] [22537 22540] [22887 22890] [23506 23509]
+name="/home/ayanez/CA_System/src/networks/MoST_Scenario/results/Ped_Crossing-BL-NoObstacle-S4-DEN=22406s,BL=1s,1s,1s,1s,22409s-#0.sca" #/home/ayanez/CA_System/src/networks/MoST_Scenario/results/Ped_Crossing-BL-WithObstacle-200bytes-S3-#0.sca" #Ped_Crossing-BL-NoObstacle-DEN=23500s,BL=1s,1s,1s,1s,23510s-#0.sca" #
 
 #CBR =[];
 f = open(name, 'r')
@@ -98,7 +98,7 @@ f.close()
 #STDRunCBR [0][0].append(np.std(List1[1]))
 			
 #out = "MeanMetrics-BL"
-out = "MeanMetrics-WithObstacle-200Bytes-S3"
+out = "MeanMetrics-NoObstacle-S4-d1"
 #out = "MeanMetrics-MultipleTx"
 #out = "MeanMetrics-OnStreet"
 #Imprimir datos en un archivo .txt

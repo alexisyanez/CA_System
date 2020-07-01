@@ -12,16 +12,18 @@ namePrefix = "Ped_Crossing-"
 #Conf = "OnStreet-DEN=" 
 #Ped_Crossing-MultipleTx-DEN=28500s,28510s-#0.sca
 
-#Conf = "BL-WithObstacle-200bytes-DEN="
+Conf = "BL-NoObstacle-S4-DEN="
 #Conf = "OnStreet-200bytes-DEN="
-Conf = "MultipleTx-200bytes-DEN="
+#Conf = "MultipleTx-200bytes-DEN="
 
+#22406s,22537s,22887s,23056s
+#22409s,22540s,22890s,23059s
 
-DEN= ["23500s,","28500s,","33500s,","38500s,"]
+DEN= ["22406s,","22537s,","22887s,","23056s,"]
 Interval = ["1s,","0.5s,","0.2s,","0.1s,"]
-END= ["23510s","28510s","33510s","38510s"]
+END= ["22409s","22540s","22890s","23059s"]
 
-Total_Nodes = [45,193,372,553]
+Total_Nodes = [10,20,28,37]
 bec_freq = [1,2,5,10]
 
 
@@ -47,7 +49,7 @@ for l in range(0,4):
 			PKT_Total_Rec = []
 			PKT_Total_Send = []
 			#List1 = [[],[]]
-			name= Pathresults + namePrefix + Conf +  DEN[l] + END[l]  +"-#" + str(i) + ".sca" #Para multiple Tx  "BL="+ Interval[k] + Interval[k] + Interval[k] + Interval[k] + END[l]  +"-#" + str(i) + ".sca" 
+			name= Pathresults + namePrefix + Conf +  DEN[l] + "BL="+ Interval[k] + Interval[k] + Interval[k] + Interval[k] + END[l]  +"-#" + str(i) + ".sca" 
 
 			#CBR =[];
 			f = open(name, 'r')
@@ -93,12 +95,12 @@ for l in range(0,4):
 
 			Num_Nodes = Total_Nodes[l] #sum(PKT_Total_Rec)
 
-			Desired_Send.append(bec_freq[k]*10*Num_Nodes)
+			Desired_Send.append(bec_freq[k]*3*Num_Nodes)
 
 			PDR = sum(PKT_Total_Rec)/(sum(PKT_Total_Send*Num_Nodes)) #(bec_freq[k]*10*Num_Nodes)
 			List1[0].append(PDR)
 
-			PDR_n = sum(PKT_Total_Rec)/(bec_freq[k]*10*Num_Nodes*Num_Nodes) 
+			PDR_n = sum(PKT_Total_Rec)/(bec_freq[k]*3*Num_Nodes*Num_Nodes) 
 			PDR2.append(PDR_n)
 
 		MeanRunsPDR[l][k].append(np.mean(List1[0]))  
@@ -113,10 +115,10 @@ for l in range(0,4):
 		MeanPDR2[l][k].append(np.mean(PDR2))
 		STDPDR2[l][k].append(np.std(PDR2))
  
-#out = "MeanMetrics-BL-WithObstacle-200bytes-newPDR"
+out = "MeanMetrics-BL-NoObstacle-S4"
 #out = "MeanMetrics-MovinPed-200bytes-newPDR"
 #out = "MeanMetrics-OnStreet"
-out = "MeanMetrics-MultipleTx-200bytes-newPDR"
+#out = "MeanMetrics-MultipleTx-200bytes-S4"
 #out = "MeanMetrics-OnStreet-200bytes-newPDR"
 
 #Imprimir datos en un archivo .txt
