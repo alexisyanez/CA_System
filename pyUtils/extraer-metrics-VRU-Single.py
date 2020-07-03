@@ -7,7 +7,7 @@ PPM =[[],[],[]] # Ti,Tf, nodo
 List1 = [[],[]] #PDR - CBR
 
 #Ped_Crossing-BL-NoObstacle-DEN=23500s,BL=1s,1s,1s,1s,23510s-#0.sca [22406 22409] [22537 22540] [22887 22890] [23506 23509]
-name="/home/alexis/git/CA_System/src/networks/MoST_Scenario/results/Ped_Crossing-BL-NoObstacle-S4-DEN=20599s,BL=1s,1s,1s,1s,20602s-#0.sca" #/home/ayanez/CA_System/src/networks/MoST_Scenario/results/Ped_Crossing-BL-WithObstacle-200bytes-S3-#0.sca" #Ped_Crossing-BL-NoObstacle-DEN=23500s,BL=1s,1s,1s,1s,23510s-#0.sca" #
+name="/home/ayanez/CA_System/src/networks/MoST_Scenario/results/Ped_Crossing-BL-NoObstacle-S4-DEN=20599s,BL=1s,1s,1s,1s,20602s-#0.sca" #/home/ayanez/CA_System/src/networks/MoST_Scenario/results/Ped_Crossing-BL-WithObstacle-200bytes-S3-#0.sca" #Ped_Crossing-BL-NoObstacle-DEN=23500s,BL=1s,1s,1s,1s,23510s-#0.sca" #
 #CBR =[];
 f = open(name, 'r')
 temp = f.readlines()
@@ -80,7 +80,7 @@ PPM =[[],[],[]] # Ti,Tf, nodo
 List1 = [[],[]] #PDR - CBR
 
 #Ped_Crossing-BL-NoObstacle-DEN=23500s,BL=1s,1s,1s,1s,23510s-#0.sca [22406 22409] [22537 22540] [22887 22890] [23506 23509]
-name="/home/alexis/git/CA_System/src/networks/MoST_Scenario/results/Ped_Crossing-BL-NoObstacle-S4-DEN=22330s,BL=1s,1s,1s,1s,22333s-#0.sca" #/home/ayanez/CA_System/src/networks/MoST_Scenario/results/Ped_Crossing-BL-WithObstacle-200bytes-S3-#0.sca" #Ped_Crossing-BL-NoObstacle-DEN=23500s,BL=1s,1s,1s,1s,23510s-#0.sca" #
+name="/home/ayanez/CA_System/src/networks/MoST_Scenario/results/Ped_Crossing-BL-NoObstacle-S4-DEN=22330s,BL=1s,1s,1s,1s,22333s-#0.sca" #/home/ayanez/CA_System/src/networks/MoST_Scenario/results/Ped_Crossing-BL-WithObstacle-200bytes-S3-#0.sca" #Ped_Crossing-BL-NoObstacle-DEN=23500s,BL=1s,1s,1s,1s,23510s-#0.sca" #
 
 #CBR =[];w
 f = open(name, 'r')
@@ -153,8 +153,8 @@ fw.close()
 PPM =[[],[],[]] # Ti,Tf, nodo
 List1 = [[],[]] #PDR - CBR
 
-#Ped_Crossing-BL-NoObstacle-DEN=23500s,BL=1s,1s,1s,1s,23510s-#0.sca [22406 22409] [22537 22540] [22887 22890] [23506 23509] 20599s,22330s,22881s,23016s
-name="/home/alexis/git/CA_System/src/networks/MoST_Scenario/results/Ped_Crossing-BL-NoObstacle-S4-DEN=21997s,BL=1s,1s,1s,1s,22000s-#0.sca" #/home/ayanez/CA_System/src/networks/MoST_Scenario/results/Ped_Crossing-BL-WithObstacle-200bytes-S3-#0.sca" #Ped_Crossing-BL-NoObstacle-DEN=23500s,BL=1s,1s,1s,1s,23510s-#0.sca" #
+#Ped_Crossing-BL-NoObstacle-DEN=23500s,BL=1s,1s,1s,1s,23510s-#0.sca               [22406 22409] [22537 22540] [22887 22890] [23506 23509] 20599s,22330s,22881s,23016s
+name="/home/ayanez/CA_System/src/networks/MoST_Scenario/results/Ped_Crossing-BL-NoObstacle-S4-DEN=22113s,BL=1s,1s,1s,1s,22116s-#0.sca" #/home/ayanez/CA_System/src/networks/MoST_Scenario/results/Ped_Crossing-BL-WithObstacle-200bytes-S3-#0.sca" #Ped_Crossing-BL-NoObstacle-DEN=23500s,BL=1s,1s,1s,1s,23510s-#0.sca" #
 
 #CBR =[];
 f = open(name, 'r')
@@ -227,7 +227,7 @@ PPM =[[],[],[]] # Ti,Tf, nodo
 List1 = [[],[]] #PDR - CBR
 
 #Ped_Crossing-BL-NoObstacle-DEN=23500s,BL=1s,1s,1s,1s,23510s-#0.sca [22406 22409] [22537 22540] [22887 22890] [23056 23059] 23016s 21997s,22113s
-name="/home/alexis/git/CA_System/src/networks/MoST_Scenario/results/Ped_Crossing-BL-NoObstacle-S4-DEN=23916s,BL=1s,1s,1s,1s,23919s-#0.sca" #/home/ayanez/CA_System/src/networks/MoST_Scenario/results/Ped_Crossing-BL-WithObstacle-200bytes-S3-#0.sca" #Ped_Crossing-BL-NoObstacle-DEN=23500s,BL=1s,1s,1s,1s,23510s-#0.sca" #
+name="/home/ayanez/CA_System/src/networks/MoST_Scenario/results/Ped_Crossing-BL-NoObstacle-S4-DEN=23916s,BL=1s,1s,1s,1s,23919s-#0.sca" #/home/ayanez/CA_System/src/networks/MoST_Scenario/results/Ped_Crossing-BL-WithObstacle-200bytes-S3-#0.sca" #Ped_Crossing-BL-NoObstacle-DEN=23500s,BL=1s,1s,1s,1s,23510s-#0.sca" #
 
 #CBR =[];
 f = open(name, 'r')
