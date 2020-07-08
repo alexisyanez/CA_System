@@ -12,7 +12,7 @@ namePrefix = "Ped_Crossing-"
 #Conf = "OnStreet-DEN=" 
 #Ped_Crossing-MultipleTx-DEN=28500s,28510s-#0.sca
 
-Conf = "BL-NoObstacle-S4-DEN="
+Conf = "BL-NoObstacle-S5-DEN="
 #Conf = "OnStreet-200bytes-DEN="
 #Conf = "MultipleTx-200bytes-DEN="
 
