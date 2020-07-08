@@ -11,6 +11,11 @@ DEN= ["20595s,","22326s,","22109s,","23912s,"]
 Interval = ["1s,","0.5s,","0.2s,","0.1s,"]
 END= ["20605s","22336s","22119s","23922s"]
 
+
+PPM =[[],[],[]] # Ti,Tf, nodo
+List1 = [[],[]] #PDR - CBR
+All_PPM = []
+
 for l in range(0,4):
 	for k in range(0,4):
 		name= Pathresults + namePrefix + Conf +  DEN[l] + "BL="+ Interval[k] + Interval[k] + Interval[k] + Interval[k] + END[l]  +"-#0.sca" # + str(i) + ".sca" 
@@ -62,16 +67,18 @@ for l in range(0,4):
 
 		f.close()			
 
-		out = "S5"+"-Ti:"+str(DEN[l])+"-F_b:"+str(Interval[k])
+		All_PPM.append(PPM)
 
-		nameOut = out+".txt" 
-		fw = open(nameOut, 'w')
+out="Comp_Nodes"
+nameOut = out+".txt" 
+fw = open(nameOut, 'w')
 		 
-		for line in PPM:
-			fw.write(str(line))
-			fw.write("\n")
-		fw.close()	
+for l in All_PPM:
+    for j in l: 
+        fw.write(str(j))
+        fw.write("\n")
 
+fw.close()	
 
 #PPM =[[],[],[]] # Ti,Tf, nodo
 #List1 = [[],[]] #PDR - CBR
