@@ -12,14 +12,14 @@ Interval = ["1s,","0.5s,","0.2s,","0.1s,"]
 END= ["20605s","22336s","22119s","23922s"]
 
 
-PPM =[[],[],[]] # Ti,Tf, nodo
+#PPM =[[],[],[]] # Ti,Tf, nodo
 List1 = [[],[]] #PDR - CBR
 All_PPM = []
 
 for l in range(0,4):
 	for k in range(0,4):
 		name= Pathresults + namePrefix + Conf +  DEN[l] + "BL="+ Interval[k] + Interval[k] + Interval[k] + Interval[k] + END[l]  +"-#0.sca" # + str(i) + ".sca" 
-
+		PPM=[[],[],[]]
 
 		f = open(name, 'r')
 		temp = f.readlines()
