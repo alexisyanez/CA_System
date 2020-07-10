@@ -1,7 +1,7 @@
 import sys
 import numpy as np
 
-Pathresults= "/home/alexis/git/CA_System/src/networks/MoST_Scenario/results/"
+Pathresults= "/home/ayanez/CA_System/src/networks/MoST_Scenario/results/"
 
 namePrefix = "Ped_Crossing-"
 
@@ -9,7 +9,7 @@ Conf = "BL-NoObstacle-S8-DEN="
 
 DEN= ["18000s,","19000s,", "20000s,", "21000s,", "22000s,", "23000s,", "28000s,", "29000s,", "30000s,"]
 Interval = ["1s,","0.5s,","0.2s,","0.1s,"]
-END= ["18010s,", "19010s,", "20010s,", "21010s,", "22010s,", "23010s," , "28010s,", "29010s,", "30010s,"]
+END= ["18010s", "19010s", "20010s", "21010s", "22010s", "23010s" , "28010s", "29010s", "30010s"]
 
 
 #PPM =[[],[],[]] # Ti,Tf, nodo
@@ -17,10 +17,10 @@ List1 = [[],[]] #PDR - CBR
 
 All_PPM = []
 
-for l in range(0,length(DEN)):
-	for k in Interval:
+for l in range(0,9):
+	for k in range(0,4):
 #name= Pathresults + namePrefix + Conf +  DEN[l] + "BL="+ Interval[k] + Interval[k] + Interval[k] + Interval[k] + END[l]  +"-#0.sca" # + str(i) + ".sca" 
-		name= Pathresults + namePrefix + Conf +  DEN[l] + "BL="+ k + END[l]  +"-#0.sca" # + str(i) + ".sca" 
+		name= Pathresults + namePrefix + Conf +  DEN[l] + "BL="+ Interval[k] + END[l]  +"-#0.sca" # + str(i) + ".sca" 
 		PPM=[[],[],[]]
 
 		f = open(name, 'r')
@@ -67,14 +67,14 @@ for l in range(0,length(DEN)):
 
 		f.close()			
 
-		#All_PPM.append(PPM)
+		All_PPM.append(PPM)
 
 		out="Comp_All_Scenario_S8"
 		nameOut = out+".txt" 
 		fw = open(nameOut, 'w')
 				 
-		for l in All_PPM:
-			for j in PPM: 
+		for li in All_PPM:
+			for j in li: 
 				fw.write(str(j))
 				fw.write("\n")
 
