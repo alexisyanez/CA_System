@@ -1,5 +1,5 @@
 <launch>
-  <seed value=1234>
+  <seed value="1234" />
   <copy file="MoST_ped.net.xml"/>
   <copy file="MoST_ped2.rou.xml"/>
   <copy file="MoST_ped2.poly.xml"/>
