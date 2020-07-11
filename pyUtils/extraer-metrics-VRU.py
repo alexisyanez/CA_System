@@ -12,19 +12,19 @@ namePrefix = "Ped_Crossing-"
 #Conf = "OnStreet-DEN=" 
 #Ped_Crossing-MultipleTx-DEN=28500s,28510s-#0.sca
 
-Conf = "BL-NoObstacle-S5-DEN="
+Conf = "BL-NoObstacle-S9-DEN="
 #Conf = "OnStreet-200bytes-DEN="
 #Conf = "MultipleTx-200bytes-DEN="
 
 #22406s,22537s,22887s,23056s
 #22409s,22540s,22890s,23059s
 #20599s,22330s,22113s,23916s
-DEN= ["20599s,","22330s,","22113s,","23916s,"]
+DEN= ["19000s,","22000s,","29000s,","30000s,"] #["20599s,","22330s,","22113s,","23916s,"]
 Interval = ["1s,","0.5s,","0.2s,","0.1s,"]
-END= ["20602s","22333s","22116s","23919s"]
+END= ["19010s","22010s","29010s","30010s"]  #["20602s","22333s","22116s","23919s"]
 
 ini_T=[20599,22330,22113,23916]
-Total_Nodes = [[11,11,13,14],[20,21,21,22],[27,27,27,27],[37,38,37,39]]
+Total_Nodes = [9,28,40,49] #[[11,11,13,14],[20,21,21,22],[27,27,27,27],[37,38,37,39]]
 bec_freq = [1,2,5,10]
 
 
@@ -51,7 +51,7 @@ for l in range(0,4):
 			PKT_Total_Rec = []
 			PKT_Total_Send = []
 			#List1 = [[],[]]
-			name= Pathresults + namePrefix + Conf +  DEN[l] + "BL="+ Interval[k] + Interval[k] + Interval[k] + Interval[k] + END[l]  +"-#" + str(i) + ".sca" 
+			name= Pathresults + namePrefix + Conf +  DEN[l] + "BL="+ Interval[k] + END[l]  +"-#" + str(i) + ".sca" 
 
 			#CBR =[];
 			f = open(name, 'r')
@@ -103,14 +103,14 @@ for l in range(0,4):
 			f.close()
 			Suma_Send.append(sum(PKT_Total_Send))
 
-			Num_Nodes = Total_Nodes[l][k] #sum(PKT_Total_Rec)
+			Num_Nodes = Total_Nodes[l] #sum(PKT_Total_Rec)
 
-			Desired_Send.append(bec_freq[k]*3*Num_Nodes)
+			Desired_Send.append(bec_freq[k]*10*Num_Nodes)
 
 			PDR = sum(PKT_Total_Rec)/(sum(PKT_Total_Send)*Num_Nodes) #(bec_freq[k]*10*Num_Nodes)
 			List1[0].append(PDR)
 
-			PDR_n = sum(PKT_Total_Rec)/(bec_freq[k]*3*Num_Nodes*Num_Nodes) 
+			PDR_n = sum(PKT_Total_Rec)/(bec_freq[k]*10*Num_Nodes*Num_Nodes) 
 			PDR2.append(PDR_n)
 
 		MeanRunsPDR[l][k].append(np.mean(List1[0]))  
@@ -125,7 +125,7 @@ for l in range(0,4):
 		MeanPDR2[l][k].append(np.mean(PDR2))
 		STDPDR2[l][k].append(np.std(PDR2))
  
-out = "MeanMetrics-BL-NoObstacle-S4"
+out = "MeanMetrics-BL-NoObstacle-S9"
 #out = "MeanMetrics-MovinPed-200bytes-newPDR"
 #out = "MeanMetrics-OnStreet"
 #out = "MeanMetrics-MultipleTx-200bytes-S4"
