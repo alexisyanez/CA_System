@@ -12,7 +12,7 @@ namePrefix = "Ped_Crossing-"
 #Conf = "OnStreet-DEN=" 
 #Ped_Crossing-MultipleTx-DEN=28500s,28510s-#0.sca
 
-Conf = "BL-NoObstacle-S10-="
+Conf = "BL-NoObstacle-S10-"
 #Conf = "OnStreet-200bytes-DEN="
 #Conf = "MultipleTx-200bytes-DEN="
 
@@ -20,7 +20,7 @@ Conf = "BL-NoObstacle-S10-="
 #22409s,22540s,22890s,23059s
 #20599s,22330s,22113s,23916s
 #DEN= ["19000s,","22000s,","29000s,","30000s,"] #["20599s,","22330s,","22113s,","23916s,"]
-Interval = ["1s,","0.5s,","0.2s,","0.1s,"]
+Interval = ["1s","0.5s","0.2s","0.1s"]
 #END= ["19010s","22010s","29010s","30010s"]  #["20602s","22333s","22116s","23919s"]
 
 #ini_T=[20599,22330,22113,23916]
@@ -51,7 +51,7 @@ for k in range(0,4):
 		PKT_Total_Rec = []
 		PKT_Total_Send = []
 		#List1 = [[],[]]
-		name= Pathresults + namePrefix + Conf +  "BL="+ Interval[k] + Interval[k] + Interval[k] + Interval[k]  +"-#" + str(i) + ".sca" #DEN[l] + "BL="+ Interval[k] + END[l]  +"-#" + str(i) + ".sca" 
+		name= Pathresults + namePrefix + Conf +  "BL="+ Interval[k]+"," + Interval[k]+","+ Interval[k]+"," + Interval[k]  +"-#" + str(i) + ".sca" #DEN[l] + "BL="+ Interval[k] + END[l]  +"-#" + str(i) + ".sca" 
 
 		#CBR =[];
 		f = open(name, 'r')
