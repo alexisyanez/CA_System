@@ -12,19 +12,19 @@ namePrefix = "Ped_Crossing-"
 #Conf = "OnStreet-DEN=" 
 #Ped_Crossing-MultipleTx-DEN=28500s,28510s-#0.sca
 
-Conf = "BL-NoObstacle-S4-DEN="
+Conf = "BL-NoObstacle-S10-="
 #Conf = "OnStreet-200bytes-DEN="
 #Conf = "MultipleTx-200bytes-DEN="
 
 #22406s,22537s,22887s,23056s
 #22409s,22540s,22890s,23059s
 #20599s,22330s,22113s,23916s
-DEN= ["20599s,","22330s,","22113s,","23916s,"]
+#DEN= ["19000s,","22000s,","29000s,","30000s,"] #["20599s,","22330s,","22113s,","23916s,"]
 Interval = ["1s,","0.5s,","0.2s,","0.1s,"]
-END= ["20602s","22333s","22116s","23919s"]
+#END= ["19010s","22010s","29010s","30010s"]  #["20602s","22333s","22116s","23919s"]
 
-ini_T=[20599,22330,22113,23916]
-Total_Nodes = [[10,10,11,13],[20,21,21,15],[27,26,24,25],[37,38,29,36]]
+#ini_T=[20599,22330,22113,23916]
+Total_Nodes = 49 #[9,28,40,49] #[[11,11,13,14],[20,21,21,22],[27,27,27,27],[37,38,37,39]]
 bec_freq = [1,2,5,10]
 
 
@@ -38,94 +38,94 @@ DesiredSendPkt = [[[],[],[],[]],[[],[],[],[]],[[],[],[],[]],[[],[],[],[]]] # Fil
 
 MeanPDR2 = [[[],[],[],[]],[[],[],[],[]],[[],[],[],[]],[[],[],[],[]]] # Filas Densidad de menos a mas, columnas Beconing 1,2,5 y 10 Hz
 STDPDR2 = [[[],[],[],[]],[[],[],[],[]],[[],[],[],[]],[[],[],[],[]]] # Filas Densidad de menos a mas, columnas Beconing 1,2,5 y 10 Hz
+l=0
 
+#for l in range(0,4):
+for k in range(0,4):
+	List1 = [[],[]] #PDR - CBR
+	PDR2 = [] #New PDR
+	Suma_Send = []
+	Desired_Send = []
+	for i in range(0,10): #(0,10):
+		comp=[[],[],[]]
+		PKT_Total_Rec = []
+		PKT_Total_Send = []
+		#List1 = [[],[]]
+		name= Pathresults + namePrefix + Conf +  "BL="+ Interval[k] + Interval[k] + Interval[k] + Interval[k]  +"-#" + str(i) + ".sca" #DEN[l] + "BL="+ Interval[k] + END[l]  +"-#" + str(i) + ".sca" 
 
-for l in range(0,4):
-	for k in range(0,4):
-		List1 = [[],[]] #PDR - CBR
-		PDR2 = [] #New PDR
-		Suma_Send = []
-		Desired_Send = []
-		for i in range(0,5): #(0,10):
-			comp=[[],[],[]]
-			PKT_Total_Rec = []
-			PKT_Total_Send = []
-			#List1 = [[],[]]
-			name= Pathresults + namePrefix + Conf +  DEN[l] + "BL="+ Interval[k] + Interval[k] + Interval[k] + Interval[k] + END[l]  +"-#" + str(i) + ".sca" 
+		#CBR =[];
+		f = open(name, 'r')
+		temp = f.readlines()    
+		j=0
+		while j<len(temp):
+			if "generatedWSMs" in temp[j]:  
+				value = temp[j+24].split()
+				Sta_T = float(value[3])
+				
+				value5 = temp[j+25].split()
+				Total_T = float(value5[3])
 
-			#CBR =[];
-			f = open(name, 'r')
-			temp = f.readlines()    
-			j=0
-			while j<len(temp):
-				if "generatedWSMs" in temp[j]:  
-					value = temp[j+24].split()
-					Sta_T = float(value[3])
-					
-					value5 = temp[j+25].split()
-					Total_T = float(value5[3])
+				value1 = temp[j+26].split()	
+				Sto_T = float(value1[3])
+												
+				value2 = temp[j+14].split() 
+				PKT_send = float(value2[3])
+				
+				value3 = temp[j+3].split()
+				PKT_Rec = float(value3[3]) 
+				
+				value4 = temp[j+23].split()
+				Busy_T = float(value4[3]) 
+				
+				value5 = temp[j+17].split()
+				PKT_Lost = float(value5[3])
 
-					value1 = temp[j+26].split()	
-					Sto_T = float(value1[3])
-													
-					value2 = temp[j+14].split() 
-					PKT_send = float(value2[3])
-					
-					value3 = temp[j+3].split()
-					PKT_Rec = float(value3[3]) 
-					
-					value4 = temp[j+23].split()
-					Busy_T = float(value4[3]) 
-					
-					value5 = temp[j+17].split()
-					PKT_Lost = float(value5[3])
+				#SenNumber = float(value4[3]) 
+				#CBR.append(SenNumber)
+				
+				#print("Delay:"+ str(Del) + " Distancia:"+ str(DiS) +" Start_time:"+str(Sta_T) + " Stop_time:" + str(Sto_T))
+				delta_t=Sto_T-Sta_T
+				
+				#if Total_T > 0 and PKT_Rec>0:
+				#    CBR = Busy_T/Total_T
+				#    PDR = 1-(PKT_Lost/(PKT_Rec+PKT_Lost))
+				#    List1[1].append(CBR)
+				#    List1[0].append(PDR)
 
-					#SenNumber = float(value4[3]) 
-					#CBR.append(SenNumber)
-					
-					#print("Delay:"+ str(Del) + " Distancia:"+ str(DiS) +" Start_time:"+str(Sta_T) + " Stop_time:" + str(Sto_T))
-					delta_t=Sto_T-Sta_T
-					
-					#if Total_T > 0 and PKT_Rec>0:
-					#    CBR = Busy_T/Total_T
-					#    PDR = 1-(PKT_Lost/(PKT_Rec+PKT_Lost))
-					#    List1[1].append(CBR)
-					#    List1[0].append(PDR)
+				PKT_Total_Rec.append(PKT_Rec)
+				PKT_Total_Send.append(PKT_send)
+				if delta_t > 0:
+					CBR = Busy_T/delta_t
+					List1[1].append(CBR)
+					#List1[0].append(PDR)
 
-					PKT_Total_Rec.append(PKT_Rec)
-					PKT_Total_Send.append(PKT_send)
-					if delta_t > 0:
-                                            CBR = Busy_T/delta_t
-                                            List1[1].append(CBR)
-                                            #List1[0].append(PDR)
+			j=j+1
+		f.close()
+		Suma_Send.append(sum(PKT_Total_Send))
 
-				j=j+1
-			f.close()
-			Suma_Send.append(sum(PKT_Total_Send))
+		Num_Nodes = Total_Nodes #[l] #sum(PKT_Total_Rec)
 
-			Num_Nodes = Total_Nodes[l][k] #sum(PKT_Total_Rec)
+		Desired_Send.append(bec_freq[k]*20*Num_Nodes)
 
-			Desired_Send.append(bec_freq[k]*3*Num_Nodes)
+		PDR = sum(PKT_Total_Rec)/(sum(PKT_Total_Send)*Num_Nodes) #(bec_freq[k]*10*Num_Nodes)
+		List1[0].append(PDR)
 
-			PDR = sum(PKT_Total_Rec)/(sum(PKT_Total_Send)*Num_Nodes) #(bec_freq[k]*10*Num_Nodes)
-			List1[0].append(PDR)
-
-			PDR_n = sum(PKT_Total_Rec)/(bec_freq[k]*3*Num_Nodes*Num_Nodes) 
-			PDR2.append(PDR_n)
-
-		MeanRunsPDR[l][k].append(np.mean(List1[0]))  
-		STDRunPDR[l][k].append(np.std(List1[0])) 
+		PDR_n = sum(PKT_Total_Rec)/(bec_freq[k]*20*Num_Nodes*Num_Nodes) 
+		PDR2.append(PDR_n)
+    
+	MeanRunsPDR[l][k].append(np.mean(List1[0]))  
+	STDRunPDR[l][k].append(np.std(List1[0])) 
 #[k] en lugar de cero
-		MeanRunsCBR[l][k].append(np.mean(List1[1]))  
-		STDRunCBR [l][k].append(np.std(List1[1]))
+	MeanRunsCBR[l][k].append(np.mean(List1[1]))  
+	STDRunCBR [l][k].append(np.std(List1[1]))
 
-		DesiredSendPkt[l][k].append(np.mean(Desired_Send))
-		RealSendPkt[l][k].append(np.mean(Suma_Send))
+	DesiredSendPkt[l][k].append(np.mean(Desired_Send))
+	RealSendPkt[l][k].append(np.mean(Suma_Send))
 
-		MeanPDR2[l][k].append(np.mean(PDR2))
-		STDPDR2[l][k].append(np.std(PDR2))
- 
-out = "MeanMetrics-BL-NoObstacle-S4"
+	MeanPDR2[l][k].append(np.mean(PDR2))
+	STDPDR2[l][k].append(np.std(PDR2))
+
+out = "MeanMetrics-BL-NoObstacle-S10"
 #out = "MeanMetrics-MovinPed-200bytes-newPDR"
 #out = "MeanMetrics-OnStreet"
 #out = "MeanMetrics-MultipleTx-200bytes-S4"
@@ -168,7 +168,7 @@ for line in DesiredSendPkt:
     fw.write(str(line))
     fw.write("\n")
 
-fw.write("Cálculo realizado con estimación de los paquetes enviados deseados \n Promedio CBR:\n")
+fw.write("Cálculo realizado con estimación de los paquetes enviados deseados \n Promedio PBR:\n")
 for line in MeanPDR2:
     fw.write(str(line))
     fw.write("\n")
