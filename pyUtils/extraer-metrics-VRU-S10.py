@@ -8,13 +8,13 @@ Pathresults= "/home/ayanez/CA_System/src/networks/MoST_Scenario/results/"
 namePrefix = "Ped_Crossing-"
 
 #Conf = "BL-DEN="
-#Conf = "MovinPed-200bytes-DEN=" 
+#Conf = "MovinPed-S10-" 
 #Conf = "OnStreet-DEN=" 
 #Ped_Crossing-MultipleTx-DEN=28500s,28510s-#0.sca
 
-Conf = "BL-NoObstacle-S10-"
-#Conf = "OnStreet-200bytes-DEN="
-#Conf = "MultipleTx-200bytes-DEN="
+#Conf = "BL-Obstacle-S10-"
+#Conf = "OnStreet-S10-" #DEN="
+Conf = "MultipleTx-S10-" #200bytes-DEN="
 
 #22406s,22537s,22887s,23056s
 #22409s,22540s,22890s,23059s
@@ -51,7 +51,7 @@ for k in range(0,4):
 		PKT_Total_Rec = []
 		PKT_Total_Send = []
 		#List1 = [[],[]]
-		name= Pathresults + namePrefix + Conf +  "BL="+ Interval[k]+"," + Interval[k]+","+ Interval[k]+"," + Interval[k]  +"-#" + str(i) + ".sca" #DEN[l] + "BL="+ Interval[k] + END[l]  +"-#" + str(i) + ".sca" 
+		name= Pathresults + namePrefix + Conf +"#" + str(i) + ".sca" #  "BL="+ Interval[k]+"," + Interval[k]+","+ Interval[k]+"," + Interval[k]  +"-#" + str(i) + ".sca" #DEN[l] + "BL="+ Interval[k] + END[l]  +"-#" + str(i) + ".sca" 
 
 		#CBR =[];
 		f = open(name, 'r')
@@ -125,10 +125,10 @@ for k in range(0,4):
 	MeanPDR2[l][k].append(np.mean(PDR2))
 	STDPDR2[l][k].append(np.std(PDR2))
 
-out = "MeanMetrics-BL-NoObstacle-S10"
-#out = "MeanMetrics-MovinPed-200bytes-newPDR"
-#out = "MeanMetrics-OnStreet"
-#out = "MeanMetrics-MultipleTx-200bytes-S4"
+#out = "MeanMetrics-BL-Obstacle-S10"
+#out = "MeanMetrics-MovinPed-S10" #-200bytes-newPDR"
+#out = "MeanMetrics-OnStreet-S10"
+out = "MeanMetrics-MultipleTx-S10" #-200bytes-S4"
 #out = "MeanMetrics-OnStreet-200bytes-newPDR"
 
 #Imprimir datos en un archivo .txt
