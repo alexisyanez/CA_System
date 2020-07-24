@@ -10,7 +10,7 @@ Interval = ["0.1s"] #["1s","0.5s","0.2s",
 
 for Conf in Allconf:
 
-	name= Pathresults + namePrefix + Conf + "BL="+ Interval[k]+"," + Interval[k]+","+ Interval[k]+"," + Interval[k] +"-#0.sca" # + str(i) + ".sca" 
+	name= Pathresults + namePrefix + Conf + "BL="+ Interval[0]+"," + Interval[0]+","+ Interval[0]+"," + Interval[0] +"-#0.sca" # + str(i) + ".sca" 
 	PPM=[[],[],[],[]]
 
 	f = open(name, 'r')
@@ -31,11 +31,11 @@ for Conf in Allconf:
 			value2 = temp[j+14].split() 
 			PKT_send = float(value2[3])
 			
-			if "Bikenode" in str(value4[1]):
+			if "Bikenode" in str(value2[1]):
 				Nodo = 1
-			elif "Bicyclenode" in str(value4[1]):
+			elif "Bicyclenode" in str(value2[1]):
 				Nodo = 2
-			elif "Pednode" in str(value4[1]):
+			elif "Pednode" in str(value2[1]):
 				Nodo = 3
 			else:
 				Nodo = 4 
@@ -85,11 +85,11 @@ while j<len(temp):
 		value2 = temp[j+14].split() 
 		PKT_send = float(value2[3])
 		
-		if "Bikenode" in str(value4[1]):
+		if "Bikenode" in str(value2[1]):
 			Nodo = 1
-		elif "Bicyclenode" in str(value4[1]):
+		elif "Bicyclenode" in str(value2[1]):
 			Nodo = 2
-		elif "Pednode" in str(value4[1]):
+		elif "Pednode" in str(value2[1]):
 			Nodo = 3
 		else:
 			Nodo = 4 
