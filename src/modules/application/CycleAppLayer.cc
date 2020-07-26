@@ -229,6 +229,7 @@ void CycleAppLayer::handleSelfMsg(cMessage* msg) {
                 populateWSM(bsm);
                 sendDown(bsm);
                 EV << "I'm cycle, so i will transmit "<< endl;
+                TimesInRule++;
             }
             /*else if ( OnStreet && !curEdge.find("w")){
                 beaconInterval = 1;
@@ -240,6 +241,8 @@ void CycleAppLayer::handleSelfMsg(cMessage* msg) {
                 populateWSM(bsm);
                 sendDown(bsm);
                 EV << "I'm Moving, so i will transmit "<< endl;
+                TimesInRule++;
+
             }
             else if ( MovinPed && mySpeed == 0){
                 beaconInterval = 1;
@@ -252,6 +255,7 @@ void CycleAppLayer::handleSelfMsg(cMessage* msg) {
                 sendDown(bsm);
                 beaconInterval = 0.2;
                 EV << "I'm moving, so i will transmit with multiple Tx "<< endl;
+                TimesInRule++;
             }
             else if ( MultipleTx && mySpeed == 0){
                 BasicSafetyMessage* bsm = new BasicSafetyMessage();

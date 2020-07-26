@@ -261,6 +261,8 @@ class BaseWaveApplLayer : public BaseApplLayer {
         uint32_t receivedWSAs;
         uint32_t receivedBSMs;
 
+        uint32_t TimesInRule;
+
         /* messages for periodic events such as beacon and WSA transmissions */
         cMessage* sendBeaconEvt;
         cMessage* sendWSAEvt;

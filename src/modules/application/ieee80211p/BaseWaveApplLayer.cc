@@ -101,9 +101,11 @@ void BaseWaveApplLayer::initialize(int stage) {
         receivedWSAs = 0;
         receivedWSMs = 0;
 
+        TimesInRule = 0;
         // Self message para calculcar CBR
         calcCBR_EV = new cMessage("CBR evt", CALC_CBR);
 
+        // último tiempo ocupado
         lastBusyT = 0;
 
         // Inicilizar Numero de veces que entra al backoff
@@ -424,6 +426,8 @@ void BaseWaveApplLayer::finish() {
 
     recordScalar("generatedWSAs",generatedWSAs);
     recordScalar("receivedWSAs",receivedWSAs);
+
+    recordScalar("TimesInRule",TimesInRule);
 
     recordScalar("Hit_Class",avg(hit));
 }
