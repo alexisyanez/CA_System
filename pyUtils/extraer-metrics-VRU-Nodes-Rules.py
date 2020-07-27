@@ -19,17 +19,20 @@ for Conf in Allconf:
 
 	while j<len(temp):
 		if "generatedWSMs" in temp[j]:
-			value = temp[j+24].split()
+			value = temp[j+25].split()
 			Sta_T = float(value[3])
 
-			value1 = temp[j+26].split()
+			value1 = temp[j+27].split()
 			Sto_T = float(value1[3])
 
-			value5 = temp[j+25].split()
+			value5 = temp[j+26].split()
 			Total_T = float(value5[3])
 
-			value2 = temp[j+14].split() 
-			PKT_send = float(value2[3])
+			#value2 = temp[j+15].split() 
+			#PKT_send = float(value2[3])
+			
+			value3 = temp[j+6].split()
+			TimesInRules = float(value3[3])
 			
 			if "Bikenode" in str(value2[1]):
 				Nodo = 1
@@ -43,7 +46,7 @@ for Conf in Allconf:
 			PPM[0].append(Sta_T)
 			PPM[1].append(Sto_T)
 			PPM[2].append(Nodo)
-			PPM[3].append(PKT_send)
+			PPM[3].append(TimesInRules)
 		j=j+1							
 
 	f.close()			
@@ -73,17 +76,20 @@ j=0
 
 while j<len(temp):
 	if "generatedWSMs" in temp[j]:
-		value = temp[j+24].split()
+		value = temp[j+25].split()
 		Sta_T = float(value[3])
 
-		value1 = temp[j+26].split()
+		value1 = temp[j+27].split()
 		Sto_T = float(value1[3])
 
-		value5 = temp[j+25].split()
+		value5 = temp[j+26].split()
 		Total_T = float(value5[3])
 
-		value2 = temp[j+14].split() 
-		PKT_send = float(value2[3])
+		#value2 = temp[j+15].split() 
+		#PKT_send = float(value2[3])
+			
+		value3 = temp[j+6].split()
+		TimesInRules = float(value3[3])
 		
 		if "Bikenode" in str(value2[1]):
 			Nodo = 1
@@ -97,7 +103,7 @@ while j<len(temp):
 		PPM[0].append(Sta_T)
 		PPM[1].append(Sto_T)
 		PPM[2].append(Nodo)
-		PPM[3].append(PKT_send)
+		PPM[3].append(TimesInRules)
 	j=j+1							
 
 f.close()			
