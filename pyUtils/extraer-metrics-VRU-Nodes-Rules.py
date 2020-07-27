@@ -34,11 +34,11 @@ for Conf in Allconf:
 			value3 = temp[j+6].split()
 			TimesInRules = float(value3[3])
 			
-			if "Bikenode" in str(value2[1]):
+			if "Bikenode" in str(value3[1]):
 				Nodo = 1
-			elif "Bicyclenode" in str(value2[1]):
+			elif "Bicyclenode" in str(value3[1]):
 				Nodo = 2
-			elif "Pednode" in str(value2[1]):
+			elif "Pednode" in str(value3[1]):
 				Nodo = 3
 			else:
 				Nodo = 4 
@@ -91,11 +91,11 @@ while j<len(temp):
 		value3 = temp[j+6].split()
 		TimesInRules = float(value3[3])
 		
-		if "Bikenode" in str(value2[1]):
+		if "Bikenode" in str(value3[1]):
 			Nodo = 1
-		elif "Bicyclenode" in str(value2[1]):
+		elif "Bicyclenode" in str(value3[1]):
 			Nodo = 2
-		elif "Pednode" in str(value2[1]):
+		elif "Pednode" in str(value3[1]):
 			Nodo = 3
 		else:
 			Nodo = 4 
