@@ -36,14 +36,14 @@ network Scenario
         @display("bgb=$playgroundSizeX,$playgroundSizeY");
     submodules:
         obstacles: ObstacleControl {
-            @display("p=240,50");
+            @display("p=265,25");
         }
         annotations: AnnotationManager {
-            @display("p=260,50");
+            @display("p=41,103");
         }
         connectionManager: ConnectionManager {
             parameters:
-                @display("p=150,0;i=abstract/multicast");
+                @display("p=149,25;i=abstract/multicast");
         }
         //connectionManager2: ConnectionManager {
         //    parameters:
@@ -54,13 +54,13 @@ network Scenario
                 playgroundSizeX = playgroundSizeX;
                 playgroundSizeY = playgroundSizeY;
                 playgroundSizeZ = playgroundSizeZ;
-                @display("p=30,0;i=misc/globe");
+                @display("p=30,25;i=misc/globe");
         }
         manager: TraCIScenarioManagerLaunchd {
             parameters:
-                @display("p=512,128");
+                @display("p=381,25");
         }
-        
+
     connections allowunconnected:
 }
 

@@ -303,6 +303,9 @@ class BaseWaveApplLayer : public BaseApplLayer {
         // Aciertos de clásificación
         mutable std::list < double > hit;
 
+        // Guardar cbr por cada nodo
+        mutable std::list < double > my_cbr;
+
         //  variable para guardar valor de Slotted
         int Ns_sug;
 

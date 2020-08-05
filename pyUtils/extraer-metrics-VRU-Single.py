@@ -19,7 +19,7 @@ All_PPM = []
 #for l in range(0,4):
 #	for k in range(0,4):
 #name= Pathresults + namePrefix + Conf +  DEN[l] + "BL="+ Interval[k] + Interval[k] + Interval[k] + Interval[k] + END[l]  +"-#0.sca" # + str(i) + ".sca" 
-name = "/home/alexis/git/CA_System/src/networks/MoST_Scenario/results/Ped_Crossing-BL-NoObstacle-S10-BL=1s,1s,1s,1s-#0.sca"
+name = "/home/alexis/git/CA_System/src/networks/MoST_Scenario/results/Ped_Crossing-BL-Obstacle-S11-BL=1s-#0.sca"
 PPM=[[],[],[]]
 
 f = open(name, 'r')
@@ -27,42 +27,36 @@ temp = f.readlines()
 j=0
 
 while j<len(temp):
+	
+	
 	if "generatedWSMs" in temp[j]:
-		value = temp[j+24].split()
+		value = temp[j+26].split()
 		Sta_T = float(value[3])
 
-		value1 = temp[j+26].split()
+		value1 = temp[j+28].split()
 		Sto_T = float(value1[3])
 
-		value5 = temp[j+25].split()
+		value5 = temp[j+27].split()
 		Total_T = float(value5[3])
 
-		value2 = temp[j+17].split()
-		PKT_Lost = float(value2[3])
-
-		value3 = temp[j+3].split()
-		PKT_Rec = float(value3[3])
-
-		value4 = temp[j+23].split()
-		Busy_T = float(value4[3])
-		#CBR.append(SenNumber)
-#MoST_scenario.Bikenode[17].nic.mac1609_4
-#value5 = temp[j+23].split()
-		if "Bikenode" in str(value4[1]):
+		#value2 = temp[j+15].split() 
+		#PKT_send = float(value2[3])
+			
+		value3 = temp[j+7].split()
+		TimesInRules = float(value3[3])
+		
+		if "Bikenode" in str(value3[1]):
 			Nodo = 1
-		elif "Bicyclenode" in str(value4[1]):
+		elif "Bicyclenode" in str(value3[1]):
 			Nodo = 2
-		elif "Pednode" in str(value4[1]):
+		elif "Pednode" in str(value3[1]):
 			Nodo = 3
 		else:
 			Nodo = 4 
 
-		delta_t=Sto_T-Sta_T
-		if 1>0 :
-
-			PPM[0].append(Sta_T)
-			PPM[1].append(Sto_T)
-			PPM[2].append(Nodo)
+		PPM[0].append(Sta_T)
+		PPM[1].append(Sto_T)
+		PPM[2].append(Nodo)
 
 	j=j+1							
 
@@ -70,7 +64,7 @@ f.close()
 
 #All_PPM.append(PPM)
 
-out="Comp_Nodes_S10"
+out="Comp_Nodes_S11"
 nameOut = out+".txt" 
 fw = open(nameOut, 'w')
 		 

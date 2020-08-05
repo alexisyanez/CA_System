@@ -359,9 +359,11 @@ void BaseWaveApplLayer::handleSelfMsg(cMessage* msg) {
         cancelEvent(calcCBR_EV);
         scheduleAt(simTime() + CBR_Int, calcCBR_EV);
         EV << "CBR=" << currCBR << endl;
-        lastBusyT = (mac->getBusyTime()).dbl();
+        lastBusyT = mac->getBusyTime();
         //Emitir estadistica para el CBR
         MyCBRVec.record(currCBR);
+
+        my_cbr.push_back(currCBR.dbl());
 
         // Guardar valor para el número de veces que entra al Back-off
         currNTIB= mac->getNTIB() - lastNTIB;
@@ -428,6 +430,8 @@ void BaseWaveApplLayer::finish() {
     recordScalar("receivedWSAs",receivedWSAs);
 
     recordScalar("TimesInRule",TimesInRule);
+
+    recordScalar("CBR_Media",avg(my_cbr));
 
     recordScalar("Hit_Class",avg(hit));
 }

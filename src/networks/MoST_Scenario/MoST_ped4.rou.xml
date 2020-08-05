@@ -1,0 +1,402 @@
+<routes>
+
+  <!-- Public Transports -->
+  <vType vClass="bus"  id="bus"   personCapacity="50" latAlignment="center" tau="0.5" speedDev="0.1" lcCooperative="0.0">
+    <param key="has.rerouting.device" value="false"/>
+  </vType>
+  <vType vClass="rail" id="train" personCapacity="500">
+    <param key="has.rerouting.device" value="false"/>
+  </vType>
+
+  <vTypeDistribution id="on-demand">
+    <vType vClass="taxi"       id="taxi"  personCapacity="4" latAlignment="center" probability=".50" tau="0.5" speedDev="0.1"/>
+    <vType vClass="passenger"  id="uber"  personCapacity="8" latAlignment="center" probability=".50" tau="0.5" speedDev="0.1"/>
+  </vTypeDistribution>
+
+  <!-- Vulnerable Road Users -->
+  
+  <vTypeDistribution id="pedestrian">
+    <vType vClass="pedestrian"   id="slowpedestrian"  maxSpeed="1.0" latAlignment="compact" probability=".33"/>
+    <vType vClass="pedestrian"   id="avgpedestrian"   maxSpeed="1.5" latAlignment="compact" probability=".33"/>
+    <vType vClass="pedestrian"   id="fastpedestrian"  maxSpeed="2.0" latAlignment="compact" probability=".33"/>
+  </vTypeDistribution>
+  <vTypeDistribution id="bicycle">
+    <vType vClass="bicycle"      id="slowbicycle"     maxSpeed="4.2" minGap="0.5" latAlignment="compact" probability=".33"/>
+    <vType vClass="bicycle"      id="avgbicycle"      maxSpeed="5.5" minGap="0.5" latAlignment="compact" probability=".33"/>
+    <vType vClass="bicycle"      id="fastbicycle"     maxSpeed="6.9" minGap="0.5" latAlignment="compact" probability=".33"/>
+  </vTypeDistribution>
+  
+  <!-- Normal vehicles -->
+
+  <vTypeDistribution id="ptw">
+    <vType vClass="motorcycle" id="motorcycle"  personCapacity="2" latAlignment="arbitrary" lcPushy="1.0" minGapLat="0.5" minGap="0.5" probability=".70" tau="1" speedDev="0.1"/>
+    <vType vClass="moped"      id="moped"       personCapacity="1" latAlignment="arbitrary" lcPushy="1.0" minGapLat="0.5" minGap="0.5" probability=".30" tau="1" speedDev="0.1"/>
+  </vTypeDistribution>
+  <vTypeDistribution id="passenger">
+    <vType vClass="passenger"  id="passenger1"  personCapacity="4" latAlignment="center" minGap="1" sigma="0.25" probability=".20" tau="1" speedDev="0.1" maxSpeed="12" guiShape="passenger"/>
+    <vType vClass="passenger"  id="passenger2a" personCapacity="4" latAlignment="center" minGap="1" sigma="0.30" probability=".20" tau="1" speedDev="0.1" maxSpeed="12" guiShape="passenger/sedan"/>
+    <vType vClass="passenger"  id="passenger2b" personCapacity="4" latAlignment="center" minGap="1" sigma="0.35" probability=".20" tau="1" speedDev="0.1" maxSpeed="12" guiShape="passenger/hatchback"/>
+    <vType vClass="passenger"  id="passenger3"  personCapacity="6" latAlignment="center" minGap="1" sigma="0.40" probability=".20" tau="1" speedDev="0.1" maxSpeed="12" guiShape="passenger/wagon"/>
+    <vType vClass="passenger"  id="passenger4"  personCapacity="6" latAlignment="center" minGap="1" sigma="0.50" probability=".20" tau="1" speedDev="0.1" maxSpeed="12" guiShape="passenger/van"/>
+  </vTypeDistribution>
+
+<!-- Special vehicles -->
+  <vTypeDistribution id="special">
+    <vType vClass="emergency" id="emergency" latAlignment="center" probability=".60" tau="0.5" speedDev="0.1"/>
+    <vType vClass="authority" id="authority" latAlignment="center" probability=".39" tau="0.5" speedDev="0.1"/>
+    <vType vClass="army"      id="army"      latAlignment="center" probability=".01" tau="0.5" speedDev="0.1"/>
+  </vTypeDistribution>
+
+  <!-- Other vehicles -->
+  <vTypeDistribution id="commercial">
+    <vType vClass="delivery"   id="delivery"    containerCapacity="15" latAlignment="center" probability=".75" tau="0.5" speedDev="0.1" lcCooperative="0.0"/>
+    <vType vClass="truck"      id="truck"       containerCapacity="5"  latAlignment="center" probability=".05" tau="0.5" speedDev="0.1" lcCooperative="0.0"/>
+    <vType vClass="trailer"    id="trailer"     containerCapacity="5"  latAlignment="center" probability=".10" tau="0.5" speedDev="0.1" lcCooperative="0.0"/>
+    <vType vClass="coach"      id="coach"       containerCapacity="50" latAlignment="center" probability=".10" tau="0.5" speedDev="0.1" lcCooperative="0.0"/>
+  </vTypeDistribution>
+
+  <vType vClass="evehicle"     id="evehicle"    personCapacity="4"     latAlignment="center" tau="0.5" speedDev="0.1"/>
+
+
+ 		
+	<route id="route0" edges="-152701#4 -152701#3 -152701#2"/>
+	<route id="route1" edges="152701#2 152701#3 152701#4"/>
+	<route id="route2" edges="-152701#4 -152701#3 -152706#3 -152706#2 -152706#1"/>
+	<route id="route3" edges="-152701#4 -152701#3 152780"/>
+	<route id="route4" edges="152701#2 152780"/>
+	<route id="route5" edges="152701#2 -152706#3 -152706#2 -152706#1"/>
+	<route id="route6" edges="152706#1 152706#2 152706#3 152701#3 152701#4"/>
+	<route id="route7" edges="152706#1 152706#2 152706#3 -152701#2"/>
+	<route id="route8" edges="-152780 152701#3 152701#4"/>
+	<route id="route9" edges="-152780 -152701#2"/>
+	
+	<flow id="flow0" type="passenger" route="route0" begin="0" vehsPerHour="500" number="1000"/>
+    <flow id="flow10" type="passenger" route="route1" begin="0" vehsPerHour="500" number="1000"/>
+	<flow id="flow11" type="passenger" route="route2" begin="0" vehsPerHour="500" number="1000"/>
+	<flow id="flow12" type="passenger" route="route3" begin="0" vehsPerHour="500" number="1000"/>
+	<flow id="flow13" type="passenger" route="route4" begin="0" vehsPerHour="500" number="1000"/>
+	<flow id="flow14" type="passenger" route="route5" begin="0" vehsPerHour="500" number="1000"/>
+	<flow id="flow15" type="passenger" route="route6" begin="0" vehsPerHour="500" number="1000"/>
+	<flow id="flow16" type="passenger" route="route7" begin="0" vehsPerHour="500" number="1000"/>
+	<!-- <flow id="flow17" type="passenger" route="route8" begin="0" vehsPerHour="5000" number="1000"/>
+	<flow id="flow18" type="passenger" route="route9" begin="0" vehsPerHour="5000" number="1000"/> -->
+	
+	<flow id="flow1" type="bicycle" route="route0" begin="0" vehsPerHour="500" number="1000"/>
+    <flow id="flow2" type="bicycle" route="route1" begin="0" vehsPerHour="500" number="1000"/>
+	<flow id="flow3" type="bicycle" route="route2" begin="0" vehsPerHour="500" number="1000"/>
+	<flow id="flow4" type="bicycle" route="route3" begin="0" vehsPerHour="500" number="1000"/>
+	<flow id="flow5" type="bicycle" route="route4" begin="0" vehsPerHour="500" number="1000"/>
+	<flow id="flow6" type="bicycle" route="route5" begin="0" vehsPerHour="500" number="1000"/>
+	<flow id="flow7" type="ptw" route="route6" begin="0" vehsPerHour="500" number="1000"/>
+	<flow id="flow8" type="ptw" route="route7" begin="0" vehsPerHour="500" number="1000"/>
+	<flow id="flow9" type="ptw" route="route8" begin="0" vehsPerHour="500" number="1000"/>
+	<flow id="flow19" type="ptw" route="route9" begin="0" vehsPerHour="500" number="1000"/>
+
+	<person id="pedestrian_1" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152706#3 -152706#2 -152706#1"/>
+	</person>
+	<person id="pedestrian_2" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152701#2"/>
+	</person>
+	<person id="pedestrian_3" type="pedestrian" depart="100">
+	<walk edges="152701#4 152701#3 152706#3 152706#2 152706#1"/>
+	</person>
+	<person id="pedestrian_4" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152706#3 -152706#2 -152706#1"/>
+	</person>
+	<person id="pedestrian_5" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152701#2"/>
+	</person>
+	<person id="pedestrian_6" type="pedestrian" depart="100">
+	<walk edges="152701#4 152701#3 152706#3 152706#2 152706#1"/>
+	</person>
+	<person id="pedestrian_7" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152706#3 -152706#2 -152706#1"/>
+	</person>
+	<person id="pedestrian_8" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152701#2"/>
+	</person>
+	<person id="pedestrian_9" type="pedestrian" depart="100">
+	<walk edges="152701#4 152701#3 152706#3 152706#2 152706#1"/>
+	</person>
+	<person id="pedestrian_10" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152706#3 -152706#2 -152706#1"/>
+	</person>
+	<person id="pedestrian_11" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152701#2"/>
+	</person>
+	<person id="pedestrian_12" type="pedestrian" depart="100">
+	<walk edges="152701#4 152701#3 152706#3 152706#2 152706#1"/>
+	</person>
+	<person id="pedestrian_13" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152706#3 -152706#2 -152706#1"/>
+	</person>
+	<person id="pedestrian_14" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152701#2"/>
+	</person>
+	<person id="pedestrian_15" type="pedestrian" depart="100">
+	<walk edges="152701#4 152701#3 152706#3 152706#2 152706#1"/>
+	</person>
+	<person id="pedestrian_16" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152706#3 -152706#2 -152706#1"/>
+	</person>
+	<person id="pedestrian_17" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152701#2"/>
+	</person>
+	<person id="pedestrian_18" type="pedestrian" depart="100">
+	<walk edges="152701#4 152701#3 152706#3 152706#2 152706#1"/>
+	</person>
+	<person id="pedestrian_19" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152706#3 -152706#2 -152706#1"/>
+	</person>
+	<person id="pedestrian_20" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152701#2"/>
+	</person>
+	<person id="pedestrian_21" type="pedestrian" depart="100">
+	<walk edges="152701#4 152701#3 152706#3 152706#2 152706#1"/>
+	</person>
+	<person id="pedestrian_22" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152706#3 -152706#2 -152706#1"/>
+	</person>
+	<person id="pedestrian_23" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152701#2"/>
+	</person>
+	<person id="pedestrian_24" type="pedestrian" depart="100">
+	<walk edges="152701#4 152701#3 152706#3 152706#2 152706#1"/>
+	</person>
+	<person id="pedestrian_25" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152706#3 -152706#2 -152706#1"/>
+	</person>
+	<person id="pedestrian_26" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152701#2"/>
+	</person>
+	<person id="pedestrian_27" type="pedestrian" depart="100">
+	<walk edges="152701#4 152701#3 152706#3 152706#2 152706#1"/>
+	</person>
+	<person id="pedestrian_28" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152706#3 -152706#2 -152706#1"/>
+	</person>
+	<person id="pedestrian_29" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152701#2"/>
+	</person>
+	<person id="pedestrian_30" type="pedestrian" depart="100">
+	<walk edges="152701#4 152701#3 152706#3 152706#2 152706#1"/>
+	</person>
+	<person id="pedestrian_31" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152706#3 -152706#2 -152706#1"/>
+	</person>
+	<person id="pedestrian_32" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152701#2"/>
+	</person>
+	<person id="pedestrian_33" type="pedestrian" depart="100">
+	<walk edges="152701#4 152701#3 152706#3 152706#2 152706#1"/>
+	</person>
+	<person id="pedestrian_34" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152706#3 -152706#2 -152706#1"/>
+	</person>
+	<person id="pedestrian_35" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152701#2"/>
+	</person>
+	<person id="pedestrian_36" type="pedestrian" depart="100">
+	<walk edges="152701#4 152701#3 152706#3 152706#2 152706#1"/>
+	</person>
+	<person id="pedestrian_37" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152706#3 -152706#2 -152706#1"/>
+	</person>
+	<person id="pedestrian_38" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152701#2"/>
+	</person>
+	<person id="pedestrian_39" type="pedestrian" depart="100">
+	<walk edges="152701#4 152701#3 152706#3 152706#2 152706#1"/>
+	</person>
+	<person id="pedestrian_40" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152706#3 -152706#2 -152706#1"/>
+	</person>
+	<person id="pedestrian_41" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152701#2"/>
+	</person>
+	<person id="pedestrian_42" type="pedestrian" depart="100">
+	<walk edges="152701#4 152701#3 152706#3 152706#2 152706#1"/>
+	</person>
+	<person id="pedestrian_43" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152706#3 -152706#2 -152706#1"/>
+	</person>
+	<person id="pedestrian_44" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152701#2"/>
+	</person>
+	<person id="pedestrian_45" type="pedestrian" depart="100">
+	<walk edges="152701#4 152701#3 152706#3 152706#2 152706#1"/>
+	</person>
+	<person id="pedestrian_46" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152706#3 -152706#2 -152706#1"/>
+	</person>
+	<person id="pedestrian_47" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152701#2"/>
+	</person>
+	<person id="pedestrian_48" type="pedestrian" depart="100">
+	<walk edges="152701#4 152701#3 152706#3 152706#2 152706#1"/>
+	</person>
+	<person id="pedestrian_49" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152706#3 -152706#2 -152706#1"/>
+	</person>
+	<person id="pedestrian_50" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152701#2"/>
+	</person>
+	<person id="pedestrian_51" type="pedestrian" depart="100">
+	<walk edges="152701#4 152701#3 152706#3 152706#2 152706#1"/>
+	</person>
+	<person id="pedestrian_52" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152706#3 -152706#2 -152706#1"/>
+	</person>
+	<person id="pedestrian_53" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152701#2"/>
+	</person>
+	<person id="pedestrian_54" type="pedestrian" depart="100">
+	<walk edges="152701#4 152701#3 152706#3 152706#2 152706#1"/>
+	</person>
+	<person id="pedestrian_55" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152706#3 -152706#2 -152706#1"/>
+	</person>
+	<person id="pedestrian_56" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152701#2"/>
+	</person>
+	<person id="pedestrian_57" type="pedestrian" depart="100">
+	<walk edges="152701#4 152701#3 152706#3 152706#2 152706#1"/>
+	</person>
+	<person id="pedestrian_58" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152706#3 -152706#2 -152706#1"/>
+	</person>
+	<person id="pedestrian_59" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152701#2"/>
+	</person>
+	<person id="pedestrian_60" type="pedestrian" depart="100">
+	<walk edges="152701#4 152701#3 152706#3 152706#2 152706#1"/>
+	</person>
+	<person id="pedestrian_61" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152706#3 -152706#2 -152706#1"/>
+	</person>
+	<person id="pedestrian_62" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152701#2"/>
+	</person>
+	<person id="pedestrian_63" type="pedestrian" depart="100">
+	<walk edges="152701#4 152701#3 152706#3 152706#2 152706#1"/>
+	</person>
+	<person id="pedestrian_64" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152706#3 -152706#2 -152706#1"/>
+	</person>
+	<person id="pedestrian_65" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152701#2"/>
+	</person>
+	<person id="pedestrian_66" type="pedestrian" depart="100">
+	<walk edges="152701#4 152701#3 152706#3 152706#2 152706#1"/>
+	</person>
+	<person id="pedestrian_67" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152706#3 -152706#2 -152706#1"/>
+	</person>
+	<person id="pedestrian_68" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152701#2"/>
+	</person>
+	<person id="pedestrian_69" type="pedestrian" depart="100">
+	<walk edges="152701#4 152701#3 152706#3 152706#2 152706#1"/>
+	</person>
+	<person id="pedestrian_70" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152706#3 -152706#2 -152706#1"/>
+	</person>
+	<person id="pedestrian_71" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152701#2"/>
+	</person>
+	<person id="pedestrian_72" type="pedestrian" depart="100">
+	<walk edges="152701#4 152701#3 152706#3 152706#2 152706#1"/>
+	</person>
+	<person id="pedestrian_73" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152706#3 -152706#2 -152706#1"/>
+	</person>
+	<person id="pedestrian_74" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152701#2"/>
+	</person>
+	<person id="pedestrian_75" type="pedestrian" depart="100">
+	<walk edges="152701#4 152701#3 152706#3 152706#2 152706#1"/>
+	</person>
+	<person id="pedestrian_76" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152706#3 -152706#2 -152706#1"/>
+	</person>
+	<person id="pedestrian_77" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152701#2"/>
+	</person>
+	<person id="pedestrian_78" type="pedestrian" depart="100">
+	<walk edges="152701#4 152701#3 152706#3 152706#2 152706#1"/>
+	</person>
+	<person id="pedestrian_79" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152706#3 -152706#2 -152706#1"/>
+	</person>
+	<person id="pedestrian_80" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152701#2"/>
+	</person>
+	<person id="pedestrian_81" type="pedestrian" depart="100">
+	<walk edges="152701#4 152701#3 152706#3 152706#2 152706#1"/>
+	</person>
+	<person id="pedestrian_82" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152706#3 -152706#2 -152706#1"/>
+	</person>
+	<person id="pedestrian_83" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152701#2"/>
+	</person>
+	<person id="pedestrian_84" type="pedestrian" depart="100">
+	<walk edges="152701#4 152701#3 152706#3 152706#2 152706#1"/>
+	</person>
+	<person id="pedestrian_85" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152706#3 -152706#2 -152706#1"/>
+	</person>
+	<person id="pedestrian_86" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152701#2"/>
+	</person>
+	<person id="pedestrian_87" type="pedestrian" depart="100">
+	<walk edges="152701#4 152701#3 152706#3 152706#2 152706#1"/>
+	</person>
+	<person id="pedestrian_88" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152706#3 -152706#2 -152706#1"/>
+	</person>
+	<person id="pedestrian_89" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152701#2"/>
+	</person>
+	<person id="pedestrian_90" type="pedestrian" depart="100">
+	<walk edges="152701#4 152701#3 152706#3 152706#2 152706#1"/>
+	</person>
+	<person id="pedestrian_91" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152706#3 -152706#2 -152706#1"/>
+	</person>
+	<person id="pedestrian_92" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152701#2"/>
+	</person>
+	<person id="pedestrian_93" type="pedestrian" depart="100">
+	<walk edges="152701#4 152701#3 152706#3 152706#2 152706#1"/>
+	</person>
+	<person id="pedestrian_94" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152706#3 -152706#2 -152706#1"/>
+	</person>
+	<person id="pedestrian_95" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152701#2"/>
+	</person>
+	<person id="pedestrian_96" type="pedestrian" depart="100">
+	<walk edges="152701#4 152701#3 152706#3 152706#2 152706#1"/>
+	</person>
+	<person id="pedestrian_97" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152706#3 -152706#2 -152706#1"/>
+	</person>
+	<person id="pedestrian_98" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152701#2"/>
+	</person>
+	<person id="pedestrian_99" type="pedestrian" depart="100">
+	<walk edges="152701#4 152701#3 152706#3 152706#2 152706#1"/>
+	</person>
+	<person id="pedestrian_100" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152706#3 -152706#2 -152706#1"/>
+	</person>
+	<person id="pedestrian_101" type="pedestrian" depart="100">
+	<walk edges="-152701#3 -152701#2"/>
+	</person>
+	<person id="pedestrian_102" type="pedestrian" depart="100">
+	<walk edges="152701#4 152701#3 152706#3 152706#2 152706#1"/>
+	</person>
+	
+</routes>

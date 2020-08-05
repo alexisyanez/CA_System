@@ -229,14 +229,14 @@ void PedAppLayer::handleSelfMsg(cMessage* msg) {
             }
 
 
-            if ( OnStreet && curEdge.find("w")){
+            if ( OnStreet && curEdge.find("c")){
                 BasicSafetyMessage* bsm = new BasicSafetyMessage();
                 populateWSM(bsm);
                 sendDown(bsm);
                 EV << "I'm On Street, so i will transmit "<< endl;
                 TimesInRule++;
             }
-            else if ( OnStreet && !curEdge.find("w")){
+            else if ( OnStreet && !curEdge.find("c")){
                 beaconInterval = 1;
                 EV << "I'm not On Street, so i won't transmit "<< endl;
             }
