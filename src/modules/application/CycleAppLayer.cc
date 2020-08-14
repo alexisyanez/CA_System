@@ -293,6 +293,8 @@ void CycleAppLayer::handleSelfMsg(cMessage* msg) {
             //Emitir estadistica para el CBR
             MyCBRVec.record(currCBR);
 
+            my_cbr.push_back(currCBR.dbl());
+
             // Guardar valor para el número de veces que entra al Back-off
             currNTIB= mac->getNTIB() - lastNTIB;
             NTIB.record(currNTIB);

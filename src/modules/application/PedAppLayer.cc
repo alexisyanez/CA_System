@@ -294,8 +294,11 @@ void PedAppLayer::handleSelfMsg(cMessage* msg) {
             scheduleAt(simTime() + CBR_Int, calcCBR_EV);
             EV << "CBR=" << currCBR << endl;
             lastBusyT = (mac->getBusyTime()).dbl();
+
             //Emitir estadistica para el CBR
             MyCBRVec.record(currCBR);
+
+            my_cbr.push_back(currCBR.dbl());
 
             // Guardar valor para el número de veces que entra al Back-off
             currNTIB= mac->getNTIB() - lastNTIB;
