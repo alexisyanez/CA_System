@@ -48,6 +48,7 @@ STDRunPDR3 = [[[],[],[],[]],[[],[],[],[]],[[],[],[],[]],[[],[],[],[]]]  # Filas 
 
 RealSendPkt = [[[],[],[],[]],[[],[],[],[]],[[],[],[],[]],[[],[],[],[]]] # Filas Densidad de menos a mas, columnas Beconing 1,2,5 y 10 Hz
 DesiredSendPkt = [[[],[],[],[]],[[],[],[],[]],[[],[],[],[]],[[],[],[],[]]] #wFilas Densidad de menos a mas, columnas Beconing 1,2,5 y 10 Hz
+k=0
 
 for l in range(0,2):	
 #for k in range(0,4):
