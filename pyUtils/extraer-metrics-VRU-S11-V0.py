@@ -7,8 +7,8 @@ Pathresults= "/home/ayanez/CA_System/src/networks/MoST_Scenario/results/"
 #Pathresults= "/home/aware/git/CA_System/src/networks/MoST_Scenario/results/"
 namePrefix = "Ped_Crossing-"
 
-#Conf = "MovinPed-S11-"
-Conf = "BL-Obstacle-S11-"
+Conf = "MovinPed-S11-"
+#Conf = "BL-Obstacle-S11-"
 #Conf = "OnStreet-S11-"
 #Conf = "MultipleTx-S11-"
 #Conf = "BL-NoObstacle-S11-"
@@ -77,24 +77,24 @@ for l in range(0,2):
 					PKT_Rec = float(value3[3])
 					
 					value6 = temp[j+7].split()
-					CBR_Media = float(value6[3])
+					CBR_Media = 0 #float(value6[3])
 
-					value2 = temp[j+16].split() #15 previo CBR medio 
+					value2 = temp[j+15].split() #15 previo CBR medio 
 					PKT_send = float(value2[3])
 					
-					value5 = temp[j+19].split() #18 previo CBR medio 
+					value5 = temp[j+18].split() #18 previo CBR medio 
 					PKT_Lost = float(value5[3])
 					
-					value4 = temp[j+25].split() #24 previo CBR medio 
+					value4 = temp[j+24].split() #24 previo CBR medio 
 					Busy_T = float(value4[3])
 					
-					value = temp[j+26].split() #25 previo CBR medio 
+					value = temp[j+25].split() #25 previo CBR medio 
 					Sta_T = float(value[3])
 
-					value5 = temp[j+27].split() #26 previo CBR medio 
+					value5 = temp[j+26].split() #26 previo CBR medio 
 					Total_T = float(value5[3])
 
-					value1 = temp[j+28].split() #27 previo CBR medio
+					value1 = temp[j+27].split() #27 previo CBR medio
 					Sto_T = float(value1[3])
 
 					delta_t=Sto_T-Sta_T
@@ -143,8 +143,8 @@ for l in range(0,2):
 		MeanRunsPDR3[l][k].append(np.mean(PDR3))  
 		STDRunPDR3[l][k].append(np.std(PDR3)) 
 
-out = "MeanMetrics-BL-Obstacle-S11"
-#out = "MeanMetrics-MovinPed-S11"
+#out = "MeanMetrics-BL-Obstacle-S11"
+out = "MeanMetrics-MovinPed-S11-V0"
 #out = "MeanMetrics-OnStreet-S11"
 #out = "MeanMetrics-MultipleTx-S11"
 #out = "MeanMetrics-BL-NoObstacle-S11"
