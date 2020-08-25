@@ -215,6 +215,11 @@ void PedAppLayer::handleSelfMsg(cMessage* msg) {
 
             EV << "My current Speed= " << curSpeed << endl;
             EV << "My current Edge= " << curEdge << endl;
+            int isincross = curEdge.find("c");
+            EV << "Edge.find(c) output is= " << isincross << endl;
+            bool actOnStreet = curEdge.find("c") != std::string::npos;
+            EV << "Edge.find(c) boolean is= " << actOnStreet << endl;
+
             double mySpeed =sqrt(pow((curSpeed.x),2)+pow((curSpeed.y),2));
 
             EV << "My boolean OnStreet is= " << OnStreet << endl;
@@ -225,18 +230,18 @@ void PedAppLayer::handleSelfMsg(cMessage* msg) {
             // EV << "My current Edge= " << curEdge << endl;
 
             if ( std::isnan(mySpeed) == 1 ){
-                mySpeed =1;
+                mySpeed = 1;
             }
 
 
-            if ( OnStreet && curEdge.find("c")){
+            if ( OnStreet && actOnStreet ){ // .find entrega -1 si no encuentra el caracter y la posición si la encuentra
                 BasicSafetyMessage* bsm = new BasicSafetyMessage();
                 populateWSM(bsm);
                 sendDown(bsm);
                 EV << "I'm On Street, so i will transmit "<< endl;
                 TimesInRule++;
             }
-            else if ( OnStreet && !curEdge.find("c")){
+            else if ( OnStreet && !actOnStreet ){
                 beaconInterval = 1;
                 EV << "I'm not On Street, so i won't transmit "<< endl;
             }
