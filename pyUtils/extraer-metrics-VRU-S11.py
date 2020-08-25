@@ -8,10 +8,10 @@ Pathresults= "/home/ayanez/CA_System/src/networks/MoST_Scenario/results/"
 namePrefix = "Ped_Crossing-"
 
 #Conf = "MovinPed-S11-"
-#Conf = "BL-Obstacle-S11-"
+Conf = "BL-Obstacle-S11-"
 #Conf = "OnStreet-S11-"
 #Conf = "MultipleTx-S11-"
-Conf = "BL-NoObstacle-S11-"
+#Conf = "BL-NoObstacle-S11-"
 
 #Ped_Crossing-BL-Obstacle-S11-DEN=xmldoc(#22MoST#_ped3.launchd.xml#22),290s,310s,BL=0.1s-#0.sca
 #Ped_Crossing-BL-Obstacle-S11-DEN=xmldoc(#22MoST#_ped4.launchd.xml#22),130s,150s,BL=0.1s-#0.sca
