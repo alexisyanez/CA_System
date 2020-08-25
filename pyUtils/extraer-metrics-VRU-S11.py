@@ -8,8 +8,8 @@ Pathresults= "/home/ayanez/CA_System/src/networks/MoST_Scenario/results/"
 namePrefix = "Ped_Crossing-"
 
 #Conf = "MovinPed-S11-"
-Conf = "BL-Obstacle-S11-"
-#Conf = "OnStreet-S11-"
+#Conf = "BL-Obstacle-S11-"
+Conf = "OnStreet-S11-"
 #Conf = "MultipleTx-S11-"
 #Conf = "BL-NoObstacle-S11-"
 
@@ -145,9 +145,9 @@ for l in range(0,2):
 
 #out = "MeanMetrics-BL-Obstacle-S11"
 #out = "MeanMetrics-MovinPed-S11"
-#out = "MeanMetrics-OnStreet-S11"
+out = "MeanMetrics-OnStreet-S11"
 #out = "MeanMetrics-MultipleTx-S11"
-out = "MeanMetrics-BL-NoObstacle-S11"
+#out = "MeanMetrics-BL-NoObstacle-S11"
 
 
 print("MeanRuns PDR: "+ str(MeanRunsPDR))

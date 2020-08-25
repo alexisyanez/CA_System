@@ -24,7 +24,7 @@ Interval = ["0.1s"] #["1s","0.5s","0.2s",
 for l in range(0,2):
 	for Conf in Allconf:
 
-		name= Pathresults + namePrefix + Conf + DEN[l] + Interval[0] + "-#" + str(i) + ".sca" #  "BL="+ Interval[k]+"," + Interval[k]+","+ Interval[k]+"," + Interval[k]  +"-#" + str(i) + ".sca" #DEN[l] + "BL="+ Interval[k] + END[l]  +"-#" + str(i) + ".sca" 
+		name= Pathresults + namePrefix + Conf + DEN[l] + Interval[0] + "-#" + str(0) + ".sca" #  "BL="+ Interval[k]+"," + Interval[k]+","+ Interval[k]+"," + Interval[k]  +"-#" + str(i) + ".sca" #DEN[l] + "BL="+ Interval[k] + END[l]  +"-#" + str(i) + ".sca" 
 
 		PPM=[[],[],[],[]]
 
@@ -79,12 +79,13 @@ for l in range(0,2):
 		fw.close()	
 
 
+DEN = ["DEN=xmldoc(#22MoST#_ped4.launchd.xml#22),130s,150s","DEN=xmldoc(#22MoST#_ped3.launchd.xml#22),290s,310s"]
 
 Conf = "MultipleTx-S11-"
 
 for l in range(0,2):
 
-	name= Pathresults + namePrefix + Conf + DEN[l] + "-#" + str(i) + ".sca" # 
+	name= Pathresults + namePrefix + Conf + DEN[l] + "-#" + str(0) + ".sca" # 
 	#name= Pathresults + namePrefix + Conf +"#0.sca" # + str(i) + ".sca" 
 	PPM=[[],[],[],[]]
 
