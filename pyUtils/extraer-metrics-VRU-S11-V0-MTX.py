@@ -10,7 +10,7 @@ namePrefix = "Ped_Crossing-"
 #Conf = "MovinPed-S11-"
 #Conf = "BL-Obstacle-S11-"
 #Conf = "OnStreet-S11-"
-Conf = "MultipleTx-S11-"
+Conf = "MultipleTx-S11-10Hz-"
 #Conf = "BL-NoObstacle-S11-"
 
 #Ped_Crossing-BL-Obstacle-S11-DEN=xmldoc(#22MoST#_ped3.launchd.xml#22),290s,310s,BL=0.1s-#0.sca
@@ -103,7 +103,7 @@ for l in range(0,2):
 
 				PKT_Total_Rec.append(PKT_Rec)
 				PKT_Total_Send.append(PKT_send)
-				if Total_T > 0:
+				if Total_T > 0 and delta_t>0:
 					CBR = Busy_T/delta_t
 					PDR = 1-(PKT_Lost/(PKT_Rec+PKT_Lost))
 					List1[1].append(CBR)
@@ -147,7 +147,7 @@ for l in range(0,2):
 #out = "MeanMetrics-BL-Obstacle-S11"
 #out = "MeanMetrics-MovinPed-S11-V0"
 #out = "MeanMetrics-OnStreet-S11"
-out = "MeanMetrics-MultipleTx-S11-V0"
+out = "MeanMetrics-MultipleTx-S11-10Hz-V0"
 #out = "MeanMetrics-BL-NoObstacle-S11"
 
 
