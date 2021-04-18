@@ -80,22 +80,22 @@ for l in range(0,2):
 				value6 = temp[j+7].split()
 				CBR_Media = 0 #float(value6[3])
 
-				value2 = temp[j+15].split() #15 previo CBR medio 
+				value2 = temp[j+16].split() #15 previo CBR medio 
 				PKT_send = float(value2[3])
 				
-				value5 = temp[j+18].split() #18 previo CBR medio 
+				value5 = temp[j+19].split() #18 previo CBR medio 
 				PKT_Lost = float(value5[3])
 				
-				value4 = temp[j+24].split() #24 previo CBR medio 
+				value4 = temp[j+25].split() #24 previo CBR medio 
 				Busy_T = float(value4[3])
 				
-				value = temp[j+25].split() #25 previo CBR medio 
+				value = temp[j+26].split() #25 previo CBR medio 
 				Sta_T = float(value[3])
 
-				value5 = temp[j+26].split() #26 previo CBR medio 
+				value5 = temp[j+27].split() #26 previo CBR medio 
 				Total_T = float(value5[3])
 
-				value1 = temp[j+27].split() #27 previo CBR medio
+				value1 = temp[j+28].split() #27 previo CBR medio
 				Sto_T = float(value1[3])
 
 				delta_t=Sto_T-Sta_T
@@ -147,7 +147,7 @@ for l in range(0,2):
 #out = "MeanMetrics-BL-Obstacle-S11"
 #out = "MeanMetrics-MovinPed-S11-V0"
 #out = "MeanMetrics-OnStreet-S11"
-out = "MeanMetrics-MultipleTx-S11-10Hz-V0"
+out = "MeanMetrics-MultipleTx-S11-10Hz-V1"
 #out = "MeanMetrics-BL-NoObstacle-S11"
 
 

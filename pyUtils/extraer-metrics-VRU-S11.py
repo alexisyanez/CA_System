@@ -22,7 +22,7 @@ DEN = ["DEN=xmldoc(#22MoST#_ped4.launchd.xml#22),130s,150s,BL=","DEN=xmldoc(#22M
 
 Interval = ["1s","0.5s","0.2s","0.1s"]
 
-Total_Nodes = [213, 394] 
+Total_Nodes = [212, 394] 
 bec_freq = [1,2,5,10]
 
 # PDR -> tomando lost packets
@@ -146,7 +146,7 @@ for l in range(0,2):
 
 #out = "MeanMetrics-BL-Obstacle-S11"
 #out = "MeanMetrics-MovinPed-S11"
-out = "MeanMetrics-OnStreet-S11"
+out = "MeanMetrics-OnStreet-S11-v2"
 #out = "MeanMetrics-MultipleTx-S11"
 #out = "MeanMetrics-BL-NoObstacle-S11"
 
