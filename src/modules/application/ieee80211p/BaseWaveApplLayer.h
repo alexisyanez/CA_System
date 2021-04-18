@@ -233,6 +233,9 @@ class BaseWaveApplLayer : public BaseApplLayer {
         simtime_t beaconInterval;
         bool sendBeacons;
 
+	simtime_t MTX_r1;
+	simtime_t MTX_r2;
+
         simtime_t beaconAtTime;
 
         /* WSM (data) settings */

@@ -253,7 +253,7 @@ void CycleAppLayer::handleSelfMsg(cMessage* msg) {
                 BasicSafetyMessage* bsm = new BasicSafetyMessage();
                 populateWSM(bsm);
                 sendDown(bsm);
-                beaconInterval = 0.2;
+                beaconInterval = MTX_r1;
                 EV << "I'm moving, so i will transmit with multiple Tx "<< endl;
                 TimesInRule++;
             }
@@ -261,7 +261,7 @@ void CycleAppLayer::handleSelfMsg(cMessage* msg) {
                 BasicSafetyMessage* bsm = new BasicSafetyMessage();
                 populateWSM(bsm);
                 sendDown(bsm);
-                beaconInterval = 0.5;
+                beaconInterval = MTX_r2;
                 EV << "I'm moving, so i will transmit with multiple Tx "<< endl;
             }
             if (!OnStreet && !MultipleTx && !MovinPed){

@@ -68,6 +68,9 @@ void BaseWaveApplLayer::initialize(int stage) {
         beaconUserPriority = par("beaconUserPriority").longValue();
         beaconInterval =  par("beaconInterval");
 
+	MTX_r1 =  par("MTX_r1");
+	MTX_r2 =  par("MTX_r2");
+
         //DSP parameters
        /* BTInterval = par("BTInterval");
         DeltaDSP = par("DeltaDSP");*/
