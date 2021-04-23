@@ -19,7 +19,7 @@ Conf = "MultipleTx-S11-1Hz-V2-"
 #Ped_Crossing-MultipleTx-S11-1Hz-V2-DEN=xmldoc(#22MoST#_ped4.launchd.xml#22),130s,150s,rtx=0.5s,1s-#4.sca
 
 
-DEN = ["DEN=xmldoc(#22MoST#_ped4.launchd.xml#22),130s,150s,BL=","DEN=xmldoc(#22MoST#_ped3.launchd.xml#22),290s,310s,"]
+DEN = ["DEN=xmldoc(#22MoST#_ped4.launchd.xml#22),130s,150s,","DEN=xmldoc(#22MoST#_ped3.launchd.xml#22),290s,310s,"]
 
 
 rtx = ["rtx=0.2s,1s","rtx=0.1s,1s","rtx=0.1s,0.5s","rtx=0.5s,1s"]
